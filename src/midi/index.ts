@@ -1,385 +1,434 @@
-import { TouchSensitiveFader } from "../decorators/surface";
-import { Device, MainDevice } from "../Devices";
-import { ContextStateVariable, createElements, GlobalBooleanVariable, TimerUtils } from "../util";
-import { ActivationCallbacks } from "./connection";
-import { LcdManager } from "./managers/LcdManager";
-import { PortPair } from "./PortPair";
+import { TouchSensitiveFader } from '../decorators/surface'
+import { Device, MainDevice } from '../Devices'
+import { ContextStateVariable, createElements, GlobalBooleanVariable, TimerUtils } from '../util'
+import { ActivationCallbacks } from './connection'
+import { LcdManager } from './managers/LcdManager'
+import { PortPair } from './PortPair'
 
 export enum EncoderDisplayMode {
-  SingleDot = 0,
-  BoostOrCut = 1,
-  Wrap = 2,
-  Spread = 3,
+    SingleDot = 0,
+    BoostOrCut = 1,
+    Wrap = 2,
+    Spread = 3,
 }
 
 /** Declares some global context-dependent variables that (may) affect multiple devices */
 export const makeGlobalBooleanVariables = (surface: MR_DeviceSurface) => ({
-  areMotorsActive: new GlobalBooleanVariable(surface),
-  isValueDisplayModeActive: new GlobalBooleanVariable(surface),
-  isEncoderAssignmentActive: createElements(6, () => new GlobalBooleanVariable(surface)),
-  isFlipModeActive: new GlobalBooleanVariable(surface),
-});
+    areMotorsActive: new GlobalBooleanVariable(surface),
+    isValueDisplayModeActive: new GlobalBooleanVariable(surface),
+    isEncoderAssignmentActive: createElements(6, () => new GlobalBooleanVariable(surface)),
+    isFlipModeActive: new GlobalBooleanVariable(surface),
+})
 
-export type GlobalBooleanVariables = ReturnType<typeof makeGlobalBooleanVariables>;
+export type GlobalBooleanVariables = ReturnType<typeof makeGlobalBooleanVariables>
 
 export function bindDeviceToMidi(
-  device: Device,
-  globalBooleanVariables: GlobalBooleanVariables,
-  activationCallbacks: ActivationCallbacks,
-  { setTimeout }: TimerUtils
+    device: Device,
+    globalBooleanVariables: GlobalBooleanVariables,
+    activationCallbacks: ActivationCallbacks,
+    { setTimeout }: TimerUtils
 ) {
-  const ports = device.ports;
+    const ports = device.ports
 
-  function bindFader(ports: PortPair, fader: TouchSensitiveFader, faderIndex: number) {
-    fader.mSurfaceValue.mMidiBinding.setInputPort(ports.input).bindToPitchBend(faderIndex);
-    fader.mTouchedValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, 104 + faderIndex);
-    fader.mTouchedValueInternal.mMidiBinding
-      .setInputPort(ports.input)
-      .bindToNote(0, 104 + faderIndex);
+    function bindFader(ports: PortPair, fader: TouchSensitiveFader, faderIndex: number) {
+        fader.mSurfaceValue.mMidiBinding.setInputPort(ports.input).bindToPitchBend(faderIndex)
+        fader.mTouchedValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, 104 + faderIndex)
+        fader.mTouchedValueInternal.mMidiBinding
+            .setInputPort(ports.input)
+            .bindToNote(0, 104 + faderIndex)
 
-    const sendValue = (context: MR_ActiveDevice, value: number) => {
-      value *= 0x3fff;
-      ports.output.sendMidi(context, [0xe0 + faderIndex, value & 0x7f, value >> 7]);
-    };
-
-    const isFaderTouched = new ContextStateVariable(false);
-    fader.mTouchedValueInternal.mOnProcessValueChange = (context, value) => {
-      const isFaderTouchedValue = Boolean(value);
-      isFaderTouched.set(context, isFaderTouchedValue);
-      if (!isFaderTouchedValue) {
-        sendValue(context, lastFaderValue.get(context));
-      }
-    };
-
-    const forceUpdate = new ContextStateVariable(true);
-    const lastFaderValue = new ContextStateVariable(0);
-    fader.mSurfaceValue.mOnProcessValueChange = (context, newValue, difference) => {
-      // Prevent identical messages to reduce fader noise
-      if (
-        globalBooleanVariables.areMotorsActive.get(context) &&
-        !isFaderTouched.get(context) &&
-        (difference !== 0 || lastFaderValue.get(context) === 0 || forceUpdate.get(context))
-      ) {
-        forceUpdate.set(context, false);
-        sendValue(context, newValue);
-      }
-
-      lastFaderValue.set(context, newValue);
-    };
-
-    // Set fader to `0` when unassigned
-    fader.mSurfaceValue.mOnTitleChange = (context, title) => {
-      if (title === "") {
-        forceUpdate.set(context, true);
-        fader.mSurfaceValue.setProcessValue(context, 0);
-        // `mOnProcessValueChange` somehow isn't run here on `setProcessValue()`, hence:
-        lastFaderValue.set(context, 0);
-        if (globalBooleanVariables.areMotorsActive.get(context)) {
-          forceUpdate.set(context, false);
-          sendValue(context, 0);
+        const sendValue = (context: MR_ActiveDevice, value: number) => {
+            value *= 0x3fff
+            ports.output.sendMidi(context, [0xe0 + faderIndex, value & 0x7f, value >> 7])
         }
-      }
-    };
 
-    globalBooleanVariables.areMotorsActive.addOnChangeCallback((context, areMotorsActive) => {
-      if (areMotorsActive) {
-        sendValue(context, lastFaderValue.get(context));
-      }
-    });
-  }
+        const isFaderTouched = new ContextStateVariable(false)
+        fader.mTouchedValueInternal.mOnProcessValueChange = (context, value) => {
+            const isFaderTouchedValue = Boolean(value)
+            isFaderTouched.set(context, isFaderTouchedValue)
+            if (!isFaderTouchedValue) {
+                sendValue(context, lastFaderValue.get(context))
+            }
+        }
 
-  for (const [channelIndex, channel] of device.channelElements.entries()) {
-    // Push Encoder
-    channel.encoder.mEncoderValue.mMidiBinding
-      .setInputPort(ports.input)
-      .bindToControlChange(0, 16 + channelIndex)
-      .setTypeRelativeSignedBit();
-    channel.encoder.mPushValue.mMidiBinding
-      .setInputPort(ports.input)
-      .bindToNote(0, 32 + channelIndex);
-    channel.encoder.mEncoderValue.mOnProcessValueChange = (context, newValue) => {
-      const displayMode = channel.encoder.mDisplayModeValue.getProcessValue(context);
+        const forceUpdate = new ContextStateVariable(true)
+        const lastFaderValue = new ContextStateVariable(0)
+        fader.mSurfaceValue.mOnProcessValueChange = (context, newValue, difference) => {
+            // Prevent identical messages to reduce fader noise
+            if (
+                globalBooleanVariables.areMotorsActive.get(context) &&
+                !isFaderTouched.get(context) &&
+                (difference !== 0 || lastFaderValue.get(context) === 0 || forceUpdate.get(context))
+            ) {
+                forceUpdate.set(context, false)
+                sendValue(context, newValue)
+            }
 
-      const isCenterLedOn = newValue === (displayMode === EncoderDisplayMode.Spread ? 0 : 0.5);
-      const position =
-        1 + Math.round(newValue * (displayMode === EncoderDisplayMode.Spread ? 5 : 10));
+            lastFaderValue.set(context, newValue)
+        }
 
-      ports.output.sendMidi(context, [
-        0xb0,
-        0x30 + channelIndex,
-        (+isCenterLedOn << 6) + (displayMode << 4) + position,
-      ]);
-    };
+        // Set fader to `0` when unassigned
+        fader.mSurfaceValue.mOnTitleChange = (context, title) => {
+            if (title === '') {
+                forceUpdate.set(context, true)
+                fader.mSurfaceValue.setProcessValue(context, 0)
+                // `mOnProcessValueChange` somehow isn't run here on `setProcessValue()`, hence:
+                lastFaderValue.set(context, 0)
+                if (globalBooleanVariables.areMotorsActive.get(context)) {
+                    forceUpdate.set(context, false)
+                    sendValue(context, 0)
+                }
+            }
+        }
 
-    const encoderColor = new ContextStateVariable({ isAssigned: false, r: 0, g: 0, b: 0 });
-    channel.encoder.mEncoderValue.mOnColorChange = (context, r, g, b, _a, isAssigned) => {
-      encoderColor.set(context, { isAssigned, r, g, b });
-      updateColor(context);
-    };
+        globalBooleanVariables.areMotorsActive.addOnChangeCallback((context, areMotorsActive) => {
+            if (areMotorsActive) {
+                sendValue(context, lastFaderValue.get(context))
+            }
+        })
+    }
 
-    const channelColor = new ContextStateVariable({ isAssigned: false, r: 0, g: 0, b: 0 });
-    channel.buttons.select.mSurfaceValue.mOnColorChange = (context, r, g, b, _a, isAssigned) => {
-      channelColor.set(context, { isAssigned, r, g, b });
-      updateColor(context);
-    };
+    // PIN: converted for-of entries() loop to ES5
+    for (let i = 0; i < device.channelElements.length; i++) {
+        const channelIndex = i
+        const channel = device.channelElements[i]
 
-    const updateColor = (context: MR_ActiveDevice) => {
-      const currentEncoderColor = encoderColor.get(context);
-      device.colorManager.setChannelColorRgb(
-        context,
-        channelIndex,
-        // Fall back to channel color if encoder is not assigned
-        currentEncoderColor.isAssigned ? currentEncoderColor : channelColor.get(context)
-      );
-    };
+        // Push Encoder
+        channel.encoder.mEncoderValue.mMidiBinding
+            .setInputPort(ports.input)
+            .bindToControlChange(0, 16 + channelIndex)
+            .setTypeRelativeSignedBit()
+        channel.encoder.mPushValue.mMidiBinding
+            .setInputPort(ports.input)
+            .bindToNote(0, 32 + channelIndex)
+        channel.encoder.mEncoderValue.mOnProcessValueChange = (context, newValue) => {
+            const displayMode = channel.encoder.mDisplayModeValue.getProcessValue(context)
 
-    // Scribble Strip
-    const currentParameterName = new ContextStateVariable("");
-    const currentDisplayValue = new ContextStateVariable("");
-    const isLocalValueModeActive = new ContextStateVariable(false);
+            const isCenterLedOn = newValue === (displayMode === EncoderDisplayMode.Spread ? 0 : 0.5)
+            const position =
+                1 + Math.round(newValue * (displayMode === EncoderDisplayMode.Spread ? 5 : 10))
 
-    const updateDisplay = (context: MR_ActiveDevice) => {
-      device.lcdManager.setChannelText(
-        context,
-        0,
-        channelIndex,
-        isLocalValueModeActive.get(context) ||
-          globalBooleanVariables.isValueDisplayModeActive.get(context)
-          ? currentDisplayValue.get(context)
-          : currentParameterName.get(context)
-      );
-    };
-    channel.encoder.mEncoderValue.mOnDisplayValueChange = (context, value) => {
-      value =
-        {
-          // French
-          Éteint: "Eteint",
+            ports.output.sendMidi(context, [
+                0xb0,
+                0x30 + channelIndex,
+                (+isCenterLedOn << 6) + (displayMode << 4) + position,
+            ])
+        }
 
-          // Japanese
-          オン: "On",
-          オフ: "Off",
+        const encoderColor = new ContextStateVariable({ isAssigned: false, r: 0, g: 0, b: 0 })
+        channel.encoder.mEncoderValue.mOnColorChange = (context, r, g, b, _a, isAssigned) => {
+            encoderColor.set(context, { isAssigned, r, g, b })
+            updateColor(context)
+        }
 
-          // Russian
-          "Вкл.": "On",
-          "Выкл.": "Off",
+        const channelColor = new ContextStateVariable({ isAssigned: false, r: 0, g: 0, b: 0 })
+        channel.buttons.select.mSurfaceValue.mOnColorChange = (
+            context,
+            r,
+            g,
+            b,
+            _a,
+            isAssigned
+        ) => {
+            channelColor.set(context, { isAssigned, r, g, b })
+            updateColor(context)
+        }
 
-          // Chinese
-          开: "On",
-          关: "Off",
-        }[value] ?? value;
+        const updateColor = (context: MR_ActiveDevice) => {
+            const currentEncoderColor = encoderColor.get(context)
+            device.colorManager.setChannelColorRgb(
+                context,
+                channelIndex,
+                // Fall back to channel color if encoder is not assigned
+                currentEncoderColor.isAssigned ? currentEncoderColor : channelColor.get(context)
+            )
+        }
 
-      currentDisplayValue.set(
-        context,
-        LcdManager.centerString(
-          LcdManager.abbreviateString(LcdManager.stripNonAsciiCharacters(value))
+        // Scribble Strip
+        const currentParameterName = new ContextStateVariable('')
+        const currentDisplayValue = new ContextStateVariable('')
+        const isLocalValueModeActive = new ContextStateVariable(false)
+
+        const updateDisplay = (context: MR_ActiveDevice) => {
+            device.lcdManager.setChannelText(
+                context,
+                0,
+                channelIndex,
+                isLocalValueModeActive.get(context) ||
+                    globalBooleanVariables.isValueDisplayModeActive.get(context)
+                    ? currentDisplayValue.get(context)
+                    : currentParameterName.get(context)
+            )
+        }
+        channel.encoder.mEncoderValue.mOnDisplayValueChange = (context, value) => {
+            value =
+                {
+                    // French
+                    Éteint: 'Eteint',
+
+                    // Japanese
+                    オン: 'On',
+                    オフ: 'Off',
+
+                    // Russian
+                    'Вкл.': 'On',
+                    'Выкл.': 'Off',
+
+                    // Chinese
+                    开: 'On',
+                    关: 'Off',
+                }[value] ?? value
+
+            currentDisplayValue.set(
+                context,
+                LcdManager.centerString(
+                    LcdManager.abbreviateString(LcdManager.stripNonAsciiCharacters(value))
+                )
+            )
+            isLocalValueModeActive.set(context, true)
+            updateDisplay(context)
+            setTimeout(
+                context,
+                `updateDisplay${channelIndex}`,
+                (context) => {
+                    isLocalValueModeActive.set(context, false)
+                    updateDisplay(context)
+                },
+                1
+            )
+        }
+        channel.encoder.mEncoderValue.mOnTitleChange = (context, title1, title2) => {
+            // Reset encoder LED ring when channel becomes unassigned
+            if (title1 === '') {
+                ports.output.sendMidi(context, [0xb0, 0x30 + channelIndex, 0])
+            }
+
+            // Luckily, `mOnTitleChange` runs after `mOnDisplayValueChange`, so setting
+            // `isLocalValueModeActive` to `false` here overwrites the `true` that `mOnDisplayValueChange`
+            // sets
+            isLocalValueModeActive.set(context, false)
+
+            title2 =
+                {
+                    // English
+                    'Pan Left-Right': 'Pan',
+
+                    // German
+                    'Pan links/rechts': 'Pan',
+
+                    // Spanish
+                    'Pan izquierda-derecha': 'Pan',
+
+                    // French
+                    'Pan gauche-droit': 'Pan',
+                    'Pré/Post': 'PrePost',
+
+                    // Italian
+                    'Pan sinistra-destra': 'Pan',
+                    Monitoraggio: 'Monitor',
+
+                    // Japanese
+                    左右パン: 'Pan',
+                    モニタリング: 'Monitor',
+                    レベル: 'Level',
+
+                    // Portuguese
+                    'Pan Esquerda-Direita': 'Pan',
+                    Nível: 'Nivel',
+                    'Pré/Pós': 'PrePost',
+
+                    // Russian
+                    'Панорама Лево-Право': 'Pan',
+                    Монитор: 'Monitor',
+                    Уровень: 'Level',
+                    'Пре/Пост': 'PrePost',
+
+                    // Chinese
+                    '声像 左-右': 'Pan',
+                    监听: 'Monitor',
+                    电平: 'Level',
+                    '前置/后置': 'PrePost',
+                }[title2] ?? title2
+
+            currentParameterName.set(
+                context,
+                LcdManager.centerString(
+                    LcdManager.abbreviateString(LcdManager.stripNonAsciiCharacters(title2))
+                )
+            )
+            updateDisplay(context)
+        }
+        globalBooleanVariables.isValueDisplayModeActive.addOnChangeCallback(updateDisplay)
+
+        channel.scribbleStrip.trackTitle.mOnTitleChange = (context, title) => {
+            device.lcdManager.setChannelText(
+                context,
+                1,
+                channelIndex,
+                LcdManager.abbreviateString(LcdManager.stripNonAsciiCharacters(title))
+            )
+        }
+
+        // VU Meter
+        let lastMeterUpdateTime = 0
+        channel.vuMeter.mOnProcessValueChange = (context, newValue) => {
+            const now: number = performance.now() // ms
+
+            if (now - lastMeterUpdateTime > 125) {
+                // Apply a log scale twice to make the meters look more like Cubase's MixConsole meters
+                newValue = 1 + Math.log10(0.1 + 0.9 * (1 + Math.log10(0.1 + 0.9 * newValue)))
+
+                lastMeterUpdateTime = now
+                ports.output.sendMidi(context, [
+                    0xd0,
+                    (channelIndex << 4) + Math.ceil(newValue * 14 - 0.25),
+                ])
+            }
+        }
+
+        // Channel Buttons
+        const buttons = channel.buttons
+
+        // PIN: converted for-of entries() loop to ES5
+        buttons.record.bindToNote(ports, 0 * 8 + channelIndex, true)
+        buttons.solo.bindToNote(ports, 1 * 8 + channelIndex, true)
+        buttons.mute.bindToNote(ports, 2 * 8 + channelIndex, true)
+        buttons.select.bindToNote(ports, 3 * 8 + channelIndex, true)
+
+        // Fader
+        bindFader(ports, channel.fader, channelIndex)
+    }
+
+    // Control Section (X-Touch only)
+    if (device instanceof MainDevice) {
+        const elements = device.controlSectionElements
+        const buttons = elements.buttons
+
+        const motorButton = buttons.automation[5]
+        motorButton.onSurfaceValueChange.addCallback((context, value) => {
+            if (value === 1) {
+                globalBooleanVariables.areMotorsActive.toggle(context)
+            }
+        })
+        globalBooleanVariables.areMotorsActive.addOnChangeCallback((context, value) => {
+            motorButton.mLedValue.setProcessValue(context, +value)
+        })
+
+        activationCallbacks.addCallback((context) => {
+            // Workaround for https://forums.steinberg.net/t/831123:
+            ports.output.sendNoteOn(context, 0x4f, 1)
+
+            // Workaround for encoder assign buttons not being enabled on activation
+            // (https://forums.steinberg.net/t/831123):
+            ports.output.sendNoteOn(context, 0x2a, 1)
+
+            // PIN: converted for-of-multi loop to ES5
+            for (let i = 0, arr = [0x28, 0x29, 0x2b, 0x2c, 0x2d]; i < arr.length; i++) {
+                const note = arr[i]
+                ports.output.sendNoteOn(context, note, 0)
+            }
+        })
+
+        bindFader(ports, elements.mainFader, 8)
+
+        buttons.display.onSurfaceValueChange.addCallback((context, value) => {
+            if (value === 1) {
+                globalBooleanVariables.isValueDisplayModeActive.toggle(context)
+            }
+        })
+
+        globalBooleanVariables.isFlipModeActive.addOnChangeCallback((context, value) => {
+            buttons.flip.mLedValue.setProcessValue(context, +value)
+        })
+
+        // PIN: converted for-of entries() loop to ES5
+        for (let i = 0; i < globalBooleanVariables.isEncoderAssignmentActive.length; i++) {
+            const buttonIndex = i
+            const isActive = globalBooleanVariables.isEncoderAssignmentActive[i]
+
+            isActive.addOnChangeCallback((context, value) => {
+                buttons.encoderAssign[buttonIndex].mLedValue.setProcessValue(context, +value)
+            })
+        }
+
+        // PIN: converted a large for-of entries() loop to ES5
+
+        // assignment: 6 = (40 - 45) - page up/down, pan, inserts, eq, fx send
+        ;[0, 3, 1, 4, 2, 5].map((index) =>
+            buttons.encoderAssign[index].bindToNote(ports, 40 + index)
         )
-      );
-      isLocalValueModeActive.set(context, true);
-      updateDisplay(context);
-      setTimeout(
-        context,
-        `updateDisplay${channelIndex}`,
-        (context) => {
-          isLocalValueModeActive.set(context, false);
-          updateDisplay(context);
-        },
-        1
-      );
-    };
-    channel.encoder.mEncoderValue.mOnTitleChange = (context, title1, title2) => {
-      // Reset encoder LED ring when channel becomes unassigned
-      if (title1 === "") {
-        ports.output.sendMidi(context, [0xb0, 0x30 + channelIndex, 0]);
-      }
 
-      // Luckily, `mOnTitleChange` runs after `mOnDisplayValueChange`, so setting
-      // `isLocalValueModeActive` to `false` here overwrites the `true` that `mOnDisplayValueChange`
-      // sets
-      isLocalValueModeActive.set(context, false);
+        // buttons: 8 = (46 - 53)
+        buttons.navigation.bank.left.bindToNote(ports, 40 + 6)
+        buttons.navigation.bank.right.bindToNote(ports, 40 + 7)
+        buttons.navigation.channel.left.bindToNote(ports, 40 + 8)
+        buttons.navigation.channel.right.bindToNote(ports, 40 + 9)
+        buttons.flip.bindToNote(ports, 40 + 10)
+        buttons.edit.bindToNote(ports, 40 + 11)
+        buttons.display.bindToNote(ports, 40 + 12)
+        buttons.timeMode.bindToNote(ports, 40 + 13)
 
-      title2 =
-        {
-          // English
-          "Pan Left-Right": "Pan",
+        // function: 8 = (54 - 61) - F1 - F8
+        for (let i = 0; i < buttons.function.length; i++) {
+            buttons.function[i].bindToNote(ports, 40 + 14 + i)
+        }
 
-          // German
-          "Pan links/rechts": "Pan",
+        // number: 8 = (62 - 69) - Layer2F1 - Layer2F8
+        for (let i = 0; i < buttons.number.length; i++) {
+            buttons.number[i].bindToNote(ports, 40 + 22 + i)
+        }
 
-          // Spanish
-          "Pan izquierda-derecha": "Pan",
+        // modify: 4 = (70 - 73) [0, 1, 7, 8] - Undo, Redo, Save, Revert
+        for (let i = 0; i < buttons.modify.length; i++) {
+            buttons.modify[i].bindToNote(ports, 40 + 30 + i)
+        }
 
-          // French
-          "Pan gauche-droit": "Pan",
-          "Pré/Post": "PrePost",
+        // automation: 6 = (74 - 79) [2, 3, 4, 9, 10, 11] - Read, Write, Sends, Project, Mixer, Motors
+        for (let i = 0; i < buttons.utility.length; i++) {
+            buttons.utility[i].bindToNote(ports, 40 + 34 + i)
+        }
 
-          // Italian
-          "Pan sinistra-destra": "Pan",
-          Monitoraggio: "Monitor",
+        // utility: 4 = (80 - 83) [5, 6, 12, 13] - VST, Master, Solo Defeat, Shift
+        for (let i = 0; i < buttons.utility.length; i++) {
+            buttons.utility[i].bindToNote(ports, 40 + 40 + i)
+        }
 
-          // Japanese
-          左右パン: "Pan",
-          モニタリング: "Monitor",
-          レベル: "Level",
+        // transport: 7 + 5 = (84 - 90 and 91 - 95) - Left, Right, Cycle, Punch, Previous, Add, Next, Rewind, FastFwd, Stop, Play, Record
+        for (let i = 0; i < buttons.transport.length; i++) {
+            buttons.transport[i].bindToNote(ports, 40 + 44 + i)
+        }
 
-          // Portuguese
-          "Pan Esquerda-Direita": "Pan",
-          Nível: "Nivel",
-          "Pré/Pós": "PrePost",
+        // buttons: 6 = (96 - 101) - CursorUp, CursorDown, CursorLeft, CursorRight, Zoom, Scrub,
+        buttons.navigation.directions.up.bindToNote(ports, 40 + 56)
+        buttons.navigation.directions.down.bindToNote(ports, 40 + 57)
+        buttons.navigation.directions.left.bindToNote(ports, 40 + 58)
+        buttons.navigation.directions.right.bindToNote(ports, 40 + 59)
+        buttons.navigation.directions.center.bindToNote(ports, 40 + 60)
+        buttons.scrub.bindToNote(ports, 40 + 61)
 
-          // Russian
-          "Панорама Лево-Право": "Pan",
-          Монитор: "Monitor",
-          Уровень: "Level",
-          "Пре/Пост": "PrePost",
+        // Segment Display - handled by the SegmentDisplayManager, except for:
+        const { smpte, beats, solo } = elements.displayLeds
+        ;[smpte, beats, solo].forEach((lamp, index) => {
+            lamp.bindToNote(ports.output, 0x71 + index)
+        })
 
-          // Chinese
-          "声像 左-右": "Pan",
-          监听: "Monitor",
-          电平: "Level",
-          "前置/后置": "PrePost",
-        }[title2] ?? title2;
+        // Jog wheel
+        elements.jogWheel.bindToControlChange(ports.input, 0x3c)
 
-      currentParameterName.set(
-        context,
-        LcdManager.centerString(
-          LcdManager.abbreviateString(LcdManager.stripNonAsciiCharacters(title2))
-        )
-      );
-      updateDisplay(context);
-    };
-    globalBooleanVariables.isValueDisplayModeActive.addOnChangeCallback(updateDisplay);
+        // Foot control
+        // PIN: converted for-of entries() loop to ES5
+        for (let i = 0; i < elements.footSwitches.length; i++) {
+            const index = i
+            const footSwitch = elements.footSwitches[i]
 
-    channel.scribbleStrip.trackTitle.mOnTitleChange = (context, title) => {
-      device.lcdManager.setChannelText(
-        context,
-        1,
-        channelIndex,
-        LcdManager.abbreviateString(LcdManager.stripNonAsciiCharacters(title))
-      );
-    };
+            footSwitch.mSurfaceValue.mMidiBinding
+                .setInputPort(ports.input)
+                .bindToNote(0, 0x66 + index)
+        }
 
-    // VU Meter
-    let lastMeterUpdateTime = 0;
-    channel.vuMeter.mOnProcessValueChange = (context, newValue) => {
-      const now: number = performance.now(); // ms
-
-      if (now - lastMeterUpdateTime > 125) {
-        // Apply a log scale twice to make the meters look more like Cubase's MixConsole meters
-        newValue = 1 + Math.log10(0.1 + 0.9 * (1 + Math.log10(0.1 + 0.9 * newValue)));
-
-        lastMeterUpdateTime = now;
-        ports.output.sendMidi(context, [
-          0xd0,
-          (channelIndex << 4) + Math.ceil(newValue * 14 - 0.25),
-        ]);
-      }
-    };
-
-    // Channel Buttons
-    const buttons = channel.buttons;
-    for (const [row, button] of [
-      buttons.record,
-      buttons.solo,
-      buttons.mute,
-      buttons.select,
-    ].entries()) {
-      button.bindToNote(ports, row * 8 + channelIndex, true);
+        elements.expressionPedal.mSurfaceValue.mMidiBinding
+            .setInputPort(ports.input)
+            .bindToControlChange(0, 0x2e)
+            .setTypeAbsolute()
     }
-
-    // Fader
-    bindFader(ports, channel.fader, channelIndex);
-  }
-
-  // Control Section (X-Touch only)
-  if (device instanceof MainDevice) {
-    const elements = device.controlSectionElements;
-    const buttons = elements.buttons;
-
-    const motorButton = buttons.automation[5];
-    motorButton.onSurfaceValueChange.addCallback((context, value) => {
-      if (value === 1) {
-        globalBooleanVariables.areMotorsActive.toggle(context);
-      }
-    });
-    globalBooleanVariables.areMotorsActive.addOnChangeCallback((context, value) => {
-      motorButton.mLedValue.setProcessValue(context, +value);
-    });
-
-    activationCallbacks.addCallback((context) => {
-      // Workaround for https://forums.steinberg.net/t/831123:
-      ports.output.sendNoteOn(context, 0x4f, 1);
-
-      // Workaround for encoder assign buttons not being enabled on activation
-      // (https://forums.steinberg.net/t/831123):
-      ports.output.sendNoteOn(context, 0x2a, 1);
-      for (const note of [0x28, 0x29, 0x2b, 0x2c, 0x2d]) {
-        ports.output.sendNoteOn(context, note, 0);
-      }
-    });
-
-    bindFader(ports, elements.mainFader, 8);
-
-    buttons.display.onSurfaceValueChange.addCallback((context, value) => {
-      if (value === 1) {
-        globalBooleanVariables.isValueDisplayModeActive.toggle(context);
-      }
-    });
-
-    globalBooleanVariables.isFlipModeActive.addOnChangeCallback((context, value) => {
-      buttons.flip.mLedValue.setProcessValue(context, +value);
-    });
-
-    for (const [
-      buttonIndex,
-      isActive,
-    ] of globalBooleanVariables.isEncoderAssignmentActive.entries()) {
-      isActive.addOnChangeCallback((context, value) => {
-        buttons.encoderAssign[buttonIndex].mLedValue.setProcessValue(context, +value);
-      });
-    }
-
-    for (const [index, button] of [
-      ...[0, 3, 1, 4, 2, 5].map((index) => buttons.encoderAssign[index]),
-      buttons.navigation.bank.left,
-      buttons.navigation.bank.right,
-      buttons.navigation.channel.left,
-      buttons.navigation.channel.right,
-      buttons.flip,
-      buttons.edit,
-      buttons.display,
-      buttons.timeMode,
-      ...buttons.function,
-      ...buttons.number,
-      ...buttons.modify,
-      ...buttons.automation,
-      ...buttons.utility,
-      ...buttons.transport,
-      buttons.navigation.directions.up,
-      buttons.navigation.directions.down,
-      buttons.navigation.directions.left,
-      buttons.navigation.directions.right,
-      buttons.navigation.directions.center,
-      buttons.scrub,
-    ].entries()) {
-      button.bindToNote(ports, 40 + index);
-    }
-
-    // Segment Display - handled by the SegmentDisplayManager, except for:
-    const { smpte, beats, solo } = elements.displayLeds;
-    [smpte, beats, solo].forEach((lamp, index) => {
-      lamp.bindToNote(ports.output, 0x71 + index);
-    });
-
-    // Jog wheel
-    elements.jogWheel.bindToControlChange(ports.input, 0x3c);
-
-    // Foot control
-    for (const [index, footSwitch] of elements.footSwitches.entries()) {
-      footSwitch.mSurfaceValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, 0x66 + index);
-    }
-    elements.expressionPedal.mSurfaceValue.mMidiBinding
-      .setInputPort(ports.input)
-      .bindToControlChange(0, 0x2e)
-      .setTypeAbsolute();
-  }
 }
