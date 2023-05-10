@@ -1,49 +1,12 @@
-# cubase-xtouch-midiremote
+# cubase-icon_qcon_pro_g2-midiremote
 
-[![Latest version](https://img.shields.io/github/package-json/v/bjoluc/cubase-xtouch-midiremote)](https://github.com/bjoluc/cubase-xtouch-midiremote/releases)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/bjoluc/cubase-xtouch-midiremote/build.yml)
-![Required Cubase version](https://img.shields.io/badge/Cubase->=_v12.0.52-blue)
-[![Required X-Touch firmware version](https://img.shields.io/badge/Firmware->=_v1.22-blue)](https://www.youtube.com/watch?v=Q4ZKXVXQP8g)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Support me on Ko-fi](https://img.shields.io/badge/%E2%98%95-Support%20me%20on%20Ko--fi-brown)](https://ko-fi.com/bjoluc)
-
-Cubase 12 MIDI Remote Script for the Behringer X-Touch / X-Touch Extender
-
-<div align="center">
-  <img alt="Surface Screenshot" width="800" src="./surface.png">
-</div>
+Cubase 12 MIDI Remote Script for the Icon QCon Pro G2 and Extender
+Based on the excellent code by https://github.com/bjoluc/cubase-xtouch-midiremote/releases
 
 ## TL;DR
 
-This Cubase MIDI Remote Script replaces the default Mackie Control device setup and is tailored specifically to the Behringer X-Touch.
-It can be [set up](#setup) with a standalone X-Touch or with an arbitrary combination of X-Touch and X-Touch Extender units.
-Notable features include:
-
-- Track-colored scribble strips
-- Full utilization of all scribble strip display segments – no padding characters, no words across scribble strip boundaries
-- A modus to control any value under your mouse cursor with the rightmost push encoder or the jog wheel ("Sends"/"Trim" button in the "Automation" section)
-- Encoder assignment for editing the currently focused plugin's parameters ("Plug-In" Encoder Assign button)
-- VST Quick Control encoder assignment ("Inst" Encoder Assign button)
-
-## Motivation
-
-Since version 12, Cubase supports the customized integration of MIDI controllers via a new MIDI Remote JavaScript API.
-The Behringer X-Touch, which is mostly a Mackie Control Universal (MCU) clone, is traditionally set up as a Mackie Control device in Cubase.
-However, it has some unique features which set it apart from other MCU-compliant devices:
-
-- The scribble strips are layed out as individual displays with a generous padding between them. MCU protocol implementations are designed to work with one continuous display and hence use empty characters for padding. Wouldn't it be nice to use all of the display space available, and at the same time avoid breaking words over channel boundaries?
-
-- The scribble strip displays of the X-Touch have an RGB LED backlight, supporting 7 distinct colors plus black. When configured as a Mackie Control device in Cubase, all LCD displays are permanently lit in a bluish white, making users miss out on one of the X-Touch's nicest features. How cool would it be to have scribble strips mirror track colors?
-
-- All buttons (except of two) on the X-Touch have integrated LEDs (instead of separate LEDs above some buttons only). Given the shiny product images, shouldn't there be some more light, at least while pressing buttons?
-
-In addition to the points above, there are a couple of things that always bothered me about the default MCU mapping and that can be solved by a custom driver script:
-
-- The main fader controls the first output channel's volume, not the Control Room volume.
-- The meters do not match the scale of the MixConsole meters and require rather high levels to show up.
-- Although there are exactly 8 push encoders, there is no encoder assignment for VST Quick controls.
-- Bringing up the parameters of the currently focused plugin requires navigating through the list of insert slots with a push encoder.
-- There is no single knob that can control any parameter under the mouse cursor, like in some of Steinberg's own controllers.
+This Cubase MIDI Remote Script replaces the default Mackie Control device setup and is tailored specifically to the Icon QCon Pro G2.
+It can be [set up](#setup) with a standalone G2 or with an arbitrary combination of G2 and G2 Extender units.
 
 ## About this Script
 

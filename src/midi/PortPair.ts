@@ -10,7 +10,7 @@ export interface EnhancedMidiOutput extends MR_DeviceMidiOutput {
 
 let nextPortPairIndex = 1
 
-export function makePortPair(driver: MR_DeviceDriver, isExtender: boolean): PortPair {
+export const makePortPair = (driver: MR_DeviceDriver, isExtender: boolean): PortPair => {
     const name = isExtender ? 'Extender' : 'Main'
     const portPairIndex = nextPortPairIndex++
     const input = driver.mPorts.makeMidiInput(`Input ${portPairIndex} - ${name}`)

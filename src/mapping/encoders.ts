@@ -24,13 +24,13 @@ export interface EncoderPage {
     areAssignmentsChannelRelated: boolean
 }
 
-export function bindEncoders(
+export const bindEncoders = (
     page: DecoratedFactoryMappingPage,
     devices: Devices,
     mixerBankChannels: MR_MixerBankChannel[],
     segmentDisplayManager: SegmentDisplayManager,
     globalBooleanVariables: GlobalBooleanVariables
-) {
+) => {
     const channelElements: ChannelSurfaceElements = devices.flatMap(
         (device) => device.channelElements
     )

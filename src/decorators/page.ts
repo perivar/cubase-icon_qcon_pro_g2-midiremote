@@ -8,7 +8,7 @@ export interface DecoratedFactoryMappingPage extends MR_FactoryMappingPage {
     }
 }
 
-export function decoratePage(page: MR_FactoryMappingPage, surface: MR_DeviceSurface) {
+export const decoratePage = (page: MR_FactoryMappingPage, surface: MR_DeviceSurface) => {
     const enhancedPage = page as DecoratedFactoryMappingPage
 
     enhancedPage.mCustom.makeSettableHostValueVariable = (name: string) => {

@@ -14,13 +14,13 @@ import {
 } from './control'
 import { bindEncoders } from './encoders'
 
-export function makeHostMapping(
+export const makeHostMapping = (
     page: DecoratedFactoryMappingPage,
     devices: Devices,
     segmentDisplayManager: SegmentDisplayManager,
     globalBooleanVariables: GlobalBooleanVariables,
     activationCallbacks: ActivationCallbacks
-) {
+) => {
     // Mixer channels
     const mixerBankZone = page.mHostAccess.mMixConsole
         .makeMixerBankZone()

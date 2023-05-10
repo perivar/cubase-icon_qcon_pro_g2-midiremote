@@ -22,12 +22,12 @@ export const makeGlobalBooleanVariables = (surface: MR_DeviceSurface) => ({
 
 export type GlobalBooleanVariables = ReturnType<typeof makeGlobalBooleanVariables>
 
-export function bindDeviceToMidi(
+export const bindDeviceToMidi = (
     device: Device,
     globalBooleanVariables: GlobalBooleanVariables,
     activationCallbacks: ActivationCallbacks,
     { setTimeout }: TimerUtils
-) {
+) => {
     const ports = device.ports
 
     function bindFader(ports: PortPair, fader: TouchSensitiveFader, faderIndex: number) {

@@ -8,7 +8,7 @@ const untranspiledModulePatterns = []
 const config: Config.InitialOptions = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    roots: ['icon'],
+    roots: ['src'],
     transform: {
         '\\.[t]sx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }],
     },

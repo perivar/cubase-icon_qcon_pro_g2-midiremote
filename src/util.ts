@@ -1,4 +1,4 @@
-export function createElements<E>(count: number, factoryFunction: (index: number) => E): E[] {
+export const createElements = <E>(count: number, factoryFunction: (index: number) => E): E[] => {
     const elements = []
     for (let index = 0; index < count; index++) {
         elements.push(factoryFunction(index))
@@ -15,11 +15,14 @@ export interface CallbackCollection<A extends any[]> {
     addCallback(callback: (...args: A) => void): void
 }
 
-export function makeCallbackCollection<
+export const makeCallbackCollection = <
     O extends Record<string, any>,
     C extends keyof O,
     A extends Parameters<O[C]>
->(object: O, callbackName: C) {
+>(
+    object: O,
+    callbackName: C
+) => {
     const callbacks: Array<(...args: A) => void> = []
 
     const callbackCollection = ((...args: A) => {
@@ -32,7 +35,7 @@ export function makeCallbackCollection<
         callbacks.push(callback)
     }
 
-    // @ts-expect-error
+    // @ts-expect-error Is not assignable error
     object[callbackName] = callbackCollection
     return callbackCollection
 }
@@ -49,7 +52,7 @@ const timeouts: Record<
  * This is one **hell** of a hack: It resembles the functionality of a global `setTimeout` function
  * by combining a surface variable, a sub page, and an action binding's `makeRepeating()` xD
  */
-export function makeTimerUtils(page: MR_FactoryMappingPage, surface: MR_DeviceSurface) {
+export const makeTimerUtils = (page: MR_FactoryMappingPage, surface: MR_DeviceSurface) => {
     const timerPage = page.makeSubPageArea('Timer').makeSubPage('Timer Page')
     const triggerVariable = surface.makeCustomValueVariable('timerTrigger')
 

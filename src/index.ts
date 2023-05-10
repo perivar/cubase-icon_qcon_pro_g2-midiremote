@@ -8,7 +8,7 @@ import { bindDeviceToMidi, makeGlobalBooleanVariables } from './midi'
 import { setupDeviceConnection } from './midi/connection'
 import { makeTimerUtils } from './util'
 
-const driver = midiremoteApi.makeDeviceDriver('Behringer', 'X-Touch', 'github.com/bjoluc')
+const driver = midiremoteApi.makeDeviceDriver('Icon', 'QCon Pro G2', 'Nerseth')
 
 const surface = decorateSurface(driver.mSurface)
 
@@ -18,9 +18,9 @@ const devices = new Devices(driver, surface)
 const { activationCallbacks, segmentDisplayManager } = setupDeviceConnection(driver, devices)
 activationCallbacks.addCallback(() => {
     // @ts-expect-error The script version is filled in by esbuild
-    console.log('Activating cubase-xtouch-midiremote v' + SCRIPT_VERSION)
+    console.log('Activating cubase-icon_qcon_pro_g2-midiremote v' + SCRIPT_VERSION)
     console.log(
-        'A newer version may be available at https://github.com/bjoluc/cubase-xtouch-midiremote/releases'
+        'A newer version may be available at https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote'
     )
 })
 

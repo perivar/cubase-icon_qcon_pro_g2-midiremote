@@ -3,11 +3,11 @@ import { JogWheel, LedButton, LedPushEncoder } from '../decorators/surface'
 import { EncoderDisplayMode } from '../midi'
 import { ChannelSurfaceElements, ControlSectionSurfaceElements } from '../surface'
 
-function setShiftableButtonsLedValues(
+const setShiftableButtonsLedValues = (
     controlSectionElements: ControlSectionSurfaceElements,
     context: MR_ActiveDevice,
     value: number
-) {
+) => {
     const buttons = controlSectionElements.buttons
 
     // PIN: converted for-of-multi loop to ES5
@@ -29,12 +29,12 @@ function setShiftableButtonsLedValues(
     }
 }
 
-function bindCursorValueControlButton(
+const bindCursorValueControlButton = (
     page: DecoratedFactoryMappingPage,
     button: LedButton,
     encoder: LedPushEncoder,
     jogWheel: JogWheel
-) {
+) => {
     const subPageArea = page.makeSubPageArea('Cursor Value Control')
     const inactiveSubpage = subPageArea.makeSubPage('Cursor Value Control Inactive')
     const activeSubpage = subPageArea.makeSubPage('Cursor Value Control Active')
@@ -74,12 +74,12 @@ function bindCursorValueControlButton(
     ).setSubPage(activeSubpage)
 }
 
-export function bindControlButtons(
+export const bindControlButtons = (
     page: DecoratedFactoryMappingPage,
     controlSectionElements: ControlSectionSurfaceElements,
     channelElements: ChannelSurfaceElements,
     mixerBankZone: MR_MixerBankZone
-) {
+) => {
     const host = page.mHostAccess
     const buttons = controlSectionElements.buttons
 
@@ -265,10 +265,10 @@ export function bindControlButtons(
     page.makeActionBinding(channel.right.mSurfaceValue, mixerBankZone.mAction.mShiftRight)
 }
 
-export function bindJogWheelSection(
+export const bindJogWheelSection = (
     page: MR_FactoryMappingPage,
     controlSectionElements: ControlSectionSurfaceElements
-) {
+) => {
     const jogWheelSubPageArea = page.makeSubPageArea('jogWeel')
     const scrubSubPage = jogWheelSubPageArea.makeSubPage('scrub')
     const jogSubPage = jogWheelSubPageArea.makeSubPage('jog')
@@ -291,10 +291,10 @@ export function bindJogWheelSection(
     page.makeCommandBinding(jogRight, 'Transport', 'Nudge Cursor Right').setSubPage(scrubSubPage)
 }
 
-export function bindSegmentDisplaySection(
+export const bindSegmentDisplaySection = (
     page: MR_FactoryMappingPage,
     controlSectionElements: ControlSectionSurfaceElements
-) {
+) => {
     page.makeCommandBinding(
         controlSectionElements.buttons.timeMode.mSurfaceValue,
         'Transport',
@@ -302,10 +302,10 @@ export function bindSegmentDisplaySection(
     )
 }
 
-export function bindDirectionButtons(
+export const bindDirectionButtons = (
     page: MR_FactoryMappingPage,
     controlSectionElements: ControlSectionSurfaceElements
-) {
+) => {
     const buttons = controlSectionElements.buttons
 
     const subPageArea = page.makeSubPageArea('Direction Buttons')
@@ -351,10 +351,10 @@ export function bindDirectionButtons(
     page.makeActionBinding(directions.center.mSurfaceValue, subPageArea.mAction.mNext)
 }
 
-export function bindFootControl(
+export const bindFootControl = (
     page: DecoratedFactoryMappingPage,
     controlSectionElements: ControlSectionSurfaceElements
-) {
+) => {
     // PIN: converted for-of loop to ES5
     for (let i = 0; i < controlSectionElements.footSwitches.length; i++) {
         const footSwitch = controlSectionElements.footSwitches[i]

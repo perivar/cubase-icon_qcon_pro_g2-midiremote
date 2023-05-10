@@ -6,14 +6,14 @@ export const channelElementsWidth = 8 * channelWidth
 export const controlSectionElementsWidth = 25.5
 export const surfaceHeight = 40
 
-function makeSquareButton(surface: DecoratedDeviceSurface, x: number, y: number) {
+const makeSquareButton = (surface: DecoratedDeviceSurface, x: number, y: number) => {
     return surface.makeLedButton(x + 0.25, y, 1.5, 1.5)
 }
 
 /**
  * Creates and returns the elements for eight channels, starting at the provided x position
  */
-export function createChannelSurfaceElements(surface: DecoratedDeviceSurface, x: number) {
+export const createChannelSurfaceElements = (surface: DecoratedDeviceSurface, x: number) => {
     return createElements(8, (index) => {
         const currentChannelXPosition = x + index * channelWidth
         const encoder = surface.makeLedPushEncoder(currentChannelXPosition + 1, 3, 4, 4)
@@ -46,7 +46,7 @@ export type ChannelSurfaceElements = ReturnType<typeof createChannelSurfaceEleme
  * Creates and returns control section elements, starting at the provided x position. "Control
  * section" means everything on an X-Touch that does not belong to one of the eight channels.
  */
-export function createControlSectionSurfaceElements(surface: DecoratedDeviceSurface, x: number) {
+export const createControlSectionSurfaceElements = (surface: DecoratedDeviceSurface, x: number) => {
     surface.makeBlindPanel(x + 1, 6, 23.25, 4) // Time display
 
     const miscControlButtons = createElements(21, (index) =>

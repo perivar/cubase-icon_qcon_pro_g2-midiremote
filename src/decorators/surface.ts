@@ -39,7 +39,7 @@ export interface DecoratedDeviceSurface extends MR_DeviceSurface {
     makeDecoratedLamp: (...args: Parameters<MR_DeviceSurface['makeLamp']>) => DecoratedLamp
 }
 
-export function decorateSurface(surface: MR_DeviceSurface) {
+export const decorateSurface = (surface: MR_DeviceSurface) => {
     const decoratedSurface = surface as DecoratedDeviceSurface
 
     decoratedSurface.makeLedButton = (...args) => {
