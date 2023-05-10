@@ -42,8 +42,8 @@ export interface DecoratedDeviceSurface extends MR_DeviceSurface {
 export const decorateSurface = (surface: MR_DeviceSurface) => {
     const decoratedSurface = surface as DecoratedDeviceSurface
 
-    decoratedSurface.makeLedButton = (...args) => {
-        const button = surface.makeButton(...args) as LedButton
+    decoratedSurface.makeLedButton = (x: number, y: number, w: number, h: number) => {
+        const button = surface.makeButton(x, y, w, h) as LedButton
 
         button.onSurfaceValueChange = makeCallbackCollection(
             button.mSurfaceValue,
@@ -92,14 +92,14 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
         return button
     }
 
-    decoratedSurface.makeLedPushEncoder = (...args) => {
-        const encoder = surface.makePushEncoder(...args) as LedPushEncoder
+    decoratedSurface.makeLedPushEncoder = (x: number, y: number, w: number, h: number) => {
+        const encoder = surface.makePushEncoder(x, y, w, h) as LedPushEncoder
         encoder.mDisplayModeValue = surface.makeCustomValueVariable('encoderDisplayMode')
         return encoder
     }
 
-    decoratedSurface.makeTouchSensitiveFader = (...args) => {
-        const fader = surface.makeFader(...args) as TouchSensitiveFader
+    decoratedSurface.makeTouchSensitiveFader = (x: number, y: number, w: number, h: number) => {
+        const fader = surface.makeFader(x, y, w, h) as TouchSensitiveFader
 
         fader.mTouchedValue = surface.makeCustomValueVariable('faderTouched')
         // Workaround because `filterByValue` in the encoder bindings hides zero values from
@@ -109,8 +109,8 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
         return fader
     }
 
-    decoratedSurface.makeJogWheel = (...args) => {
-        const jogWheel = surface.makeKnob(...args) as JogWheel
+    decoratedSurface.makeJogWheel = (x: number, y: number, w: number, h: number) => {
+        const jogWheel = surface.makeKnob(x, y, w, h) as JogWheel
 
         const mProxyValue = surface.makeCustomValueVariable('jogWheelProxy')
         jogWheel.mKnobModeEnabledValue = surface.makeCustomValueVariable('jogWheelKnobModeEnabled')
@@ -168,8 +168,8 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
         return jogWheel
     }
 
-    decoratedSurface.makeDecoratedLamp = (...args) => {
-        const lamp = decoratedSurface.makeLamp(...args) as DecoratedLamp
+    decoratedSurface.makeDecoratedLamp = (x: number, y: number, w: number, h: number) => {
+        const lamp = decoratedSurface.makeLamp(x, y, w, h) as DecoratedLamp
 
         lamp.bindToNote = (output, note) => {
             lamp.mSurfaceValue.mOnProcessValueChange = (context, value) => {
