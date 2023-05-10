@@ -1,6 +1,5 @@
 import { config } from './config'
 import { DecoratedDeviceSurface } from './decorators/surface'
-import { ColorManager } from './midi/managers/ColorManager'
 import { LcdManager } from './midi/managers/LcdManager'
 import { makePortPair, PortPair } from './midi/PortPair'
 import {
@@ -25,7 +24,6 @@ interface DeviceProperties {
  */
 export abstract class Device {
     ports: PortPair
-    colorManager: ColorManager
     lcdManager: LcdManager
 
     readonly firstChannelIndex: number
@@ -39,7 +37,6 @@ export abstract class Device {
         this.firstChannelIndex = firstChannelIndex
 
         this.ports = makePortPair(driver, isExtender)
-        this.colorManager = new ColorManager(this)
         this.lcdManager = new LcdManager(this)
 
         // Draw device frame
