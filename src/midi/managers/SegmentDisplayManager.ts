@@ -93,7 +93,7 @@ export class SegmentDisplayManager {
         this.updateSegmentsByString(
             context,
             0,
-            time.padStart(10 + time.replaceAll(/[^\.\:]/g, '').length, ' ')
+            time.padStart(10 + time.replace(/[^\.\:]/g, '').length, ' ')
         )
     }
 

@@ -8,7 +8,7 @@
     "moduleResolution": "node",
     "target": "es5",
     "checkJs": true,
-    "lib": ["ES2021"],
+    "lib": ["es5"],
     "removeComments": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -17,6 +17,7 @@
     "noEmit": false,
     "skipLibCheck": true,
     "outDir": "dist"
+    // "outFile": "dist/icon/qcon_pro_g2/icon_qcon_pro_g2.js"
   },
   "include": ["src/"]
 }

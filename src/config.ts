@@ -1,12 +1,10 @@
-import { Except, Simplify } from 'type-fest'
-
 export type DevicesConfiguration = Array<'main' | 'extender'>
 
-export type ScriptConfiguration = Simplify<
-    Except<typeof CONFIGURATION, 'devices'> & {
-        devices: DevicesConfiguration
-    }
->
+export type ScriptConfiguration = {
+    devices: DevicesConfiguration
+    enableAutoSelect: boolean
+    mapMainFaderToControlRoom: boolean
+}
 
 export const config = CONFIGURATION as ScriptConfiguration
 

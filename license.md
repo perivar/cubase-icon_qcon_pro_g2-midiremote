@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2023 bjoluc
+Copyright (c) 2023 perivar based on the excellent xtouch project done by bjoluc 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

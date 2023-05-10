@@ -1,16 +1,3 @@
-// Polyfills
-import 'core-js/es/array/iterator'
-import 'core-js/es/array/from'
-import 'core-js/es/array/reverse'
-import 'core-js/es/array/flat-map'
-import 'core-js/es/string/pad-start'
-import 'core-js/es/string/replace-all'
-import 'core-js/es/object/entries'
-import 'core-js/es/reflect/construct'
-
-// @ts-ignore Workaround because the core-js polyfill doesn't play nice with SWC:
-Reflect.get = undefined
-
 import midiremoteApi from 'midiremote_api_v1'
 
 import { decoratePage } from './decorators/page'

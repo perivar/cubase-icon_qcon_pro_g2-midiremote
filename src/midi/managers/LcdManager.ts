@@ -1,5 +1,4 @@
-import abbreviate from 'abbreviate'
-
+import { abbreviate } from '../../abbreviate'
 import { Device } from '../../Devices'
 
 export class LcdManager {
