@@ -1,58 +1,46 @@
 import fs from 'fs'
 import path from 'path'
+import prependFile from 'prepend-file'
 
-const getFiles = (sourcePath: string, extensionFilter: string, nameFilter: string) => {
+const getFilesRecursive = (sourcePath: string, filter: RegExp, fileList?: string[]) => {
+    const filelist: string[] = fileList || []
+
     const assetsPath = path.resolve(sourcePath)
     const assetsPathExists = fs.existsSync(assetsPath)
 
     if (assetsPathExists) {
-        console.info(`Asset folder exists (${assetsPath.toString()})...`)
+        console.info(`Folder exists (${assetsPath.toString()})...`)
 
-        const paths = fs.readdirSync(assetsPath)
+        const files = fs.readdirSync(assetsPath)
 
-        // filter only .js files
-        const jsFiles = paths.filter((t) => path.extname(t).toLowerCase() === extensionFilter)
+        files.forEach((file) => {
+            const filePath = path.join(sourcePath, file)
+            const fileStat = fs.lstatSync(filePath)
 
-        // filter based on name
-        const filteredFiles = nameFilter
-            ? jsFiles.filter((t) => t.toLowerCase().includes(nameFilter.toLowerCase()))
-            : jsFiles
-
-        const filesContent = filteredFiles.map((fileName) => {
-            // console.log('FileName:', fileName)
-            const filePath = path.resolve(`${sourcePath}/${fileName}`)
-            console.log('Processing file path:', filePath)
-            if (fs.existsSync(filePath)) {
-                return {
-                    filePath,
-                    fileName,
-                }
+            if (fileStat.isDirectory()) {
+                getFilesRecursive(filePath, filter, filelist)
+            } else if (filter.test(filePath)) {
+                filelist.push(filePath)
             }
         })
-
-        return filesContent
     }
+
+    return filelist
 }
 
-const replaceInFiles = (
-    assetsPath: string,
-    extensionFilter: string,
-    filter: string,
-    replaceMap: Map<RegExp, string>
-) => {
-    const filteredFiles = getFiles(assetsPath, extensionFilter, filter)
+const replaceInFiles = (assetsPath: string, filter: RegExp, replaceMap: Map<RegExp, string>) => {
+    const filePaths = getFilesRecursive(assetsPath, filter)
 
-    if (filteredFiles) {
-        filteredFiles.forEach((elem) => {
-            const filePath = elem?.filePath as string
-            // const fileName = elem?.fileName as string
-
+    if (filePaths) {
+        filePaths.forEach((filePath) => {
             replaceInFile(filePath, replaceMap)
         })
     }
 }
 
 const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
+    console.info(`Processing '${filePath}'`)
+
     fs.readFile(filePath, 'utf8', function (err, data) {
         if (err) {
             return console.log(err)
@@ -70,6 +58,27 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
     })
 }
 
+const prependConfig = (configPath: string, outputPath: string) => {
+    const configFileContents = fs.readFileSync(configPath).toString('utf8')
+    if (configFileContents) {
+        const scriptConfigArray = /BEGIN JS\n([\s\S]+)/.exec(configFileContents)
+
+        if (scriptConfigArray) {
+            const devices = process.env.DEVICES ?? '["main"]'
+
+            const scriptConfig = scriptConfigArray[1].replace(
+                'devices: ["main"]',
+                `devices: ${devices}`
+            )
+
+            if (scriptConfig) {
+                console.info(`Adding script config to '${outputPath}'`)
+                prependFile(outputPath, scriptConfig + '\n\n')
+            }
+        }
+    }
+}
+
 // these regexes work
 // replaced = replaced.replace(/"use strict";/g, '//')
 // replaced = replaced.replace(/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, '//')
@@ -77,6 +86,9 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
 const replaceMap: Map<RegExp, string> = new Map([
     [/"use strict";/, ''],
     [/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, ''],
+    [/SCRIPT_VERSION/, `"${process.env.npm_package_version}"`],
 ])
 
-replaceInFiles('icon/qcon_pro_g2/', '.js', 'icon_', replaceMap)
+replaceInFiles('dist', /.js/, replaceMap)
+
+// prependConfig('src/config.ts', 'dist/index.js')

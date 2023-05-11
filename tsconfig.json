@@ -19,5 +19,6 @@
     "outDir": "dist"
     // "outFile": "dist/icon/qcon_pro_g2/icon_qcon_pro_g2.js"
   },
-  "include": ["src/"]
+  "include": ["src/"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
 }

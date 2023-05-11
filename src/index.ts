@@ -1,4 +1,4 @@
-import midiremoteApi from 'midiremote_api_v1'
+import midiremote_api = require('midiremote_api_v1')
 
 import { decoratePage } from './decorators/page'
 import { decorateSurface } from './decorators/surface'
@@ -8,7 +8,7 @@ import { bindDeviceToMidi, makeGlobalBooleanVariables } from './midi'
 import { setupDeviceConnection } from './midi/connection'
 import { makeTimerUtils } from './util'
 
-const driver = midiremoteApi.makeDeviceDriver('Icon', 'QCon Pro G2', 'Nerseth')
+const driver = midiremote_api.makeDeviceDriver('Icon', 'QCon Pro G2', 'Nerseth')
 
 const surface = decorateSurface(driver.mSurface)
 
@@ -17,7 +17,7 @@ const devices = new Devices(driver, surface)
 
 const { activationCallbacks, segmentDisplayManager } = setupDeviceConnection(driver, devices)
 activationCallbacks.addCallback(() => {
-    // @ts-expect-error The script version is filled in by esbuild
+    // @ts-expect-error The script version is filled in by postinstall
     console.log('Activating cubase-icon_qcon_pro_g2-midiremote v' + SCRIPT_VERSION)
     console.log(
         'A newer version may be available at https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote'
