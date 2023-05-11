@@ -17,8 +17,7 @@
     "noEmit": false,
     "skipLibCheck": true,
     "outDir": "dist"
-    // "outFile": "dist/icon/qcon_pro_g2/icon_qcon_pro_g2.js"
   },
-  "include": ["src/"],
-  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "node_modules"]
 }

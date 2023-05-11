@@ -84,9 +84,10 @@ const prependConfig = (configPath: string, outputPath: string) => {
 // replaced = replaced.replace(/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, '//')
 
 const replaceMap: Map<RegExp, string> = new Map([
-    [/"use strict";/, ''],
+    [/"use strict";/g, ''],
     [/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, ''],
-    [/SCRIPT_VERSION/, `"${process.env.npm_package_version}"`],
+    [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);/g, ''],
+    [/SCRIPT_VERSION/g, `"${process.env.npm_package_version}"`],
 ])
 
 replaceInFiles('dist', /.js/, replaceMap)

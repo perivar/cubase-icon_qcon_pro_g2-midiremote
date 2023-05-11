@@ -8,8 +8,9 @@
         "url": "https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote.git"
     },
     "scripts": {
-        "build": "yarn tsc && yarn clean && yarn lint-fix",
         "tsc": "tsc",
+        "webpack": "webpack --mode production",
+        "build": "yarn tsc && yarn webpack && yarn clean && yarn lint-fix",
         "clean": "ts-node ./postinstall.ts",
         "clean-and-fix": "yarn clean && yarn lint-fix",
         "lint": "eslint \"**/*.{js,ts}\"",
@@ -37,8 +38,12 @@
         "prepend-file": "^2.0.1",
         "prettier": "^2.8.8",
         "ts-jest": "^29.1.0",
+        "ts-loader": "^9.4.2",
         "ts-node": "^10.9.1",
         "tsc-watch": "^6.0.4",
-        "typescript": "^5.0.4"
+        "typescript": "^5.0.4",
+        "webpack": "^5.82.1",
+        "webpack-cli": "^5.1.1",
+        "webpack-node-externals": "^3.0.0"
     }
 }
