@@ -3,20 +3,24 @@
 
 'use strict'
 
-// var nodeExternals = require('webpack-node-externals') // <-- Important
-
 const path = require('path')
 
 module.exports = {
     entry: './src/index.ts',
+    target: ['web', 'es5'], // <-- Include this for es5 output
+    externals: ['midiremote_api_v1'],
     module: {
         rules: [
             {
-                test: /\.ts?$/,
-                use: 'ts-loader',
-                // options: {
-                //     transpileOnly: true,
-                // },
+                test: /\.tsx?$/,
+                use: [
+                    {
+                        loader: 'ts-loader',
+                        // options: {
+                        //     transpileOnly: true,
+                        // },
+                    },
+                ],
             },
         ],
     },
@@ -30,13 +34,12 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        filename: 'icon_qcon_pro_g2_webpack.js',
+        path: path.resolve(__dirname, 'dist', 'icon', 'qcon_pro_g2'),
+        // https://webpack.js.org/configuration/output/#outputlibrarytype
         library: {
-            type: 'this', // <-- Important
+            name: 'icon_qcon_pro_g2',
+            type: 'this', // <-- Important. This seem to work fine for es5 output
         },
     },
-    target: 'node', // <-- Important,
-    // externals: [nodeExternals()], // <-- Important
-    externals: ['midiremote_api_v1'],
 }
