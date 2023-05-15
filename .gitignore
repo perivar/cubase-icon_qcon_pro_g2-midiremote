@@ -3,3 +3,5 @@ dist/
 .vscode/
 .api/
 .env
+combined.log
+error.log

@@ -1,3 +1,5 @@
+import { MR_ActiveDevice } from 'midiremote_api_v1'
+
 import { Devices, MainDevice } from '../../Devices'
 import { ContextStateVariable, createElements } from '../../util'
 

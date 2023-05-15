@@ -8,6 +8,7 @@
         "url": "https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote.git"
     },
     "scripts": {
+        "do": "ts-node -r tsconfig-paths/register ./src/index.ts",
         "tsup": "node tsup.mjs",
         "start": "node tsup.mjs --watch",
         "tsc": "tsc",
@@ -46,9 +47,11 @@
         "ts-loader": "^9.4.2",
         "ts-node": "^10.9.1",
         "tsc-watch": "^6.0.4",
+        "tsconfig-paths": "^4.2.0",
         "tsup": "^6.7.0",
         "typescript": "^5.0.4",
         "webpack": "^5.82.1",
-        "webpack-cli": "^5.1.1"
+        "webpack-cli": "^5.1.1",
+        "winston": "^3.8.2"
     }
 }

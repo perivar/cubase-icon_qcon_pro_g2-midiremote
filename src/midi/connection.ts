@@ -1,3 +1,5 @@
+import { MR_DeviceDriver } from 'midiremote_api_v1'
+
 import { Devices } from '../Devices'
 import { makeCallbackCollection } from '../util'
 import { SegmentDisplayManager } from './managers/SegmentDisplayManager'

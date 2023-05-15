@@ -1,3 +1,5 @@
+import { MR_ActiveDevice, MR_FactoryMappingPage, MR_MixerBankZone } from 'midiremote_api_v1'
+
 import { DecoratedFactoryMappingPage } from '../decorators/page'
 import { JogWheel, LedButton, LedPushEncoder } from '../decorators/surface'
 import { EncoderDisplayMode } from '../midi'

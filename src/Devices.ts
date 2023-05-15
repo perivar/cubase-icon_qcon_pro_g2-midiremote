@@ -1,3 +1,5 @@
+import { MR_DeviceDriver } from 'midiremote_api_v1'
+
 import { config } from './config'
 import { DecoratedDeviceSurface } from './decorators/surface'
 import { LcdManager } from './midi/managers/LcdManager'

@@ -1,3 +1,5 @@
+import { MR_ActiveDevice } from 'midiremote_api_v1'
+
 import { abbreviate } from '../../abbreviate'
 import { Device } from '../../Devices'
 
@@ -50,8 +52,8 @@ export class LcdManager {
         const chars = LcdManager.asciiStringToCharArray(text.slice(0, 112))
         this.device.ports.output.sendSysex(
             context,
-            // PIN: converted spread-to-array to ES5
-            [].concat(0x12, startIndex, chars)
+            // PIN: converted spread-to-array to ES5 with concat and typehint
+            ([] as number[]).concat(0x12, startIndex, chars)
         )
     }
 

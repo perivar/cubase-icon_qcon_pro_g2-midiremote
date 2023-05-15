@@ -1,3 +1,10 @@
+import {
+    MR_ActiveDevice,
+    MR_DeviceDriver,
+    MR_DeviceMidiInput,
+    MR_DeviceMidiOutput,
+} from 'midiremote_api_v1'
+
 export interface PortPair {
     input: MR_DeviceMidiInput
     output: EnhancedMidiOutput
@@ -21,8 +28,8 @@ export const makePortPair = (driver: MR_DeviceDriver, isExtender: boolean): Port
     output.sendSysex = (context, messageBody) => {
         output.sendMidi(
             context,
-            // PIN: converted spread-to-array to ES5
-            [].concat(0xf0, 0x00, 0x00, 0x66, 0x14 + +isExtender, messageBody, 0xf7)
+            // PIN: converted spread-to-array to ES5 with concat and typehint
+            ([] as number[]).concat(0xf0, 0x00, 0x00, 0x66, 0x14 + +isExtender, messageBody, 0xf7)
         )
     }
 

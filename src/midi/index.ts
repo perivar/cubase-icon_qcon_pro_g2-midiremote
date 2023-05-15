@@ -1,3 +1,5 @@
+import { MR_ActiveDevice, MR_DeviceSurface } from 'midiremote_api_v1'
+
 import { TouchSensitiveFader } from '../decorators/surface'
 import { Device, MainDevice } from '../Devices'
 import { ContextStateVariable, createElements, GlobalBooleanVariable, TimerUtils } from '../util'

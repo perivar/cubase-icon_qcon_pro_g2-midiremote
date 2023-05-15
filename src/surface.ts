@@ -1,4 +1,4 @@
-import { DecoratedDeviceSurface } from './decorators/surface'
+import { DecoratedDeviceSurface, LedButton } from './decorators/surface'
 import { createElements } from './util'
 
 const channelWidth = 5
@@ -83,8 +83,8 @@ export const createControlSectionSurfaceElements = (surface: DecoratedDeviceSurf
             modify: getMiscControlButtons([0, 1, 7, 8]),
             automation: getMiscControlButtons([2, 3, 4, 9, 10, 11]),
             utility: getMiscControlButtons([5, 6, 12, 13]),
-            // PIN: converted spread-to-array to ES5
-            transport: [].concat(
+            // PIN: converted spread-to-array to ES5 with concat and typehint
+            transport: ([] as LedButton[]).concat(
                 miscControlButtons.slice(14),
                 createElements(5, (index) =>
                     surface.makeLedButton(x + 6.25 + index * 3.56, 25, 3, 2)

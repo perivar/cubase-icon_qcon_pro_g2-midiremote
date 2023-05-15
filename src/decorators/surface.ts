@@ -1,3 +1,13 @@
+import {
+    MR_Button,
+    MR_DeviceMidiInput,
+    MR_DeviceSurface,
+    MR_Fader,
+    MR_Lamp,
+    MR_PushEncoder,
+    MR_SurfaceCustomValueVariable,
+} from 'midiremote_api_v1'
+
 import { EnhancedMidiOutput, PortPair } from '../midi/PortPair'
 import { CallbackCollection, ContextStateVariable, makeCallbackCollection } from '../util'
 

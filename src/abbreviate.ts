@@ -203,7 +203,7 @@ export const abbreviate = (
 
     // map selected chars
     chars = chars.map(function (val, i2) {
-        if (order[i2] <= length) {
+        if (length && order[i2] <= length) {
             return val
         } else {
             return ''

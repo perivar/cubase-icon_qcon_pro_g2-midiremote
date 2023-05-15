@@ -1,4 +1,4 @@
-import { mDefaults } from 'midiremote_api_v1'
+import { mDefaults, MR_HostValue, MR_MixerBankChannel } from 'midiremote_api_v1'
 import { SegmentDisplayManager } from 'src/midi/managers/SegmentDisplayManager'
 import { ChannelSurfaceElements } from 'src/surface'
 
@@ -316,8 +316,8 @@ export const bindEncoders = (
     bindEncoderAssignments(3, [
         {
             name: 'Sends',
-            // PIN: converted spread-to-array to ES5
-            assignments: [].concat(
+            // PIN: converted spread-to-array to ES5 with concat and typehint
+            assignments: ([] as EncoderAssignment[]).concat(
                 // concat two arrays
                 createElements(sendSlotsCount, (slotIndex) => {
                     const sendSlot = mSends.getByIndex(slotIndex)

@@ -1,3 +1,10 @@
+import {
+    MR_ActiveDevice,
+    MR_DeviceSurface,
+    MR_FactoryMappingPage,
+    MR_HostValueUndefined,
+} from 'midiremote_api_v1'
+
 interface SettableHostValueUndefined extends MR_HostValueUndefined {
     setProcessValue: (activeDevice: MR_ActiveDevice, value: number) => void
 }

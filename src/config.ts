@@ -6,7 +6,15 @@ export type ScriptConfiguration = {
     mapMainFaderToControlRoom: boolean
 }
 
-export const config = CONFIGURATION as ScriptConfiguration
+// set some default values
+export const config = {
+    devices: ['main'],
+    enableAutoSelect: true,
+    mapMainFaderToControlRoom: true,
+}
+
+// AT ts-expect-error allow 'CONFIGURATION is used before definition' since we are copying the below text
+// export const config = CONFIGURATION as ScriptConfiguration
 
 // Everything below "BEGIN JS" is copied directly to the top of the build file (with some values
 // being replaced).

@@ -1,3 +1,10 @@
+import {
+    MR_ActiveDevice,
+    MR_DeviceSurface,
+    MR_FactoryMappingPage,
+    MR_SurfaceCustomValueVariable,
+} from 'midiremote_api_v1'
+
 export const createElements = <E>(count: number, factoryFunction: (index: number) => E): E[] => {
     const elements = []
     for (let index = 0; index < count; index++) {

@@ -2,20 +2,20 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      // "midiremote_api_v1": [".api/v1"]
+      "midiremote_api_v1": ["api/v1/midiremote_api_v1"]
     },
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
-    "checkJs": true,
     "lib": ["es5"],
-    "removeComments": false,
+    "checkJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": false,
-    "strict": false,
+    "sourceMap": true, // for vscode debugging
+    "strict": true,
+    "removeComments": false,
     "noEmit": false,
-    "skipLibCheck": true,
+    // "skipLibCheck": true,
     "outDir": "dist"
   },
   "include": ["src/**/*.ts"],
