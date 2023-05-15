@@ -15,6 +15,9 @@ const config: Config.InitialOptions = {
     testRegex: '/__tests__/.*.test.ts$',
     transformIgnorePatterns: [`node_modules/(?!${untranspiledModulePatterns.join('|')})`],
     verbose: true,
+    moduleNameMapper: {
+        midiremote_api_v1: '<rootDir>/.api/v1/midiremote_api_v1',
+    },
 }
 
 export default config

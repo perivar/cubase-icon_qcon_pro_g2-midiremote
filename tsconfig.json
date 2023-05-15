@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "midiremote_api_v1": [".api/v1"]
+      // "midiremote_api_v1": [".api/v1"]
     },
     "module": "commonjs",
     "moduleResolution": "node",
@@ -19,5 +19,6 @@
     "outDir": "dist"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "node_modules"]
+  // "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "node_modules"]
+  "exclude": ["node_modules"]
 }

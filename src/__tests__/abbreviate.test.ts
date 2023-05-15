@@ -1,6 +1,6 @@
 import { abbreviate } from '../abbreviate'
 
-test('hould respect trigraphs and triblends', () => {
+test('should respect trigraphs and triblends', () => {
     expect(abbreviate('Some Important String', { length: 8 })).toStrictEqual('SmImpStr')
 })
 
