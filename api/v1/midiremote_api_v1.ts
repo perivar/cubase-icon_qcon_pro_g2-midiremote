@@ -28,7 +28,18 @@ const logger = createLogger({
         }),
         new transports.File({
             level: 'debug',
-            filename: 'combined.log',
+            filename: 'debug.log',
+            options: { flags: 'w' }, // restart file on each run
+            format: format.combine(
+                format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+                // format.splat(), // do not use splat format with custom formatter
+                // format.json()
+                customFormat
+            ),
+        }),
+        new transports.File({
+            level: 'info',
+            filename: 'info.log',
             options: { flags: 'w' }, // restart file on each run
             format: format.combine(
                 format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
