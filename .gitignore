@@ -1,6 +1,5 @@
 node_modules/
 dist/
-.vscode/
 .api/
 .env
 combined.log

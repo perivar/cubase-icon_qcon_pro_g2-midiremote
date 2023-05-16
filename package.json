@@ -8,7 +8,7 @@
         "url": "https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote.git"
     },
     "scripts": {
-        "do": "ts-node -r tsconfig-paths/register ./src/index.ts",
+        "go": "ts-node -r tsconfig-paths/register ./src/index.ts",
         "tsup": "node tsup.mjs",
         "start": "node tsup.mjs --watch",
         "tsc": "tsc",

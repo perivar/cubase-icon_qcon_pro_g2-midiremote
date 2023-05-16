@@ -19,6 +19,7 @@ const logger = createLogger({
         new transports.File({
             level: 'error',
             filename: 'error.log',
+            options: { flags: 'w' }, // restart file on each run
             format: format.combine(
                 format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
                 format.splat(),
@@ -28,6 +29,7 @@ const logger = createLogger({
         new transports.File({
             level: 'debug',
             filename: 'combined.log',
+            options: { flags: 'w' }, // restart file on each run
             format: format.combine(
                 format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
                 // format.splat(), // do not use splat format with custom formatter
@@ -149,8 +151,14 @@ export class MR_MidiRemoteAPI {
      * @returns {MR_DeviceDriver}
      */
     makeDeviceDriver(vendorName: string, deviceName: string, createdBy: string): MR_DeviceDriver {
-        logger.info(`${vendorName}, ${deviceName}, ${createdBy}`)
-        logger.debug('MR_DeviceSurface: makeDeviceDriver()')
+        logger.info(
+            `MR_MidiRemoteAPI: makeDeviceDriver(${JSON.stringify({
+                vendorName,
+                deviceName,
+                createdBy,
+            })})`
+        )
+
         return new MR_DeviceDriver()
     }
 }
@@ -293,6 +301,8 @@ export class MR_HostAction {
 export class MR_HostPluginParameterBankZoneAction extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_HostPluginParameterBankZoneAction: constructor()')
     }
 
     /**
@@ -310,6 +320,8 @@ export class MR_HostPluginParameterBankZoneAction extends MR_HostAction {
 export class MR_HostInsertEffectViewerAction extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_HostInsertEffectViewerAction: constructor()')
     }
 
     /**
@@ -327,6 +339,8 @@ export class MR_HostInsertEffectViewerAction extends MR_HostAction {
 export class MR_MixerBankZoneAction extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_MixerBankZoneAction: constructor()')
     }
 
     /**
@@ -344,6 +358,8 @@ export class MR_MixerBankZoneAction extends MR_HostAction {
 export class MR_TrackSelectionAction extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_TrackSelectionAction: constructor()')
     }
 
     /**
@@ -361,6 +377,8 @@ export class MR_TrackSelectionAction extends MR_HostAction {
 export class MR_SubPageActionActivate extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_SubPageActionActivate: constructor()')
     }
 
     /**
@@ -378,6 +396,8 @@ export class MR_SubPageActionActivate extends MR_HostAction {
 export class MR_SubPageAreaAction extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_SubPageAreaAction: constructor()')
     }
 
     /**
@@ -395,6 +415,8 @@ export class MR_SubPageAreaAction extends MR_HostAction {
 export class MR_MappingPageActionActivate extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_MappingPageActionActivate: constructor()')
     }
 
     /**
@@ -412,6 +434,8 @@ export class MR_MappingPageActionActivate extends MR_HostAction {
 export class MR_DeviceDriverAction extends MR_HostAction {
     constructor() {
         super()
+
+        logger.debug('MR_DeviceDriverAction: constructor()')
     }
 
     /**
@@ -479,6 +503,8 @@ export class MR_DeviceDriver {
      * @returns {MR_DeviceDetectionUnit}
      */
     makeDetectionUnit(): MR_DeviceDetectionUnit {
+        logger.info(`MR_DeviceDriver: makeDetectionUnit()`)
+
         return new MR_DeviceDetectionUnit()
     }
 
@@ -488,6 +514,13 @@ export class MR_DeviceDriver {
      * @returns {MR_InitialSysexFile}
      */
     setInitialSysexFile(fileName: string, delayInMilliseconds: number): MR_InitialSysexFile {
+        logger.info(
+            `MR_DeviceDriver: setInitialSysexFile(${JSON.stringify({
+                fileName,
+                delayInMilliseconds,
+            })})`
+        )
+
         return new MR_InitialSysexFile()
     }
 
@@ -496,6 +529,12 @@ export class MR_DeviceDriver {
      * @returns {MR_UserGuide}
      */
     setUserGuide(fileName: string): MR_UserGuide {
+        logger.info(
+            `MR_DeviceDriver: setUserGuide(${JSON.stringify({
+                fileName,
+            })})`
+        )
+
         return new MR_UserGuide()
     }
 }
@@ -542,6 +581,12 @@ export class MR_Ports {
      * @returns {MR_DeviceMidiInput}
      */
     makeMidiInput(name = ''): MR_DeviceMidiInput {
+        logger.info(
+            `MR_Ports: makeMidiInput(${JSON.stringify({
+                name,
+            })})`
+        )
+
         return new MR_DeviceMidiInput()
     }
 
@@ -553,6 +598,12 @@ export class MR_Ports {
      * @returns {MR_DeviceMidiOutput}
      */
     makeMidiOutput(name = ''): MR_DeviceMidiOutput {
+        logger.info(
+            `MR_Ports: makeMidiOutput(${JSON.stringify({
+                name,
+            })})`
+        )
+
         return new MR_DeviceMidiOutput()
     }
 }
@@ -597,7 +648,12 @@ export class MR_DeviceMidiOutput {
      * @param {MidiMessage} message
      */
     sendMidi(activeDevice: MR_ActiveDevice, message: MidiMessage): void {
-        logger.debug(`MR_DeviceMidiOutput: sendMidi(${activeDevice}, ${message})`)
+        logger.info(
+            `MR_DeviceMidiOutput: sendMidi(${JSON.stringify({
+                activeDevice,
+                message,
+            })})`
+        )
     }
 
     /**
@@ -610,8 +666,12 @@ export class MR_DeviceMidiOutput {
         fileName: string,
         delayMilliseconds: number
     ): void {
-        logger.debug(
-            `MR_DeviceMidiOutput: sendSysexFile(${activeDevice}, ${fileName}, ${delayMilliseconds})`
+        logger.info(
+            `MR_DeviceMidiOutput: sendSysexFile(${JSON.stringify({
+                activeDevice,
+                fileName,
+                delayMilliseconds,
+            })})`
         )
     }
 }
@@ -846,6 +906,8 @@ export class MR_PushEncoder extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_PushEncoder: constructor()')
+
         /**
          * @property
          */
@@ -861,6 +923,12 @@ export class MR_PushEncoder extends MR_SurfaceElement {
      * @returns {MR_PushEncoder}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_PushEncoder {
+        logger.info(
+            `MR_PushEncoder: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -875,6 +943,8 @@ export class MR_Knob extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_Knob: constructor()')
+
         /**
          * @property
          */
@@ -886,6 +956,12 @@ export class MR_Knob extends MR_SurfaceElement {
      * @returns {MR_Knob}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_Knob {
+        logger.info(
+            `MR_Knob: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -900,6 +976,8 @@ export class MR_Fader extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_Fader: constructor()')
+
         /**
          * @property
          */
@@ -910,6 +988,8 @@ export class MR_Fader extends MR_SurfaceElement {
      * @returns {MR_Fader}
      */
     setTypeVertical(): MR_Fader {
+        logger.info(`MR_Fader: setTypeVertical()`)
+
         return this
     }
 
@@ -917,6 +997,8 @@ export class MR_Fader extends MR_SurfaceElement {
      * @returns {MR_Fader}
      */
     setTypeHorizontal(): MR_Fader {
+        logger.info(`MR_Fader: setTypeVertical()`)
+
         return this
     }
 
@@ -925,6 +1007,12 @@ export class MR_Fader extends MR_SurfaceElement {
      * @returns {MR_Fader}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_Fader {
+        logger.info(
+            `MR_Fader: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -939,6 +1027,8 @@ export class MR_Button extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_Button: constructor()')
+
         /**
          * @property
          */
@@ -949,6 +1039,8 @@ export class MR_Button extends MR_SurfaceElement {
      * @returns {MR_Button}
      */
     setTypePush(): MR_Button {
+        logger.info(`MR_Button: setTypePush()`)
+
         return this
     }
 
@@ -956,6 +1048,8 @@ export class MR_Button extends MR_SurfaceElement {
      * @returns {MR_Button}
      */
     setTypeToggle(): MR_Button {
+        logger.info(`MR_Button: setTypeToggle()`)
+
         return this
     }
 
@@ -963,6 +1057,8 @@ export class MR_Button extends MR_SurfaceElement {
      * @returns {MR_Button}
      */
     setShapeRectangle(): MR_Button {
+        logger.info(`MR_Button: setShapeRectangle()`)
+
         return this
     }
 
@@ -970,6 +1066,8 @@ export class MR_Button extends MR_SurfaceElement {
      * @returns {MR_Button}
      */
     setShapeCircle(): MR_Button {
+        logger.info(`MR_Button: setShapeCircle()`)
+
         return this
     }
 
@@ -978,6 +1076,12 @@ export class MR_Button extends MR_SurfaceElement {
      * @returns {MR_Button}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_Button {
+        logger.info(
+            `MR_Button: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -992,6 +1096,8 @@ export class MR_ModWheel extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_ModWheel: constructor()')
+
         /**
          * @property
          */
@@ -1003,6 +1109,12 @@ export class MR_ModWheel extends MR_SurfaceElement {
      * @returns {MR_ModWheel}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_ModWheel {
+        logger.info(
+            `MR_ModWheel: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -1017,6 +1129,8 @@ export class MR_PitchBend extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_PitchBend: constructor()')
+
         /**
          * @property
          */
@@ -1028,6 +1142,12 @@ export class MR_PitchBend extends MR_SurfaceElement {
      * @returns {MR_PitchBend}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_PitchBend {
+        logger.info(
+            `MR_PitchBend: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -1042,6 +1162,8 @@ export class MR_TriggerPad extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_TriggerPad: constructor()')
+
         /**
          * @property
          */
@@ -1053,6 +1175,12 @@ export class MR_TriggerPad extends MR_SurfaceElement {
      * @returns {MR_TriggerPad}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_TriggerPad {
+        logger.info(
+            `MR_TriggerPad: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -1067,6 +1195,8 @@ export class MR_PadXY extends MR_SurfaceElement {
 
     constructor() {
         super()
+
+        logger.debug('MR_PadXY: constructor()')
 
         /**
          * @property
@@ -1083,6 +1213,12 @@ export class MR_PadXY extends MR_SurfaceElement {
      * @returns {MR_PadXY}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_PadXY {
+        logger.info(
+            `MR_PadXY: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -1097,6 +1233,8 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
 
     constructor() {
         super()
+
+        logger.debug('MR_JoyStickXY: constructor()')
 
         /**
          * @property
@@ -1113,6 +1251,12 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
      * @returns {MR_JoyStickXY}
      */
     setControlLayer(controlLayer: MR_ControlLayer): MR_JoyStickXY {
+        logger.info(
+            `MR_JoyStickXY: setControlLayer(${JSON.stringify({
+                controlLayer,
+            })})`
+        )
+
         return this
     }
 }
@@ -1127,6 +1271,8 @@ export class MR_Lamp extends MR_SurfaceElement {
     constructor() {
         super()
 
+        logger.debug('MR_Lamp: constructor()')
+
         /**
          * @property
          */
@@ -1137,6 +1283,8 @@ export class MR_Lamp extends MR_SurfaceElement {
      * @returns {MR_Lamp}
      */
     setShapeRectangle(): MR_Lamp {
+        logger.info(`MR_Lamp: setShapeRectangle()`)
+
         return this
     }
 
@@ -1144,6 +1292,8 @@ export class MR_Lamp extends MR_SurfaceElement {
      * @returns {MR_Lamp}
      */
     setShapeCircle(): MR_Lamp {
+        logger.info(`MR_Lamp: setShapeCircle()`)
+
         return this
     }
 }
@@ -1155,12 +1305,16 @@ export class MR_Lamp extends MR_SurfaceElement {
 export class MR_BlindPanel extends MR_SurfaceElement {
     constructor() {
         super()
+
+        logger.debug('MR_BlindPanel: constructor()')
     }
 
     /**
      * @returns {MR_BlindPanel}
      */
     setShapeRectangle(): MR_BlindPanel {
+        logger.info(`MR_BlindPanel: setShapeRectangle()`)
+
         return this
     }
 
@@ -1168,6 +1322,8 @@ export class MR_BlindPanel extends MR_SurfaceElement {
      * @returns {MR_BlindPanel}
      */
     setShapeCircle(): MR_BlindPanel {
+        logger.info(`MR_BlindPanel: setShapeCircle()`)
+
         return this
     }
 }
@@ -1179,6 +1335,8 @@ export class MR_BlindPanel extends MR_SurfaceElement {
 export class MR_PianoKeys extends MR_SurfaceElement {
     constructor() {
         super()
+
+        logger.debug('MR_PianoKeys: constructor()')
     }
 }
 
@@ -1195,6 +1353,12 @@ export class MR_SurfaceLabelField {
      * @returns {MR_SurfaceLabelField}
      */
     relateTo(surfaceElement: MR_SurfaceElement): MR_SurfaceLabelField {
+        logger.info(
+            `MR_SurfaceLabelField: relateTo(${JSON.stringify({
+                surfaceElement,
+            })})`
+        )
+
         return new MR_SurfaceLabelField()
     }
 }
@@ -1212,6 +1376,12 @@ export class MR_ControlLayerZone {
      * @returns {MR_ControlLayer}
      */
     makeControlLayer(name: string): MR_ControlLayer {
+        logger.info(
+            `MR_ControlLayer: makeControlLayer(${JSON.stringify({
+                name,
+            })})`
+        )
+
         return new MR_ControlLayer()
     }
 }
@@ -1273,6 +1443,8 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
 
     constructor() {
         super()
+
+        logger.debug('MR_SurfaceElementValue: constructor()')
 
         /**
          * @property
@@ -1356,6 +1528,8 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
 
     constructor() {
         super()
+
+        logger.debug('MR_SurfaceCustomValueVariable: constructor()')
 
         /**
          * @property
@@ -1594,6 +1768,8 @@ export class MR_MidiChannelBinding {
 export class MR_MidiBindingToNote extends MR_MidiChannelBinding {
     constructor() {
         super()
+
+        logger.debug('MR_MidiBindingToNote: constructor()')
     }
 
     /**
@@ -1620,6 +1796,8 @@ export class MR_MidiBindingToNote extends MR_MidiChannelBinding {
 export class MR_MidiBindingToControlChange extends MR_MidiChannelBinding {
     constructor() {
         super()
+
+        logger.debug('MR_MidiBindingToControlChange: constructor()')
     }
 
     /**
@@ -1682,6 +1860,8 @@ export class MR_MidiBindingToControlChange extends MR_MidiChannelBinding {
 export class MR_MidiBindingToControlChange14Bit extends MR_MidiChannelBinding {
     constructor() {
         super()
+
+        logger.debug('MR_MidiBindingToControlChange14Bit: constructor()')
     }
 
     /**
@@ -1744,6 +1924,8 @@ export class MR_MidiBindingToControlChange14Bit extends MR_MidiChannelBinding {
 export class MR_MidiBindingToControlChange14BitNRPN extends MR_MidiChannelBinding {
     constructor() {
         super()
+
+        logger.debug('MR_MidiBindingToControlChange14BitNRPN: constructor()')
     }
 
     /**
@@ -1809,6 +1991,8 @@ export class MR_MidiBindingToPitchBend extends MR_MidiChannelBinding {
     constructor() {
         super()
 
+        logger.debug('MR_MidiBindingToPitchBend: constructor()')
+
         /**
          * @property
          */
@@ -1825,6 +2009,8 @@ export class MR_MidiBindingToChannelPressure extends MR_MidiChannelBinding {
 
     constructor() {
         super()
+
+        logger.debug('MR_MidiBindingToChannelPressure: constructor()')
 
         /**
          * @property
@@ -1880,6 +2066,8 @@ export class MR_Mapping {
 export class MR_FactoryMapping extends MR_Mapping {
     constructor() {
         super()
+
+        logger.debug('MR_FactoryMapping: constructor()')
     }
 
     /**
@@ -1887,6 +2075,12 @@ export class MR_FactoryMapping extends MR_Mapping {
      * @returns {MR_FactoryMappingPage}
      */
     makePage(name: string): MR_FactoryMappingPage {
+        logger.info(
+            `MR_FactoryMapping: makePage(${JSON.stringify({
+                name,
+            })})`
+        )
+
         return new MR_FactoryMappingPage()
     }
 }
@@ -2035,6 +2229,8 @@ export class MR_FactoryMappingPage extends MR_Page {
 
     constructor() {
         super()
+
+        logger.debug('MR_FactoryMappingPage: constructor()')
 
         /**
          * @property
@@ -2266,6 +2462,8 @@ export class MR_HostObjectUndefined extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostObjectUndefined: constructor()')
+
         /**
          * @property
          */
@@ -2295,6 +2493,12 @@ export class MR_HostObjectUndefined extends MR_HostObject {
      * @returns {MR_HostValueUndefined}
      */
     makeHostValueVariable(name: string): MR_HostValueUndefined {
+        logger.info(
+            `MR_HostObjectUndefined: makeHostValueVariable(${JSON.stringify({
+                name,
+            })})`
+        )
+
         return new MR_HostValueUndefined()
     }
 }
@@ -2324,6 +2528,8 @@ export class MR_HostTransport extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostTransport: constructor()')
 
         /**
          * @property
@@ -2382,6 +2588,8 @@ export class MR_QuickControls extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_QuickControls: constructor()')
+
         /**
          * @property
          */
@@ -2411,6 +2619,12 @@ export class MR_QuickControls extends MR_HostObject {
      * @returns {MR_QuickControlValue}
      */
     getByIndex(index: number): MR_QuickControlValue {
+        logger.info(
+            `MR_QuickControlValue: getByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
+
         return new MR_QuickControlValue()
     }
 
@@ -2418,6 +2632,8 @@ export class MR_QuickControls extends MR_HostObject {
      * @returns {number}
      */
     getSize(): number {
+        logger.info(`MR_QuickControlValue: getSize()`)
+
         return 8
     }
 }
@@ -2445,6 +2661,8 @@ export class MR_FocusedQuickControls extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_FocusedQuickControls: constructor()')
 
         /**
          * @property
@@ -2515,6 +2733,8 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostPluginParameterBankZone: constructor()')
+
         /**
          * @property
          */
@@ -2579,6 +2799,8 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostStripEffectSlotFolder: constructor()')
 
         /**
          * @property
@@ -2648,6 +2870,8 @@ export class MR_SendSlotFolder extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_SendSlotFolder: constructor()')
+
         /**
          * @property
          */
@@ -2710,6 +2934,8 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_ControlRoomCueSendSlotFolder: constructor()')
 
         /**
          * @property
@@ -2785,6 +3011,8 @@ export class MR_MixerBankChannel extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_MixerBankChannel: constructor()')
 
         /**
          * @property
@@ -2874,6 +3102,8 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_SelectedTrackChannel: constructor()')
+
         /**
          * @property
          */
@@ -2956,6 +3186,8 @@ export class MR_HostMouseCursor extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostMouseCursor: constructor()')
+
         /**
          * @property
          */
@@ -3023,6 +3255,8 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostControlRoomChannelMain: constructor()')
 
         /**
          * @property
@@ -3140,6 +3374,8 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomChannelPhonesByIndex: constructor()')
+
         /**
          * @property
          */
@@ -3252,6 +3488,8 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomChannelCueByIndex: constructor()')
+
         /**
          * @property
          */
@@ -3347,6 +3585,8 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomChannelExternalInputByIndex: constructor()')
+
         /**
          * @property
          */
@@ -3410,6 +3650,8 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomChannelTalkbackByIndex: constructor()')
+
         /**
          * @property
          */
@@ -3472,6 +3714,8 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostControlRoomChannelMonitorByIndex: constructor()')
 
         /**
          * @property
@@ -3539,6 +3783,8 @@ export class MR_HostControlRoom extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostControlRoom: constructor()')
 
         /**
          * @property
@@ -3713,6 +3959,8 @@ export class MR_MixConsole extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_MixConsole: constructor()')
+
         /**
          * @property
          */
@@ -3775,6 +4023,8 @@ export class MR_TransportValues extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_TransportValues: constructor()')
 
         /**
          * @property
@@ -3865,6 +4115,8 @@ export class MR_PreFilter extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilter: constructor()')
+
         /**
          * @property
          */
@@ -3954,6 +4206,8 @@ export class MR_ChannelEQBand extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_ChannelEQBand: constructor()')
+
         /**
          * @property
          */
@@ -4025,6 +4279,8 @@ export class MR_ChannelEQ extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_ChannelEQ: constructor()')
 
         /**
          * @property
@@ -4103,6 +4359,8 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostInstrumentPluginSlot: constructor()')
 
         /**
          * @property
@@ -4201,6 +4459,8 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostStripEffectSlotGate: constructor()')
+
         /**
          * @property
          */
@@ -4297,6 +4557,8 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostStripEffectSlotCompressor: constructor()')
 
         /**
          * @property
@@ -4395,6 +4657,8 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostStripEffectSlotLimiter: constructor()')
+
         /**
          * @property
          */
@@ -4491,6 +4755,8 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostStripEffectSlotSaturator: constructor()')
 
         /**
          * @property
@@ -4589,6 +4855,8 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostStripEffectSlotTools: constructor()')
+
         /**
          * @property
          */
@@ -4686,6 +4954,8 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_HostInsertEffectViewer: constructor()')
 
         /**
          * @property
@@ -4796,6 +5066,8 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_HostInsertAndStripEffects: constructor()')
+
         /**
          * @property
          */
@@ -4858,6 +5130,8 @@ export class MR_SendSlot extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_SendSlot: constructor()')
 
         /**
          * @property
@@ -4922,6 +5196,8 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_ControlRoomCueSendSlot: constructor()')
 
         /**
          * @property
@@ -5001,6 +5277,8 @@ export class MR_MixerChannelValues extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_MixerChannelValues: constructor()')
 
         /**
          * @property
@@ -5110,6 +5388,8 @@ export class MR_MixerBankZone extends MR_HostObject {
 
     constructor() {
         super()
+
+        logger.debug('MR_MixerBankZone: constructor()')
 
         /**
          * @property
@@ -5334,6 +5614,8 @@ export class MR_TrackSelection extends MR_HostObject {
     constructor() {
         super()
 
+        logger.debug('MR_TrackSelection: constructor()')
+
         /**
          * @property
          */
@@ -5390,7 +5672,9 @@ export class MR_TrackSelection extends MR_HostObject {
  * Represents a continuous value state of a [HostObject](#hostobject).
  */
 export class MR_HostValue {
-    constructor() {}
+    constructor() {
+        logger.debug('MR_HostValue: constructor()')
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
@@ -5439,6 +5723,8 @@ export class MR_HostValueUndefined extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_HostValueUndefined: constructor()')
+
         /**
          * @property
          */
@@ -5478,17 +5764,31 @@ export class MR_HostValueUndefined extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_HostValueUndefined: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostValueUndefined: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostValueUndefined: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -5527,6 +5827,8 @@ export class MR_StartValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_StartValue: constructor()')
+
         /**
          * @property
          */
@@ -5566,17 +5868,31 @@ export class MR_StartValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_StartValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_StartValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_StartValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -5615,6 +5931,8 @@ export class MR_StopValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_StopValue: constructor()')
+
         /**
          * @property
          */
@@ -5654,17 +5972,31 @@ export class MR_StopValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_StopValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_StopValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_StopValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -5703,6 +6035,8 @@ export class MR_RecordValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_RecordValue: constructor()')
+
         /**
          * @property
          */
@@ -5742,17 +6076,31 @@ export class MR_RecordValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_RecordValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_RecordValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_RecordValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -5791,6 +6139,8 @@ export class MR_RewindValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_RewindValue: constructor()')
+
         /**
          * @property
          */
@@ -5830,17 +6180,31 @@ export class MR_RewindValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_RewindValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_RewindValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_RewindValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -5879,6 +6243,8 @@ export class MR_ForwardValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_ForwardValue: constructor()')
+
         /**
          * @property
          */
@@ -5918,17 +6284,31 @@ export class MR_ForwardValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_ForwardValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ForwardValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ForwardValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -5967,6 +6347,8 @@ export class MR_CycleActiveValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_CycleActiveValue: constructor()')
+
         /**
          * @property
          */
@@ -6006,17 +6388,31 @@ export class MR_CycleActiveValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_CycleActiveValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_CycleActiveValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_CycleActiveValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6055,6 +6451,8 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_MetronomeActiveValue: constructor()')
+
         /**
          * @property
          */
@@ -6094,17 +6492,31 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_MetronomeActiveValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MetronomeActiveValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MetronomeActiveValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6143,6 +6555,8 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_MetronomeClickLevel: constructor()')
+
         /**
          * @property
          */
@@ -6182,17 +6596,31 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_MetronomeClickLevel: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MetronomeClickLevel: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MetronomeClickLevel: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6231,6 +6659,8 @@ export class MR_VolumeValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_VolumeValue: constructor()')
+
         /**
          * @property
          */
@@ -6270,17 +6700,31 @@ export class MR_VolumeValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_VolumeValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VolumeValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VolumeValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6319,6 +6763,8 @@ export class MR_PanValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PanValue: constructor()')
+
         /**
          * @property
          */
@@ -6358,17 +6804,31 @@ export class MR_PanValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_PanValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PanValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PanValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6407,6 +6867,8 @@ export class MR_MuteValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_MuteValue: constructor()')
+
         /**
          * @property
          */
@@ -6446,17 +6908,31 @@ export class MR_MuteValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_MuteValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MuteValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MuteValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6495,6 +6971,8 @@ export class MR_SoloValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_SoloValue: constructor()')
+
         /**
          * @property
          */
@@ -6534,17 +7012,31 @@ export class MR_SoloValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_SoloValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SoloValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SoloValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6583,6 +7075,8 @@ export class MR_MonitorEnableValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_MonitorEnableValue: constructor()')
+
         /**
          * @property
          */
@@ -6622,17 +7116,31 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_MonitorEnableValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MonitorEnableValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_MonitorEnableValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6671,6 +7179,8 @@ export class MR_RecordEnableValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_RecordEnableValue: constructor()')
+
         /**
          * @property
          */
@@ -6710,17 +7220,31 @@ export class MR_RecordEnableValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_RecordEnableValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_RecordEnableValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_RecordEnableValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6759,6 +7283,8 @@ export class MR_EditorOpenValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_EditorOpenValue: constructor()')
+
         /**
          * @property
          */
@@ -6798,17 +7324,31 @@ export class MR_EditorOpenValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_EditorOpenValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EditorOpenValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EditorOpenValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6847,6 +7387,8 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_InstrumentOpenValue: constructor()')
+
         /**
          * @property
          */
@@ -6886,17 +7428,31 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_InstrumentOpenValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_InstrumentOpenValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_InstrumentOpenValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -6935,6 +7491,8 @@ export class MR_SelectedValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_SelectedValue: constructor()')
+
         /**
          * @property
          */
@@ -6974,17 +7532,31 @@ export class MR_SelectedValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_SelectedValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SelectedValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SelectedValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7023,6 +7595,8 @@ export class MR_AutomationReadValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_AutomationReadValue: constructor()')
+
         /**
          * @property
          */
@@ -7062,17 +7636,31 @@ export class MR_AutomationReadValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_AutomationReadValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_AutomationReadValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_AutomationReadValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7111,6 +7699,8 @@ export class MR_AutomationWriteValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_AutomationWriteValue: constructor()')
+
         /**
          * @property
          */
@@ -7150,17 +7740,31 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             a: number,
             isActive: boolean
         ) {}
+
+        logger.debug('MR_AutomationWriteValue: constructor()')
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_AutomationWriteValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_AutomationWriteValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7199,6 +7803,8 @@ export class MR_VUMeterValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_VUMeterValue: constructor()')
+
         /**
          * @property
          */
@@ -7243,12 +7849,24 @@ export class MR_VUMeterValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7287,6 +7905,8 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_VUMeterMaxValue: constructor()')
+
         /**
          * @property
          */
@@ -7331,12 +7951,24 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterMaxValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterMaxValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7375,6 +8007,8 @@ export class MR_VUMeterClipValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_VUMeterClipValue: constructor()')
+
         /**
          * @property
          */
@@ -7419,12 +8053,24 @@ export class MR_VUMeterClipValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterClipValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterClipValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7463,6 +8109,8 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_VUMeterPeakValue: constructor()')
+
         /**
          * @property
          */
@@ -7507,12 +8155,24 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterPeakValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_VUMeterPeakValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7551,6 +8211,8 @@ export class MR_SendOn extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_SendOn: constructor()')
+
         /**
          * @property
          */
@@ -7595,12 +8257,24 @@ export class MR_SendOn extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SendOn: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SendOn: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7639,6 +8313,8 @@ export class MR_SendPrePost extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_SendPrePost: constructor()')
+
         /**
          * @property
          */
@@ -7683,12 +8359,24 @@ export class MR_SendPrePost extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SendPrePost: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SendPrePost: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7727,6 +8415,8 @@ export class MR_SendLevel extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_SendLevel: constructor()')
+
         /**
          * @property
          */
@@ -7771,12 +8461,24 @@ export class MR_SendLevel extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SendLevel: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_SendLevel: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7815,6 +8517,8 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_ControlRoomCueSendOnValue: constructor()')
+
         /**
          * @property
          */
@@ -7859,12 +8563,24 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendOnValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendOnValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7903,6 +8619,8 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_ControlRoomCueSendPrePostValue: constructor()')
+
         /**
          * @property
          */
@@ -7947,12 +8665,24 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendPrePostValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendPrePostValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -7991,6 +8721,8 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_ControlRoomCueSendLevelValue: constructor()')
+
         /**
          * @property
          */
@@ -8035,12 +8767,24 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendLevelValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendLevelValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8079,6 +8823,8 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_ControlRoomCueSendPanValue: constructor()')
+
         /**
          * @property
          */
@@ -8123,12 +8869,24 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendPanValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendPanValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8167,6 +8925,8 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_ControlRoomCueSendFolderBypassValue: constructor()')
+
         /**
          * @property
          */
@@ -8211,12 +8971,24 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendFolderBypassValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_ControlRoomCueSendFolderBypassValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8255,6 +9027,8 @@ export class MR_PluginOnValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PluginOnValue: constructor()')
+
         /**
          * @property
          */
@@ -8299,12 +9073,24 @@ export class MR_PluginOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PluginOnValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PluginOnValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8343,6 +9129,8 @@ export class MR_PluginBypassValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PluginBypassValue: constructor()')
+
         /**
          * @property
          */
@@ -8387,12 +9175,24 @@ export class MR_PluginBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PluginBypassValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PluginBypassValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8431,6 +9231,8 @@ export class MR_PluginEditValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PluginEditValue: constructor()')
+
         /**
          * @property
          */
@@ -8475,12 +9277,24 @@ export class MR_PluginEditValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PluginEditValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PluginEditValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8519,6 +9333,8 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterBypassValue: constructor()')
+
         /**
          * @property
          */
@@ -8563,12 +9379,24 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterBypassValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterBypassValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8607,6 +9435,8 @@ export class MR_PreFilterGainValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterGainValue: constructor()')
+
         /**
          * @property
          */
@@ -8651,12 +9481,24 @@ export class MR_PreFilterGainValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterGainValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterGainValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8695,6 +9537,8 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterPhaseSwitchValue: constructor()')
+
         /**
          * @property
          */
@@ -8739,12 +9583,24 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterPhaseSwitchValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterPhaseSwitchValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8783,6 +9639,8 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterHighCutFrequencyValue: constructor()')
+
         /**
          * @property
          */
@@ -8827,12 +9685,24 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterHighCutFrequencyValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterHighCutFrequencyValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8871,6 +9741,8 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterHighCutOnValue: constructor()')
+
         /**
          * @property
          */
@@ -8915,12 +9787,24 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterHighCutOnValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterHighCutOnValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -8959,6 +9843,8 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterHighCutSlopeValue: constructor()')
+
         /**
          * @property
          */
@@ -9003,12 +9889,24 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterHighCutSlopeValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterHighCutSlopeValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9047,6 +9945,8 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterLowCutFrequencyValue: constructor()')
+
         /**
          * @property
          */
@@ -9091,12 +9991,24 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterLowCutFrequencyValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterLowCutFrequencyValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9135,6 +10047,8 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterLowCutOnValue: constructor()')
+
         /**
          * @property
          */
@@ -9179,12 +10093,24 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterLowCutOnValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterLowCutOnValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9223,6 +10149,8 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_PreFilterLowCutSlopeValue: constructor()')
+
         /**
          * @property
          */
@@ -9267,12 +10195,24 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterLowCutSlopeValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_PreFilterLowCutSlopeValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9311,6 +10251,8 @@ export class MR_EQBandGainValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_EQBandGainValue: constructor()')
+
         /**
          * @property
          */
@@ -9355,12 +10297,24 @@ export class MR_EQBandGainValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandGainValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandGainValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9399,6 +10353,8 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_EQBandFrequencyValue: constructor()')
+
         /**
          * @property
          */
@@ -9443,12 +10399,24 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandFrequencyValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandFrequencyValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9487,6 +10455,8 @@ export class MR_EQBandQualityValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_EQBandQualityValue: constructor()')
+
         /**
          * @property
          */
@@ -9531,12 +10501,24 @@ export class MR_EQBandQualityValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandQualityValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandQualityValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9575,6 +10557,8 @@ export class MR_EQBandOnValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_EQBandOnValue: constructor()')
+
         /**
          * @property
          */
@@ -9619,12 +10603,24 @@ export class MR_EQBandOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandOnValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandOnValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9663,6 +10659,8 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_EQBandFilterTypeValue: constructor()')
+
         /**
          * @property
          */
@@ -9707,12 +10705,24 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandFilterTypeValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_EQBandFilterTypeValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9751,6 +10761,8 @@ export class MR_QuickControlValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_QuickControlValue: constructor()')
+
         /**
          * @property
          */
@@ -9795,12 +10807,24 @@ export class MR_QuickControlValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_QuickControlValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_QuickControlValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9839,6 +10863,8 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_FocusedQuickControlsLockedStateValue: constructor()')
+
         /**
          * @property
          */
@@ -9883,12 +10909,24 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_FocusedQuickControlsLockedStateValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_FocusedQuickControlsLockedStateValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -9927,6 +10965,8 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_HostPluginParameterBankValue: constructor()')
+
         /**
          * @property
          */
@@ -9971,12 +11011,24 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostPluginParameterBankValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostPluginParameterBankValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10015,6 +11067,8 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_HostValueAtMouseCursor: constructor()')
+
         /**
          * @property
          */
@@ -10059,12 +11113,24 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostValueAtMouseCursor: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostValueAtMouseCursor: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10103,6 +11169,8 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_HostValueAtMouseCursorLockedState: constructor()')
+
         /**
          * @property
          */
@@ -10147,12 +11215,24 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostValueAtMouseCursorLockedState: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostValueAtMouseCursorLockedState: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10191,6 +11271,8 @@ export class MR_HostControlRoomValue extends MR_HostValue {
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomValue: constructor()')
+
         /**
          * @property
          */
@@ -10235,12 +11317,24 @@ export class MR_HostControlRoomValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomValue: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomValue: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10279,6 +11373,8 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomSelectSourceCueValueByIndex: constructor()')
+
         /**
          * @property
          */
@@ -10323,12 +11419,24 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomSelectSourceCueValueByIndex: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomSelectSourceCueValueByIndex: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10367,6 +11475,8 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomSelectTargetMonitorValueByIndex: constructor()')
+
         /**
          * @property
          */
@@ -10411,12 +11521,24 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomSelectTargetMonitorValueByIndex: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomSelectTargetMonitorValueByIndex: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10455,6 +11577,8 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
     constructor() {
         super()
 
+        logger.debug('MR_HostControlRoomSelectSourceExternalInputValueByIndex: constructor()')
+
         /**
          * @property
          */
@@ -10499,12 +11623,24 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {}
+    increment(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomSelectSourceExternalInputValueByIndex: increment(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {}
+    decrement(activeMapping: MR_ActiveMapping): void {
+        logger.info(
+            `MR_HostControlRoomSelectSourceExternalInputValueByIndex: decrement(${JSON.stringify({
+                activeMapping,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10577,6 +11713,8 @@ export class MR_TransportTimeDisplayDetailsPrimary extends MR_TransportTimeDispl
     constructor() {
         super()
 
+        logger.debug('MR_TransportTimeDisplayDetailsPrimary: constructor()')
+
         /**
          * @property
          */
@@ -10603,6 +11741,8 @@ export class MR_TransportTimeDisplayDetailsSecondary extends MR_TransportTimeDis
 
     constructor() {
         super()
+
+        logger.debug('MR_TransportTimeDisplayDetailsSecondary: constructor()')
 
         /**
          * @property
@@ -10656,7 +11796,14 @@ export class MR_TransportTimeDisplay {
      * @param {MR_ActiveMapping} activeMapping
      * @param {number} tempoBPM
      */
-    setTempoBPM(activeMapping: MR_ActiveMapping, tempoBPM: number): void {}
+    setTempoBPM(activeMapping: MR_ActiveMapping, tempoBPM: number): void {
+        logger.info(
+            `MR_TransportTimeDisplay: setTempoBPM(${JSON.stringify({
+                activeMapping,
+                tempoBPM,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10688,7 +11835,14 @@ export class MR_TransportTime {
      * @param {MR_ActiveMapping} activeMapping
      * @param {string} timeString
      */
-    setTime(activeMapping: MR_ActiveMapping, timeString: string): void {}
+    setTime(activeMapping: MR_ActiveMapping, timeString: string): void {
+        logger.info(
+            `MR_TransportTime: setTime(${JSON.stringify({
+                activeMapping,
+                timeString,
+            })})`
+        )
+    }
 }
 
 /**
@@ -10915,6 +12069,8 @@ export class MR_ValueBinding extends MR_HostBinding {
     constructor() {
         super()
 
+        logger.debug('MR_ValueBinding: constructor()')
+
         /**
          * @property
          */
@@ -11019,6 +12175,8 @@ export class MR_CommandBinding extends MR_HostBinding {
     constructor() {
         super()
 
+        logger.debug('MR_CommandBinding: constructor()')
+
         /**
          * @property
          */
@@ -11096,6 +12254,8 @@ export class MR_ActionBinding extends MR_HostBinding {
 
     constructor() {
         super()
+
+        logger.debug('MR_ActionBinding: constructor()')
 
         /**
          * @property
@@ -11357,6 +12517,8 @@ export class MR_DetectionEntry {
 export class MR_DetectionPortPair extends MR_DetectionEntry {
     constructor() {
         super()
+
+        logger.debug('MR_DetectionPortPair: constructor()')
     }
 
     /**
@@ -11445,6 +12607,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
 export class MR_DetectionSingleInput extends MR_DetectionEntry {
     constructor() {
         super()
+
+        logger.debug('MR_DetectionSingleInput: constructor()')
     }
 
     /**

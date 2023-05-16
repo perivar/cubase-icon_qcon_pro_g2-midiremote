@@ -15,7 +15,7 @@
     "strict": true,
     "removeComments": false,
     "noEmit": false,
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
     "outDir": "dist"
   },
   "include": ["src/**/*.ts"],
