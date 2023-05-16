@@ -2728,6 +2728,11 @@ export class MR_FocusedQuickControls extends MR_HostObject {
      * @returns {MR_QuickControlValue}
      */
     getByIndex(index: number): MR_QuickControlValue {
+        logger.info(
+            `MR_FocusedQuickControls: getByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_QuickControlValue()
     }
 
@@ -2798,6 +2803,7 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
      * @returns {MR_HostPluginParameterBankValue}
      */
     makeParameterValue(): MR_HostPluginParameterBankValue {
+        logger.info(`MR_HostPluginParameterBankZone: makeParameterValue()`)
         return new MR_HostPluginParameterBankValue()
     }
 }
@@ -2934,6 +2940,11 @@ export class MR_SendSlotFolder extends MR_HostObject {
      * @returns {MR_SendSlot}
      */
     getByIndex(index: number): MR_SendSlot {
+        logger.info(
+            `MR_SendSlotFolder: getByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_SendSlot()
     }
 
@@ -3004,6 +3015,11 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
      * @returns {MR_ControlRoomCueSendSlot}
      */
     getByIndex(index: number): MR_ControlRoomCueSendSlot {
+        logger.info(
+            `MR_ControlRoomCueSendSlotFolder: getByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_ControlRoomCueSendSlot()
     }
 
@@ -3396,6 +3412,11 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
      * @returns {MR_HostControlRoomSelectSourceCueValueByIndex}
      */
     getSelectSourceCueValueByIndex(index: number): MR_HostControlRoomSelectSourceCueValueByIndex {
+        logger.info(
+            `MR_HostControlRoomChannelMain: getSelectSourceCueValueByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomSelectSourceCueValueByIndex()
     }
 }
@@ -3520,6 +3541,13 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
      * @returns {MR_HostControlRoomSelectSourceCueValueByIndex}
      */
     getSelectSourceCueValueByIndex(index: number): MR_HostControlRoomSelectSourceCueValueByIndex {
+        logger.info(
+            `MR_HostControlRoomChannelPhonesByIndex: getSelectSourceCueValueByIndex(${JSON.stringify(
+                {
+                    index,
+                }
+            )})`
+        )
         return new MR_HostControlRoomSelectSourceCueValueByIndex()
     }
 }
@@ -3935,6 +3963,11 @@ export class MR_HostControlRoom extends MR_HostObject {
      * @returns {MR_HostControlRoomChannelCueByIndex}
      */
     getCueChannelByIndex(index: number): MR_HostControlRoomChannelCueByIndex {
+        logger.info(
+            `MR_HostControlRoom: getCueChannelByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomChannelCueByIndex()
     }
 
@@ -3943,6 +3976,11 @@ export class MR_HostControlRoom extends MR_HostObject {
      * @returns {MR_HostControlRoomChannelPhonesByIndex}
      */
     getPhonesChannelByIndex(index: number): MR_HostControlRoomChannelPhonesByIndex {
+        logger.info(
+            `MR_HostControlRoom: getPhonesChannelByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomChannelPhonesByIndex()
     }
 
@@ -3951,6 +3989,11 @@ export class MR_HostControlRoom extends MR_HostObject {
      * @returns {MR_HostControlRoomChannelExternalInputByIndex}
      */
     getExternalInputChannelByIndex(index: number): MR_HostControlRoomChannelExternalInputByIndex {
+        logger.info(
+            `MR_HostControlRoom: getExternalInputChannelByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomChannelExternalInputByIndex()
     }
 
@@ -3959,6 +4002,11 @@ export class MR_HostControlRoom extends MR_HostObject {
      * @returns {MR_HostControlRoomChannelTalkbackByIndex}
      */
     getTalkbackChannelByIndex(index: number): MR_HostControlRoomChannelTalkbackByIndex {
+        logger.info(
+            `MR_HostControlRoom: getTalkbackChannelByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomChannelTalkbackByIndex()
     }
 
@@ -3967,6 +4015,11 @@ export class MR_HostControlRoom extends MR_HostObject {
      * @returns {MR_HostControlRoomChannelMonitorByIndex}
      */
     getMonitorChannelByIndex(index: number): MR_HostControlRoomChannelMonitorByIndex {
+        logger.info(
+            `MR_HostControlRoom: getMonitorChannelByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomChannelMonitorByIndex()
     }
 
@@ -3978,6 +4031,11 @@ export class MR_HostControlRoom extends MR_HostObject {
     getSelectSourceExternalInputValueByIndex(
         index: number
     ): MR_HostControlRoomSelectSourceExternalInputValueByIndex {
+        logger.info(
+            `MR_HostControlRoom: getSelectSourceExternalInputValueByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomSelectSourceExternalInputValueByIndex()
     }
 
@@ -3989,6 +4047,11 @@ export class MR_HostControlRoom extends MR_HostObject {
     getSelectTargetMonitorValueByIndex(
         index: number
     ): MR_HostControlRoomSelectTargetMonitorValueByIndex {
+        logger.info(
+            `MR_HostControlRoom: getSelectTargetMonitorValueByIndex(${JSON.stringify({
+                index,
+            })})`
+        )
         return new MR_HostControlRoomSelectTargetMonitorValueByIndex()
     }
 
@@ -5181,6 +5244,7 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
      * @returns {MR_HostInsertEffectViewer}
      */
     includeEmptySlotsOnly(): MR_HostInsertEffectViewer {
+        logger.info(`MR_HostInsertEffectViewer: includeEmptySlotsOnly()`)
         return new MR_HostInsertEffectViewer()
     }
 
@@ -5188,6 +5252,7 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
      * @returns {MR_HostInsertEffectViewer}
      */
     excludeEmptySlots(): MR_HostInsertEffectViewer {
+        logger.info(`MR_HostInsertEffectViewer: excludeEmptySlots()`)
         return new MR_HostInsertEffectViewer()
     }
 
@@ -5195,6 +5260,7 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
      * @returns {MR_HostInsertEffectViewer}
      */
     followPluginWindowInFocus(): MR_HostInsertEffectViewer {
+        logger.info(`MR_HostInsertEffectViewer: followPluginWindowInFocus()`)
         return new MR_HostInsertEffectViewer()
     }
 }
@@ -5258,6 +5324,11 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
      * @returns {MR_HostInsertEffectViewer}
      */
     makeInsertEffectViewer(name: string): MR_HostInsertEffectViewer {
+        logger.info(
+            `MR_HostInsertAndStripEffects: makeInsertEffectViewer(${JSON.stringify({
+                name,
+            })})`
+        )
         return new MR_HostInsertEffectViewer()
     }
 }
@@ -5599,6 +5670,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeAudioChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeAudioChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5606,6 +5678,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeInstrumentChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeInstrumentChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5613,6 +5686,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeSamplerChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeSamplerChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5620,6 +5694,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeMIDIChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeMIDIChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5627,6 +5702,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeFXChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeFXChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5634,6 +5710,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeGroupChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeGroupChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5641,6 +5718,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeVCAChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeVCAChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5648,6 +5726,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeInputChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeInputChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5655,6 +5734,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeOutputChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeOutputChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5662,6 +5742,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeWindowZoneLeftChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeWindowZoneLeftChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5669,6 +5750,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     includeWindowZoneRightChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: includeWindowZoneRightChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5676,6 +5758,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeAudioChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeAudioChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5683,6 +5766,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeInstrumentChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeInstrumentChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5690,6 +5774,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeSamplerChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeSamplerChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5697,6 +5782,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeMIDIChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeMIDIChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5704,6 +5790,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeFXChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeFXChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5711,6 +5798,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeGroupChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeGroupChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5718,6 +5806,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeVCAChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeVCAChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5725,6 +5814,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeInputChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeInputChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5732,6 +5822,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeOutputChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeOutputChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5739,6 +5830,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeWindowZoneLeftChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeWindowZoneLeftChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5746,6 +5838,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     excludeWindowZoneRightChannels(): MR_MixerBankZone {
+        logger.info(`MR_MixerBankZone: excludeWindowZoneRightChannels()`)
         return new MR_MixerBankZone()
     }
 
@@ -5754,6 +5847,11 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     setFollowVisibility(followVisibility: boolean): MR_MixerBankZone {
+        logger.info(
+            `MR_MixerBankZone: setFollowVisibility(${JSON.stringify({
+                followVisibility,
+            })})`
+        )
         return this
     }
 
@@ -5761,6 +5859,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankChannel}
      */
     makeMixerBankChannel(): MR_MixerBankChannel {
+        logger.info(`MR_MixerBankZone: makeMixerBankChannel()`)
         return new MR_MixerBankChannel()
     }
 }
@@ -12266,6 +12365,11 @@ export class MR_HostBinding {
      * @returns {MR_HostBinding}
      */
     setSubPage(subPage: MR_SubPage): MR_HostBinding {
+        logger.info(
+            `MR_HostBinding: setSubPage(${JSON.stringify({
+                subPage,
+            })})`
+        )
         return this
     }
 
@@ -12274,6 +12378,11 @@ export class MR_HostBinding {
      * @returns {MR_HostBinding}
      */
     filterByValue(filterValue: number): MR_HostBinding {
+        logger.info(
+            `MR_HostBinding: filterByValue(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return this
     }
 
@@ -12283,6 +12392,12 @@ export class MR_HostBinding {
      * @returns {MR_HostBinding}
      */
     filterByValueRange(from: number, to: number): MR_HostBinding {
+        logger.info(
+            `MR_HostBinding: filterByValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return this
     }
 
@@ -12291,6 +12406,11 @@ export class MR_HostBinding {
      * @returns {MR_HostBinding}
      */
     mapToValue(mapValue: number): MR_HostBinding {
+        logger.info(
+            `MR_HostBinding: mapToValue(${JSON.stringify({
+                mapValue,
+            })})`
+        )
         return this
     }
 
@@ -12300,6 +12420,12 @@ export class MR_HostBinding {
      * @returns {MR_HostBinding}
      */
     mapToValueRange(from: number, to: number): MR_HostBinding {
+        logger.info(
+            `MR_HostBinding: mapToValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return this
     }
 }
@@ -12336,6 +12462,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     setTypeDefault(): MR_ValueBinding {
+        logger.info(`MR_ValueBinding: setTypeDefault()`)
         return this
     }
 
@@ -12343,6 +12470,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     setTypeToggle(): MR_ValueBinding {
+        logger.info(`MR_ValueBinding: setTypeToggle()`)
         return this
     }
 
@@ -12350,6 +12478,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     setValueTakeOverModeJump(): MR_ValueBinding {
+        logger.info(`MR_ValueBinding: setValueTakeOverModeJump()`)
         return this
     }
 
@@ -12357,6 +12486,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     setValueTakeOverModePickup(): MR_ValueBinding {
+        logger.info(`MR_ValueBinding: setValueTakeOverModePickup()`)
         return this
     }
 
@@ -12364,6 +12494,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     setValueTakeOverModeScaled(): MR_ValueBinding {
+        logger.info(`MR_ValueBinding: setValueTakeOverModeScaled()`)
         return this
     }
 
@@ -12372,6 +12503,11 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     setSubPage(subPage: MR_SubPage): MR_ValueBinding {
+        logger.info(
+            `MR_ValueBinding: setSubPage(${JSON.stringify({
+                subPage,
+            })})`
+        )
         return this
     }
 
@@ -12380,6 +12516,11 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     filterByValue(filterValue: number): MR_ValueBinding {
+        logger.info(
+            `MR_ValueBinding: filterByValue(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_ValueBinding()
     }
 
@@ -12389,6 +12530,12 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     filterByValueRange(from: number, to: number): MR_ValueBinding {
+        logger.info(
+            `MR_ValueBinding: filterByValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return new MR_ValueBinding()
     }
 
@@ -12397,6 +12544,11 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     mapToValue(mapValue: number): MR_ValueBinding {
+        logger.info(
+            `MR_ValueBinding: mapToValue(${JSON.stringify({
+                mapValue,
+            })})`
+        )
         return new MR_ValueBinding()
     }
 
@@ -12406,6 +12558,12 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @returns {MR_ValueBinding}
      */
     mapToValueRange(from: number, to: number): MR_ValueBinding {
+        logger.info(
+            `MR_ValueBinding: mapToValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return new MR_ValueBinding()
     }
 }
@@ -12444,6 +12602,12 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @returns {MR_Repeating}
      */
     makeRepeating(delaySeconds: number, rateHz: number): MR_Repeating {
+        logger.info(
+            `MR_CommandBinding: makeRepeating(${JSON.stringify({
+                delaySeconds,
+                rateHz,
+            })})`
+        )
         return new MR_Repeating()
     }
 
@@ -12452,6 +12616,11 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @returns {MR_CommandBinding}
      */
     setSubPage(subPage: MR_SubPage): MR_CommandBinding {
+        logger.info(
+            `MR_CommandBinding: setSubPage(${JSON.stringify({
+                subPage,
+            })})`
+        )
         return this
     }
 
@@ -12460,6 +12629,11 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @returns {MR_CommandBinding}
      */
     filterByValue(filterValue: number): MR_CommandBinding {
+        logger.info(
+            `MR_CommandBinding: filterByValue(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_CommandBinding()
     }
 
@@ -12469,6 +12643,12 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @returns {MR_CommandBinding}
      */
     filterByValueRange(from: number, to: number): MR_CommandBinding {
+        logger.info(
+            `MR_CommandBinding: filterByValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return new MR_CommandBinding()
     }
 
@@ -12477,6 +12657,11 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @returns {MR_CommandBinding}
      */
     mapToValue(mapValue: number): MR_CommandBinding {
+        logger.info(
+            `MR_CommandBinding: mapToValue(${JSON.stringify({
+                mapValue,
+            })})`
+        )
         return new MR_CommandBinding()
     }
 
@@ -12486,6 +12671,12 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @returns {MR_CommandBinding}
      */
     mapToValueRange(from: number, to: number): MR_CommandBinding {
+        logger.info(
+            `MR_CommandBinding: mapToValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return new MR_CommandBinding()
     }
 }
@@ -12524,6 +12715,12 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @returns {MR_Repeating}
      */
     makeRepeating(delaySeconds: number, rateHz: number): MR_Repeating {
+        logger.info(
+            `MR_ActionBinding: makeRepeating(${JSON.stringify({
+                delaySeconds,
+                rateHz,
+            })})`
+        )
         return new MR_Repeating()
     }
 
@@ -12532,6 +12729,11 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @returns {MR_ActionBinding}
      */
     setSubPage(subPage: MR_SubPage): MR_ActionBinding {
+        logger.info(
+            `MR_ActionBinding: setSubPage(${JSON.stringify({
+                subPage,
+            })})`
+        )
         return this
     }
 
@@ -12540,6 +12742,11 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @returns {MR_ActionBinding}
      */
     filterByValue(filterValue: number): MR_ActionBinding {
+        logger.info(
+            `MR_ActionBinding: filterByValue(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_ActionBinding()
     }
 
@@ -12549,6 +12756,12 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @returns {MR_ActionBinding}
      */
     filterByValueRange(from: number, to: number): MR_ActionBinding {
+        logger.info(
+            `MR_ActionBinding: filterByValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return new MR_ActionBinding()
     }
 
@@ -12557,6 +12770,11 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @returns {MR_ActionBinding}
      */
     mapToValue(mapValue: number): MR_ActionBinding {
+        logger.info(
+            `MR_ActionBinding: mapToValue(${JSON.stringify({
+                mapValue,
+            })})`
+        )
         return new MR_ActionBinding()
     }
 
@@ -12566,6 +12784,12 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @returns {MR_ActionBinding}
      */
     mapToValueRange(from: number, to: number): MR_ActionBinding {
+        logger.info(
+            `MR_ActionBinding: mapToValueRange(${JSON.stringify({
+                from,
+                to,
+            })})`
+        )
         return new MR_ActionBinding()
     }
 }
@@ -12597,6 +12821,11 @@ export class MR_SubPageArea {
      * @returns {MR_SubPage}
      */
     makeSubPage(name: string): MR_SubPage {
+        logger.info(
+            `MR_SubPageArea: makeSubPage(${JSON.stringify({
+                name,
+            })})`
+        )
         return new MR_SubPage()
     }
 }
@@ -12731,6 +12960,12 @@ export class MR_DeviceDetectionUnit {
         inputPort: MR_DeviceMidiInput,
         outputPort: MR_DeviceMidiOutput
     ): MR_DetectionPortPair {
+        logger.info(
+            `MR_DeviceDetectionUnit: detectPortPair(${JSON.stringify({
+                inputPort,
+                outputPort,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12739,6 +12974,11 @@ export class MR_DeviceDetectionUnit {
      * @returns {MR_DetectionSingleInput}
      */
     detectSingleInput(inputPort: MR_DeviceMidiInput): MR_DetectionSingleInput {
+        logger.info(
+            `MR_DeviceDetectionUnit: detectSingleInput(${JSON.stringify({
+                inputPort,
+            })})`
+        )
         return new MR_DetectionSingleInput()
     }
 }
@@ -12774,6 +13014,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectInputNameContains(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectInputNameContains(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12782,6 +13027,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectInputNameEquals(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectInputNameEquals(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12790,6 +13040,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectInputNameStartsWith(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectInputNameStartsWith(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12798,6 +13053,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectInputNameEndsWith(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectInputNameEndsWith(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12806,6 +13066,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectOutputNameContains(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectOutputNameContains(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12814,6 +13079,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectOutputNameEquals(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectOutputNameEquals(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12822,6 +13092,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectOutputNameStartsWith(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectOutputNameStartsWith(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12830,6 +13105,11 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
      * @returns {MR_DetectionPortPair}
      */
     expectOutputNameEndsWith(filterValue: string): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectOutputNameEndsWith(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 
@@ -12844,6 +13124,13 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
         deviceFamily: string,
         modelNumber: string
     ): MR_DetectionPortPair {
+        logger.info(
+            `MR_DetectionPortPair: expectSysexIdentityResponse(${JSON.stringify({
+                manufacturerID,
+                deviceFamily,
+                modelNumber,
+            })})`
+        )
         return new MR_DetectionPortPair()
     }
 }
@@ -12864,6 +13151,11 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
      * @returns {MR_DetectionSingleInput}
      */
     expectInputNameContains(filterValue: string): MR_DetectionSingleInput {
+        logger.info(
+            `MR_DetectionSingleInput: expectInputNameContains(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionSingleInput()
     }
 
@@ -12872,6 +13164,11 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
      * @returns {MR_DetectionSingleInput}
      */
     expectInputNameEquals(filterValue: string): MR_DetectionSingleInput {
+        logger.info(
+            `MR_DetectionSingleInput: expectInputNameEquals(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionSingleInput()
     }
 
@@ -12880,6 +13177,11 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
      * @returns {MR_DetectionSingleInput}
      */
     expectInputNameStartsWith(filterValue: string): MR_DetectionSingleInput {
+        logger.info(
+            `MR_DetectionSingleInput: expectInputNameStartsWith(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionSingleInput()
     }
 
@@ -12888,6 +13190,11 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
      * @returns {MR_DetectionSingleInput}
      */
     expectInputNameEndsWith(filterValue: string): MR_DetectionSingleInput {
+        logger.info(
+            `MR_DetectionSingleInput: expectInputNameEndsWith(${JSON.stringify({
+                filterValue,
+            })})`
+        )
         return new MR_DetectionSingleInput()
     }
 }
