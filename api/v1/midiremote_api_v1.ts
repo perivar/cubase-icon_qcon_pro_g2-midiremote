@@ -461,32 +461,37 @@ export class MR_DeviceDriver {
     mOnDeactivate: (activeDevice: MR_ActiveDevice) => void
 
     constructor() {
+        logger.debug('MR_DeviceDriver: constructor()')
+
         /**
          * @property
          */
         this.mPorts = new MR_Ports()
+
         /**
          * @property
          */
         this.mSurface = new MR_DeviceSurface()
+
         /**
          * @property
          */
         this.mMapping = new MR_FactoryMapping()
+
         /**
          * @property
          */
         this.mAction = new MR_DeviceDriverActions()
+
         /**
          * @property
          */
         this.mOnActivate = (activeDevice: MR_ActiveDevice) => {}
+
         /**
          * @property
          */
         this.mOnDeactivate = (activeDevice: MR_ActiveDevice) => {}
-
-        logger.debug('MR_DeviceDriver: constructor()')
     }
 
     /**
@@ -623,12 +628,12 @@ export class MR_DeviceMidiInput {
     mOnSysex: (activeDevice: MR_ActiveDevice, message: MidiMessage) => void
 
     constructor() {
+        logger.debug('MR_DeviceMidiInput: constructor()')
+
         /**
          * @property
          */
         this.mOnSysex = (activeDevice: MR_ActiveDevice, message: MidiMessage) => {}
-
-        logger.debug('MR_DeviceMidiInput: constructor()')
     }
 }
 
@@ -912,6 +917,7 @@ export class MR_PushEncoder extends MR_SurfaceElement {
          * @property
          */
         this.mEncoderValue = new MR_SurfaceElementValue()
+
         /**
          * @property
          */
@@ -1202,6 +1208,7 @@ export class MR_PadXY extends MR_SurfaceElement {
          * @property
          */
         this.mX = new MR_SurfaceElementValue()
+
         /**
          * @property
          */
@@ -1240,6 +1247,7 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
          * @property
          */
         this.mX = new MR_SurfaceElementValue()
+
         /**
          * @property
          */
@@ -1450,41 +1458,45 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
          * @property
          */
         this.mMidiBinding = new MR_SurfaceValueMidiBinding()
+
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             value: number,
             diff: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             value: string,
             units: string
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             objectTitle: string,
             valueTitle: string
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             r: number,
             g: number,
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -1535,41 +1547,45 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
          * @property
          */
         this.mMidiBinding = new MR_SurfaceValueMidiBinding()
+
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             value: number,
             diff: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             value: string,
             units: string
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             objectTitle: string,
             valueTitle: string
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             r: number,
             g: number,
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -2236,24 +2252,22 @@ export class MR_FactoryMappingPage extends MR_Page {
          * @property
          */
         this.mHostAccess = new MR_HostAccess()
+
         /**
          * @property
          */
-        this.mOnActivate = function (
-            activeDevice: MR_ActiveDevice,
-            activeMapping: MR_ActiveMapping
-        ) {}
+        this.mOnActivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
+
         /**
          * @property
          */
-        this.mOnDeactivate = function (
-            activeDevice: MR_ActiveDevice,
-            activeMapping: MR_ActiveMapping
-        ) {}
+        this.mOnDeactivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
+
         /**
          * @property
          */
         this.mCustom = new MR_HostObjectUndefined()
+
         /**
          * @property
          */
@@ -2407,22 +2421,27 @@ export class MR_HostAccess {
          * @property
          */
         this.mTransport = new MR_HostTransport()
+
         /**
          * @property
          */
         this.mMixConsole = new MR_MixConsole()
+
         /**
          * @property
          */
         this.mControlRoom = new MR_HostControlRoom()
+
         /**
          * @property
          */
         this.mTrackSelection = new MR_TrackSelection()
+
         /**
          * @property
          */
         this.mMouseCursor = new MR_HostMouseCursor()
+
         /**
          * @property
          */
@@ -2467,16 +2486,16 @@ export class MR_HostObjectUndefined extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2484,7 +2503,7 @@ export class MR_HostObjectUndefined extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -2544,16 +2563,16 @@ export class MR_HostTransport extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2561,7 +2580,7 @@ export class MR_HostTransport extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -2593,16 +2612,16 @@ export class MR_QuickControls extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2610,7 +2629,7 @@ export class MR_QuickControls extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -2672,16 +2691,16 @@ export class MR_FocusedQuickControls extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2689,7 +2708,7 @@ export class MR_FocusedQuickControls extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -2743,16 +2762,16 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2760,7 +2779,7 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -2806,18 +2825,22 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
          * @property
          */
         this.mGate = new MR_HostStripEffectSlotGate()
+
         /**
          * @property
          */
         this.mCompressor = new MR_HostStripEffectSlotCompressor()
+
         /**
          * @property
          */
         this.mLimiter = new MR_HostStripEffectSlotLimiter()
+
         /**
          * @property
          */
         this.mSaturator = new MR_HostStripEffectSlotSaturator()
+
         /**
          * @property
          */
@@ -2826,16 +2849,16 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2843,7 +2866,7 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -2875,16 +2898,16 @@ export class MR_SendSlotFolder extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2892,7 +2915,7 @@ export class MR_SendSlotFolder extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -2945,16 +2968,16 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -2962,7 +2985,7 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -3018,30 +3041,37 @@ export class MR_MixerBankChannel extends MR_HostObject {
          * @property
          */
         this.mValue = new MR_MixerChannelValues()
+
         /**
          * @property
          */
         this.mPreFilter = new MR_PreFilter()
+
         /**
          * @property
          */
         this.mChannelEQ = new MR_ChannelEQ()
+
         /**
          * @property
          */
         this.mInsertAndStripEffects = new MR_HostInsertAndStripEffects()
+
         /**
          * @property
          */
         this.mSends = new MR_SendSlotFolder()
+
         /**
          * @property
          */
         this.mCueSends = new MR_ControlRoomCueSendSlotFolder()
+
         /**
          * @property
          */
         this.mQuickControls = new MR_QuickControls()
+
         /**
          * @property
          */
@@ -3050,16 +3080,16 @@ export class MR_MixerBankChannel extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3067,7 +3097,7 @@ export class MR_MixerBankChannel extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -3108,30 +3138,37 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
          * @property
          */
         this.mValue = new MR_MixerChannelValues()
+
         /**
          * @property
          */
         this.mPreFilter = new MR_PreFilter()
+
         /**
          * @property
          */
         this.mChannelEQ = new MR_ChannelEQ()
+
         /**
          * @property
          */
         this.mInsertAndStripEffects = new MR_HostInsertAndStripEffects()
+
         /**
          * @property
          */
         this.mSends = new MR_SendSlotFolder()
+
         /**
          * @property
          */
         this.mCueSends = new MR_ControlRoomCueSendSlotFolder()
+
         /**
          * @property
          */
         this.mQuickControls = new MR_QuickControls()
+
         /**
          * @property
          */
@@ -3140,16 +3177,16 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3157,7 +3194,7 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -3192,6 +3229,7 @@ export class MR_HostMouseCursor extends MR_HostObject {
          * @property
          */
         this.mValueUnderMouse = new MR_HostValueAtMouseCursor()
+
         /**
          * @property
          */
@@ -3200,16 +3238,16 @@ export class MR_HostMouseCursor extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3217,7 +3255,7 @@ export class MR_HostMouseCursor extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -3262,46 +3300,57 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
          * @property
          */
         this.mLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMuteValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mBypassInserts = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mListenEnabledValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mListenLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mDimActiveValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMetronomeClickActiveValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMetronomeClickLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMetronomeClickPanValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
@@ -3310,16 +3359,16 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3327,7 +3376,7 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -3380,42 +3429,52 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
          * @property
          */
         this.mLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMuteValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mBypassInserts = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mListenEnabledValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mListenLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mDimActiveValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMetronomeClickActiveValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMetronomeClickLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
@@ -3424,16 +3483,16 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3441,7 +3500,7 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -3494,42 +3553,52 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
          * @property
          */
         this.mLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMuteValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mBypassInserts = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mSelectSourceAuxValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mTalkbackEnabledValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mTalkbackLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMetronomeClickActiveValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMetronomeClickLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
@@ -3538,16 +3607,16 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3555,7 +3624,7 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -3591,10 +3660,12 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
          * @property
          */
         this.mLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMuteValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
@@ -3603,16 +3674,16 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3620,7 +3691,7 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -3656,10 +3727,12 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
          * @property
          */
         this.mLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMuteValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
@@ -3668,16 +3741,16 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3685,7 +3758,7 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -3721,10 +3794,12 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
          * @property
          */
         this.mLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mMuteValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
@@ -3733,16 +3808,16 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3750,7 +3825,7 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -3790,26 +3865,32 @@ export class MR_HostControlRoom extends MR_HostObject {
          * @property
          */
         this.mMainChannel = new MR_HostControlRoomChannelMain()
+
         /**
          * @property
          */
         this.mAlertDimActiveValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mTalkbackActiveValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mTalkbackDimLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mListenDimLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
         this.mReferenceLevelValue = new MR_HostControlRoomValue()
+
         /**
          * @property
          */
@@ -3818,16 +3899,16 @@ export class MR_HostControlRoom extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3835,7 +3916,7 @@ export class MR_HostControlRoom extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -3964,16 +4045,16 @@ export class MR_MixConsole extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -3981,7 +4062,7 @@ export class MR_MixConsole extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -4030,30 +4111,37 @@ export class MR_TransportValues extends MR_HostObject {
          * @property
          */
         this.mStart = new MR_StartValue()
+
         /**
          * @property
          */
         this.mStop = new MR_StopValue()
+
         /**
          * @property
          */
         this.mRecord = new MR_RecordValue()
+
         /**
          * @property
          */
         this.mRewind = new MR_RewindValue()
+
         /**
          * @property
          */
         this.mForward = new MR_ForwardValue()
+
         /**
          * @property
          */
         this.mCycleActive = new MR_CycleActiveValue()
+
         /**
          * @property
          */
         this.mMetronomeActive = new MR_MetronomeActiveValue()
+
         /**
          * @property
          */
@@ -4062,16 +4150,16 @@ export class MR_TransportValues extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4079,7 +4167,7 @@ export class MR_TransportValues extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4121,34 +4209,42 @@ export class MR_PreFilter extends MR_HostObject {
          * @property
          */
         this.mBypass = new MR_PreFilterBypassValue()
+
         /**
          * @property
          */
         this.mGain = new MR_PreFilterGainValue()
+
         /**
          * @property
          */
         this.mPhaseSwitch = new MR_PreFilterPhaseSwitchValue()
+
         /**
          * @property
          */
         this.mHighCutOn = new MR_PreFilterHighCutOnValue()
+
         /**
          * @property
          */
         this.mHighCutFreq = new MR_PreFilterHighCutFrequencyValue()
+
         /**
          * @property
          */
         this.mHighCutSlope = new MR_PreFilterHighCutSlopeValue()
+
         /**
          * @property
          */
         this.mLowCutOn = new MR_PreFilterLowCutOnValue()
+
         /**
          * @property
          */
         this.mLowCutFreq = new MR_PreFilterLowCutFrequencyValue()
+
         /**
          * @property
          */
@@ -4157,16 +4253,16 @@ export class MR_PreFilter extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4174,7 +4270,7 @@ export class MR_PreFilter extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4212,18 +4308,22 @@ export class MR_ChannelEQBand extends MR_HostObject {
          * @property
          */
         this.mGain = new MR_EQBandGainValue()
+
         /**
          * @property
          */
         this.mFreq = new MR_EQBandFrequencyValue()
+
         /**
          * @property
          */
         this.mQ = new MR_EQBandQualityValue()
+
         /**
          * @property
          */
         this.mOn = new MR_EQBandOnValue()
+
         /**
          * @property
          */
@@ -4232,16 +4332,16 @@ export class MR_ChannelEQBand extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4249,7 +4349,7 @@ export class MR_ChannelEQBand extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4286,14 +4386,17 @@ export class MR_ChannelEQ extends MR_HostObject {
          * @property
          */
         this.mBand1 = new MR_ChannelEQBand()
+
         /**
          * @property
          */
         this.mBand2 = new MR_ChannelEQBand()
+
         /**
          * @property
          */
         this.mBand3 = new MR_ChannelEQBand()
+
         /**
          * @property
          */
@@ -4302,16 +4405,16 @@ export class MR_ChannelEQ extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4319,7 +4422,7 @@ export class MR_ChannelEQ extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4366,51 +4469,57 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_PluginOnValue()
+
         /**
          * @property
          */
         this.mBypass = new MR_PluginBypassValue()
+
         /**
          * @property
          */
         this.mEdit = new MR_PluginEditValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+
         /**
          * @property
          */
-        this.mOnChangePluginIdentity = function (
+        this.mOnChangePluginIdentity = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             pluginName: string,
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4418,7 +4527,7 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4465,51 +4574,57 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_PluginOnValue()
+
         /**
          * @property
          */
         this.mBypass = new MR_PluginBypassValue()
+
         /**
          * @property
          */
         this.mEdit = new MR_PluginEditValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+
         /**
          * @property
          */
-        this.mOnChangePluginIdentity = function (
+        this.mOnChangePluginIdentity = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             pluginName: string,
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4517,7 +4632,7 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4564,51 +4679,57 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_PluginOnValue()
+
         /**
          * @property
          */
         this.mBypass = new MR_PluginBypassValue()
+
         /**
          * @property
          */
         this.mEdit = new MR_PluginEditValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+
         /**
          * @property
          */
-        this.mOnChangePluginIdentity = function (
+        this.mOnChangePluginIdentity = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             pluginName: string,
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4616,7 +4737,7 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4663,51 +4784,57 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_PluginOnValue()
+
         /**
          * @property
          */
         this.mBypass = new MR_PluginBypassValue()
+
         /**
          * @property
          */
         this.mEdit = new MR_PluginEditValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+
         /**
          * @property
          */
-        this.mOnChangePluginIdentity = function (
+        this.mOnChangePluginIdentity = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             pluginName: string,
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4715,7 +4842,7 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4762,51 +4889,57 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_PluginOnValue()
+
         /**
          * @property
          */
         this.mBypass = new MR_PluginBypassValue()
+
         /**
          * @property
          */
         this.mEdit = new MR_PluginEditValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+
         /**
          * @property
          */
-        this.mOnChangePluginIdentity = function (
+        this.mOnChangePluginIdentity = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             pluginName: string,
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4814,7 +4947,7 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4861,51 +4994,57 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_PluginOnValue()
+
         /**
          * @property
          */
         this.mBypass = new MR_PluginBypassValue()
+
         /**
          * @property
          */
         this.mEdit = new MR_PluginEditValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+
         /**
          * @property
          */
-        this.mOnChangePluginIdentity = function (
+        this.mOnChangePluginIdentity = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             pluginName: string,
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -4913,7 +5052,7 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -4961,55 +5100,62 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
          * @property
          */
         this.mAction = new MR_HostInsertEffectViewerActions()
+
         /**
          * @property
          */
         this.mOn = new MR_PluginOnValue()
+
         /**
          * @property
          */
         this.mBypass = new MR_PluginBypassValue()
+
         /**
          * @property
          */
         this.mEdit = new MR_PluginEditValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+
         /**
          * @property
          */
-        this.mOnChangePluginIdentity = function (
+        this.mOnChangePluginIdentity = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             pluginName: string,
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5017,7 +5163,7 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -5076,16 +5222,16 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5093,7 +5239,7 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -5137,10 +5283,12 @@ export class MR_SendSlot extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_SendOn()
+
         /**
          * @property
          */
         this.mPrePost = new MR_SendPrePost()
+
         /**
          * @property
          */
@@ -5149,16 +5297,16 @@ export class MR_SendSlot extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5166,7 +5314,7 @@ export class MR_SendSlot extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -5203,14 +5351,17 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
          * @property
          */
         this.mOn = new MR_ControlRoomCueSendOnValue()
+
         /**
          * @property
          */
         this.mPrePost = new MR_ControlRoomCueSendPrePostValue()
+
         /**
          * @property
          */
         this.mLevel = new MR_ControlRoomCueSendLevelValue()
+
         /**
          * @property
          */
@@ -5219,16 +5370,16 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5236,7 +5387,7 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -5284,58 +5435,72 @@ export class MR_MixerChannelValues extends MR_HostObject {
          * @property
          */
         this.mVolume = new MR_VolumeValue()
+
         /**
          * @property
          */
         this.mPan = new MR_PanValue()
+
         /**
          * @property
          */
         this.mMute = new MR_MuteValue()
+
         /**
          * @property
          */
         this.mSolo = new MR_SoloValue()
+
         /**
          * @property
          */
         this.mMonitorEnable = new MR_MonitorEnableValue()
+
         /**
          * @property
          */
         this.mRecordEnable = new MR_RecordEnableValue()
+
         /**
          * @property
          */
         this.mEditorOpen = new MR_EditorOpenValue()
+
         /**
          * @property
          */
         this.mInstrumentOpen = new MR_InstrumentOpenValue()
+
         /**
          * @property
          */
         this.mSelected = new MR_SelectedValue()
+
         /**
          * @property
          */
         this.mAutomationRead = new MR_AutomationReadValue()
+
         /**
          * @property
          */
         this.mAutomationWrite = new MR_AutomationWriteValue()
+
         /**
          * @property
          */
         this.mVUMeter = new MR_VUMeterValue()
+
         /**
          * @property
          */
         this.mVUMeterMax = new MR_VUMeterMaxValue()
+
         /**
          * @property
          */
         this.mVUMeterClip = new MR_VUMeterClipValue()
+
         /**
          * @property
          */
@@ -5344,16 +5509,16 @@ export class MR_MixerChannelValues extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5361,7 +5526,7 @@ export class MR_MixerChannelValues extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -5399,16 +5564,16 @@ export class MR_MixerBankZone extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5416,7 +5581,7 @@ export class MR_MixerBankZone extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -5620,6 +5785,7 @@ export class MR_TrackSelection extends MR_HostObject {
          * @property
          */
         this.mMixerChannel = new MR_SelectedTrackChannel()
+
         /**
          * @property
          */
@@ -5628,16 +5794,16 @@ export class MR_TrackSelection extends MR_HostObject {
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5645,7 +5811,7 @@ export class MR_TrackSelection extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 }
 
@@ -5728,34 +5894,35 @@ export class MR_HostValueUndefined extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5763,7 +5930,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_HostValueUndefined: constructor()')
     }
@@ -5832,34 +5999,35 @@ export class MR_StartValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5867,7 +6035,7 @@ export class MR_StartValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_StartValue: constructor()')
     }
@@ -5936,34 +6104,35 @@ export class MR_StopValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -5971,7 +6140,7 @@ export class MR_StopValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_StopValue: constructor()')
     }
@@ -6040,34 +6209,35 @@ export class MR_RecordValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6075,7 +6245,7 @@ export class MR_RecordValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_RecordValue: constructor()')
     }
@@ -6144,34 +6314,35 @@ export class MR_RewindValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6179,7 +6350,7 @@ export class MR_RewindValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_RewindValue: constructor()')
     }
@@ -6248,34 +6419,35 @@ export class MR_ForwardValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6283,7 +6455,7 @@ export class MR_ForwardValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_ForwardValue: constructor()')
     }
@@ -6352,34 +6524,35 @@ export class MR_CycleActiveValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6387,7 +6560,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_CycleActiveValue: constructor()')
     }
@@ -6456,34 +6629,35 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6491,7 +6665,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_MetronomeActiveValue: constructor()')
     }
@@ -6560,34 +6734,35 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6595,7 +6770,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_MetronomeClickLevel: constructor()')
     }
@@ -6664,34 +6839,35 @@ export class MR_VolumeValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6699,7 +6875,7 @@ export class MR_VolumeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_VolumeValue: constructor()')
     }
@@ -6768,34 +6944,35 @@ export class MR_PanValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6803,7 +6980,7 @@ export class MR_PanValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_PanValue: constructor()')
     }
@@ -6872,34 +7049,35 @@ export class MR_MuteValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -6907,7 +7085,7 @@ export class MR_MuteValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_MuteValue: constructor()')
     }
@@ -6976,34 +7154,35 @@ export class MR_SoloValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7011,7 +7190,7 @@ export class MR_SoloValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_SoloValue: constructor()')
     }
@@ -7080,34 +7259,35 @@ export class MR_MonitorEnableValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7115,7 +7295,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_MonitorEnableValue: constructor()')
     }
@@ -7184,34 +7364,35 @@ export class MR_RecordEnableValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7219,7 +7400,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_RecordEnableValue: constructor()')
     }
@@ -7288,34 +7469,35 @@ export class MR_EditorOpenValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7323,7 +7505,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_EditorOpenValue: constructor()')
     }
@@ -7392,34 +7574,35 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7427,7 +7610,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_InstrumentOpenValue: constructor()')
     }
@@ -7496,34 +7679,35 @@ export class MR_SelectedValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7531,7 +7715,7 @@ export class MR_SelectedValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_SelectedValue: constructor()')
     }
@@ -7600,34 +7784,35 @@ export class MR_AutomationReadValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7635,7 +7820,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_AutomationReadValue: constructor()')
     }
@@ -7704,34 +7889,35 @@ export class MR_AutomationWriteValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7739,7 +7925,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
 
         logger.debug('MR_AutomationWriteValue: constructor()')
     }
@@ -7808,34 +7994,35 @@ export class MR_VUMeterValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7843,7 +8030,7 @@ export class MR_VUMeterValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -7910,34 +8097,35 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -7945,7 +8133,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8012,34 +8200,35 @@ export class MR_VUMeterClipValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8047,7 +8236,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8114,34 +8303,35 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8149,7 +8339,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8216,34 +8406,35 @@ export class MR_SendOn extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8251,7 +8442,7 @@ export class MR_SendOn extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8318,34 +8509,35 @@ export class MR_SendPrePost extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8353,7 +8545,7 @@ export class MR_SendPrePost extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8420,34 +8612,35 @@ export class MR_SendLevel extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8455,7 +8648,7 @@ export class MR_SendLevel extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8522,34 +8715,35 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8557,7 +8751,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8624,34 +8818,35 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8659,7 +8854,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8726,34 +8921,35 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8761,7 +8957,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8828,34 +9024,35 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8863,7 +9060,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -8930,34 +9127,35 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -8965,7 +9163,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9032,34 +9230,35 @@ export class MR_PluginOnValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9067,7 +9266,7 @@ export class MR_PluginOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9134,34 +9333,35 @@ export class MR_PluginBypassValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9169,7 +9369,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9236,34 +9436,35 @@ export class MR_PluginEditValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9271,7 +9472,7 @@ export class MR_PluginEditValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9338,34 +9539,35 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9373,7 +9575,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9440,34 +9642,35 @@ export class MR_PreFilterGainValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9475,7 +9678,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9542,34 +9745,35 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9577,7 +9781,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9644,34 +9848,35 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9679,7 +9884,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9746,34 +9951,35 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9781,7 +9987,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9848,34 +10054,35 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9883,7 +10090,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -9950,34 +10157,35 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -9985,7 +10193,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10052,34 +10260,35 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10087,7 +10296,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10154,34 +10363,35 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10189,7 +10399,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10256,34 +10466,35 @@ export class MR_EQBandGainValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10291,7 +10502,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10358,34 +10569,35 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10393,7 +10605,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10460,34 +10672,35 @@ export class MR_EQBandQualityValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10495,7 +10708,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10562,34 +10775,35 @@ export class MR_EQBandOnValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10597,7 +10811,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10664,34 +10878,35 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10699,7 +10914,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10766,34 +10981,35 @@ export class MR_QuickControlValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10801,7 +11017,7 @@ export class MR_QuickControlValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10868,34 +11084,35 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -10903,7 +11120,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -10970,34 +11187,35 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -11005,7 +11223,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -11072,34 +11290,35 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -11107,7 +11326,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -11174,34 +11393,35 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -11209,7 +11429,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -11276,34 +11496,35 @@ export class MR_HostControlRoomValue extends MR_HostValue {
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -11311,7 +11532,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -11378,34 +11599,35 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -11413,7 +11635,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -11480,34 +11702,35 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -11515,7 +11738,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -11582,34 +11805,35 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
         /**
          * @property
          */
-        this.mOnProcessValueChange = function (
+        this.mOnProcessValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) {}
+        ) => {}
+
         /**
          * @property
          */
-        this.mOnDisplayValueChange = function (
+        this.mOnDisplayValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnTitleChange = function (
+        this.mOnTitleChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) {}
+        ) => {}
 
         /**
          * @property
          */
-        this.mOnColorChange = function (
+        this.mOnColorChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             r: number,
@@ -11617,7 +11841,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
             b: number,
             a: number,
             isActive: boolean
-        ) {}
+        ) => {}
     }
 
     /**
@@ -11719,10 +11943,12 @@ export class MR_TransportTimeDisplayDetailsPrimary extends MR_TransportTimeDispl
          * @property
          */
         this.mCycleLocatorLeft = new MR_TransportTime()
+
         /**
          * @property
          */
         this.mCycleLocatorRight = new MR_TransportTime()
+
         /**
          * @property
          */
@@ -11748,10 +11974,12 @@ export class MR_TransportTimeDisplayDetailsSecondary extends MR_TransportTimeDis
          * @property
          */
         this.mCycleLocatorLeft = new MR_TransportTime()
+
         /**
          * @property
          */
         this.mCycleLocatorRight = new MR_TransportTime()
+
         /**
          * @property
          */
@@ -11776,18 +12004,20 @@ export class MR_TransportTimeDisplay {
          * @property
          */
         this.mPrimary = new MR_TransportTimeDisplayDetailsPrimary()
+
         /**
          * @property
          */
         this.mSecondary = new MR_TransportTimeDisplayDetailsSecondary()
+
         /**
          * @property
          */
-        this.mOnChangeTempoBPM = function (
+        this.mOnChangeTempoBPM = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             tempoBPM: number
-        ) {}
+        ) => {}
 
         logger.debug('MR_TransportTimeDisplay: constructor()')
     }
@@ -11821,12 +12051,12 @@ export class MR_TransportTime {
         /**
          * @property
          */
-        this.mOnChange = function (
+        this.mOnChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             time: string,
             format: string
-        ) {}
+        ) => {}
 
         logger.debug('MR_TransportTime: constructor()')
     }
@@ -11858,10 +12088,12 @@ export class MR_HostPluginParameterBankZoneActions {
          * @property
          */
         this.mPrevBank = new MR_HostPluginParameterBankZoneAction()
+
         /**
          * @property
          */
         this.mNextBank = new MR_HostPluginParameterBankZoneAction()
+
         /**
          * @property
          */
@@ -11933,10 +12165,12 @@ export class MR_HostInsertEffectViewerActions {
          * @property
          */
         this.mPrev = new MR_HostInsertEffectViewerAction()
+
         /**
          * @property
          */
         this.mNext = new MR_HostInsertEffectViewerAction()
+
         /**
          * @property
          */
@@ -11961,18 +12195,22 @@ export class MR_MixerBankZoneActions {
          * @property
          */
         this.mPrevBank = new MR_MixerBankZoneAction()
+
         /**
          * @property
          */
         this.mNextBank = new MR_MixerBankZoneAction()
+
         /**
          * @property
          */
         this.mShiftLeft = new MR_MixerBankZoneAction()
+
         /**
          * @property
          */
         this.mShiftRight = new MR_MixerBankZoneAction()
+
         /**
          * @property
          */
@@ -11994,6 +12232,7 @@ export class MR_TrackSelectionActions {
          * @property
          */
         this.mPrevTrack = new MR_TrackSelectionAction()
+
         /**
          * @property
          */
@@ -12074,12 +12313,12 @@ export class MR_ValueBinding extends MR_HostBinding {
         /**
          * @property
          */
-        this.mOnValueChange = function (
+        this.mOnValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             currValue: number,
             valueDiff: number
-        ) {}
+        ) => {}
     }
 
     /**
@@ -12180,12 +12419,12 @@ export class MR_CommandBinding extends MR_HostBinding {
         /**
          * @property
          */
-        this.mOnValueChange = function (
+        this.mOnValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             currValue: number,
             valueDiff: number
-        ) {}
+        ) => {}
     }
 
     /**
@@ -12260,12 +12499,12 @@ export class MR_ActionBinding extends MR_HostBinding {
         /**
          * @property
          */
-        this.mOnValueChange = function (
+        this.mOnValueChange = (
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             currValue: number,
             valueDiff: number
-        ) {}
+        ) => {}
     }
 
     /**
@@ -12364,10 +12603,12 @@ export class MR_SubPageAreaActions {
          * @property
          */
         this.mPrev = new MR_SubPageAreaAction()
+
         /**
          * @property
          */
         this.mNext = new MR_SubPageAreaAction()
+
         /**
          * @property
          */
@@ -12390,20 +12631,16 @@ export class MR_SubPage {
          * @property
          */
         this.mAction = new MR_SubPageActions()
+
         /**
          * @property
          */
-        this.mOnActivate = function (
-            activeDevice: MR_ActiveDevice,
-            activeMapping: MR_ActiveMapping
-        ) {}
+        this.mOnActivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
+
         /**
          * @property
          */
-        this.mOnDeactivate = function (
-            activeDevice: MR_ActiveDevice,
-            activeMapping: MR_ActiveMapping
-        ) {}
+        this.mOnDeactivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
 
         logger.debug('MR_SubPage: constructor()')
     }
@@ -12657,10 +12894,12 @@ export class MR_DeviceDriverActions {
          * @property
          */
         this.mPrevPage = new MR_DeviceDriverAction()
+
         /**
          * @property
          */
         this.mNextPage = new MR_DeviceDriverAction()
+
         /**
          * @property
          */
