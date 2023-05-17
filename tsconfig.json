@@ -1,24 +1,59 @@
+// Note! if there is no warnings then @types/node is probably auto-imported
+// https://github.com/microsoft/TypeScript/issues/32405
+//
+// fix to avoid auto-import of @types/node which cause the
+// typescript compiler to not output the correct warnings when targeting es5
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/21310#issuecomment-434329726
 {
   "compilerOptions": {
+    /* Type Checking */
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    // "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    // "noUncheckedIndexedAccess": true, // gives lots of possibly undefined errors
+    "strict": true,
+
+    /* Modules */
     "baseUrl": ".",
     "paths": {
-      "midiremote_api_v1": ["api/v1/midiremote_api_v1"]
+      "midiremote_api_v1": ["api/v1/midiremote_api_v1"],
+      "#pkg/*": ["./src/*"]
     },
+    // "typeRoots": ["types"], // the fix given to exclude the @types/node using a dummy directory is not needed
+    "types": ["jest"],
+
+    /* Emit */
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "noEmit": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    // "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Language and Environment */
+    "target": "ES5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es5",
-    "lib": ["es5"],
-    "checkJs": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true, // for vscode debugging
-    "strict": true,
-    "removeComments": false,
-    "noEmit": false,
+    "lib": ["ES5", "DOM"], // include DOM to support console.log
+
+    /* Projects */
+    // "incremental": true,
+
+    /* Completeness */
     "skipLibCheck": true,
-    "outDir": "dist"
+    "checkJs": true,
+    "removeComments": false
   },
-  "include": ["src/**/*.ts"],
-  // "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "node_modules"]
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["**/node_modules"]
 }

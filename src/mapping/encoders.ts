@@ -1,11 +1,11 @@
 import { mDefaults, MR_HostValue, MR_MixerBankChannel } from 'midiremote_api_v1'
-import { SegmentDisplayManager } from 'src/midi/managers/SegmentDisplayManager'
-import { ChannelSurfaceElements } from 'src/surface'
 
 import { config } from '../config'
 import { DecoratedFactoryMappingPage } from '../decorators/page'
 import { Devices, MainDevice } from '../Devices'
 import { EncoderDisplayMode, GlobalBooleanVariables } from '../midi'
+import { SegmentDisplayManager } from '../midi/managers/SegmentDisplayManager'
+import { ChannelSurfaceElements } from '../surface'
 import { createElements, makeCallbackCollection } from '../util'
 
 export interface EncoderAssignment {

@@ -5,3 +5,4 @@ dist/
 error.log
 debug.log
 info.log
+yarn-error.log
