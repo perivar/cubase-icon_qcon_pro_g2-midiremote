@@ -8,7 +8,7 @@ const path = require('path')
 module.exports = {
     entry: './src/index.ts',
     target: ['web', 'es5'], // <-- Include this for es5 output
-    externals: ['midiremote_api_v1'],
+    externals: 'midiremote_api_v1',
     module: {
         rules: [
             {

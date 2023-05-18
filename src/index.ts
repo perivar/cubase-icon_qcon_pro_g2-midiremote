@@ -17,7 +17,8 @@ import './polyfill/stringPadStart'
 import './polyfill/mathLog10'
 import './polyfill/objectAssign'
 
-import midiremote_api from 'midiremote_api_v1'
+// to easility be able to cleanup webpack afterwards, use require and not from
+import midiremote_api = require('midiremote_api_v1')
 
 import { decoratePage } from './decorators/page'
 import { decorateSurface } from './decorators/surface'

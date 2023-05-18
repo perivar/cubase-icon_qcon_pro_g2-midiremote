@@ -92,7 +92,7 @@ const replaceMap: Map<RegExp, string> = new Map([
     [/Object.defineProperty\(exports, "__esModule", { value: true }\);?/g, ''],
     [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);?/g, ''],
     [/Object.defineProperty\(exports, '__esModule', { value: true }\);?/g, ''],
-    [/(var midiremote_api_v1.*?)\s=\s__.*$/gm, "$1 = require('midiremote_api_v1')"],
+    [/(var midiremote_api.*?)\s=\s__.*$/gm, "$1 = require('midiremote_api_v1')"],
 ])
 
 replaceInFiles('dist', /.js/, replaceMap)
