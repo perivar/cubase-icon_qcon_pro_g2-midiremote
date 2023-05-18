@@ -263,10 +263,10 @@ export const bindDeviceToMidi = (
         const buttons = channel.buttons
 
         // PIN: converted for-of entries() loop to ES5
-        buttons.record.bindToNote(ports, 0 * 8 + channelIndex, true)
-        buttons.solo.bindToNote(ports, 1 * 8 + channelIndex, true)
-        buttons.mute.bindToNote(ports, 2 * 8 + channelIndex, true)
-        buttons.select.bindToNote(ports, 3 * 8 + channelIndex, true)
+        buttons.record.bindToNote(ports, 0 + channelIndex, true)
+        buttons.solo.bindToNote(ports, 8 + channelIndex, true)
+        buttons.mute.bindToNote(ports, 16 + channelIndex, true)
+        buttons.select.bindToNote(ports, 24 + channelIndex, true)
 
         // Fader
         bindFader(ports, channel.fader, channelIndex)
@@ -289,14 +289,15 @@ export const bindDeviceToMidi = (
 
         activationCallbacks.addCallback((context) => {
             // Workaround for https://forums.steinberg.net/t/831123:
-            ports.output.sendNoteOn(context, 0x4f, 1)
+            ports.output.sendNoteOn(context, 79, 1) // turn on motors
 
             // Workaround for encoder assign buttons not being enabled on activation
             // (https://forums.steinberg.net/t/831123):
-            ports.output.sendNoteOn(context, 0x2a, 1)
+            ports.output.sendNoteOn(context, 42, 1) // turn on pan
 
             // PIN: converted for-of-multi loop to ES5
-            for (let i = 0, arr = [0x28, 0x29, 0x2b, 0x2c, 0x2d]; i < arr.length; i++) {
+            // turn off page up/down, inserts, eq, fx send
+            for (let i = 0, arr = [40, 41, 43, 44, 45]; i < arr.length; i++) {
                 const note = arr[i]
                 ports.output.sendNoteOn(context, note, 0)
             }
@@ -332,61 +333,61 @@ export const bindDeviceToMidi = (
         )
 
         // buttons: 8 = (46 - 53)
-        buttons.navigation.bank.left.bindToNote(ports, 40 + 6)
-        buttons.navigation.bank.right.bindToNote(ports, 40 + 7)
-        buttons.navigation.channel.left.bindToNote(ports, 40 + 8)
-        buttons.navigation.channel.right.bindToNote(ports, 40 + 9)
-        buttons.flip.bindToNote(ports, 40 + 10)
-        buttons.edit.bindToNote(ports, 40 + 11)
-        buttons.display.bindToNote(ports, 40 + 12)
-        buttons.timeMode.bindToNote(ports, 40 + 13)
+        buttons.navigation.bank.left.bindToNote(ports, 46)
+        buttons.navigation.bank.right.bindToNote(ports, 47)
+        buttons.navigation.channel.left.bindToNote(ports, 48)
+        buttons.navigation.channel.right.bindToNote(ports, 49)
+        buttons.flip.bindToNote(ports, 50)
+        buttons.edit.bindToNote(ports, 51)
+        buttons.display.bindToNote(ports, 52)
+        buttons.timeMode.bindToNote(ports, 53)
 
         // function: 8 = (54 - 61) - F1 - F8
         for (let i = 0; i < buttons.function.length; i++) {
-            buttons.function[i].bindToNote(ports, 40 + 14 + i)
+            buttons.function[i].bindToNote(ports, 54 + i)
         }
 
         // number: 8 = (62 - 69) - Layer2F1 - Layer2F8
         for (let i = 0; i < buttons.number.length; i++) {
-            buttons.number[i].bindToNote(ports, 40 + 22 + i)
+            buttons.number[i].bindToNote(ports, 62 + i)
         }
 
         // modify: 4 = (70 - 73) [0, 1, 7, 8] - Undo, Redo, Save, Revert
         for (let i = 0; i < buttons.modify.length; i++) {
-            buttons.modify[i].bindToNote(ports, 40 + 30 + i)
+            buttons.modify[i].bindToNote(ports, 70 + i)
         }
 
         // automation: 6 = (74 - 79) [2, 3, 4, 9, 10, 11] - Read, Write, Sends, Project, Mixer, Motors
-        for (let i = 0; i < buttons.utility.length; i++) {
-            buttons.automation[i].bindToNote(ports, 40 + 34 + i)
+        for (let i = 0; i < buttons.automation.length; i++) {
+            buttons.automation[i].bindToNote(ports, 74 + i)
         }
 
         // utility: 4 = (80 - 83) [5, 6, 12, 13] - VST, Master, Solo Defeat, Shift
         for (let i = 0; i < buttons.utility.length; i++) {
-            buttons.utility[i].bindToNote(ports, 40 + 40 + i)
+            buttons.utility[i].bindToNote(ports, 80 + i)
         }
 
         // transport: 7 + 5 = (84 - 90 and 91 - 95) - Left, Right, Cycle, Punch, Previous, Add, Next, Rewind, FastFwd, Stop, Play, Record
         for (let i = 0; i < buttons.transport.length; i++) {
-            buttons.transport[i].bindToNote(ports, 40 + 44 + i)
+            buttons.transport[i].bindToNote(ports, 84 + i)
         }
 
         // buttons: 6 = (96 - 101) - CursorUp, CursorDown, CursorLeft, CursorRight, Zoom, Scrub,
-        buttons.navigation.directions.up.bindToNote(ports, 40 + 56)
-        buttons.navigation.directions.down.bindToNote(ports, 40 + 57)
-        buttons.navigation.directions.left.bindToNote(ports, 40 + 58)
-        buttons.navigation.directions.right.bindToNote(ports, 40 + 59)
-        buttons.navigation.directions.center.bindToNote(ports, 40 + 60)
-        buttons.scrub.bindToNote(ports, 40 + 61)
+        buttons.navigation.directions.up.bindToNote(ports, 96)
+        buttons.navigation.directions.down.bindToNote(ports, 97)
+        buttons.navigation.directions.left.bindToNote(ports, 98)
+        buttons.navigation.directions.right.bindToNote(ports, 99)
+        buttons.navigation.directions.center.bindToNote(ports, 100)
+        buttons.scrub.bindToNote(ports, 101)
 
         // Segment Display - handled by the SegmentDisplayManager, except for:
         const { smpte, beats, solo } = elements.displayLeds
         ;[smpte, beats, solo].forEach((lamp, index) => {
-            lamp.bindToNote(ports.output, 0x71 + index)
+            lamp.bindToNote(ports.output, 113 + index)
         })
 
         // Jog wheel
-        elements.jogWheel.bindToControlChange(ports.input, 0x3c)
+        elements.jogWheel.bindToControlChange(ports.input, 60)
 
         // Foot control
         // PIN: converted for-of entries() loop to ES5
@@ -396,12 +397,12 @@ export const bindDeviceToMidi = (
 
             footSwitch.mSurfaceValue.mMidiBinding
                 .setInputPort(ports.input)
-                .bindToNote(0, 0x66 + index)
+                .bindToNote(0, 102 + index)
         }
 
         elements.expressionPedal.mSurfaceValue.mMidiBinding
             .setInputPort(ports.input)
-            .bindToControlChange(0, 0x2e)
+            .bindToControlChange(0, 46)
             .setTypeAbsolute()
     }
 }
