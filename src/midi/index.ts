@@ -358,7 +358,7 @@ export const bindDeviceToMidi = (
 
         // automation: 6 = (74 - 79) [2, 3, 4, 9, 10, 11] - Read, Write, Sends, Project, Mixer, Motors
         for (let i = 0; i < buttons.utility.length; i++) {
-            buttons.utility[i].bindToNote(ports, 40 + 34 + i)
+            buttons.automation[i].bindToNote(ports, 40 + 34 + i)
         }
 
         // utility: 4 = (80 - 83) [5, 6, 12, 13] - VST, Master, Solo Defeat, Shift
