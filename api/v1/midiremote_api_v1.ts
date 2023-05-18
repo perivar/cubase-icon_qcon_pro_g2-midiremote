@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createLogger, format, transports } from 'winston'
 
 const formatMeta = (meta: any) => {
@@ -320,7 +321,7 @@ export class MR_HostPluginParameterBankZoneAction extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_HostPluginParameterBankZoneAction: trigger(${activeMapping})`)
     }
 }
@@ -339,7 +340,7 @@ export class MR_HostInsertEffectViewerAction extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_HostInsertEffectViewerAction: trigger(${activeMapping})`)
     }
 }
@@ -358,7 +359,7 @@ export class MR_MixerBankZoneAction extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_MixerBankZoneAction: trigger(${activeMapping})`)
     }
 }
@@ -377,7 +378,7 @@ export class MR_TrackSelectionAction extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_TrackSelectionAction: trigger(${activeMapping})`)
     }
 }
@@ -396,7 +397,7 @@ export class MR_SubPageActionActivate extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_SubPageActionActivate: trigger(${activeMapping})`)
     }
 }
@@ -415,7 +416,7 @@ export class MR_SubPageAreaAction extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_SubPageAreaAction: trigger(${activeMapping})`)
     }
 }
@@ -434,7 +435,7 @@ export class MR_MappingPageActionActivate extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_MappingPageActionActivate: trigger(${activeMapping})`)
     }
 }
@@ -453,7 +454,7 @@ export class MR_DeviceDriverAction extends MR_HostAction {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    trigger(activeMapping: MR_ActiveMapping): void {
+    override trigger(activeMapping: MR_ActiveMapping): void {
         logger.debug(`MR_DeviceDriverAction: trigger(${activeMapping})`)
     }
 }
@@ -1515,7 +1516,7 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
      * @param {MR_ActiveDevice} activeDevice
      * @param {number} value
      */
-    setProcessValue(activeDevice: MR_ActiveDevice, value: number): void {
+    override setProcessValue(activeDevice: MR_ActiveDevice, value: number): void {
         logger.debug(
             `MR_SurfaceElementValue: setProcessValue(${JSON.stringify({ activeDevice, value })})`
         )
@@ -1525,7 +1526,7 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
      * @param {MR_ActiveDevice} activeDevice
      * @returns {number}
      */
-    getProcessValue(activeDevice: MR_ActiveDevice): number {
+    override getProcessValue(activeDevice: MR_ActiveDevice): number {
         logger.debug(`MR_SurfaceElementValue: getProcessValue(${JSON.stringify({ activeDevice })})`)
         return -1
     }
@@ -1604,7 +1605,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
      * @param {MR_ActiveDevice} activeDevice
      * @param {number} value
      */
-    setProcessValue(activeDevice: MR_ActiveDevice, value: number): void {
+    override setProcessValue(activeDevice: MR_ActiveDevice, value: number): void {
         logger.debug(
             `MR_SurfaceCustomValueVariable: setProcessValue(${JSON.stringify({
                 activeDevice,
@@ -1617,7 +1618,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
      * @param {MR_ActiveDevice} activeDevice
      * @returns {number}
      */
-    getProcessValue(activeDevice: MR_ActiveDevice): number {
+    override getProcessValue(activeDevice: MR_ActiveDevice): number {
         logger.debug(
             `MR_SurfaceCustomValueVariable: getProcessValue(${JSON.stringify({ activeDevice })})`
         )
@@ -2291,7 +2292,10 @@ export class MR_FactoryMappingPage extends MR_Page {
      * @param {MR_HostValue} hostValue
      * @returns {MR_ValueBinding}
      */
-    makeValueBinding(surfaceValue: MR_SurfaceValue, hostValue: MR_HostValue): MR_ValueBinding {
+    override makeValueBinding(
+        surfaceValue: MR_SurfaceValue,
+        hostValue: MR_HostValue
+    ): MR_ValueBinding {
         logger.info(
             `MR_FactoryMappingPage: makeValueBinding(${JSON.stringify({
                 surfaceValue,
@@ -2308,7 +2312,7 @@ export class MR_FactoryMappingPage extends MR_Page {
      * @param {string} commandName
      * @returns {MR_CommandBinding}
      */
-    makeCommandBinding(
+    override makeCommandBinding(
         surfaceValue: MR_SurfaceValue,
         commandCategory: string,
         commandName: string
@@ -2329,7 +2333,10 @@ export class MR_FactoryMappingPage extends MR_Page {
      * @param {MR_HostAction} hostAction
      * @returns {MR_ActionBinding}
      */
-    makeActionBinding(surfaceValue: MR_SurfaceValue, hostAction: MR_HostAction): MR_ActionBinding {
+    override makeActionBinding(
+        surfaceValue: MR_SurfaceValue,
+        hostAction: MR_HostAction
+    ): MR_ActionBinding {
         logger.info(
             `MR_FactoryMappingPage: makeActionBinding(${JSON.stringify({
                 surfaceValue,
@@ -2344,7 +2351,7 @@ export class MR_FactoryMappingPage extends MR_Page {
      * @param {string} name
      * @returns {MR_SubPageArea}
      */
-    makeSubPageArea(name: string): MR_SubPageArea {
+    override makeSubPageArea(name: string): MR_SubPageArea {
         logger.info(
             `MR_FactoryMappingPage: makeSubPageArea(${JSON.stringify({
                 name,
@@ -2359,7 +2366,7 @@ export class MR_FactoryMappingPage extends MR_Page {
      * @param {string} text
      * @returns {MR_FactoryMappingPage}
      */
-    setLabelFieldText(
+    override setLabelFieldText(
         surfaceLabelField: MR_SurfaceLabelField,
         text: string
     ): MR_FactoryMappingPage {
@@ -2378,7 +2385,7 @@ export class MR_FactoryMappingPage extends MR_Page {
      * @param {MR_HostObject} hostObject
      * @returns {MR_FactoryMappingPage}
      */
-    setLabelFieldHostObject(
+    override setLabelFieldHostObject(
         surfaceLabelField: MR_SurfaceLabelField,
         hostObject: MR_HostObject
     ): MR_FactoryMappingPage {
@@ -2397,7 +2404,7 @@ export class MR_FactoryMappingPage extends MR_Page {
      * @param {MR_SubPageArea} subPageArea
      * @returns {MR_FactoryMappingPage}
      */
-    setLabelFieldSubPageArea(
+    override setLabelFieldSubPageArea(
         surfaceLabelField: MR_SurfaceLabelField,
         subPageArea: MR_SubPageArea
     ): MR_FactoryMappingPage {
@@ -6049,7 +6056,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostValueUndefined: increment(${JSON.stringify({
                 activeMapping,
@@ -6060,7 +6067,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostValueUndefined: decrement(${JSON.stringify({
                 activeMapping,
@@ -6154,7 +6161,7 @@ export class MR_StartValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_StartValue: increment(${JSON.stringify({
                 activeMapping,
@@ -6165,7 +6172,7 @@ export class MR_StartValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_StartValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -6259,7 +6266,7 @@ export class MR_StopValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_StopValue: increment(${JSON.stringify({
                 activeMapping,
@@ -6270,7 +6277,7 @@ export class MR_StopValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_StopValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -6364,7 +6371,7 @@ export class MR_RecordValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_RecordValue: increment(${JSON.stringify({
                 activeMapping,
@@ -6375,7 +6382,7 @@ export class MR_RecordValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_RecordValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -6469,7 +6476,7 @@ export class MR_RewindValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_RewindValue: increment(${JSON.stringify({
                 activeMapping,
@@ -6480,7 +6487,7 @@ export class MR_RewindValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_RewindValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -6574,7 +6581,7 @@ export class MR_ForwardValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ForwardValue: increment(${JSON.stringify({
                 activeMapping,
@@ -6585,7 +6592,7 @@ export class MR_ForwardValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ForwardValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -6679,7 +6686,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_CycleActiveValue: increment(${JSON.stringify({
                 activeMapping,
@@ -6690,7 +6697,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_CycleActiveValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -6784,7 +6791,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MetronomeActiveValue: increment(${JSON.stringify({
                 activeMapping,
@@ -6795,7 +6802,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MetronomeActiveValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -6889,7 +6896,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MetronomeClickLevel: increment(${JSON.stringify({
                 activeMapping,
@@ -6900,7 +6907,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MetronomeClickLevel: decrement(${JSON.stringify({
                 activeMapping,
@@ -6994,7 +7001,7 @@ export class MR_VolumeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VolumeValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7005,7 +7012,7 @@ export class MR_VolumeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VolumeValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7099,7 +7106,7 @@ export class MR_PanValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PanValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7110,7 +7117,7 @@ export class MR_PanValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PanValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7204,7 +7211,7 @@ export class MR_MuteValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MuteValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7215,7 +7222,7 @@ export class MR_MuteValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MuteValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7309,7 +7316,7 @@ export class MR_SoloValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SoloValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7320,7 +7327,7 @@ export class MR_SoloValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SoloValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7414,7 +7421,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MonitorEnableValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7425,7 +7432,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_MonitorEnableValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7519,7 +7526,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_RecordEnableValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7530,7 +7537,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_RecordEnableValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7624,7 +7631,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EditorOpenValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7635,7 +7642,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EditorOpenValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7729,7 +7736,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_InstrumentOpenValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7740,7 +7747,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_InstrumentOpenValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7834,7 +7841,7 @@ export class MR_SelectedValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SelectedValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7845,7 +7852,7 @@ export class MR_SelectedValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SelectedValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -7939,7 +7946,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_AutomationReadValue: increment(${JSON.stringify({
                 activeMapping,
@@ -7950,7 +7957,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_AutomationReadValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -8044,7 +8051,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_AutomationWriteValue: increment(${JSON.stringify({
                 activeMapping,
@@ -8055,7 +8062,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_AutomationWriteValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -8147,7 +8154,7 @@ export class MR_VUMeterValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterValue: increment(${JSON.stringify({
                 activeMapping,
@@ -8158,7 +8165,7 @@ export class MR_VUMeterValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -8250,7 +8257,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterMaxValue: increment(${JSON.stringify({
                 activeMapping,
@@ -8261,7 +8268,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterMaxValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -8353,7 +8360,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterClipValue: increment(${JSON.stringify({
                 activeMapping,
@@ -8364,7 +8371,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterClipValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -8456,7 +8463,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterPeakValue: increment(${JSON.stringify({
                 activeMapping,
@@ -8467,7 +8474,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_VUMeterPeakValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -8559,7 +8566,7 @@ export class MR_SendOn extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SendOn: increment(${JSON.stringify({
                 activeMapping,
@@ -8570,7 +8577,7 @@ export class MR_SendOn extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SendOn: decrement(${JSON.stringify({
                 activeMapping,
@@ -8662,7 +8669,7 @@ export class MR_SendPrePost extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SendPrePost: increment(${JSON.stringify({
                 activeMapping,
@@ -8673,7 +8680,7 @@ export class MR_SendPrePost extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SendPrePost: decrement(${JSON.stringify({
                 activeMapping,
@@ -8765,7 +8772,7 @@ export class MR_SendLevel extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SendLevel: increment(${JSON.stringify({
                 activeMapping,
@@ -8776,7 +8783,7 @@ export class MR_SendLevel extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_SendLevel: decrement(${JSON.stringify({
                 activeMapping,
@@ -8868,7 +8875,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendOnValue: increment(${JSON.stringify({
                 activeMapping,
@@ -8879,7 +8886,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendOnValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -8971,7 +8978,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendPrePostValue: increment(${JSON.stringify({
                 activeMapping,
@@ -8982,7 +8989,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendPrePostValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9074,7 +9081,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendLevelValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9085,7 +9092,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendLevelValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9177,7 +9184,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendPanValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9188,7 +9195,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendPanValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9280,7 +9287,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendFolderBypassValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9291,7 +9298,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_ControlRoomCueSendFolderBypassValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9383,7 +9390,7 @@ export class MR_PluginOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PluginOnValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9394,7 +9401,7 @@ export class MR_PluginOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PluginOnValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9486,7 +9493,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PluginBypassValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9497,7 +9504,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PluginBypassValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9589,7 +9596,7 @@ export class MR_PluginEditValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PluginEditValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9600,7 +9607,7 @@ export class MR_PluginEditValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PluginEditValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9692,7 +9699,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterBypassValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9703,7 +9710,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterBypassValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9795,7 +9802,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterGainValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9806,7 +9813,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterGainValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -9898,7 +9905,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterPhaseSwitchValue: increment(${JSON.stringify({
                 activeMapping,
@@ -9909,7 +9916,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterPhaseSwitchValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10001,7 +10008,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterHighCutFrequencyValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10012,7 +10019,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterHighCutFrequencyValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10104,7 +10111,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterHighCutOnValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10115,7 +10122,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterHighCutOnValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10207,7 +10214,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterHighCutSlopeValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10218,7 +10225,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterHighCutSlopeValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10310,7 +10317,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterLowCutFrequencyValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10321,7 +10328,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterLowCutFrequencyValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10413,7 +10420,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterLowCutOnValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10424,7 +10431,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterLowCutOnValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10516,7 +10523,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterLowCutSlopeValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10527,7 +10534,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_PreFilterLowCutSlopeValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10619,7 +10626,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandGainValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10630,7 +10637,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandGainValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10722,7 +10729,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandFrequencyValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10733,7 +10740,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandFrequencyValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10825,7 +10832,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandQualityValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10836,7 +10843,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandQualityValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -10928,7 +10935,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandOnValue: increment(${JSON.stringify({
                 activeMapping,
@@ -10939,7 +10946,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandOnValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -11031,7 +11038,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandFilterTypeValue: increment(${JSON.stringify({
                 activeMapping,
@@ -11042,7 +11049,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_EQBandFilterTypeValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -11134,7 +11141,7 @@ export class MR_QuickControlValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_QuickControlValue: increment(${JSON.stringify({
                 activeMapping,
@@ -11145,7 +11152,7 @@ export class MR_QuickControlValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_QuickControlValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -11237,7 +11244,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_FocusedQuickControlsLockedStateValue: increment(${JSON.stringify({
                 activeMapping,
@@ -11248,7 +11255,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_FocusedQuickControlsLockedStateValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -11340,7 +11347,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostPluginParameterBankValue: increment(${JSON.stringify({
                 activeMapping,
@@ -11351,7 +11358,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostPluginParameterBankValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -11443,7 +11450,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostValueAtMouseCursor: increment(${JSON.stringify({
                 activeMapping,
@@ -11454,7 +11461,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostValueAtMouseCursor: decrement(${JSON.stringify({
                 activeMapping,
@@ -11546,7 +11553,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostValueAtMouseCursorLockedState: increment(${JSON.stringify({
                 activeMapping,
@@ -11557,7 +11564,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostValueAtMouseCursorLockedState: decrement(${JSON.stringify({
                 activeMapping,
@@ -11649,7 +11656,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomValue: increment(${JSON.stringify({
                 activeMapping,
@@ -11660,7 +11667,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomValue: decrement(${JSON.stringify({
                 activeMapping,
@@ -11752,7 +11759,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomSelectSourceCueValueByIndex: increment(${JSON.stringify({
                 activeMapping,
@@ -11763,7 +11770,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomSelectSourceCueValueByIndex: decrement(${JSON.stringify({
                 activeMapping,
@@ -11855,7 +11862,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomSelectTargetMonitorValueByIndex: increment(${JSON.stringify({
                 activeMapping,
@@ -11866,7 +11873,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomSelectTargetMonitorValueByIndex: decrement(${JSON.stringify({
                 activeMapping,
@@ -11958,7 +11965,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    increment(activeMapping: MR_ActiveMapping): void {
+    override increment(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomSelectSourceExternalInputValueByIndex: increment(${JSON.stringify({
                 activeMapping,
@@ -11969,7 +11976,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
-    decrement(activeMapping: MR_ActiveMapping): void {
+    override decrement(activeMapping: MR_ActiveMapping): void {
         logger.info(
             `MR_HostControlRoomSelectSourceExternalInputValueByIndex: decrement(${JSON.stringify({
                 activeMapping,
@@ -12503,7 +12510,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @param {MR_SubPage} subPage
      * @returns {MR_ValueBinding}
      */
-    setSubPage(subPage: MR_SubPage): MR_ValueBinding {
+    override setSubPage(subPage: MR_SubPage): MR_ValueBinding {
         logger.info(
             `MR_ValueBinding: setSubPage(${JSON.stringify({
                 subPage,
@@ -12516,7 +12523,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @param {number} filterValue
      * @returns {MR_ValueBinding}
      */
-    filterByValue(filterValue: number): MR_ValueBinding {
+    override filterByValue(filterValue: number): MR_ValueBinding {
         logger.info(
             `MR_ValueBinding: filterByValue(${JSON.stringify({
                 filterValue,
@@ -12530,7 +12537,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @param {number} to
      * @returns {MR_ValueBinding}
      */
-    filterByValueRange(from: number, to: number): MR_ValueBinding {
+    override filterByValueRange(from: number, to: number): MR_ValueBinding {
         logger.info(
             `MR_ValueBinding: filterByValueRange(${JSON.stringify({
                 from,
@@ -12544,7 +12551,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @param {number} mapValue
      * @returns {MR_ValueBinding}
      */
-    mapToValue(mapValue: number): MR_ValueBinding {
+    override mapToValue(mapValue: number): MR_ValueBinding {
         logger.info(
             `MR_ValueBinding: mapToValue(${JSON.stringify({
                 mapValue,
@@ -12558,7 +12565,7 @@ export class MR_ValueBinding extends MR_HostBinding {
      * @param {number} to
      * @returns {MR_ValueBinding}
      */
-    mapToValueRange(from: number, to: number): MR_ValueBinding {
+    override mapToValueRange(from: number, to: number): MR_ValueBinding {
         logger.info(
             `MR_ValueBinding: mapToValueRange(${JSON.stringify({
                 from,
@@ -12616,7 +12623,7 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @param {MR_SubPage} subPage
      * @returns {MR_CommandBinding}
      */
-    setSubPage(subPage: MR_SubPage): MR_CommandBinding {
+    override setSubPage(subPage: MR_SubPage): MR_CommandBinding {
         logger.info(
             `MR_CommandBinding: setSubPage(${JSON.stringify({
                 subPage,
@@ -12629,7 +12636,7 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @param {number} filterValue
      * @returns {MR_CommandBinding}
      */
-    filterByValue(filterValue: number): MR_CommandBinding {
+    override filterByValue(filterValue: number): MR_CommandBinding {
         logger.info(
             `MR_CommandBinding: filterByValue(${JSON.stringify({
                 filterValue,
@@ -12643,7 +12650,7 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @param {number} to
      * @returns {MR_CommandBinding}
      */
-    filterByValueRange(from: number, to: number): MR_CommandBinding {
+    override filterByValueRange(from: number, to: number): MR_CommandBinding {
         logger.info(
             `MR_CommandBinding: filterByValueRange(${JSON.stringify({
                 from,
@@ -12657,7 +12664,7 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @param {number} mapValue
      * @returns {MR_CommandBinding}
      */
-    mapToValue(mapValue: number): MR_CommandBinding {
+    override mapToValue(mapValue: number): MR_CommandBinding {
         logger.info(
             `MR_CommandBinding: mapToValue(${JSON.stringify({
                 mapValue,
@@ -12671,7 +12678,7 @@ export class MR_CommandBinding extends MR_HostBinding {
      * @param {number} to
      * @returns {MR_CommandBinding}
      */
-    mapToValueRange(from: number, to: number): MR_CommandBinding {
+    override mapToValueRange(from: number, to: number): MR_CommandBinding {
         logger.info(
             `MR_CommandBinding: mapToValueRange(${JSON.stringify({
                 from,
@@ -12729,7 +12736,7 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @param {MR_SubPage} subPage
      * @returns {MR_ActionBinding}
      */
-    setSubPage(subPage: MR_SubPage): MR_ActionBinding {
+    override setSubPage(subPage: MR_SubPage): MR_ActionBinding {
         logger.info(
             `MR_ActionBinding: setSubPage(${JSON.stringify({
                 subPage,
@@ -12742,7 +12749,7 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @param {number} filterValue
      * @returns {MR_ActionBinding}
      */
-    filterByValue(filterValue: number): MR_ActionBinding {
+    override filterByValue(filterValue: number): MR_ActionBinding {
         logger.info(
             `MR_ActionBinding: filterByValue(${JSON.stringify({
                 filterValue,
@@ -12756,7 +12763,7 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @param {number} to
      * @returns {MR_ActionBinding}
      */
-    filterByValueRange(from: number, to: number): MR_ActionBinding {
+    override filterByValueRange(from: number, to: number): MR_ActionBinding {
         logger.info(
             `MR_ActionBinding: filterByValueRange(${JSON.stringify({
                 from,
@@ -12770,7 +12777,7 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @param {number} mapValue
      * @returns {MR_ActionBinding}
      */
-    mapToValue(mapValue: number): MR_ActionBinding {
+    override mapToValue(mapValue: number): MR_ActionBinding {
         logger.info(
             `MR_ActionBinding: mapToValue(${JSON.stringify({
                 mapValue,
@@ -12784,7 +12791,7 @@ export class MR_ActionBinding extends MR_HostBinding {
      * @param {number} to
      * @returns {MR_ActionBinding}
      */
-    mapToValueRange(from: number, to: number): MR_ActionBinding {
+    override mapToValueRange(from: number, to: number): MR_ActionBinding {
         logger.info(
             `MR_ActionBinding: mapToValueRange(${JSON.stringify({
                 from,

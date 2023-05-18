@@ -53,7 +53,9 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
         })
 
         fs.writeFile(filePath, replaced, 'utf8', function (err) {
-            if (err) return console.log(err)
+            if (err) {
+                return console.log(err)
+            }
         })
     })
 }
@@ -84,10 +86,13 @@ const prependConfig = (configPath: string, outputPath: string) => {
 // replaced = replaced.replace(/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, '//')
 
 const replaceMap: Map<RegExp, string> = new Map([
-    [/"use strict";/g, ''],
-    [/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, ''],
-    [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);/g, ''],
     [/SCRIPT_VERSION/g, `"${process.env['npm_package_version']}"`],
+    [/"use strict";?/g, ''],
+    [/'use strict';?/g, ''],
+    [/Object.defineProperty\(exports, "__esModule", { value: true }\);?/g, ''],
+    [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);?/g, ''],
+    [/Object.defineProperty\(exports, '__esModule', { value: true }\);?/g, ''],
+    [/(var midiremote_api_v1.*?)\s=\s__.*$/gm, "$1 = require('midiremote_api_v1')"],
 ])
 
 replaceInFiles('dist', /.js/, replaceMap)

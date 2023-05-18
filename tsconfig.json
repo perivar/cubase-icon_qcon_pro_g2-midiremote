@@ -14,7 +14,7 @@
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
-    // "noImplicitOverride": true,
+    "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     // "noUncheckedIndexedAccess": true, // gives lots of possibly undefined errors
     "strict": true,
@@ -31,20 +31,20 @@
     // Note! a better solution is to downgrade @types/node to "@types/node": "~16.0.0",
 
     /* Emit */
-    "declaration": true,
-    "declarationMap": true,
     "outDir": "./dist",
     "sourceMap": true,
     "noEmit": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    // "declaration": true,
+    // "declarationMap": true,
+    // "experimentalDecorators": true,
+    // "emitDecoratorMetadata": true,
 
     /* Interop Constraints */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    // "verbatimModuleSyntax": true,
     "allowSyntheticDefaultImports": true,
+    // "verbatimModuleSyntax": true,
 
     /* Language and Environment */
     "target": "ES5",

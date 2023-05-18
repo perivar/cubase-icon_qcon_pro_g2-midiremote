@@ -13,7 +13,7 @@ build({
     watch: process.argv.includes('--watch'),
     entry: { icon_qcon_pro_g2_tsup: 'src/index.ts' },
     outDir: 'dist/icon/qcon_pro_g2',
-    clean: true,
+    clean: false,
     external: ['midiremote_api_v1'],
     noExternal: [],
     onSuccess: async () => {
