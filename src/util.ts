@@ -33,7 +33,9 @@ export const makeCallbackCollection = <
     const callbacks: Array<(...args: A) => void> = []
 
     const callbackCollection = ((...args: A) => {
-        for (const callback of callbacks) {
+        // PIN: converted for-of loop to ES5
+        for (let i = 0; i < callbacks.length; i++) {
+            const callback = callbacks[i]
             callback(...args)
         }
     }) as CallbackCollection<A>
@@ -134,7 +136,9 @@ export class GlobalBooleanVariable {
     private onChangeCallbacks: GlobalBooleanVariableChangeCallback[] = []
 
     private invokeCallbacks(context: MR_ActiveDevice, value: boolean) {
-        for (const callback of this.onChangeCallbacks) {
+        // PIN: converted for-of loop to ES5
+        for (let i = 0; i < this.onChangeCallbacks.length; i++) {
+            const callback = this.onChangeCallbacks[i]
             callback(context, value)
         }
     }

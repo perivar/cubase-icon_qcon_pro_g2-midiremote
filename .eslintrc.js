@@ -5,7 +5,7 @@ module.exports = {
         node: true,
     },
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint', 'import', 'simple-import-sort', 'unused-imports'],
+    plugins: ['@typescript-eslint', 'import', 'simple-import-sort', 'unused-imports', 'es5'],
     extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
     rules: {
         '@typescript-eslint/no-var-requires': 'off',
@@ -21,5 +21,10 @@ module.exports = {
         'no-empty-function': 'off',
         'prefer-rest-params': 'off',
         'prefer-spread': 'off',
+        'es5/no-spread': 'warn',
+        'es5/no-for-of': 'error',
+        // 'es5/no-rest-parameters': 'error',
+        'es5/no-es6-methods': 'error',
+        'es5/no-es6-static-methods': 'warn',
     },
 }
