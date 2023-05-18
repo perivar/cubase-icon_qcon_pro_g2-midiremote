@@ -49,6 +49,8 @@ export type ChannelSurfaceElements = ReturnType<typeof createChannelSurfaceEleme
 export const createControlSectionSurfaceElements = (surface: DecoratedDeviceSurface, x: number) => {
     surface.makeBlindPanel(x + 1, 6, 23.25, 4) // Time display
 
+    // create the 3 rows of 7 buttons (21 buttons) below the function buttons
+    // modify, automation, utility, transport
     const miscControlButtons = createElements(21, (index) =>
         makeSquareButton(
             surface,
@@ -71,21 +73,35 @@ export const createControlSectionSurfaceElements = (surface: DecoratedDeviceSurf
             flip: surface.makeLedButton(x + 2, 16, 2, 1.5),
             scrub: makeSquareButton(surface, x + 21.75, 28),
 
+            // assignment: 6 = (40 - 45) - page up/down, pan, inserts, eq, fx send
+            // on x-touch the 6 buttons are labelled: track, pan/surround, eq, send, plug-in, inst
             encoderAssign: createElements(6, (index) =>
                 makeSquareButton(surface, x + 2 + index * 2.25, 3.5)
             ),
+
+            // number: 8 = (62 - 69) - Layer2F1 - Layer2F8
             number: createElements(8, (index) =>
                 makeSquareButton(surface, x + 6 + index * 2.25, 10.5)
             ),
+
+            // function: 8 = (54 - 61) - F1 - F8
             function: createElements(8, (index) =>
                 makeSquareButton(surface, x + 6 + index * 2.25, 14)
             ),
+
+            // modify: 4 = (70 - 73) [0, 1, 7, 8] - Undo, Redo, Save, Revert
             modify: getMiscControlButtons([0, 1, 7, 8]),
+
+            // automation: 6 = (74 - 79) [2, 3, 4, 9, 10, 11] - Read, Write, Sends, Project, Mixer, Motors
             automation: getMiscControlButtons([2, 3, 4, 9, 10, 11]),
+
+            // utility: 4 = (80 - 83) [5, 6, 12, 13] - VST, Master, Solo Defeat, Shift
             utility: getMiscControlButtons([5, 6, 12, 13]),
+
             // PIN: converted spread-to-array to ES5 with concat and typehint
+            // transport: 7 + 5 = (84 - 90 and 91 - 95) - Left, Right, Cycle, Punch, Previous, Add, Next, Rewind, FastFwd, Stop, Play, Record
             transport: ([] as LedButton[]).concat(
-                miscControlButtons.slice(14),
+                miscControlButtons.slice(14), // skip the first 14 buttons as they are already created
                 createElements(5, (index) =>
                     surface.makeLedButton(x + 6.25 + index * 3.56, 25, 3, 2)
                 )

@@ -328,7 +328,10 @@ export const bindDeviceToMidi = (
         // PIN: converted a large for-of entries() loop to ES5
 
         // assignment: 6 = (40 - 45) - page up/down, pan, inserts, eq, fx send
-        ;[0, 3, 1, 4, 2, 5].map((index) =>
+        // on x-touch the 6 buttons are labelled: track, pan/surround, eq, send, plug-in, inst
+        // Mackie mapping from 40 - 45 is: track, send, pan/surround, plug-in, eq, instrument
+        const encoderAssignMapping = [0, 3, 1, 4, 2, 5]
+        encoderAssignMapping.map((index) =>
             buttons.encoderAssign[index].bindToNote(ports, 40 + index)
         )
 
@@ -382,7 +385,8 @@ export const bindDeviceToMidi = (
 
         // Segment Display - handled by the SegmentDisplayManager, except for:
         const { smpte, beats, solo } = elements.displayLeds
-        ;[smpte, beats, solo].forEach((lamp, index) => {
+        const lamps = [smpte, beats, solo]
+        lamps.forEach((lamp, index) => {
             lamp.bindToNote(ports.output, 113 + index)
         })
 
