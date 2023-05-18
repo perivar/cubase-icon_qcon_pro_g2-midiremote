@@ -34,7 +34,12 @@ export class SegmentDisplayManager {
     ) {
         let currentSegmentId = lastSegmentId
         let hasCurrentSegmentDot = false
-        for (const char of Array.from(string).reverse()) {
+
+        // PIN: converted for-of loop to ES5
+        const reversedArray = Array.from(string).reverse()
+        for (let i = 0; i < reversedArray.length; i++) {
+            const char = reversedArray[i]
+
             if (char === '.' || char === ':') {
                 hasCurrentSegmentDot = true
             } else {
