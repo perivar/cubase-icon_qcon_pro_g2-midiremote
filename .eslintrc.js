@@ -19,5 +19,7 @@ module.exports = {
         'simple-import-sort/imports': 'error',
         'simple-import-sort/exports': 'error',
         'no-empty-function': 'off',
+        'prefer-rest-params': 'off',
+        'prefer-spread': 'off',
     },
 }

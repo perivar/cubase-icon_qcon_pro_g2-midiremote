@@ -2,7 +2,8 @@ import { createLogger, format, transports } from 'winston'
 
 const formatMeta = (meta: any) => {
     // You can format the splat yourself
-    const splat = meta[Symbol.for('splat')]
+    // const splat = meta[Symbol.for('splat')]
+    const splat = meta['splat']
     if (splat && splat.length) {
         return splat.length === 1 ? JSON.stringify(splat[0]) : JSON.stringify(splat)
     }

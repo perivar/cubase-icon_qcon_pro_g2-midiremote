@@ -87,7 +87,11 @@ export const makeTimerUtils = (page: MR_FactoryMappingPage, surface: MR_DeviceSu
     }
 
     timerPage.mOnActivate = (context) => {
-        for (const [timeoutId, { scheduledExecutionTime, callback }] of Object.entries(timeouts)) {
+        // PIN: converted for-of loop to ES5 and avoid Object.entries
+        for (let i = 0; i < Object.keys(timeouts).length; i++) {
+            const timeoutId = Object.keys(timeouts)[i]
+            const { scheduledExecutionTime, callback } = timeouts[timeoutId]
+
             if (performance.now() >= scheduledExecutionTime) {
                 callback(context)
                 delete timeouts[timeoutId]
