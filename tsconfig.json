@@ -4,6 +4,10 @@
 // fix to avoid auto-import of @types/node which cause the
 // typescript compiler to not output the correct warnings when targeting es5
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/21310#issuecomment-434329726
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/21310#issuecomment-343804830
+// https://github.com/microsoft/TypeScript/issues/18588#issuecomment-432247126
+// https://github.com/rollup/rollup/issues/2142#issuecomment-470217991
+
 {
   "compilerOptions": {
     /* Type Checking */
@@ -21,9 +25,10 @@
       "midiremote_api_v1": ["api/v1/midiremote_api_v1"],
       "#pkg/*": ["./src/*"]
     },
-    // "typeRoots": ["types"], // the fix given to exclude the @types/node using a dummy directory is not needed
-    "typeRoots": ["./node_modules/@types", "./types"],
-    "types": ["jest", "node"],
+    // exclude the @types/node using a dummy node-directory to get proper es5 warnings, make sure the dummy dir is first
+    // "typeRoots": ["./types", "./node_modules/@types"],
+    // "types": ["jest", "node"],
+    // Note! a better solution is to downgrade @types/node to "@types/node": "~16.0.0",
 
     /* Emit */
     "declaration": true,

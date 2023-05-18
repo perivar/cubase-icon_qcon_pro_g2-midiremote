@@ -64,7 +64,7 @@ const prependConfig = (configPath: string, outputPath: string) => {
         const scriptConfigArray = /BEGIN JS\n([\s\S]+)/.exec(configFileContents)
 
         if (scriptConfigArray) {
-            const devices = process.env.DEVICES ?? '["main"]'
+            const devices = process.env['DEVICES'] ?? '["main"]'
 
             const scriptConfig = scriptConfigArray[1].replace(
                 'devices: ["main"]',
@@ -87,7 +87,7 @@ const replaceMap: Map<RegExp, string> = new Map([
     [/"use strict";/g, ''],
     [/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, ''],
     [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);/g, ''],
-    [/SCRIPT_VERSION/g, `"${process.env.npm_package_version}"`],
+    [/SCRIPT_VERSION/g, `"${process.env['npm_package_version']}"`],
 ])
 
 replaceInFiles('dist', /.js/, replaceMap)
