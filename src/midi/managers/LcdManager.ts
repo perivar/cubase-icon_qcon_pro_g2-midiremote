@@ -1,14 +1,14 @@
-import { MR_ActiveDevice } from 'midiremote_api_v1'
+import { MR_ActiveDevice } from 'midiremote_api_v1';
 
-import { abbreviate } from '../../abbreviate'
-import { Device } from '../../Devices'
+import { abbreviate } from '../../abbreviate';
+import { Device } from '../../Devices';
 
 export class LcdManager {
     /**
      * Strips any non-ASCII character from the provided string, since devices only support ASCII.
      **/
     static stripNonAsciiCharacters(input: string) {
-        return input.replace(/[^\x00-\x7F]/g, '')
+        return input.replace(/[^\x00-\x7F]/g, '');
     }
 
     /**
@@ -17,10 +17,10 @@ export class LcdManager {
      */
     static centerString(input: string) {
         if (input.length >= 7) {
-            return input
+            return input;
         }
 
-        return LcdManager.makeSpaces(Math.floor((7 - input.length) / 2)) + input
+        return LcdManager.makeSpaces(Math.floor((7 - input.length) / 2)) + input;
     }
 
     /**
@@ -28,43 +28,43 @@ export class LcdManager {
      */
     static abbreviateString(input: string) {
         if (input.length < 7) {
-            return input
+            return input;
         }
 
-        return abbreviate(input, { length: 7 })
+        return abbreviate(input, { length: 7 });
     }
 
     private static asciiStringToCharArray(input: string) {
-        const chars = []
+        const chars = [];
         for (let i = 0; i < input.length; i++) {
-            chars.push(input.charCodeAt(i))
+            chars.push(input.charCodeAt(i));
         }
-        return chars
+        return chars;
     }
 
     private static makeSpaces(length: number) {
-        return Array(length + 1).join(' ')
+        return Array(length + 1).join(' ');
     }
 
     constructor(private device: Device) {}
 
     private sendText(context: MR_ActiveDevice, startIndex: number, text: string) {
-        const chars = LcdManager.asciiStringToCharArray(text.slice(0, 112))
+        const chars = LcdManager.asciiStringToCharArray(text.slice(0, 112));
         this.device.ports.output.sendSysex(
             context,
             // PIN: converted spread-to-array to ES5 with concat and typehint
             ([] as number[]).concat(0x12, startIndex, chars)
-        )
+        );
     }
 
     setChannelText(context: MR_ActiveDevice, row: number, channelIndex: number, text: string) {
         while (text.length < 7) {
-            text += ' '
+            text += ' ';
         }
-        this.sendText(context, row * 56 + (channelIndex % 8) * 7, text)
+        this.sendText(context, row * 56 + (channelIndex % 8) * 7, text);
     }
 
     clearDisplays(context: MR_ActiveDevice) {
-        this.sendText(context, 0, LcdManager.makeSpaces(112))
+        this.sendText(context, 0, LcdManager.makeSpaces(112));
     }
 }

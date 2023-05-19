@@ -1,10 +1,10 @@
-export type DevicesConfiguration = Array<'main' | 'extender'>
+export type DevicesConfiguration = Array<'main' | 'extender'>;
 
 export type ScriptConfiguration = {
-    devices: DevicesConfiguration
-    enableAutoSelect: boolean
-    mapMainFaderToControlRoom: boolean
-}
+    devices: DevicesConfiguration;
+    enableAutoSelect: boolean;
+    mapMainFaderToControlRoom: boolean;
+};
 
 // When using tsup.mjs: Everything after "dash dash BEGIN JS dash dash"
 // is copied directly to the top of the build file (with some values being replaced).
@@ -41,6 +41,6 @@ var CONFIGURATION = {
      * You can achieve this by replacing `true` with `false` below.
      */
     mapMainFaderToControlRoom: true,
-}
+};
 
-export const config = CONFIGURATION
+export const config = CONFIGURATION;

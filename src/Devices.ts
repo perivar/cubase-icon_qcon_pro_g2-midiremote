@@ -1,9 +1,9 @@
-import { MR_DeviceDriver } from 'midiremote_api_v1'
+import { MR_DeviceDriver } from 'midiremote_api_v1';
 
-import { config } from './config'
-import { DecoratedDeviceSurface } from './decorators/surface'
-import { LcdManager } from './midi/managers/LcdManager'
-import { makePortPair, PortPair } from './midi/PortPair'
+import { config } from './config';
+import { DecoratedDeviceSurface } from './decorators/surface';
+import { LcdManager } from './midi/managers/LcdManager';
+import { makePortPair, PortPair } from './midi/PortPair';
 import {
     channelElementsWidth,
     ChannelSurfaceElements,
@@ -12,89 +12,89 @@ import {
     createChannelSurfaceElements,
     createControlSectionSurfaceElements,
     surfaceHeight,
-} from './surface'
+} from './surface';
 
 interface DeviceProperties {
-    driver: MR_DeviceDriver
-    surface: DecoratedDeviceSurface
-    firstChannelIndex: number
-    surfaceXPosition: number
+    driver: MR_DeviceDriver;
+    surface: DecoratedDeviceSurface;
+    firstChannelIndex: number;
+    surfaceXPosition: number;
 }
 
 /**
  * A `Device` represents a physical device and manages its MIDI ports and surface elements
  */
 export abstract class Device {
-    ports: PortPair
-    lcdManager: LcdManager
+    ports: PortPair;
+    lcdManager: LcdManager;
 
-    readonly firstChannelIndex: number
-    channelElements: ChannelSurfaceElements
+    readonly firstChannelIndex: number;
+    channelElements: ChannelSurfaceElements;
 
     constructor(
         { driver, firstChannelIndex, surface, surfaceXPosition }: DeviceProperties,
         isExtender: boolean,
         panelWidth: number
     ) {
-        this.firstChannelIndex = firstChannelIndex
+        this.firstChannelIndex = firstChannelIndex;
 
-        this.ports = makePortPair(driver, isExtender)
-        this.lcdManager = new LcdManager(this)
+        this.ports = makePortPair(driver, isExtender);
+        this.lcdManager = new LcdManager(this);
 
         // Draw device frame
-        surface.makeBlindPanel(surfaceXPosition, 0, panelWidth, surfaceHeight)
+        surface.makeBlindPanel(surfaceXPosition, 0, panelWidth, surfaceHeight);
 
-        this.channelElements = createChannelSurfaceElements(surface, surfaceXPosition)
+        this.channelElements = createChannelSurfaceElements(surface, surfaceXPosition);
     }
 }
 
 export class MainDevice extends Device {
-    static readonly surfaceWidth = channelElementsWidth + controlSectionElementsWidth
+    static readonly surfaceWidth = channelElementsWidth + controlSectionElementsWidth;
 
-    controlSectionElements: ControlSectionSurfaceElements
+    controlSectionElements: ControlSectionSurfaceElements;
 
     constructor(properties: DeviceProperties) {
-        super(properties, false, MainDevice.surfaceWidth)
+        super(properties, false, MainDevice.surfaceWidth);
 
         this.controlSectionElements = createControlSectionSurfaceElements(
             properties.surface,
             properties.surfaceXPosition + channelElementsWidth
-        )
+        );
     }
 }
 
 export class ExtenderDevice extends Device {
-    static readonly surfaceWidth = channelElementsWidth + 1
+    static readonly surfaceWidth = channelElementsWidth + 1;
 
     constructor(properties: DeviceProperties) {
-        super(properties, true, ExtenderDevice.surfaceWidth)
+        super(properties, true, ExtenderDevice.surfaceWidth);
     }
 }
 
 export class Devices {
-    private devices: Device[] = []
+    private devices: Device[] = [];
 
     constructor(driver: MR_DeviceDriver, surface: DecoratedDeviceSurface) {
         const deviceClasses = config.devices.map((deviceType) =>
             deviceType === 'main' ? MainDevice : ExtenderDevice
-        )
+        );
 
-        let nextDeviceXPosition = 0
+        let nextDeviceXPosition = 0;
 
         for (let i = 0; i < deviceClasses.length; i++) {
-            const deviceIndex = i
-            const deviceClass = deviceClasses[i]
+            const deviceIndex = i;
+            const deviceClass = deviceClasses[i];
 
             const device = new deviceClass({
                 firstChannelIndex: deviceIndex * 8,
                 driver,
                 surface,
                 surfaceXPosition: nextDeviceXPosition,
-            })
+            });
 
-            nextDeviceXPosition += deviceClass.surfaceWidth
+            nextDeviceXPosition += deviceClass.surfaceWidth;
 
-            this.devices.push(device)
+            this.devices.push(device);
         }
 
         if (this.devices.length === 1) {
@@ -102,16 +102,16 @@ export class Devices {
                 .makeDetectionUnit()
                 .detectPortPair(this.devices[0].ports.input, this.devices[0].ports.output)
                 .expectInputNameContains('iCON QCON Pro G2')
-                .expectOutputNameContains('iCON QCON Pro G2')
+                .expectOutputNameContains('iCON QCON Pro G2');
         }
     }
 
     getDeviceByChannelIndex(channelIndex: number) {
-        return this.devices[Math.floor(channelIndex / 8)]
+        return this.devices[Math.floor(channelIndex / 8)];
     }
 
-    forEach = this.devices.forEach.bind(this.devices)
-    map = this.devices.map.bind(this.devices)
-    flatMap = this.devices.flatMap.bind(this.devices)
-    filter = this.devices.filter.bind(this.devices)
+    forEach = this.devices.forEach.bind(this.devices);
+    map = this.devices.map.bind(this.devices);
+    flatMap = this.devices.flatMap.bind(this.devices);
+    filter = this.devices.filter.bind(this.devices);
 }

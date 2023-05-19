@@ -3,23 +3,23 @@ import {
     MR_DeviceSurface,
     MR_FactoryMappingPage,
     MR_SurfaceCustomValueVariable,
-} from 'midiremote_api_v1'
+} from 'midiremote_api_v1';
 
 export const createElements = <E>(count: number, factoryFunction: (index: number) => E): E[] => {
-    const elements = []
+    const elements = [];
     for (let index = 0; index < count; index++) {
-        elements.push(factoryFunction(index))
+        elements.push(factoryFunction(index));
     }
 
-    return elements
-}
+    return elements;
+};
 
 /**
  * A collection of callbacks that can be used as a callback itself.
  */
 export interface CallbackCollection<A extends any[]> {
-    (...args: A): void
-    addCallback(callback: (...args: A) => void): void
+    (...args: A): void;
+    addCallback(callback: (...args: A) => void): void;
 }
 
 export const makeCallbackCollection = <
@@ -30,42 +30,58 @@ export const makeCallbackCollection = <
     object: O,
     callbackName: C
 ) => {
-    const callbacks: Array<(...args: A) => void> = []
+    const callbacks: Array<(...args: A) => void> = [];
 
     const callbackCollection = ((...args: A) => {
         // PIN: converted for-of loop to ES5
-        for (let i = 0; i < callbacks.length; i++) {
-            const callback = callbacks[i]
-            callback(...args)
+        for (let i = 0, arr = callbacks; i < arr.length; i++) {
+            const callback = arr[i];
+
+            callback(...args);
         }
-    }) as CallbackCollection<A>
+    }) as CallbackCollection<A>;
 
     callbackCollection.addCallback = (callback) => {
-        callbacks.push(callback)
-    }
+        callbacks.push(callback);
+    };
 
     // @ts-expect-error Is not assignable error
-    object[callbackName] = callbackCollection
-    return callbackCollection
-}
+    object[callbackName] = callbackCollection;
+    return callbackCollection;
+};
 
-export type TimerUtils = ReturnType<typeof makeTimerUtils>
+export type TimerUtils = ReturnType<typeof makeTimerUtils>;
 
-let isTimerTicking = false
+let isTimerTicking = false;
 const timeouts: Record<
     string,
     { callback: (context: MR_ActiveDevice) => void; scheduledExecutionTime: number }
-> = {}
+> = {};
+
+// alternative to Object.entries polyfill
+// https://stackoverflow.com/questions/45849831/object-entries-alternative-for-internet-explorer-and-reactjs
+export const getObjectEntries = <T>(obj: { [s: string]: T }): [string, T][] => {
+    return Object.keys(obj).map((key) => [key, obj[key]]);
+};
+
+// alternative to Array.entries polyfill
+export const getArrayEntries = <T>(obj: Array<T>): [number, T][] => {
+    const keys: [number, T][] = [];
+    for (let i = 0; i < obj.length; i++) {
+        keys.push([i, obj[i]]);
+    }
+    return keys;
+};
 
 /**
  * This is one **hell** of a hack: It resembles the functionality of a global `setTimeout` function
  * by combining a surface variable, a sub page, and an action binding's `makeRepeating()` xD
  */
 export const makeTimerUtils = (page: MR_FactoryMappingPage, surface: MR_DeviceSurface) => {
-    const timerPage = page.makeSubPageArea('Timer').makeSubPage('Timer Page')
-    const triggerVariable = surface.makeCustomValueVariable('timerTrigger')
+    const timerPage = page.makeSubPageArea('Timer').makeSubPage('Timer Page');
+    const triggerVariable = surface.makeCustomValueVariable('timerTrigger');
 
-    page.makeActionBinding(triggerVariable, timerPage.mAction.mActivate).makeRepeating(1, 1)
+    page.makeActionBinding(triggerVariable, timerPage.mAction.mActivate).makeRepeating(1, 1);
 
     /**
      * Registers a given callback function (identified by `timeoutId`) to be executed after `timeout`
@@ -79,38 +95,42 @@ export const makeTimerUtils = (page: MR_FactoryMappingPage, surface: MR_DeviceSu
         timeout: number
     ) => {
         if (!isTimerTicking) {
-            triggerVariable.setProcessValue(context, 1)
+            triggerVariable.setProcessValue(context, 1);
         }
 
         timeouts[timeoutId] = {
             scheduledExecutionTime: performance.now() + timeout * 1000,
             callback,
-        }
-    }
+        };
+    };
 
     timerPage.mOnActivate = (context) => {
-        // PIN: converted for-of loop to ES5 and avoid Object.entries
-        for (let i = 0; i < Object.keys(timeouts).length; i++) {
-            const timeoutId = Object.keys(timeouts)[i]
-            const { scheduledExecutionTime, callback } = timeouts[timeoutId]
+        // PIN: converted for-of loop to ES5 and avoid Object.entries()
+        // for (const [timeoutId, { scheduledExecutionTime, callback }] of Object.entries(timeouts)) {
+        for (let i = 0, arr = getObjectEntries(timeouts); i < arr.length; i++) {
+            const timeoutObj = arr[i];
+            const timeoutId = timeoutObj[0];
+            const timeout = timeoutObj[1];
+            const scheduledExecutionTime = timeout.scheduledExecutionTime;
+            const callback = timeout.callback;
 
             if (performance.now() >= scheduledExecutionTime) {
-                callback(context)
-                delete timeouts[timeoutId]
+                callback(context);
+                delete timeouts[timeoutId];
             }
         }
 
         if (Object.keys(timeouts).length === 0) {
-            isTimerTicking = false
-            triggerVariable.setProcessValue(context, 0)
+            isTimerTicking = false;
+            triggerVariable.setProcessValue(context, 0);
         }
-    }
+    };
 
-    return { setTimeout }
-}
+    return { setTimeout };
+};
 
 export class ContextStateVariable<ValueType> {
-    private static nextVariableId = 0
+    private static nextVariableId = 0;
 
     constructor(
         private initialValue: ValueType,
@@ -118,56 +138,57 @@ export class ContextStateVariable<ValueType> {
     ) {}
 
     set(context: MR_ActiveDevice, value: ValueType) {
-        context.setState(this.name, JSON.stringify(value))
+        context.setState(this.name, JSON.stringify(value));
     }
 
     get(context: MR_ActiveDevice): ValueType {
-        const state = context.getState(this.name)
-        return state === '' ? this.initialValue : JSON.parse(state)
+        const state = context.getState(this.name);
+        return state === '' ? this.initialValue : JSON.parse(state);
     }
 }
 
-type GlobalBooleanVariableChangeCallback = (context: MR_ActiveDevice, newValue: boolean) => void
+type GlobalBooleanVariableChangeCallback = (context: MR_ActiveDevice, newValue: boolean) => void;
 
 export class GlobalBooleanVariable {
-    private static nextVariableId = 0
+    private static nextVariableId = 0;
 
-    private surfaceVariable: MR_SurfaceCustomValueVariable
-    private onChangeCallbacks: GlobalBooleanVariableChangeCallback[] = []
+    private surfaceVariable: MR_SurfaceCustomValueVariable;
+    private onChangeCallbacks: GlobalBooleanVariableChangeCallback[] = [];
 
     private invokeCallbacks(context: MR_ActiveDevice, value: boolean) {
         // PIN: converted for-of loop to ES5
-        for (let i = 0; i < this.onChangeCallbacks.length; i++) {
-            const callback = this.onChangeCallbacks[i]
-            callback(context, value)
+        for (let i = 0, arr = this.onChangeCallbacks; i < arr.length; i++) {
+            const callback = arr[i];
+
+            callback(context, value);
         }
     }
 
     constructor(surface: MR_DeviceSurface) {
         this.surfaceVariable = surface.makeCustomValueVariable(
             `globalBooleanVariable${GlobalBooleanVariable.nextVariableId++}`
-        )
+        );
         this.surfaceVariable.mOnProcessValueChange = (context, value) => {
-            this.invokeCallbacks(context, Boolean(value))
-        }
+            this.invokeCallbacks(context, Boolean(value));
+        };
     }
 
     addOnChangeCallback(callback: GlobalBooleanVariableChangeCallback) {
-        this.onChangeCallbacks.push(callback)
+        this.onChangeCallbacks.push(callback);
     }
 
     set(context: MR_ActiveDevice, value: boolean, runCallbacksInstantly = false) {
-        this.surfaceVariable.setProcessValue(context, +value)
+        this.surfaceVariable.setProcessValue(context, +value);
         if (runCallbacksInstantly) {
-            this.invokeCallbacks(context, value)
+            this.invokeCallbacks(context, value);
         }
     }
 
     get(context: MR_ActiveDevice) {
-        return Boolean(this.surfaceVariable.getProcessValue(context))
+        return Boolean(this.surfaceVariable.getProcessValue(context));
     }
 
     toggle(context: MR_ActiveDevice, runCallbacksInstantly = false) {
-        this.set(context, !this.get(context), runCallbacksInstantly)
+        this.set(context, !this.get(context), runCallbacksInstantly);
     }
 }

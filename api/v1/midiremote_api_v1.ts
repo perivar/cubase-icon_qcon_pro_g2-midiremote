@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createLogger, format, transports } from 'winston'
+import { createLogger, format, transports } from 'winston';
 
 const formatMeta = (meta: any) => {
     // You can format the splat yourself
     // const splat = meta[Symbol.for('splat')]
-    const splat = meta['splat']
+    const splat = meta['splat'];
     if (splat && splat.length) {
-        return splat.length === 1 ? JSON.stringify(splat[0]) : JSON.stringify(splat)
+        return splat.length === 1 ? JSON.stringify(splat[0]) : JSON.stringify(splat);
     }
-    return ''
-}
+    return '';
+};
 
 const customFormat = format.printf(
     ({ timestamp, level, message, label = '', ...meta }) =>
         `[${timestamp}] ${level}\t ${label} ${message} ${formatMeta(meta)}`
-)
+);
 
 const logger = createLogger({
     transports: [
@@ -55,85 +55,85 @@ const logger = createLogger({
             format: format.combine(format.colorize(), format.splat(), format.simple()),
         }),
     ],
-})
+});
 
 /**
  * @typedef Integer
  * @type {number}
  */
-type Integer = number
+type Integer = number;
 
 /**
  * @typedef Text
  * @type {string}
  */
-type Text = string
+type Text = string;
 
 /**
  * @typedef Scalar
  * @type {number}
  */
-type Scalar = number
+type Scalar = number;
 
 /**
  * @typedef Bool
  * @type {boolean}
  */
-type Bool = boolean
+type Bool = boolean;
 
 /**
  * @typedef Byte
  * @type {number}
  */
-type Byte = number
+type Byte = number;
 
 /**
  * @typedef Uuid
  * @type {string}
  */
-type Uuid = string
+type Uuid = string;
 
 /**
  * @typedef Size
  * @type {number}
  */
-type Size = number
+type Size = number;
 
 /**
  * @typedef Index
  * @type {number}
  */
-type Index = number
+type Index = number;
 
 /**
  * @typedef Name
  * @type {string}
  */
-type Name = string
+type Name = string;
 
 /**
  * @typedef MidiMessage
  * @type {number[]}
  */
-type MidiMessage = number[]
+type MidiMessage = number[];
 
 /**
  * @typedef HostObjectClassID
  * @type {string}
  */
-type HostObjectClassID = string
+type HostObjectClassID = string;
 
 /**
  * @typedef HostObjectPath
  * @type {string}
  */
-type HostObjectPath = string
+type HostObjectPath = string;
 
 /**
  * @typedef HostValueTag
  * @type {number}
  */
-type HostValueTag = number
+type HostValueTag = number;
 
 /**
  * @class MR_MidiRemoteAPI
@@ -142,16 +142,16 @@ type HostValueTag = number
  * var midiremote_api = require('midiremote_api_v1')
  */
 export class MR_MidiRemoteAPI {
-    mDefaults: MR_HostDefaults
+    mDefaults: MR_HostDefaults;
 
     constructor() {
-        logger.info('MidiRemoteAPI initializing ...')
-        logger.debug('MR_MidiRemoteAPI: constructor()')
+        logger.info('MidiRemoteAPI initializing ...');
+        logger.debug('MR_MidiRemoteAPI: constructor()');
 
         /**
          * @property
          */
-        this.mDefaults = new MR_HostDefaults()
+        this.mDefaults = new MR_HostDefaults();
     }
 
     /**
@@ -170,9 +170,9 @@ export class MR_MidiRemoteAPI {
                 deviceName,
                 createdBy,
             })})`
-        )
+        );
 
-        return new MR_DeviceDriver()
+        return new MR_DeviceDriver();
     }
 }
 
@@ -181,77 +181,77 @@ export class MR_MidiRemoteAPI {
  */
 export class MR_HostDefaults {
     constructor() {
-        logger.debug('MR_HostDefaults: constructor()')
+        logger.debug('MR_HostDefaults: constructor()');
     }
 
     /**
      * @returns {string}
      */
     getAppName(): string {
-        return 'Mocked Midi Remote API'
+        return 'Mocked Midi Remote API';
     }
 
     /**
      * @returns {number}
      */
     getNumberOfInsertEffectSlots(): number {
-        return 8
+        return 8;
     }
 
     /**
      * @returns {number}
      */
     getNumberOfStripEffectSlots(): number {
-        return 8
+        return 8;
     }
 
     /**
      * @returns {number}
      */
     getNumberOfSendSlots(): number {
-        return 8
+        return 8;
     }
 
     /**
      * @returns {number}
      */
     getNumberOfQuickControls(): number {
-        return 8
+        return 8;
     }
 
     /**
      * @returns {number}
      */
     getMaxControlRoomTalkbackChannels(): number {
-        return 2
+        return 2;
     }
 
     /**
      * @returns {number}
      */
     getMaxControlRoomExternalInputChannels(): number {
-        return 4
+        return 4;
     }
 
     /**
      * @returns {number}
      */
     getMaxControlRoomCueChannels(): number {
-        return 4
+        return 4;
     }
 
     /**
      * @returns {number}
      */
     getMaxControlRoomPhonesChannels(): number {
-        return 2
+        return 2;
     }
 
     /**
      * @returns {number}
      */
     getMaxControlRoomMonitorChannels(): number {
-        return 4
+        return 4;
     }
 }
 
@@ -261,7 +261,7 @@ export class MR_HostDefaults {
  */
 export class MR_ActiveDevice {
     constructor() {
-        logger.debug('MR_ActiveDevice: constructor()')
+        logger.debug('MR_ActiveDevice: constructor()');
     }
 
     /**
@@ -269,7 +269,7 @@ export class MR_ActiveDevice {
      * @param {string} val
      */
     setState(key: string, val: string): void {
-        logger.info(`MR_ActiveDevice: setState(${key} = ${val})`)
+        logger.info(`MR_ActiveDevice: setState(${key} = ${val})`);
     }
 
     /**
@@ -277,8 +277,8 @@ export class MR_ActiveDevice {
      * @returns {string}
      */
     getState(key: string): string {
-        logger.info(`MR_ActiveDevice: getState(${key}`)
-        return 'Not Implemented'
+        logger.info(`MR_ActiveDevice: getState(${key}`);
+        return 'Not Implemented';
     }
 }
 
@@ -287,7 +287,7 @@ export class MR_ActiveDevice {
  */
 export class MR_ActiveMapping {
     constructor() {
-        logger.debug('MR_ActiveMapping: constructor()')
+        logger.debug('MR_ActiveMapping: constructor()');
     }
 }
 
@@ -296,14 +296,14 @@ export class MR_ActiveMapping {
  */
 export class MR_HostAction {
     constructor() {
-        logger.debug('MR_HostAction: constructor()')
+        logger.debug('MR_HostAction: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_ActiveMapping: trigger(${activeMapping})`)
+        logger.debug(`MR_ActiveMapping: trigger(${activeMapping})`);
     }
 }
 
@@ -313,16 +313,16 @@ export class MR_HostAction {
  */
 export class MR_HostPluginParameterBankZoneAction extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostPluginParameterBankZoneAction: constructor()')
+        logger.debug('MR_HostPluginParameterBankZoneAction: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_HostPluginParameterBankZoneAction: trigger(${activeMapping})`)
+        logger.debug(`MR_HostPluginParameterBankZoneAction: trigger(${activeMapping})`);
     }
 }
 
@@ -332,16 +332,16 @@ export class MR_HostPluginParameterBankZoneAction extends MR_HostAction {
  */
 export class MR_HostInsertEffectViewerAction extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostInsertEffectViewerAction: constructor()')
+        logger.debug('MR_HostInsertEffectViewerAction: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_HostInsertEffectViewerAction: trigger(${activeMapping})`)
+        logger.debug(`MR_HostInsertEffectViewerAction: trigger(${activeMapping})`);
     }
 }
 
@@ -351,16 +351,16 @@ export class MR_HostInsertEffectViewerAction extends MR_HostAction {
  */
 export class MR_MixerBankZoneAction extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MixerBankZoneAction: constructor()')
+        logger.debug('MR_MixerBankZoneAction: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_MixerBankZoneAction: trigger(${activeMapping})`)
+        logger.debug(`MR_MixerBankZoneAction: trigger(${activeMapping})`);
     }
 }
 
@@ -370,16 +370,16 @@ export class MR_MixerBankZoneAction extends MR_HostAction {
  */
 export class MR_TrackSelectionAction extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_TrackSelectionAction: constructor()')
+        logger.debug('MR_TrackSelectionAction: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_TrackSelectionAction: trigger(${activeMapping})`)
+        logger.debug(`MR_TrackSelectionAction: trigger(${activeMapping})`);
     }
 }
 
@@ -389,16 +389,16 @@ export class MR_TrackSelectionAction extends MR_HostAction {
  */
 export class MR_SubPageActionActivate extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SubPageActionActivate: constructor()')
+        logger.debug('MR_SubPageActionActivate: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_SubPageActionActivate: trigger(${activeMapping})`)
+        logger.debug(`MR_SubPageActionActivate: trigger(${activeMapping})`);
     }
 }
 
@@ -408,16 +408,16 @@ export class MR_SubPageActionActivate extends MR_HostAction {
  */
 export class MR_SubPageAreaAction extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SubPageAreaAction: constructor()')
+        logger.debug('MR_SubPageAreaAction: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_SubPageAreaAction: trigger(${activeMapping})`)
+        logger.debug(`MR_SubPageAreaAction: trigger(${activeMapping})`);
     }
 }
 
@@ -427,16 +427,16 @@ export class MR_SubPageAreaAction extends MR_HostAction {
  */
 export class MR_MappingPageActionActivate extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MappingPageActionActivate: constructor()')
+        logger.debug('MR_MappingPageActionActivate: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_MappingPageActionActivate: trigger(${activeMapping})`)
+        logger.debug(`MR_MappingPageActionActivate: trigger(${activeMapping})`);
     }
 }
 
@@ -446,16 +446,16 @@ export class MR_MappingPageActionActivate extends MR_HostAction {
  */
 export class MR_DeviceDriverAction extends MR_HostAction {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_DeviceDriverAction: constructor()')
+        logger.debug('MR_DeviceDriverAction: constructor()');
     }
 
     /**
      * @param {MR_ActiveMapping} activeMapping
      */
     override trigger(activeMapping: MR_ActiveMapping): void {
-        logger.debug(`MR_DeviceDriverAction: trigger(${activeMapping})`)
+        logger.debug(`MR_DeviceDriverAction: trigger(${activeMapping})`);
     }
 }
 
@@ -466,45 +466,45 @@ export class MR_DeviceDriverAction extends MR_HostAction {
  * var deviceDriver = midiremote_api.makeDeviceDriver('ExampleCompany', 'SimpleDevice', 'Steinberg Media Technologies GmbH')
  */
 export class MR_DeviceDriver {
-    mPorts: MR_Ports
-    mSurface: MR_DeviceSurface
-    mMapping: MR_FactoryMapping
-    mAction: MR_DeviceDriverActions
-    mOnActivate: (activeDevice: MR_ActiveDevice) => void
-    mOnDeactivate: (activeDevice: MR_ActiveDevice) => void
+    mPorts: MR_Ports;
+    mSurface: MR_DeviceSurface;
+    mMapping: MR_FactoryMapping;
+    mAction: MR_DeviceDriverActions;
+    mOnActivate: (activeDevice: MR_ActiveDevice) => void;
+    mOnDeactivate: (activeDevice: MR_ActiveDevice) => void;
 
     constructor() {
-        logger.debug('MR_DeviceDriver: constructor()')
+        logger.debug('MR_DeviceDriver: constructor()');
 
         /**
          * @property
          */
-        this.mPorts = new MR_Ports()
+        this.mPorts = new MR_Ports();
 
         /**
          * @property
          */
-        this.mSurface = new MR_DeviceSurface()
+        this.mSurface = new MR_DeviceSurface();
 
         /**
          * @property
          */
-        this.mMapping = new MR_FactoryMapping()
+        this.mMapping = new MR_FactoryMapping();
 
         /**
          * @property
          */
-        this.mAction = new MR_DeviceDriverActions()
+        this.mAction = new MR_DeviceDriverActions();
 
         /**
          * @property
          */
-        this.mOnActivate = (activeDevice: MR_ActiveDevice) => {}
+        this.mOnActivate = (activeDevice: MR_ActiveDevice) => {};
 
         /**
          * @property
          */
-        this.mOnDeactivate = (activeDevice: MR_ActiveDevice) => {}
+        this.mOnDeactivate = (activeDevice: MR_ActiveDevice) => {};
     }
 
     /**
@@ -521,9 +521,9 @@ export class MR_DeviceDriver {
      * @returns {MR_DeviceDetectionUnit}
      */
     makeDetectionUnit(): MR_DeviceDetectionUnit {
-        logger.info(`MR_DeviceDriver: makeDetectionUnit()`)
+        logger.info(`MR_DeviceDriver: makeDetectionUnit()`);
 
-        return new MR_DeviceDetectionUnit()
+        return new MR_DeviceDetectionUnit();
     }
 
     /**
@@ -537,9 +537,9 @@ export class MR_DeviceDriver {
                 fileName,
                 delayInMilliseconds,
             })})`
-        )
+        );
 
-        return new MR_InitialSysexFile()
+        return new MR_InitialSysexFile();
     }
 
     /**
@@ -551,9 +551,9 @@ export class MR_DeviceDriver {
             `MR_DeviceDriver: setUserGuide(${JSON.stringify({
                 fileName,
             })})`
-        )
+        );
 
-        return new MR_UserGuide()
+        return new MR_UserGuide();
     }
 }
 
@@ -588,7 +588,7 @@ export class MR_DeviceDriver {
  */
 export class MR_Ports {
     constructor() {
-        logger.debug('MR_Ports: constructor()')
+        logger.debug('MR_Ports: constructor()');
     }
 
     /**
@@ -603,9 +603,9 @@ export class MR_Ports {
             `MR_Ports: makeMidiInput(${JSON.stringify({
                 name,
             })})`
-        )
+        );
 
-        return new MR_DeviceMidiInput()
+        return new MR_DeviceMidiInput();
     }
 
     /**
@@ -620,9 +620,9 @@ export class MR_Ports {
             `MR_Ports: makeMidiOutput(${JSON.stringify({
                 name,
             })})`
-        )
+        );
 
-        return new MR_DeviceMidiOutput()
+        return new MR_DeviceMidiOutput();
     }
 }
 
@@ -638,15 +638,15 @@ export class MR_DeviceMidiInput {
      * @param {MR_ActiveDevice} activeDevice
      * @param {MidiMessage} message
      */
-    mOnSysex: (activeDevice: MR_ActiveDevice, message: MidiMessage) => void
+    mOnSysex: (activeDevice: MR_ActiveDevice, message: MidiMessage) => void;
 
     constructor() {
-        logger.debug('MR_DeviceMidiInput: constructor()')
+        logger.debug('MR_DeviceMidiInput: constructor()');
 
         /**
          * @property
          */
-        this.mOnSysex = (activeDevice: MR_ActiveDevice, message: MidiMessage) => {}
+        this.mOnSysex = (activeDevice: MR_ActiveDevice, message: MidiMessage) => {};
     }
 }
 
@@ -658,7 +658,7 @@ export class MR_DeviceMidiInput {
  */
 export class MR_DeviceMidiOutput {
     constructor() {
-        logger.debug('MR_DeviceMidiOutput: constructor()')
+        logger.debug('MR_DeviceMidiOutput: constructor()');
     }
 
     /**
@@ -671,7 +671,7 @@ export class MR_DeviceMidiOutput {
                 activeDevice,
                 message,
             })})`
-        )
+        );
     }
 
     /**
@@ -690,7 +690,7 @@ export class MR_DeviceMidiOutput {
                 fileName,
                 delayMilliseconds,
             })})`
-        )
+        );
     }
 }
 
@@ -707,7 +707,7 @@ export class MR_DeviceMidiOutput {
  */
 export class MR_DeviceSurface {
     constructor() {
-        logger.debug('MR_DeviceSurface: constructor()')
+        logger.debug('MR_DeviceSurface: constructor()');
     }
 
     /**
@@ -718,8 +718,8 @@ export class MR_DeviceSurface {
      * @returns {MR_PushEncoder}
      */
     makePushEncoder(x: number, y: number, w: number, h: number): MR_PushEncoder {
-        logger.info(`MR_DeviceSurface: makePushEncoder(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_PushEncoder()
+        logger.info(`MR_DeviceSurface: makePushEncoder(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_PushEncoder();
     }
 
     /**
@@ -730,8 +730,8 @@ export class MR_DeviceSurface {
      * @returns {MR_Knob}
      */
     makeKnob(x: number, y: number, w: number, h: number): MR_Knob {
-        logger.info(`MR_DeviceSurface: makeKnob(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_Knob()
+        logger.info(`MR_DeviceSurface: makeKnob(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_Knob();
     }
 
     /**
@@ -742,8 +742,8 @@ export class MR_DeviceSurface {
      * @returns {MR_Fader}
      */
     makeFader(x: number, y: number, w: number, h: number): MR_Fader {
-        logger.info(`MR_DeviceSurface: makeFader(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_Fader()
+        logger.info(`MR_DeviceSurface: makeFader(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_Fader();
     }
 
     /**
@@ -754,8 +754,8 @@ export class MR_DeviceSurface {
      * @returns {MR_Button}
      */
     makeButton(x: number, y: number, w: number, h: number): MR_Button {
-        logger.info(`MR_DeviceSurface: makeButton(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_Button()
+        logger.info(`MR_DeviceSurface: makeButton(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_Button();
     }
 
     /**
@@ -766,8 +766,8 @@ export class MR_DeviceSurface {
      * @returns {MR_ModWheel}
      */
     makeModWheel(x: number, y: number, w: number, h: number): MR_ModWheel {
-        logger.info(`MR_DeviceSurface: makeModWheel(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_ModWheel()
+        logger.info(`MR_DeviceSurface: makeModWheel(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_ModWheel();
     }
 
     /**
@@ -778,8 +778,8 @@ export class MR_DeviceSurface {
      * @returns {MR_PitchBend}
      */
     makePitchBend(x: number, y: number, w: number, h: number): MR_PitchBend {
-        logger.info(`MR_DeviceSurface: makePitchBend(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_PitchBend()
+        logger.info(`MR_DeviceSurface: makePitchBend(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_PitchBend();
     }
 
     /**
@@ -790,8 +790,8 @@ export class MR_DeviceSurface {
      * @returns {MR_TriggerPad}
      */
     makeTriggerPad(x: number, y: number, w: number, h: number): MR_TriggerPad {
-        logger.info(`MR_DeviceSurface: makeTriggerPad(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_TriggerPad()
+        logger.info(`MR_DeviceSurface: makeTriggerPad(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_TriggerPad();
     }
 
     /**
@@ -802,8 +802,8 @@ export class MR_DeviceSurface {
      * @returns {MR_PadXY}
      */
     makePadXY(x: number, y: number, w: number, h: number): MR_PadXY {
-        logger.info(`MR_DeviceSurface: makePadXY(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_PadXY()
+        logger.info(`MR_DeviceSurface: makePadXY(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_PadXY();
     }
 
     /**
@@ -814,8 +814,8 @@ export class MR_DeviceSurface {
      * @returns {MR_JoyStickXY}
      */
     makeJoyStickXY(x: number, y: number, w: number, h: number): MR_JoyStickXY {
-        logger.info(`MR_DeviceSurface: makeJoyStickXY(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_JoyStickXY()
+        logger.info(`MR_DeviceSurface: makeJoyStickXY(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_JoyStickXY();
     }
 
     /**
@@ -826,8 +826,8 @@ export class MR_DeviceSurface {
      * @returns {MR_Lamp}
      */
     makeLamp(x: number, y: number, w: number, h: number): MR_Lamp {
-        logger.info(`MR_DeviceSurface: makeLamp(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_Lamp()
+        logger.info(`MR_DeviceSurface: makeLamp(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_Lamp();
     }
 
     /**
@@ -838,8 +838,8 @@ export class MR_DeviceSurface {
      * @returns {MR_BlindPanel}
      */
     makeBlindPanel(x: number, y: number, w: number, h: number): MR_BlindPanel {
-        logger.info(`MR_DeviceSurface: makeBlindPanel(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_BlindPanel()
+        logger.info(`MR_DeviceSurface: makeBlindPanel(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_BlindPanel();
     }
 
     /**
@@ -868,8 +868,8 @@ export class MR_DeviceSurface {
                 firstKeyIndex,
                 lastKeyIndex,
             })})`
-        )
-        return new MR_PianoKeys()
+        );
+        return new MR_PianoKeys();
     }
 
     /**
@@ -880,8 +880,8 @@ export class MR_DeviceSurface {
      * @returns {MR_SurfaceLabelField}
      */
     makeLabelField(x: number, y: number, w: number, h: number): MR_SurfaceLabelField {
-        logger.info(`MR_DeviceSurface: makeLabelField(${JSON.stringify({ x, y, w, h })})`)
-        return new MR_SurfaceLabelField()
+        logger.info(`MR_DeviceSurface: makeLabelField(${JSON.stringify({ x, y, w, h })})`);
+        return new MR_SurfaceLabelField();
     }
 
     /**
@@ -889,8 +889,8 @@ export class MR_DeviceSurface {
      * @returns {MR_ControlLayerZone}
      */
     makeControlLayerZone(name: string): MR_ControlLayerZone {
-        logger.info(`MR_DeviceSurface: makeControlLayerZone(${JSON.stringify({ name })})`)
-        return new MR_ControlLayerZone()
+        logger.info(`MR_DeviceSurface: makeControlLayerZone(${JSON.stringify({ name })})`);
+        return new MR_ControlLayerZone();
     }
 
     /**
@@ -899,8 +899,8 @@ export class MR_DeviceSurface {
      * @returns {MR_SurfaceCustomValueVariable}
      */
     makeCustomValueVariable(name: string): MR_SurfaceCustomValueVariable {
-        logger.info(`MR_DeviceSurface: makeCustomValueVariable(${JSON.stringify({ name })})`)
-        return new MR_SurfaceCustomValueVariable()
+        logger.info(`MR_DeviceSurface: makeCustomValueVariable(${JSON.stringify({ name })})`);
+        return new MR_SurfaceCustomValueVariable();
     }
 }
 
@@ -909,7 +909,7 @@ export class MR_DeviceSurface {
  */
 export class MR_SurfaceElement {
     constructor() {
-        logger.debug('MR_SurfaceElement: constructor()')
+        logger.debug('MR_SurfaceElement: constructor()');
     }
 }
 
@@ -918,23 +918,23 @@ export class MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_PushEncoder extends MR_SurfaceElement {
-    mEncoderValue: MR_SurfaceElementValue
-    mPushValue: MR_SurfaceElementValue
+    mEncoderValue: MR_SurfaceElementValue;
+    mPushValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PushEncoder: constructor()')
-
-        /**
-         * @property
-         */
-        this.mEncoderValue = new MR_SurfaceElementValue()
+        logger.debug('MR_PushEncoder: constructor()');
 
         /**
          * @property
          */
-        this.mPushValue = new MR_SurfaceElementValue()
+        this.mEncoderValue = new MR_SurfaceElementValue();
+
+        /**
+         * @property
+         */
+        this.mPushValue = new MR_SurfaceElementValue();
     }
 
     /**
@@ -946,9 +946,9 @@ export class MR_PushEncoder extends MR_SurfaceElement {
             `MR_PushEncoder: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -957,17 +957,17 @@ export class MR_PushEncoder extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Knob extends MR_SurfaceElement {
-    mSurfaceValue: MR_SurfaceElementValue
+    mSurfaceValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_Knob: constructor()')
+        logger.debug('MR_Knob: constructor()');
 
         /**
          * @property
          */
-        this.mSurfaceValue = new MR_SurfaceElementValue()
+        this.mSurfaceValue = new MR_SurfaceElementValue();
     }
 
     /**
@@ -979,9 +979,9 @@ export class MR_Knob extends MR_SurfaceElement {
             `MR_Knob: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -990,35 +990,35 @@ export class MR_Knob extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Fader extends MR_SurfaceElement {
-    mSurfaceValue: MR_SurfaceElementValue
+    mSurfaceValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_Fader: constructor()')
+        logger.debug('MR_Fader: constructor()');
 
         /**
          * @property
          */
-        this.mSurfaceValue = new MR_SurfaceElementValue()
+        this.mSurfaceValue = new MR_SurfaceElementValue();
     }
 
     /**
      * @returns {MR_Fader}
      */
     setTypeVertical(): MR_Fader {
-        logger.info(`MR_Fader: setTypeVertical()`)
+        logger.info(`MR_Fader: setTypeVertical()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_Fader}
      */
     setTypeHorizontal(): MR_Fader {
-        logger.info(`MR_Fader: setTypeVertical()`)
+        logger.info(`MR_Fader: setTypeVertical()`);
 
-        return this
+        return this;
     }
 
     /**
@@ -1030,9 +1030,9 @@ export class MR_Fader extends MR_SurfaceElement {
             `MR_Fader: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -1041,53 +1041,53 @@ export class MR_Fader extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Button extends MR_SurfaceElement {
-    mSurfaceValue: MR_SurfaceElementValue
+    mSurfaceValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_Button: constructor()')
+        logger.debug('MR_Button: constructor()');
 
         /**
          * @property
          */
-        this.mSurfaceValue = new MR_SurfaceElementValue()
+        this.mSurfaceValue = new MR_SurfaceElementValue();
     }
 
     /**
      * @returns {MR_Button}
      */
     setTypePush(): MR_Button {
-        logger.info(`MR_Button: setTypePush()`)
+        logger.info(`MR_Button: setTypePush()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_Button}
      */
     setTypeToggle(): MR_Button {
-        logger.info(`MR_Button: setTypeToggle()`)
+        logger.info(`MR_Button: setTypeToggle()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_Button}
      */
     setShapeRectangle(): MR_Button {
-        logger.info(`MR_Button: setShapeRectangle()`)
+        logger.info(`MR_Button: setShapeRectangle()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_Button}
      */
     setShapeCircle(): MR_Button {
-        logger.info(`MR_Button: setShapeCircle()`)
+        logger.info(`MR_Button: setShapeCircle()`);
 
-        return this
+        return this;
     }
 
     /**
@@ -1099,9 +1099,9 @@ export class MR_Button extends MR_SurfaceElement {
             `MR_Button: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -1110,17 +1110,17 @@ export class MR_Button extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_ModWheel extends MR_SurfaceElement {
-    mSurfaceValue: MR_SurfaceElementValue
+    mSurfaceValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ModWheel: constructor()')
+        logger.debug('MR_ModWheel: constructor()');
 
         /**
          * @property
          */
-        this.mSurfaceValue = new MR_SurfaceElementValue()
+        this.mSurfaceValue = new MR_SurfaceElementValue();
     }
 
     /**
@@ -1132,9 +1132,9 @@ export class MR_ModWheel extends MR_SurfaceElement {
             `MR_ModWheel: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -1143,17 +1143,17 @@ export class MR_ModWheel extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_PitchBend extends MR_SurfaceElement {
-    mSurfaceValue: MR_SurfaceElementValue
+    mSurfaceValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PitchBend: constructor()')
+        logger.debug('MR_PitchBend: constructor()');
 
         /**
          * @property
          */
-        this.mSurfaceValue = new MR_SurfaceElementValue()
+        this.mSurfaceValue = new MR_SurfaceElementValue();
     }
 
     /**
@@ -1165,9 +1165,9 @@ export class MR_PitchBend extends MR_SurfaceElement {
             `MR_PitchBend: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -1176,17 +1176,17 @@ export class MR_PitchBend extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_TriggerPad extends MR_SurfaceElement {
-    mSurfaceValue: MR_SurfaceElementValue
+    mSurfaceValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_TriggerPad: constructor()')
+        logger.debug('MR_TriggerPad: constructor()');
 
         /**
          * @property
          */
-        this.mSurfaceValue = new MR_SurfaceElementValue()
+        this.mSurfaceValue = new MR_SurfaceElementValue();
     }
 
     /**
@@ -1198,9 +1198,9 @@ export class MR_TriggerPad extends MR_SurfaceElement {
             `MR_TriggerPad: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -1209,23 +1209,23 @@ export class MR_TriggerPad extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_PadXY extends MR_SurfaceElement {
-    mX: MR_SurfaceElementValue
-    mY: MR_SurfaceElementValue
+    mX: MR_SurfaceElementValue;
+    mY: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PadXY: constructor()')
-
-        /**
-         * @property
-         */
-        this.mX = new MR_SurfaceElementValue()
+        logger.debug('MR_PadXY: constructor()');
 
         /**
          * @property
          */
-        this.mY = new MR_SurfaceElementValue()
+        this.mX = new MR_SurfaceElementValue();
+
+        /**
+         * @property
+         */
+        this.mY = new MR_SurfaceElementValue();
     }
 
     /**
@@ -1237,9 +1237,9 @@ export class MR_PadXY extends MR_SurfaceElement {
             `MR_PadXY: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -1248,23 +1248,23 @@ export class MR_PadXY extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_JoyStickXY extends MR_SurfaceElement {
-    mX: MR_SurfaceElementValue
-    mY: MR_SurfaceElementValue
+    mX: MR_SurfaceElementValue;
+    mY: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_JoyStickXY: constructor()')
-
-        /**
-         * @property
-         */
-        this.mX = new MR_SurfaceElementValue()
+        logger.debug('MR_JoyStickXY: constructor()');
 
         /**
          * @property
          */
-        this.mY = new MR_SurfaceElementValue()
+        this.mX = new MR_SurfaceElementValue();
+
+        /**
+         * @property
+         */
+        this.mY = new MR_SurfaceElementValue();
     }
 
     /**
@@ -1276,9 +1276,9 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
             `MR_JoyStickXY: setControlLayer(${JSON.stringify({
                 controlLayer,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -1287,35 +1287,35 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Lamp extends MR_SurfaceElement {
-    mSurfaceValue: MR_SurfaceElementValue
+    mSurfaceValue: MR_SurfaceElementValue;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_Lamp: constructor()')
+        logger.debug('MR_Lamp: constructor()');
 
         /**
          * @property
          */
-        this.mSurfaceValue = new MR_SurfaceElementValue()
+        this.mSurfaceValue = new MR_SurfaceElementValue();
     }
 
     /**
      * @returns {MR_Lamp}
      */
     setShapeRectangle(): MR_Lamp {
-        logger.info(`MR_Lamp: setShapeRectangle()`)
+        logger.info(`MR_Lamp: setShapeRectangle()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_Lamp}
      */
     setShapeCircle(): MR_Lamp {
-        logger.info(`MR_Lamp: setShapeCircle()`)
+        logger.info(`MR_Lamp: setShapeCircle()`);
 
-        return this
+        return this;
     }
 }
 
@@ -1325,27 +1325,27 @@ export class MR_Lamp extends MR_SurfaceElement {
  */
 export class MR_BlindPanel extends MR_SurfaceElement {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_BlindPanel: constructor()')
+        logger.debug('MR_BlindPanel: constructor()');
     }
 
     /**
      * @returns {MR_BlindPanel}
      */
     setShapeRectangle(): MR_BlindPanel {
-        logger.info(`MR_BlindPanel: setShapeRectangle()`)
+        logger.info(`MR_BlindPanel: setShapeRectangle()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_BlindPanel}
      */
     setShapeCircle(): MR_BlindPanel {
-        logger.info(`MR_BlindPanel: setShapeCircle()`)
+        logger.info(`MR_BlindPanel: setShapeCircle()`);
 
-        return this
+        return this;
     }
 }
 
@@ -1355,9 +1355,9 @@ export class MR_BlindPanel extends MR_SurfaceElement {
  */
 export class MR_PianoKeys extends MR_SurfaceElement {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PianoKeys: constructor()')
+        logger.debug('MR_PianoKeys: constructor()');
     }
 }
 
@@ -1366,7 +1366,7 @@ export class MR_PianoKeys extends MR_SurfaceElement {
  */
 export class MR_SurfaceLabelField {
     constructor() {
-        logger.debug('MR_SurfaceLabelField: constructor()')
+        logger.debug('MR_SurfaceLabelField: constructor()');
     }
 
     /**
@@ -1378,9 +1378,9 @@ export class MR_SurfaceLabelField {
             `MR_SurfaceLabelField: relateTo(${JSON.stringify({
                 surfaceElement,
             })})`
-        )
+        );
 
-        return new MR_SurfaceLabelField()
+        return new MR_SurfaceLabelField();
     }
 }
 
@@ -1389,7 +1389,7 @@ export class MR_SurfaceLabelField {
  */
 export class MR_ControlLayerZone {
     constructor() {
-        logger.debug('MR_ControlLayerZone: constructor()')
+        logger.debug('MR_ControlLayerZone: constructor()');
     }
 
     /**
@@ -1401,9 +1401,9 @@ export class MR_ControlLayerZone {
             `MR_ControlLayer: makeControlLayer(${JSON.stringify({
                 name,
             })})`
-        )
+        );
 
-        return new MR_ControlLayer()
+        return new MR_ControlLayer();
     }
 }
 
@@ -1412,7 +1412,7 @@ export class MR_ControlLayerZone {
  */
 export class MR_ControlLayer {
     constructor() {
-        logger.debug('MR_ControlLayer: constructor()')
+        logger.debug('MR_ControlLayer: constructor()');
     }
 }
 
@@ -1422,7 +1422,7 @@ export class MR_ControlLayer {
  */
 export class MR_SurfaceValue {
     constructor() {
-        logger.debug('MR_SurfaceValue: constructor()')
+        logger.debug('MR_SurfaceValue: constructor()');
     }
 
     /**
@@ -1430,7 +1430,9 @@ export class MR_SurfaceValue {
      * @param {number} value
      */
     setProcessValue(activeDevice: MR_ActiveDevice, value: number): void {
-        logger.debug(`MR_SurfaceValue: setProcessValue(${JSON.stringify({ activeDevice, value })})`)
+        logger.debug(
+            `MR_SurfaceValue: setProcessValue(${JSON.stringify({ activeDevice, value })})`
+        );
     }
 
     /**
@@ -1438,8 +1440,8 @@ export class MR_SurfaceValue {
      * @returns {number}
      */
     getProcessValue(activeDevice: MR_ActiveDevice): number {
-        logger.debug(`MR_SurfaceValue: getProcessValue(${JSON.stringify({ activeDevice })})`)
-        return -1
+        logger.debug(`MR_SurfaceValue: getProcessValue(${JSON.stringify({ activeDevice })})`);
+        return -1;
     }
 }
 
@@ -1449,10 +1451,14 @@ export class MR_SurfaceValue {
  * @augments MR_SurfaceValue
  */
 export class MR_SurfaceElementValue extends MR_SurfaceValue {
-    mMidiBinding: MR_SurfaceValueMidiBinding
-    mOnProcessValueChange: (activeDevice: MR_ActiveDevice, value: number, diff: number) => void
-    mOnDisplayValueChange: (activeDevice: MR_ActiveDevice, value: string, units: string) => void
-    mOnTitleChange: (activeDevice: MR_ActiveDevice, objectTitle: string, valueTitle: string) => void
+    mMidiBinding: MR_SurfaceValueMidiBinding;
+    mOnProcessValueChange: (activeDevice: MR_ActiveDevice, value: number, diff: number) => void;
+    mOnDisplayValueChange: (activeDevice: MR_ActiveDevice, value: string, units: string) => void;
+    mOnTitleChange: (
+        activeDevice: MR_ActiveDevice,
+        objectTitle: string,
+        valueTitle: string
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         r: number,
@@ -1460,17 +1466,17 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SurfaceElementValue: constructor()')
+        logger.debug('MR_SurfaceElementValue: constructor()');
 
         /**
          * @property
          */
-        this.mMidiBinding = new MR_SurfaceValueMidiBinding()
+        this.mMidiBinding = new MR_SurfaceValueMidiBinding();
 
         /**
          * @property
@@ -1479,7 +1485,7 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
             activeDevice: MR_ActiveDevice,
             value: number,
             diff: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -1488,7 +1494,7 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
             activeDevice: MR_ActiveDevice,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -1497,7 +1503,7 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
             activeDevice: MR_ActiveDevice,
             objectTitle: string,
             valueTitle: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -1509,7 +1515,7 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -1519,7 +1525,7 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
     override setProcessValue(activeDevice: MR_ActiveDevice, value: number): void {
         logger.debug(
             `MR_SurfaceElementValue: setProcessValue(${JSON.stringify({ activeDevice, value })})`
-        )
+        );
     }
 
     /**
@@ -1527,8 +1533,10 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
      * @returns {number}
      */
     override getProcessValue(activeDevice: MR_ActiveDevice): number {
-        logger.debug(`MR_SurfaceElementValue: getProcessValue(${JSON.stringify({ activeDevice })})`)
-        return -1
+        logger.debug(
+            `MR_SurfaceElementValue: getProcessValue(${JSON.stringify({ activeDevice })})`
+        );
+        return -1;
     }
 }
 
@@ -1538,10 +1546,14 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
  * @augments MR_SurfaceValue
  */
 export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
-    mMidiBinding: MR_SurfaceValueMidiBinding
-    mOnProcessValueChange: (activeDevice: MR_ActiveDevice, value: number, diff: number) => void
-    mOnDisplayValueChange: (activeDevice: MR_ActiveDevice, value: string, units: string) => void
-    mOnTitleChange: (activeDevice: MR_ActiveDevice, objectTitle: string, valueTitle: string) => void
+    mMidiBinding: MR_SurfaceValueMidiBinding;
+    mOnProcessValueChange: (activeDevice: MR_ActiveDevice, value: number, diff: number) => void;
+    mOnDisplayValueChange: (activeDevice: MR_ActiveDevice, value: string, units: string) => void;
+    mOnTitleChange: (
+        activeDevice: MR_ActiveDevice,
+        objectTitle: string,
+        valueTitle: string
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         r: number,
@@ -1549,17 +1561,17 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SurfaceCustomValueVariable: constructor()')
+        logger.debug('MR_SurfaceCustomValueVariable: constructor()');
 
         /**
          * @property
          */
-        this.mMidiBinding = new MR_SurfaceValueMidiBinding()
+        this.mMidiBinding = new MR_SurfaceValueMidiBinding();
 
         /**
          * @property
@@ -1568,7 +1580,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
             activeDevice: MR_ActiveDevice,
             value: number,
             diff: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -1577,7 +1589,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
             activeDevice: MR_ActiveDevice,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -1586,7 +1598,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
             activeDevice: MR_ActiveDevice,
             objectTitle: string,
             valueTitle: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -1598,7 +1610,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -1611,7 +1623,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
                 activeDevice,
                 value,
             })})`
-        )
+        );
     }
 
     /**
@@ -1621,8 +1633,8 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
     override getProcessValue(activeDevice: MR_ActiveDevice): number {
         logger.debug(
             `MR_SurfaceCustomValueVariable: getProcessValue(${JSON.stringify({ activeDevice })})`
-        )
-        return -1
+        );
+        return -1;
     }
 }
 
@@ -1631,7 +1643,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
  */
 export class MR_SurfaceValueMidiBinding {
     constructor() {
-        logger.debug('MR_SurfaceValueMidiBinding: constructor()')
+        logger.debug('MR_SurfaceValueMidiBinding: constructor()');
     }
 
     /**
@@ -1639,9 +1651,9 @@ export class MR_SurfaceValueMidiBinding {
      * @returns {MR_SurfaceValueMidiBinding}
      */
     setInputPort(inputPort: MR_DeviceMidiInput): MR_SurfaceValueMidiBinding {
-        logger.info(`MR_SurfaceValueMidiBinding: setInputPort(${JSON.stringify({ inputPort })})`)
+        logger.info(`MR_SurfaceValueMidiBinding: setInputPort(${JSON.stringify({ inputPort })})`);
 
-        return this
+        return this;
     }
 
     /**
@@ -1649,9 +1661,9 @@ export class MR_SurfaceValueMidiBinding {
      * @returns {MR_SurfaceValueMidiBinding}
      */
     setOutputPort(outputPort: MR_DeviceMidiOutput): MR_SurfaceValueMidiBinding {
-        logger.info(`MR_SurfaceValueMidiBinding: setOutputPort(${JSON.stringify({ outputPort })})`)
+        logger.info(`MR_SurfaceValueMidiBinding: setOutputPort(${JSON.stringify({ outputPort })})`);
 
-        return this
+        return this;
     }
 
     /**
@@ -1661,9 +1673,9 @@ export class MR_SurfaceValueMidiBinding {
     setIsConsuming(isConsuming: boolean): MR_SurfaceValueMidiBinding {
         logger.info(
             `MR_SurfaceValueMidiBinding: setIsConsuming(${JSON.stringify({ isConsuming })})`
-        )
+        );
 
-        return this
+        return this;
     }
 
     /**
@@ -1674,9 +1686,9 @@ export class MR_SurfaceValueMidiBinding {
     bindToNote(channelNumber: number, pitch: number): MR_MidiBindingToNote {
         logger.info(
             `MR_SurfaceValueMidiBinding: bindToNote(${JSON.stringify({ channelNumber, pitch })})`
-        )
+        );
 
-        return new MR_MidiBindingToNote()
+        return new MR_MidiBindingToNote();
     }
 
     /**
@@ -1693,9 +1705,9 @@ export class MR_SurfaceValueMidiBinding {
                 channelNumber,
                 controlChangeNumber,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToControlChange()
+        return new MR_MidiBindingToControlChange();
     }
 
     /**
@@ -1712,9 +1724,9 @@ export class MR_SurfaceValueMidiBinding {
                 channelNumber,
                 controlChangeNumber,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToControlChange14Bit()
+        return new MR_MidiBindingToControlChange14Bit();
     }
 
     /**
@@ -1731,9 +1743,9 @@ export class MR_SurfaceValueMidiBinding {
                 channelNumber,
                 controlChangeNumber,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToControlChange14BitNRPN()
+        return new MR_MidiBindingToControlChange14BitNRPN();
     }
 
     /**
@@ -1743,9 +1755,9 @@ export class MR_SurfaceValueMidiBinding {
     bindToPitchBend(channelNumber: number): MR_MidiBindingToPitchBend {
         logger.info(
             `MR_SurfaceValueMidiBinding: bindToPitchBend(${JSON.stringify({ channelNumber })})`
-        )
+        );
 
-        return new MR_MidiBindingToPitchBend()
+        return new MR_MidiBindingToPitchBend();
     }
 
     /**
@@ -1757,9 +1769,9 @@ export class MR_SurfaceValueMidiBinding {
             `MR_SurfaceValueMidiBinding: bindToChannelPressure(${JSON.stringify({
                 channelNumber,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToChannelPressure()
+        return new MR_MidiBindingToChannelPressure();
     }
 }
 
@@ -1768,7 +1780,7 @@ export class MR_SurfaceValueMidiBinding {
  */
 export class MR_MidiBindingValueRange7Bit {
     constructor() {
-        logger.debug('MR_MidiBindingValueRange7Bit: constructor()')
+        logger.debug('MR_MidiBindingValueRange7Bit: constructor()');
     }
 }
 
@@ -1777,7 +1789,7 @@ export class MR_MidiBindingValueRange7Bit {
  */
 export class MR_MidiBindingValueRange14Bit {
     constructor() {
-        logger.debug('MR_MidiBindingValueRange14Bit: constructor()')
+        logger.debug('MR_MidiBindingValueRange14Bit: constructor()');
     }
 }
 
@@ -1786,7 +1798,7 @@ export class MR_MidiBindingValueRange14Bit {
  */
 export class MR_MidiChannelBinding {
     constructor() {
-        logger.debug('MR_MidiChannelBinding: constructor()')
+        logger.debug('MR_MidiChannelBinding: constructor()');
     }
 }
 
@@ -1796,9 +1808,9 @@ export class MR_MidiChannelBinding {
  */
 export class MR_MidiBindingToNote extends MR_MidiChannelBinding {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MidiBindingToNote: constructor()')
+        logger.debug('MR_MidiBindingToNote: constructor()');
     }
 
     /**
@@ -1812,9 +1824,9 @@ export class MR_MidiBindingToNote extends MR_MidiChannelBinding {
                 min,
                 max,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToNote()
+        return new MR_MidiBindingToNote();
     }
 }
 
@@ -1824,9 +1836,9 @@ export class MR_MidiBindingToNote extends MR_MidiChannelBinding {
  */
 export class MR_MidiBindingToControlChange extends MR_MidiChannelBinding {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MidiBindingToControlChange: constructor()')
+        logger.debug('MR_MidiBindingToControlChange: constructor()');
     }
 
     /**
@@ -1840,45 +1852,45 @@ export class MR_MidiBindingToControlChange extends MR_MidiChannelBinding {
                 min,
                 max,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToControlChange()
+        return new MR_MidiBindingToControlChange();
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange}
      */
     setTypeAbsolute(): MR_MidiBindingToControlChange {
-        logger.info(`MR_MidiBindingToControlChange: setTypeAbsolute()`)
+        logger.info(`MR_MidiBindingToControlChange: setTypeAbsolute()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange}
      */
     setTypeRelativeSignedBit(): MR_MidiBindingToControlChange {
-        logger.info(`MR_MidiBindingToControlChange: setTypeRelativeSignedBit()`)
+        logger.info(`MR_MidiBindingToControlChange: setTypeRelativeSignedBit()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange}
      */
     setTypeRelativeBinaryOffset(): MR_MidiBindingToControlChange {
-        logger.info(`MR_MidiBindingToControlChange: setTypeRelativeBinaryOffset()`)
+        logger.info(`MR_MidiBindingToControlChange: setTypeRelativeBinaryOffset()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange}
      */
     setTypeRelativeTwosComplement(): MR_MidiBindingToControlChange {
-        logger.info(`MR_MidiBindingToControlChange: setTypeRelativeTwosComplement()`)
+        logger.info(`MR_MidiBindingToControlChange: setTypeRelativeTwosComplement()`);
 
-        return this
+        return this;
     }
 }
 
@@ -1888,9 +1900,9 @@ export class MR_MidiBindingToControlChange extends MR_MidiChannelBinding {
  */
 export class MR_MidiBindingToControlChange14Bit extends MR_MidiChannelBinding {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MidiBindingToControlChange14Bit: constructor()')
+        logger.debug('MR_MidiBindingToControlChange14Bit: constructor()');
     }
 
     /**
@@ -1904,45 +1916,45 @@ export class MR_MidiBindingToControlChange14Bit extends MR_MidiChannelBinding {
                 min,
                 max,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToControlChange14Bit()
+        return new MR_MidiBindingToControlChange14Bit();
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14Bit}
      */
     setTypeAbsolute(): MR_MidiBindingToControlChange14Bit {
-        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeAbsolute()`)
+        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeAbsolute()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14Bit}
      */
     setTypeRelativeSignedBit(): MR_MidiBindingToControlChange14Bit {
-        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeRelativeSignedBit()`)
+        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeRelativeSignedBit()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14Bit}
      */
     setTypeRelativeBinaryOffset(): MR_MidiBindingToControlChange14Bit {
-        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeRelativeBinaryOffset()`)
+        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeRelativeBinaryOffset()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14Bit}
      */
     setTypeRelativeTwosComplement(): MR_MidiBindingToControlChange14Bit {
-        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeRelativeTwosComplement()`)
+        logger.info(`MR_MidiBindingToControlChange14Bit: setTypeRelativeTwosComplement()`);
 
-        return this
+        return this;
     }
 }
 
@@ -1952,9 +1964,9 @@ export class MR_MidiBindingToControlChange14Bit extends MR_MidiChannelBinding {
  */
 export class MR_MidiBindingToControlChange14BitNRPN extends MR_MidiChannelBinding {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MidiBindingToControlChange14BitNRPN: constructor()')
+        logger.debug('MR_MidiBindingToControlChange14BitNRPN: constructor()');
     }
 
     /**
@@ -1968,45 +1980,45 @@ export class MR_MidiBindingToControlChange14BitNRPN extends MR_MidiChannelBindin
                 min,
                 max,
             })})`
-        )
+        );
 
-        return new MR_MidiBindingToControlChange14BitNRPN()
+        return new MR_MidiBindingToControlChange14BitNRPN();
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14BitNRPN}
      */
     setTypeAbsolute(): MR_MidiBindingToControlChange14BitNRPN {
-        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeAbsolute()`)
+        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeAbsolute()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14BitNRPN}
      */
     setTypeRelativeSignedBit(): MR_MidiBindingToControlChange14BitNRPN {
-        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeRelativeSignedBit()`)
+        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeRelativeSignedBit()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14BitNRPN}
      */
     setTypeRelativeBinaryOffset(): MR_MidiBindingToControlChange14BitNRPN {
-        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeRelativeBinaryOffset()`)
+        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeRelativeBinaryOffset()`);
 
-        return this
+        return this;
     }
 
     /**
      * @returns {MR_MidiBindingToControlChange14BitNRPN}
      */
     setTypeRelativeTwosComplement(): MR_MidiBindingToControlChange14BitNRPN {
-        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeRelativeTwosComplement()`)
+        logger.info(`MR_MidiBindingToControlChange14BitNRPN: setTypeRelativeTwosComplement()`);
 
-        return this
+        return this;
     }
 }
 
@@ -2015,17 +2027,17 @@ export class MR_MidiBindingToControlChange14BitNRPN extends MR_MidiChannelBindin
  * @augments MR_MidiChannelBinding
  */
 export class MR_MidiBindingToPitchBend extends MR_MidiChannelBinding {
-    mValueRange: MR_MidiBindingValueRange14Bit
+    mValueRange: MR_MidiBindingValueRange14Bit;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MidiBindingToPitchBend: constructor()')
+        logger.debug('MR_MidiBindingToPitchBend: constructor()');
 
         /**
          * @property
          */
-        this.mValueRange = new MR_MidiBindingValueRange14Bit()
+        this.mValueRange = new MR_MidiBindingValueRange14Bit();
     }
 }
 
@@ -2034,17 +2046,17 @@ export class MR_MidiBindingToPitchBend extends MR_MidiChannelBinding {
  * @augments MR_MidiChannelBinding
  */
 export class MR_MidiBindingToChannelPressure extends MR_MidiChannelBinding {
-    mValueRange: MR_MidiBindingValueRange7Bit
+    mValueRange: MR_MidiBindingValueRange7Bit;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MidiBindingToChannelPressure: constructor()')
+        logger.debug('MR_MidiBindingToChannelPressure: constructor()');
 
         /**
          * @property
          */
-        this.mValueRange = new MR_MidiBindingValueRange7Bit()
+        this.mValueRange = new MR_MidiBindingValueRange7Bit();
     }
 }
 
@@ -2084,7 +2096,7 @@ export class MR_MidiBindingToChannelPressure extends MR_MidiChannelBinding {
  */
 export class MR_Mapping {
     constructor() {
-        logger.debug('MR_Mapping: constructor()')
+        logger.debug('MR_Mapping: constructor()');
     }
 }
 
@@ -2094,9 +2106,9 @@ export class MR_Mapping {
  */
 export class MR_FactoryMapping extends MR_Mapping {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_FactoryMapping: constructor()')
+        logger.debug('MR_FactoryMapping: constructor()');
     }
 
     /**
@@ -2108,9 +2120,9 @@ export class MR_FactoryMapping extends MR_Mapping {
             `MR_FactoryMapping: makePage(${JSON.stringify({
                 name,
             })})`
-        )
+        );
 
-        return new MR_FactoryMappingPage()
+        return new MR_FactoryMappingPage();
     }
 }
 
@@ -2119,7 +2131,7 @@ export class MR_FactoryMapping extends MR_Mapping {
  */
 export class MR_Page {
     constructor() {
-        logger.debug('MR_Page: constructor()')
+        logger.debug('MR_Page: constructor()');
     }
 
     /**
@@ -2133,9 +2145,9 @@ export class MR_Page {
                 surfaceValue,
                 hostValue,
             })})`
-        )
+        );
 
-        return new MR_ValueBinding()
+        return new MR_ValueBinding();
     }
 
     /**
@@ -2155,9 +2167,9 @@ export class MR_Page {
                 commandCategory,
                 commandName,
             })})`
-        )
+        );
 
-        return new MR_CommandBinding()
+        return new MR_CommandBinding();
     }
 
     /**
@@ -2171,9 +2183,9 @@ export class MR_Page {
                 surfaceValue,
                 hostAction,
             })})`
-        )
+        );
 
-        return new MR_ActionBinding()
+        return new MR_ActionBinding();
     }
 
     /**
@@ -2185,9 +2197,9 @@ export class MR_Page {
             `MR_Page: makeSubPageArea(${JSON.stringify({
                 name,
             })})`
-        )
+        );
 
-        return new MR_SubPageArea()
+        return new MR_SubPageArea();
     }
 
     /**
@@ -2201,9 +2213,9 @@ export class MR_Page {
                 surfaceLabelField,
                 text,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 
     /**
@@ -2220,9 +2232,9 @@ export class MR_Page {
                 surfaceLabelField,
                 hostObject,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 
     /**
@@ -2239,9 +2251,9 @@ export class MR_Page {
                 surfaceLabelField,
                 subPageArea,
             })})`
-        )
+        );
 
-        return this
+        return this;
     }
 }
 
@@ -2250,41 +2262,41 @@ export class MR_Page {
  * @augments MR_Page
  */
 export class MR_FactoryMappingPage extends MR_Page {
-    mHostAccess: MR_HostAccess
-    mOnActivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void
-    mOnDeactivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void
-    mCustom: MR_HostObjectUndefined
-    mAction: MR_MappingPageActions
+    mHostAccess: MR_HostAccess;
+    mOnActivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void;
+    mOnDeactivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void;
+    mCustom: MR_HostObjectUndefined;
+    mAction: MR_MappingPageActions;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_FactoryMappingPage: constructor()')
-
-        /**
-         * @property
-         */
-        this.mHostAccess = new MR_HostAccess()
+        logger.debug('MR_FactoryMappingPage: constructor()');
 
         /**
          * @property
          */
-        this.mOnActivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
+        this.mHostAccess = new MR_HostAccess();
 
         /**
          * @property
          */
-        this.mOnDeactivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
+        this.mOnActivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {};
 
         /**
          * @property
          */
-        this.mCustom = new MR_HostObjectUndefined()
+        this.mOnDeactivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {};
 
         /**
          * @property
          */
-        this.mAction = new MR_MappingPageActions()
+        this.mCustom = new MR_HostObjectUndefined();
+
+        /**
+         * @property
+         */
+        this.mAction = new MR_MappingPageActions();
     }
 
     /**
@@ -2301,9 +2313,9 @@ export class MR_FactoryMappingPage extends MR_Page {
                 surfaceValue,
                 hostValue,
             })})`
-        )
+        );
 
-        return new MR_ValueBinding()
+        return new MR_ValueBinding();
     }
 
     /**
@@ -2323,9 +2335,9 @@ export class MR_FactoryMappingPage extends MR_Page {
                 commandCategory,
                 commandName,
             })})`
-        )
+        );
 
-        return new MR_CommandBinding()
+        return new MR_CommandBinding();
     }
 
     /**
@@ -2342,9 +2354,9 @@ export class MR_FactoryMappingPage extends MR_Page {
                 surfaceValue,
                 hostAction,
             })})`
-        )
+        );
 
-        return new MR_ActionBinding()
+        return new MR_ActionBinding();
     }
 
     /**
@@ -2356,9 +2368,9 @@ export class MR_FactoryMappingPage extends MR_Page {
             `MR_FactoryMappingPage: makeSubPageArea(${JSON.stringify({
                 name,
             })})`
-        )
+        );
 
-        return new MR_SubPageArea()
+        return new MR_SubPageArea();
     }
 
     /**
@@ -2375,9 +2387,9 @@ export class MR_FactoryMappingPage extends MR_Page {
                 surfaceLabelField,
                 text,
             })})`
-        )
+        );
 
-        return new MR_FactoryMappingPage()
+        return new MR_FactoryMappingPage();
     }
 
     /**
@@ -2394,9 +2406,9 @@ export class MR_FactoryMappingPage extends MR_Page {
                 surfaceLabelField,
                 hostObject,
             })})`
-        )
+        );
 
-        return new MR_FactoryMappingPage()
+        return new MR_FactoryMappingPage();
     }
 
     /**
@@ -2413,9 +2425,9 @@ export class MR_FactoryMappingPage extends MR_Page {
                 surfaceLabelField,
                 subPageArea,
             })})`
-        )
+        );
 
-        return new MR_FactoryMappingPage()
+        return new MR_FactoryMappingPage();
     }
 }
 
@@ -2426,45 +2438,45 @@ export class MR_FactoryMappingPage extends MR_Page {
  * var hostSelectedTrackChannel = page.mHostAccess.mTrackSelection.mMixerChannel
  */
 export class MR_HostAccess {
-    mTransport: MR_HostTransport
-    mMixConsole: MR_MixConsole
-    mControlRoom: MR_HostControlRoom
-    mTrackSelection: MR_TrackSelection
-    mMouseCursor: MR_HostMouseCursor
-    mFocusedQuickControls: MR_FocusedQuickControls
+    mTransport: MR_HostTransport;
+    mMixConsole: MR_MixConsole;
+    mControlRoom: MR_HostControlRoom;
+    mTrackSelection: MR_TrackSelection;
+    mMouseCursor: MR_HostMouseCursor;
+    mFocusedQuickControls: MR_FocusedQuickControls;
 
     constructor() {
-        logger.debug('MR_HostAccess: constructor()')
+        logger.debug('MR_HostAccess: constructor()');
 
         /**
          * @property
          */
-        this.mTransport = new MR_HostTransport()
+        this.mTransport = new MR_HostTransport();
 
         /**
          * @property
          */
-        this.mMixConsole = new MR_MixConsole()
+        this.mMixConsole = new MR_MixConsole();
 
         /**
          * @property
          */
-        this.mControlRoom = new MR_HostControlRoom()
+        this.mControlRoom = new MR_HostControlRoom();
 
         /**
          * @property
          */
-        this.mTrackSelection = new MR_TrackSelection()
+        this.mTrackSelection = new MR_TrackSelection();
 
         /**
          * @property
          */
-        this.mMouseCursor = new MR_HostMouseCursor()
+        this.mMouseCursor = new MR_HostMouseCursor();
 
         /**
          * @property
          */
-        this.mFocusedQuickControls = new MR_FocusedQuickControls()
+        this.mFocusedQuickControls = new MR_FocusedQuickControls();
     }
 }
 
@@ -2473,7 +2485,7 @@ export class MR_HostAccess {
  */
 export class MR_HostObject {
     constructor() {
-        logger.debug('MR_HostObject: constructor()')
+        logger.debug('MR_HostObject: constructor()');
     }
 }
 
@@ -2486,7 +2498,7 @@ export class MR_HostObjectUndefined extends MR_HostObject {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2495,12 +2507,12 @@ export class MR_HostObjectUndefined extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostObjectUndefined: constructor()')
+        logger.debug('MR_HostObjectUndefined: constructor()');
 
         /**
          * @property
@@ -2509,7 +2521,7 @@ export class MR_HostObjectUndefined extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -2522,7 +2534,7 @@ export class MR_HostObjectUndefined extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -2535,9 +2547,9 @@ export class MR_HostObjectUndefined extends MR_HostObject {
             `MR_HostObjectUndefined: makeHostValueVariable(${JSON.stringify({
                 name,
             })})`
-        )
+        );
 
-        return new MR_HostValueUndefined()
+        return new MR_HostValueUndefined();
     }
 }
 
@@ -2547,13 +2559,13 @@ export class MR_HostObjectUndefined extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostTransport extends MR_HostObject {
-    mValue: MR_TransportValues
-    mTimeDisplay: MR_TransportTimeDisplay
+    mValue: MR_TransportValues;
+    mTimeDisplay: MR_TransportTimeDisplay;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2562,22 +2574,22 @@ export class MR_HostTransport extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostTransport: constructor()')
-
-        /**
-         * @property
-         */
-        this.mValue = new MR_TransportValues()
+        logger.debug('MR_HostTransport: constructor()');
 
         /**
          * @property
          */
-        this.mTimeDisplay = new MR_TransportTimeDisplay()
+        this.mValue = new MR_TransportValues();
+
+        /**
+         * @property
+         */
+        this.mTimeDisplay = new MR_TransportTimeDisplay();
 
         /**
          * @property
@@ -2586,7 +2598,7 @@ export class MR_HostTransport extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -2599,7 +2611,7 @@ export class MR_HostTransport extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -2612,7 +2624,7 @@ export class MR_QuickControls extends MR_HostObject {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2621,12 +2633,12 @@ export class MR_QuickControls extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_QuickControls: constructor()')
+        logger.debug('MR_QuickControls: constructor()');
 
         /**
          * @property
@@ -2635,7 +2647,7 @@ export class MR_QuickControls extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -2648,7 +2660,7 @@ export class MR_QuickControls extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -2661,18 +2673,18 @@ export class MR_QuickControls extends MR_HostObject {
             `MR_QuickControlValue: getByIndex(${JSON.stringify({
                 index,
             })})`
-        )
+        );
 
-        return new MR_QuickControlValue()
+        return new MR_QuickControlValue();
     }
 
     /**
      * @returns {number}
      */
     getSize(): number {
-        logger.info(`MR_QuickControlValue: getSize()`)
+        logger.info(`MR_QuickControlValue: getSize()`);
 
-        return 8
+        return 8;
     }
 }
 
@@ -2681,12 +2693,12 @@ export class MR_QuickControls extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_FocusedQuickControls extends MR_HostObject {
-    mFocusLockedValue: MR_FocusedQuickControlsLockedStateValue
+    mFocusLockedValue: MR_FocusedQuickControlsLockedStateValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2695,17 +2707,17 @@ export class MR_FocusedQuickControls extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_FocusedQuickControls: constructor()')
+        logger.debug('MR_FocusedQuickControls: constructor()');
 
         /**
          * @property
          */
-        this.mFocusLockedValue = new MR_FocusedQuickControlsLockedStateValue()
+        this.mFocusLockedValue = new MR_FocusedQuickControlsLockedStateValue();
 
         /**
          * @property
@@ -2714,7 +2726,7 @@ export class MR_FocusedQuickControls extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -2727,7 +2739,7 @@ export class MR_FocusedQuickControls extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -2740,15 +2752,15 @@ export class MR_FocusedQuickControls extends MR_HostObject {
             `MR_FocusedQuickControls: getByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_QuickControlValue()
+        );
+        return new MR_QuickControlValue();
     }
 
     /**
      * @returns {number}
      */
     getSize(): number {
-        return 8
+        return 8;
     }
 }
 
@@ -2757,12 +2769,12 @@ export class MR_FocusedQuickControls extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostPluginParameterBankZone extends MR_HostObject {
-    mAction: MR_HostPluginParameterBankZoneActions
+    mAction: MR_HostPluginParameterBankZoneActions;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2771,17 +2783,17 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostPluginParameterBankZone: constructor()')
+        logger.debug('MR_HostPluginParameterBankZone: constructor()');
 
         /**
          * @property
          */
-        this.mAction = new MR_HostPluginParameterBankZoneActions()
+        this.mAction = new MR_HostPluginParameterBankZoneActions();
 
         /**
          * @property
@@ -2790,7 +2802,7 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -2803,7 +2815,7 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -2811,8 +2823,8 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
      * @returns {MR_HostPluginParameterBankValue}
      */
     makeParameterValue(): MR_HostPluginParameterBankValue {
-        logger.info(`MR_HostPluginParameterBankZone: makeParameterValue()`)
-        return new MR_HostPluginParameterBankValue()
+        logger.info(`MR_HostPluginParameterBankZone: makeParameterValue()`);
+        return new MR_HostPluginParameterBankValue();
     }
 }
 
@@ -2821,16 +2833,16 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostStripEffectSlotFolder extends MR_HostObject {
-    mGate: MR_HostStripEffectSlotGate
-    mCompressor: MR_HostStripEffectSlotCompressor
-    mLimiter: MR_HostStripEffectSlotLimiter
-    mSaturator: MR_HostStripEffectSlotSaturator
-    mTools: MR_HostStripEffectSlotTools
+    mGate: MR_HostStripEffectSlotGate;
+    mCompressor: MR_HostStripEffectSlotCompressor;
+    mLimiter: MR_HostStripEffectSlotLimiter;
+    mSaturator: MR_HostStripEffectSlotSaturator;
+    mTools: MR_HostStripEffectSlotTools;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2839,37 +2851,37 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostStripEffectSlotFolder: constructor()')
-
-        /**
-         * @property
-         */
-        this.mGate = new MR_HostStripEffectSlotGate()
+        logger.debug('MR_HostStripEffectSlotFolder: constructor()');
 
         /**
          * @property
          */
-        this.mCompressor = new MR_HostStripEffectSlotCompressor()
+        this.mGate = new MR_HostStripEffectSlotGate();
 
         /**
          * @property
          */
-        this.mLimiter = new MR_HostStripEffectSlotLimiter()
+        this.mCompressor = new MR_HostStripEffectSlotCompressor();
 
         /**
          * @property
          */
-        this.mSaturator = new MR_HostStripEffectSlotSaturator()
+        this.mLimiter = new MR_HostStripEffectSlotLimiter();
 
         /**
          * @property
          */
-        this.mTools = new MR_HostStripEffectSlotTools()
+        this.mSaturator = new MR_HostStripEffectSlotSaturator();
+
+        /**
+         * @property
+         */
+        this.mTools = new MR_HostStripEffectSlotTools();
 
         /**
          * @property
@@ -2878,7 +2890,7 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -2891,7 +2903,7 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -2904,7 +2916,7 @@ export class MR_SendSlotFolder extends MR_HostObject {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2913,12 +2925,12 @@ export class MR_SendSlotFolder extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SendSlotFolder: constructor()')
+        logger.debug('MR_SendSlotFolder: constructor()');
 
         /**
          * @property
@@ -2927,7 +2939,7 @@ export class MR_SendSlotFolder extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -2940,7 +2952,7 @@ export class MR_SendSlotFolder extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -2952,15 +2964,15 @@ export class MR_SendSlotFolder extends MR_HostObject {
             `MR_SendSlotFolder: getByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_SendSlot()
+        );
+        return new MR_SendSlot();
     }
 
     /**
      * @returns {number}
      */
     getSize(): number {
-        return 4
+        return 4;
     }
 }
 
@@ -2969,12 +2981,12 @@ export class MR_SendSlotFolder extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
-    mBypass: MR_ControlRoomCueSendFolderBypassValue
+    mBypass: MR_ControlRoomCueSendFolderBypassValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -2983,17 +2995,17 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ControlRoomCueSendSlotFolder: constructor()')
+        logger.debug('MR_ControlRoomCueSendSlotFolder: constructor()');
 
         /**
          * @property
          */
-        this.mBypass = new MR_ControlRoomCueSendFolderBypassValue()
+        this.mBypass = new MR_ControlRoomCueSendFolderBypassValue();
 
         /**
          * @property
@@ -3002,7 +3014,7 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3015,7 +3027,7 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -3027,15 +3039,15 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
             `MR_ControlRoomCueSendSlotFolder: getByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_ControlRoomCueSendSlot()
+        );
+        return new MR_ControlRoomCueSendSlot();
     }
 
     /**
      * @returns {number}
      */
     getSize(): number {
-        return 4
+        return 4;
     }
 }
 
@@ -3044,19 +3056,19 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_MixerBankChannel extends MR_HostObject {
-    mValue: MR_MixerChannelValues
-    mPreFilter: MR_PreFilter
-    mChannelEQ: MR_ChannelEQ
-    mInsertAndStripEffects: MR_HostInsertAndStripEffects
-    mSends: MR_SendSlotFolder
-    mCueSends: MR_ControlRoomCueSendSlotFolder
-    mQuickControls: MR_QuickControls
-    mInstrumentPluginSlot: MR_HostInstrumentPluginSlot
+    mValue: MR_MixerChannelValues;
+    mPreFilter: MR_PreFilter;
+    mChannelEQ: MR_ChannelEQ;
+    mInsertAndStripEffects: MR_HostInsertAndStripEffects;
+    mSends: MR_SendSlotFolder;
+    mCueSends: MR_ControlRoomCueSendSlotFolder;
+    mQuickControls: MR_QuickControls;
+    mInstrumentPluginSlot: MR_HostInstrumentPluginSlot;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3065,52 +3077,52 @@ export class MR_MixerBankChannel extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MixerBankChannel: constructor()')
-
-        /**
-         * @property
-         */
-        this.mValue = new MR_MixerChannelValues()
+        logger.debug('MR_MixerBankChannel: constructor()');
 
         /**
          * @property
          */
-        this.mPreFilter = new MR_PreFilter()
+        this.mValue = new MR_MixerChannelValues();
 
         /**
          * @property
          */
-        this.mChannelEQ = new MR_ChannelEQ()
+        this.mPreFilter = new MR_PreFilter();
 
         /**
          * @property
          */
-        this.mInsertAndStripEffects = new MR_HostInsertAndStripEffects()
+        this.mChannelEQ = new MR_ChannelEQ();
 
         /**
          * @property
          */
-        this.mSends = new MR_SendSlotFolder()
+        this.mInsertAndStripEffects = new MR_HostInsertAndStripEffects();
 
         /**
          * @property
          */
-        this.mCueSends = new MR_ControlRoomCueSendSlotFolder()
+        this.mSends = new MR_SendSlotFolder();
 
         /**
          * @property
          */
-        this.mQuickControls = new MR_QuickControls()
+        this.mCueSends = new MR_ControlRoomCueSendSlotFolder();
 
         /**
          * @property
          */
-        this.mInstrumentPluginSlot = new MR_HostInstrumentPluginSlot()
+        this.mQuickControls = new MR_QuickControls();
+
+        /**
+         * @property
+         */
+        this.mInstrumentPluginSlot = new MR_HostInstrumentPluginSlot();
 
         /**
          * @property
@@ -3119,7 +3131,7 @@ export class MR_MixerBankChannel extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3132,7 +3144,7 @@ export class MR_MixerBankChannel extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -3141,19 +3153,19 @@ export class MR_MixerBankChannel extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_SelectedTrackChannel extends MR_HostObject {
-    mValue: MR_MixerChannelValues
-    mPreFilter: MR_PreFilter
-    mChannelEQ: MR_ChannelEQ
-    mInsertAndStripEffects: MR_HostInsertAndStripEffects
-    mSends: MR_SendSlotFolder
-    mCueSends: MR_ControlRoomCueSendSlotFolder
-    mQuickControls: MR_QuickControls
-    mInstrumentPluginSlot: MR_HostInstrumentPluginSlot
+    mValue: MR_MixerChannelValues;
+    mPreFilter: MR_PreFilter;
+    mChannelEQ: MR_ChannelEQ;
+    mInsertAndStripEffects: MR_HostInsertAndStripEffects;
+    mSends: MR_SendSlotFolder;
+    mCueSends: MR_ControlRoomCueSendSlotFolder;
+    mQuickControls: MR_QuickControls;
+    mInstrumentPluginSlot: MR_HostInstrumentPluginSlot;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3162,52 +3174,52 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SelectedTrackChannel: constructor()')
-
-        /**
-         * @property
-         */
-        this.mValue = new MR_MixerChannelValues()
+        logger.debug('MR_SelectedTrackChannel: constructor()');
 
         /**
          * @property
          */
-        this.mPreFilter = new MR_PreFilter()
+        this.mValue = new MR_MixerChannelValues();
 
         /**
          * @property
          */
-        this.mChannelEQ = new MR_ChannelEQ()
+        this.mPreFilter = new MR_PreFilter();
 
         /**
          * @property
          */
-        this.mInsertAndStripEffects = new MR_HostInsertAndStripEffects()
+        this.mChannelEQ = new MR_ChannelEQ();
 
         /**
          * @property
          */
-        this.mSends = new MR_SendSlotFolder()
+        this.mInsertAndStripEffects = new MR_HostInsertAndStripEffects();
 
         /**
          * @property
          */
-        this.mCueSends = new MR_ControlRoomCueSendSlotFolder()
+        this.mSends = new MR_SendSlotFolder();
 
         /**
          * @property
          */
-        this.mQuickControls = new MR_QuickControls()
+        this.mCueSends = new MR_ControlRoomCueSendSlotFolder();
 
         /**
          * @property
          */
-        this.mInstrumentPluginSlot = new MR_HostInstrumentPluginSlot()
+        this.mQuickControls = new MR_QuickControls();
+
+        /**
+         * @property
+         */
+        this.mInstrumentPluginSlot = new MR_HostInstrumentPluginSlot();
 
         /**
          * @property
@@ -3216,7 +3228,7 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3229,7 +3241,7 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -3238,13 +3250,13 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostMouseCursor extends MR_HostObject {
-    mValueUnderMouse: MR_HostValueAtMouseCursor
-    mValueLocked: MR_HostValueAtMouseCursorLockedState
+    mValueUnderMouse: MR_HostValueAtMouseCursor;
+    mValueLocked: MR_HostValueAtMouseCursorLockedState;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3253,22 +3265,22 @@ export class MR_HostMouseCursor extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostMouseCursor: constructor()')
-
-        /**
-         * @property
-         */
-        this.mValueUnderMouse = new MR_HostValueAtMouseCursor()
+        logger.debug('MR_HostMouseCursor: constructor()');
 
         /**
          * @property
          */
-        this.mValueLocked = new MR_HostValueAtMouseCursorLockedState()
+        this.mValueUnderMouse = new MR_HostValueAtMouseCursor();
+
+        /**
+         * @property
+         */
+        this.mValueLocked = new MR_HostValueAtMouseCursorLockedState();
 
         /**
          * @property
@@ -3277,7 +3289,7 @@ export class MR_HostMouseCursor extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3290,7 +3302,7 @@ export class MR_HostMouseCursor extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -3299,23 +3311,23 @@ export class MR_HostMouseCursor extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostControlRoomChannelMain extends MR_HostObject {
-    mLevelValue: MR_HostControlRoomValue
-    mMuteValue: MR_HostControlRoomValue
-    mBypassInserts: MR_HostControlRoomValue
-    mSelectSourceMonitorMixValue: MR_HostControlRoomValue
-    mSelectSourceExternalInputValue: MR_HostControlRoomValue
-    mListenEnabledValue: MR_HostControlRoomValue
-    mListenLevelValue: MR_HostControlRoomValue
-    mDimActiveValue: MR_HostControlRoomValue
-    mMetronomeClickActiveValue: MR_HostControlRoomValue
-    mMetronomeClickLevelValue: MR_HostControlRoomValue
-    mMetronomeClickPanValue: MR_HostControlRoomValue
-    mReferenceLevelEnabledValue: MR_HostControlRoomValue
+    mLevelValue: MR_HostControlRoomValue;
+    mMuteValue: MR_HostControlRoomValue;
+    mBypassInserts: MR_HostControlRoomValue;
+    mSelectSourceMonitorMixValue: MR_HostControlRoomValue;
+    mSelectSourceExternalInputValue: MR_HostControlRoomValue;
+    mListenEnabledValue: MR_HostControlRoomValue;
+    mListenLevelValue: MR_HostControlRoomValue;
+    mDimActiveValue: MR_HostControlRoomValue;
+    mMetronomeClickActiveValue: MR_HostControlRoomValue;
+    mMetronomeClickLevelValue: MR_HostControlRoomValue;
+    mMetronomeClickPanValue: MR_HostControlRoomValue;
+    mReferenceLevelEnabledValue: MR_HostControlRoomValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3324,72 +3336,72 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomChannelMain: constructor()')
-
-        /**
-         * @property
-         */
-        this.mLevelValue = new MR_HostControlRoomValue()
+        logger.debug('MR_HostControlRoomChannelMain: constructor()');
 
         /**
          * @property
          */
-        this.mMuteValue = new MR_HostControlRoomValue()
+        this.mLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mBypassInserts = new MR_HostControlRoomValue()
+        this.mMuteValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue()
+        this.mBypassInserts = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue()
+        this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mListenEnabledValue = new MR_HostControlRoomValue()
+        this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mListenLevelValue = new MR_HostControlRoomValue()
+        this.mListenEnabledValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mDimActiveValue = new MR_HostControlRoomValue()
+        this.mListenLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickActiveValue = new MR_HostControlRoomValue()
+        this.mDimActiveValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickLevelValue = new MR_HostControlRoomValue()
+        this.mMetronomeClickActiveValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickPanValue = new MR_HostControlRoomValue()
+        this.mMetronomeClickLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mReferenceLevelEnabledValue = new MR_HostControlRoomValue()
+        this.mMetronomeClickPanValue = new MR_HostControlRoomValue();
+
+        /**
+         * @property
+         */
+        this.mReferenceLevelEnabledValue = new MR_HostControlRoomValue();
 
         /**
          * @property
@@ -3398,7 +3410,7 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3411,7 +3423,7 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -3424,8 +3436,8 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
             `MR_HostControlRoomChannelMain: getSelectSourceCueValueByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomSelectSourceCueValueByIndex()
+        );
+        return new MR_HostControlRoomSelectSourceCueValueByIndex();
     }
 }
 
@@ -3434,22 +3446,22 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
-    mLevelValue: MR_HostControlRoomValue
-    mMuteValue: MR_HostControlRoomValue
-    mBypassInserts: MR_HostControlRoomValue
-    mSelectSourceMonitorMixValue: MR_HostControlRoomValue
-    mSelectSourceExternalInputValue: MR_HostControlRoomValue
-    mListenEnabledValue: MR_HostControlRoomValue
-    mListenLevelValue: MR_HostControlRoomValue
-    mDimActiveValue: MR_HostControlRoomValue
-    mMetronomeClickActiveValue: MR_HostControlRoomValue
-    mMetronomeClickLevelValue: MR_HostControlRoomValue
-    mMetronomeClickPanValue: MR_HostControlRoomValue
+    mLevelValue: MR_HostControlRoomValue;
+    mMuteValue: MR_HostControlRoomValue;
+    mBypassInserts: MR_HostControlRoomValue;
+    mSelectSourceMonitorMixValue: MR_HostControlRoomValue;
+    mSelectSourceExternalInputValue: MR_HostControlRoomValue;
+    mListenEnabledValue: MR_HostControlRoomValue;
+    mListenLevelValue: MR_HostControlRoomValue;
+    mDimActiveValue: MR_HostControlRoomValue;
+    mMetronomeClickActiveValue: MR_HostControlRoomValue;
+    mMetronomeClickLevelValue: MR_HostControlRoomValue;
+    mMetronomeClickPanValue: MR_HostControlRoomValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3458,67 +3470,67 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomChannelPhonesByIndex: constructor()')
-
-        /**
-         * @property
-         */
-        this.mLevelValue = new MR_HostControlRoomValue()
+        logger.debug('MR_HostControlRoomChannelPhonesByIndex: constructor()');
 
         /**
          * @property
          */
-        this.mMuteValue = new MR_HostControlRoomValue()
+        this.mLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mBypassInserts = new MR_HostControlRoomValue()
+        this.mMuteValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue()
+        this.mBypassInserts = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue()
+        this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mListenEnabledValue = new MR_HostControlRoomValue()
+        this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mListenLevelValue = new MR_HostControlRoomValue()
+        this.mListenEnabledValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mDimActiveValue = new MR_HostControlRoomValue()
+        this.mListenLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickActiveValue = new MR_HostControlRoomValue()
+        this.mDimActiveValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickLevelValue = new MR_HostControlRoomValue()
+        this.mMetronomeClickActiveValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickPanValue = new MR_HostControlRoomValue()
+        this.mMetronomeClickLevelValue = new MR_HostControlRoomValue();
+
+        /**
+         * @property
+         */
+        this.mMetronomeClickPanValue = new MR_HostControlRoomValue();
 
         /**
          * @property
@@ -3527,7 +3539,7 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3540,7 +3552,7 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -3555,8 +3567,8 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
                     index,
                 }
             )})`
-        )
-        return new MR_HostControlRoomSelectSourceCueValueByIndex()
+        );
+        return new MR_HostControlRoomSelectSourceCueValueByIndex();
     }
 }
 
@@ -3565,22 +3577,22 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
-    mLevelValue: MR_HostControlRoomValue
-    mMuteValue: MR_HostControlRoomValue
-    mBypassInserts: MR_HostControlRoomValue
-    mSelectSourceMonitorMixValue: MR_HostControlRoomValue
-    mSelectSourceExternalInputValue: MR_HostControlRoomValue
-    mSelectSourceAuxValue: MR_HostControlRoomValue
-    mTalkbackEnabledValue: MR_HostControlRoomValue
-    mTalkbackLevelValue: MR_HostControlRoomValue
-    mMetronomeClickActiveValue: MR_HostControlRoomValue
-    mMetronomeClickLevelValue: MR_HostControlRoomValue
-    mMetronomeClickPanValue: MR_HostControlRoomValue
+    mLevelValue: MR_HostControlRoomValue;
+    mMuteValue: MR_HostControlRoomValue;
+    mBypassInserts: MR_HostControlRoomValue;
+    mSelectSourceMonitorMixValue: MR_HostControlRoomValue;
+    mSelectSourceExternalInputValue: MR_HostControlRoomValue;
+    mSelectSourceAuxValue: MR_HostControlRoomValue;
+    mTalkbackEnabledValue: MR_HostControlRoomValue;
+    mTalkbackLevelValue: MR_HostControlRoomValue;
+    mMetronomeClickActiveValue: MR_HostControlRoomValue;
+    mMetronomeClickLevelValue: MR_HostControlRoomValue;
+    mMetronomeClickPanValue: MR_HostControlRoomValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3589,67 +3601,67 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomChannelCueByIndex: constructor()')
-
-        /**
-         * @property
-         */
-        this.mLevelValue = new MR_HostControlRoomValue()
+        logger.debug('MR_HostControlRoomChannelCueByIndex: constructor()');
 
         /**
          * @property
          */
-        this.mMuteValue = new MR_HostControlRoomValue()
+        this.mLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mBypassInserts = new MR_HostControlRoomValue()
+        this.mMuteValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue()
+        this.mBypassInserts = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue()
+        this.mSelectSourceMonitorMixValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectSourceAuxValue = new MR_HostControlRoomValue()
+        this.mSelectSourceExternalInputValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mTalkbackEnabledValue = new MR_HostControlRoomValue()
+        this.mSelectSourceAuxValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mTalkbackLevelValue = new MR_HostControlRoomValue()
+        this.mTalkbackEnabledValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickActiveValue = new MR_HostControlRoomValue()
+        this.mTalkbackLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickLevelValue = new MR_HostControlRoomValue()
+        this.mMetronomeClickActiveValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickPanValue = new MR_HostControlRoomValue()
+        this.mMetronomeClickLevelValue = new MR_HostControlRoomValue();
+
+        /**
+         * @property
+         */
+        this.mMetronomeClickPanValue = new MR_HostControlRoomValue();
 
         /**
          * @property
@@ -3658,7 +3670,7 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3671,7 +3683,7 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -3680,14 +3692,14 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject {
-    mLevelValue: MR_HostControlRoomValue
-    mMuteValue: MR_HostControlRoomValue
-    mBypassInserts: MR_HostControlRoomValue
+    mLevelValue: MR_HostControlRoomValue;
+    mMuteValue: MR_HostControlRoomValue;
+    mBypassInserts: MR_HostControlRoomValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3696,27 +3708,27 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomChannelExternalInputByIndex: constructor()')
-
-        /**
-         * @property
-         */
-        this.mLevelValue = new MR_HostControlRoomValue()
+        logger.debug('MR_HostControlRoomChannelExternalInputByIndex: constructor()');
 
         /**
          * @property
          */
-        this.mMuteValue = new MR_HostControlRoomValue()
+        this.mLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mBypassInserts = new MR_HostControlRoomValue()
+        this.mMuteValue = new MR_HostControlRoomValue();
+
+        /**
+         * @property
+         */
+        this.mBypassInserts = new MR_HostControlRoomValue();
 
         /**
          * @property
@@ -3725,7 +3737,7 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3738,7 +3750,7 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -3747,14 +3759,14 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
  * @augments MR_HostObject
  */
 export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
-    mLevelValue: MR_HostControlRoomValue
-    mMuteValue: MR_HostControlRoomValue
-    mBypassInserts: MR_HostControlRoomValue
+    mLevelValue: MR_HostControlRoomValue;
+    mMuteValue: MR_HostControlRoomValue;
+    mBypassInserts: MR_HostControlRoomValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3763,27 +3775,27 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomChannelTalkbackByIndex: constructor()')
-
-        /**
-         * @property
-         */
-        this.mLevelValue = new MR_HostControlRoomValue()
+        logger.debug('MR_HostControlRoomChannelTalkbackByIndex: constructor()');
 
         /**
          * @property
          */
-        this.mMuteValue = new MR_HostControlRoomValue()
+        this.mLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mBypassInserts = new MR_HostControlRoomValue()
+        this.mMuteValue = new MR_HostControlRoomValue();
+
+        /**
+         * @property
+         */
+        this.mBypassInserts = new MR_HostControlRoomValue();
 
         /**
          * @property
@@ -3792,7 +3804,7 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3805,7 +3817,7 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -3814,14 +3826,14 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
-    mLevelValue: MR_HostControlRoomValue
-    mMuteValue: MR_HostControlRoomValue
-    mBypassInserts: MR_HostControlRoomValue
+    mLevelValue: MR_HostControlRoomValue;
+    mMuteValue: MR_HostControlRoomValue;
+    mBypassInserts: MR_HostControlRoomValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3830,27 +3842,27 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomChannelMonitorByIndex: constructor()')
-
-        /**
-         * @property
-         */
-        this.mLevelValue = new MR_HostControlRoomValue()
+        logger.debug('MR_HostControlRoomChannelMonitorByIndex: constructor()');
 
         /**
          * @property
          */
-        this.mMuteValue = new MR_HostControlRoomValue()
+        this.mLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mBypassInserts = new MR_HostControlRoomValue()
+        this.mMuteValue = new MR_HostControlRoomValue();
+
+        /**
+         * @property
+         */
+        this.mBypassInserts = new MR_HostControlRoomValue();
 
         /**
          * @property
@@ -3859,7 +3871,7 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3872,7 +3884,7 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -3881,18 +3893,18 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostControlRoom extends MR_HostObject {
-    mMainChannel: MR_HostControlRoomChannelMain
-    mAlertDimActiveValue: MR_HostControlRoomValue
-    mTalkbackActiveValue: MR_HostControlRoomValue
-    mTalkbackDimLevelValue: MR_HostControlRoomValue
-    mListenDimLevelValue: MR_HostControlRoomValue
-    mReferenceLevelValue: MR_HostControlRoomValue
-    mSelectNextDownmixPresetValue: MR_HostControlRoomValue
+    mMainChannel: MR_HostControlRoomChannelMain;
+    mAlertDimActiveValue: MR_HostControlRoomValue;
+    mTalkbackActiveValue: MR_HostControlRoomValue;
+    mTalkbackDimLevelValue: MR_HostControlRoomValue;
+    mListenDimLevelValue: MR_HostControlRoomValue;
+    mReferenceLevelValue: MR_HostControlRoomValue;
+    mSelectNextDownmixPresetValue: MR_HostControlRoomValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3901,47 +3913,47 @@ export class MR_HostControlRoom extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoom: constructor()')
-
-        /**
-         * @property
-         */
-        this.mMainChannel = new MR_HostControlRoomChannelMain()
+        logger.debug('MR_HostControlRoom: constructor()');
 
         /**
          * @property
          */
-        this.mAlertDimActiveValue = new MR_HostControlRoomValue()
+        this.mMainChannel = new MR_HostControlRoomChannelMain();
 
         /**
          * @property
          */
-        this.mTalkbackActiveValue = new MR_HostControlRoomValue()
+        this.mAlertDimActiveValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mTalkbackDimLevelValue = new MR_HostControlRoomValue()
+        this.mTalkbackActiveValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mListenDimLevelValue = new MR_HostControlRoomValue()
+        this.mTalkbackDimLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mReferenceLevelValue = new MR_HostControlRoomValue()
+        this.mListenDimLevelValue = new MR_HostControlRoomValue();
 
         /**
          * @property
          */
-        this.mSelectNextDownmixPresetValue = new MR_HostControlRoomValue()
+        this.mReferenceLevelValue = new MR_HostControlRoomValue();
+
+        /**
+         * @property
+         */
+        this.mSelectNextDownmixPresetValue = new MR_HostControlRoomValue();
 
         /**
          * @property
@@ -3950,7 +3962,7 @@ export class MR_HostControlRoom extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -3963,7 +3975,7 @@ export class MR_HostControlRoom extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -3975,8 +3987,8 @@ export class MR_HostControlRoom extends MR_HostObject {
             `MR_HostControlRoom: getCueChannelByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomChannelCueByIndex()
+        );
+        return new MR_HostControlRoomChannelCueByIndex();
     }
 
     /**
@@ -3988,8 +4000,8 @@ export class MR_HostControlRoom extends MR_HostObject {
             `MR_HostControlRoom: getPhonesChannelByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomChannelPhonesByIndex()
+        );
+        return new MR_HostControlRoomChannelPhonesByIndex();
     }
 
     /**
@@ -4001,8 +4013,8 @@ export class MR_HostControlRoom extends MR_HostObject {
             `MR_HostControlRoom: getExternalInputChannelByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomChannelExternalInputByIndex()
+        );
+        return new MR_HostControlRoomChannelExternalInputByIndex();
     }
 
     /**
@@ -4014,8 +4026,8 @@ export class MR_HostControlRoom extends MR_HostObject {
             `MR_HostControlRoom: getTalkbackChannelByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomChannelTalkbackByIndex()
+        );
+        return new MR_HostControlRoomChannelTalkbackByIndex();
     }
 
     /**
@@ -4027,8 +4039,8 @@ export class MR_HostControlRoom extends MR_HostObject {
             `MR_HostControlRoom: getMonitorChannelByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomChannelMonitorByIndex()
+        );
+        return new MR_HostControlRoomChannelMonitorByIndex();
     }
 
     /**
@@ -4043,8 +4055,8 @@ export class MR_HostControlRoom extends MR_HostObject {
             `MR_HostControlRoom: getSelectSourceExternalInputValueByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomSelectSourceExternalInputValueByIndex()
+        );
+        return new MR_HostControlRoomSelectSourceExternalInputValueByIndex();
     }
 
     /**
@@ -4059,43 +4071,43 @@ export class MR_HostControlRoom extends MR_HostObject {
             `MR_HostControlRoom: getSelectTargetMonitorValueByIndex(${JSON.stringify({
                 index,
             })})`
-        )
-        return new MR_HostControlRoomSelectTargetMonitorValueByIndex()
+        );
+        return new MR_HostControlRoomSelectTargetMonitorValueByIndex();
     }
 
     /**
      * @returns {number}
      */
     getMaxTalkbackChannels(): number {
-        return 2
+        return 2;
     }
 
     /**
      * @returns {number}
      */
     getMaxExternalInputChannels(): number {
-        return 8
+        return 8;
     }
 
     /**
      * @returns {number}
      */
     getMaxCueChannels(): number {
-        return 4
+        return 4;
     }
 
     /**
      * @returns {number}
      */
     getMaxPhonesChannels(): number {
-        return 2
+        return 2;
     }
 
     /**
      * @returns {number}
      */
     getMaxMonitorChannels(): number {
-        return 4
+        return 4;
     }
 }
 
@@ -4108,7 +4120,7 @@ export class MR_MixConsole extends MR_HostObject {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4117,12 +4129,12 @@ export class MR_MixConsole extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MixConsole: constructor()')
+        logger.debug('MR_MixConsole: constructor()');
 
         /**
          * @property
@@ -4131,7 +4143,7 @@ export class MR_MixConsole extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4144,7 +4156,7 @@ export class MR_MixConsole extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -4152,7 +4164,7 @@ export class MR_MixConsole extends MR_HostObject {
      * @returns {MR_MixerBankZone}
      */
     makeMixerBankZone(name = ''): MR_MixerBankZone {
-        return new MR_MixerBankZone()
+        return new MR_MixerBankZone();
     }
 }
 
@@ -4161,19 +4173,19 @@ export class MR_MixConsole extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_TransportValues extends MR_HostObject {
-    mStart: MR_StartValue
-    mStop: MR_StopValue
-    mRecord: MR_RecordValue
-    mRewind: MR_RewindValue
-    mForward: MR_ForwardValue
-    mCycleActive: MR_CycleActiveValue
-    mMetronomeActive: MR_MetronomeActiveValue
-    mMetronomeClickLevel: MR_MetronomeClickLevel
+    mStart: MR_StartValue;
+    mStop: MR_StopValue;
+    mRecord: MR_RecordValue;
+    mRewind: MR_RewindValue;
+    mForward: MR_ForwardValue;
+    mCycleActive: MR_CycleActiveValue;
+    mMetronomeActive: MR_MetronomeActiveValue;
+    mMetronomeClickLevel: MR_MetronomeClickLevel;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4182,52 +4194,52 @@ export class MR_TransportValues extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_TransportValues: constructor()')
-
-        /**
-         * @property
-         */
-        this.mStart = new MR_StartValue()
+        logger.debug('MR_TransportValues: constructor()');
 
         /**
          * @property
          */
-        this.mStop = new MR_StopValue()
+        this.mStart = new MR_StartValue();
 
         /**
          * @property
          */
-        this.mRecord = new MR_RecordValue()
+        this.mStop = new MR_StopValue();
 
         /**
          * @property
          */
-        this.mRewind = new MR_RewindValue()
+        this.mRecord = new MR_RecordValue();
 
         /**
          * @property
          */
-        this.mForward = new MR_ForwardValue()
+        this.mRewind = new MR_RewindValue();
 
         /**
          * @property
          */
-        this.mCycleActive = new MR_CycleActiveValue()
+        this.mForward = new MR_ForwardValue();
 
         /**
          * @property
          */
-        this.mMetronomeActive = new MR_MetronomeActiveValue()
+        this.mCycleActive = new MR_CycleActiveValue();
 
         /**
          * @property
          */
-        this.mMetronomeClickLevel = new MR_MetronomeClickLevel()
+        this.mMetronomeActive = new MR_MetronomeActiveValue();
+
+        /**
+         * @property
+         */
+        this.mMetronomeClickLevel = new MR_MetronomeClickLevel();
 
         /**
          * @property
@@ -4236,7 +4248,7 @@ export class MR_TransportValues extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4249,7 +4261,7 @@ export class MR_TransportValues extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4258,20 +4270,20 @@ export class MR_TransportValues extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_PreFilter extends MR_HostObject {
-    mBypass: MR_PreFilterBypassValue
-    mGain: MR_PreFilterGainValue
-    mPhaseSwitch: MR_PreFilterPhaseSwitchValue
-    mHighCutOn: MR_PreFilterHighCutOnValue
-    mHighCutFreq: MR_PreFilterHighCutFrequencyValue
-    mHighCutSlope: MR_PreFilterHighCutSlopeValue
-    mLowCutOn: MR_PreFilterLowCutOnValue
-    mLowCutFreq: MR_PreFilterLowCutFrequencyValue
-    mLowCutSlope: MR_PreFilterLowCutSlopeValue
+    mBypass: MR_PreFilterBypassValue;
+    mGain: MR_PreFilterGainValue;
+    mPhaseSwitch: MR_PreFilterPhaseSwitchValue;
+    mHighCutOn: MR_PreFilterHighCutOnValue;
+    mHighCutFreq: MR_PreFilterHighCutFrequencyValue;
+    mHighCutSlope: MR_PreFilterHighCutSlopeValue;
+    mLowCutOn: MR_PreFilterLowCutOnValue;
+    mLowCutFreq: MR_PreFilterLowCutFrequencyValue;
+    mLowCutSlope: MR_PreFilterLowCutSlopeValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4280,57 +4292,57 @@ export class MR_PreFilter extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilter: constructor()')
-
-        /**
-         * @property
-         */
-        this.mBypass = new MR_PreFilterBypassValue()
+        logger.debug('MR_PreFilter: constructor()');
 
         /**
          * @property
          */
-        this.mGain = new MR_PreFilterGainValue()
+        this.mBypass = new MR_PreFilterBypassValue();
 
         /**
          * @property
          */
-        this.mPhaseSwitch = new MR_PreFilterPhaseSwitchValue()
+        this.mGain = new MR_PreFilterGainValue();
 
         /**
          * @property
          */
-        this.mHighCutOn = new MR_PreFilterHighCutOnValue()
+        this.mPhaseSwitch = new MR_PreFilterPhaseSwitchValue();
 
         /**
          * @property
          */
-        this.mHighCutFreq = new MR_PreFilterHighCutFrequencyValue()
+        this.mHighCutOn = new MR_PreFilterHighCutOnValue();
 
         /**
          * @property
          */
-        this.mHighCutSlope = new MR_PreFilterHighCutSlopeValue()
+        this.mHighCutFreq = new MR_PreFilterHighCutFrequencyValue();
 
         /**
          * @property
          */
-        this.mLowCutOn = new MR_PreFilterLowCutOnValue()
+        this.mHighCutSlope = new MR_PreFilterHighCutSlopeValue();
 
         /**
          * @property
          */
-        this.mLowCutFreq = new MR_PreFilterLowCutFrequencyValue()
+        this.mLowCutOn = new MR_PreFilterLowCutOnValue();
 
         /**
          * @property
          */
-        this.mLowCutSlope = new MR_PreFilterLowCutSlopeValue()
+        this.mLowCutFreq = new MR_PreFilterLowCutFrequencyValue();
+
+        /**
+         * @property
+         */
+        this.mLowCutSlope = new MR_PreFilterLowCutSlopeValue();
 
         /**
          * @property
@@ -4339,7 +4351,7 @@ export class MR_PreFilter extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4352,7 +4364,7 @@ export class MR_PreFilter extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4361,16 +4373,16 @@ export class MR_PreFilter extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_ChannelEQBand extends MR_HostObject {
-    mGain: MR_EQBandGainValue
-    mFreq: MR_EQBandFrequencyValue
-    mQ: MR_EQBandQualityValue
-    mOn: MR_EQBandOnValue
-    mFilterType: MR_EQBandFilterTypeValue
+    mGain: MR_EQBandGainValue;
+    mFreq: MR_EQBandFrequencyValue;
+    mQ: MR_EQBandQualityValue;
+    mOn: MR_EQBandOnValue;
+    mFilterType: MR_EQBandFilterTypeValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4379,37 +4391,37 @@ export class MR_ChannelEQBand extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ChannelEQBand: constructor()')
-
-        /**
-         * @property
-         */
-        this.mGain = new MR_EQBandGainValue()
+        logger.debug('MR_ChannelEQBand: constructor()');
 
         /**
          * @property
          */
-        this.mFreq = new MR_EQBandFrequencyValue()
+        this.mGain = new MR_EQBandGainValue();
 
         /**
          * @property
          */
-        this.mQ = new MR_EQBandQualityValue()
+        this.mFreq = new MR_EQBandFrequencyValue();
 
         /**
          * @property
          */
-        this.mOn = new MR_EQBandOnValue()
+        this.mQ = new MR_EQBandQualityValue();
 
         /**
          * @property
          */
-        this.mFilterType = new MR_EQBandFilterTypeValue()
+        this.mOn = new MR_EQBandOnValue();
+
+        /**
+         * @property
+         */
+        this.mFilterType = new MR_EQBandFilterTypeValue();
 
         /**
          * @property
@@ -4418,7 +4430,7 @@ export class MR_ChannelEQBand extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4431,7 +4443,7 @@ export class MR_ChannelEQBand extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4440,15 +4452,15 @@ export class MR_ChannelEQBand extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_ChannelEQ extends MR_HostObject {
-    mBand1: MR_ChannelEQBand
-    mBand2: MR_ChannelEQBand
-    mBand3: MR_ChannelEQBand
-    mBand4: MR_ChannelEQBand
+    mBand1: MR_ChannelEQBand;
+    mBand2: MR_ChannelEQBand;
+    mBand3: MR_ChannelEQBand;
+    mBand4: MR_ChannelEQBand;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4457,32 +4469,32 @@ export class MR_ChannelEQ extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ChannelEQ: constructor()')
-
-        /**
-         * @property
-         */
-        this.mBand1 = new MR_ChannelEQBand()
+        logger.debug('MR_ChannelEQ: constructor()');
 
         /**
          * @property
          */
-        this.mBand2 = new MR_ChannelEQBand()
+        this.mBand1 = new MR_ChannelEQBand();
 
         /**
          * @property
          */
-        this.mBand3 = new MR_ChannelEQBand()
+        this.mBand2 = new MR_ChannelEQBand();
 
         /**
          * @property
          */
-        this.mBand4 = new MR_ChannelEQBand()
+        this.mBand3 = new MR_ChannelEQBand();
+
+        /**
+         * @property
+         */
+        this.mBand4 = new MR_ChannelEQBand();
 
         /**
          * @property
@@ -4491,7 +4503,7 @@ export class MR_ChannelEQ extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4504,7 +4516,7 @@ export class MR_ChannelEQ extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4513,12 +4525,12 @@ export class MR_ChannelEQ extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostInstrumentPluginSlot extends MR_HostObject {
-    mOn: MR_PluginOnValue
-    mBypass: MR_PluginBypassValue
-    mEdit: MR_PluginEditValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mParameterBankZone: MR_HostPluginParameterBankZone
+    mOn: MR_PluginOnValue;
+    mBypass: MR_PluginBypassValue;
+    mEdit: MR_PluginEditValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mParameterBankZone: MR_HostPluginParameterBankZone;
     mOnChangePluginIdentity: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4526,12 +4538,12 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
         pluginVendor: string,
         pluginVersion: string,
         formatVersion: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4540,42 +4552,42 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostInstrumentPluginSlot: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_PluginOnValue()
+        logger.debug('MR_HostInstrumentPluginSlot: constructor()');
 
         /**
          * @property
          */
-        this.mBypass = new MR_PluginBypassValue()
+        this.mOn = new MR_PluginOnValue();
 
         /**
          * @property
          */
-        this.mEdit = new MR_PluginEditValue()
+        this.mBypass = new MR_PluginBypassValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mEdit = new MR_PluginEditValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
+
+        /**
+         * @property
+         */
+        this.mParameterBankZone = new MR_HostPluginParameterBankZone();
 
         /**
          * @property
@@ -4587,7 +4599,7 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4596,7 +4608,7 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4609,7 +4621,7 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4618,12 +4630,12 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostStripEffectSlotGate extends MR_HostObject {
-    mOn: MR_PluginOnValue
-    mBypass: MR_PluginBypassValue
-    mEdit: MR_PluginEditValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mParameterBankZone: MR_HostPluginParameterBankZone
+    mOn: MR_PluginOnValue;
+    mBypass: MR_PluginBypassValue;
+    mEdit: MR_PluginEditValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mParameterBankZone: MR_HostPluginParameterBankZone;
     mOnChangePluginIdentity: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4631,12 +4643,12 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
         pluginVendor: string,
         pluginVersion: string,
         formatVersion: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4645,42 +4657,42 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostStripEffectSlotGate: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_PluginOnValue()
+        logger.debug('MR_HostStripEffectSlotGate: constructor()');
 
         /**
          * @property
          */
-        this.mBypass = new MR_PluginBypassValue()
+        this.mOn = new MR_PluginOnValue();
 
         /**
          * @property
          */
-        this.mEdit = new MR_PluginEditValue()
+        this.mBypass = new MR_PluginBypassValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mEdit = new MR_PluginEditValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
+
+        /**
+         * @property
+         */
+        this.mParameterBankZone = new MR_HostPluginParameterBankZone();
 
         /**
          * @property
@@ -4692,7 +4704,7 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4701,7 +4713,7 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4714,7 +4726,7 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4723,12 +4735,12 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
-    mOn: MR_PluginOnValue
-    mBypass: MR_PluginBypassValue
-    mEdit: MR_PluginEditValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mParameterBankZone: MR_HostPluginParameterBankZone
+    mOn: MR_PluginOnValue;
+    mBypass: MR_PluginBypassValue;
+    mEdit: MR_PluginEditValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mParameterBankZone: MR_HostPluginParameterBankZone;
     mOnChangePluginIdentity: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4736,12 +4748,12 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
         pluginVendor: string,
         pluginVersion: string,
         formatVersion: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4750,42 +4762,42 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostStripEffectSlotCompressor: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_PluginOnValue()
+        logger.debug('MR_HostStripEffectSlotCompressor: constructor()');
 
         /**
          * @property
          */
-        this.mBypass = new MR_PluginBypassValue()
+        this.mOn = new MR_PluginOnValue();
 
         /**
          * @property
          */
-        this.mEdit = new MR_PluginEditValue()
+        this.mBypass = new MR_PluginBypassValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mEdit = new MR_PluginEditValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
+
+        /**
+         * @property
+         */
+        this.mParameterBankZone = new MR_HostPluginParameterBankZone();
 
         /**
          * @property
@@ -4797,7 +4809,7 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4806,7 +4818,7 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4819,7 +4831,7 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4828,12 +4840,12 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
-    mOn: MR_PluginOnValue
-    mBypass: MR_PluginBypassValue
-    mEdit: MR_PluginEditValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mParameterBankZone: MR_HostPluginParameterBankZone
+    mOn: MR_PluginOnValue;
+    mBypass: MR_PluginBypassValue;
+    mEdit: MR_PluginEditValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mParameterBankZone: MR_HostPluginParameterBankZone;
     mOnChangePluginIdentity: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4841,12 +4853,12 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
         pluginVendor: string,
         pluginVersion: string,
         formatVersion: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4855,42 +4867,42 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostStripEffectSlotLimiter: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_PluginOnValue()
+        logger.debug('MR_HostStripEffectSlotLimiter: constructor()');
 
         /**
          * @property
          */
-        this.mBypass = new MR_PluginBypassValue()
+        this.mOn = new MR_PluginOnValue();
 
         /**
          * @property
          */
-        this.mEdit = new MR_PluginEditValue()
+        this.mBypass = new MR_PluginBypassValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mEdit = new MR_PluginEditValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
+
+        /**
+         * @property
+         */
+        this.mParameterBankZone = new MR_HostPluginParameterBankZone();
 
         /**
          * @property
@@ -4902,7 +4914,7 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4911,7 +4923,7 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -4924,7 +4936,7 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -4933,12 +4945,12 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
-    mOn: MR_PluginOnValue
-    mBypass: MR_PluginBypassValue
-    mEdit: MR_PluginEditValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mParameterBankZone: MR_HostPluginParameterBankZone
+    mOn: MR_PluginOnValue;
+    mBypass: MR_PluginBypassValue;
+    mEdit: MR_PluginEditValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mParameterBankZone: MR_HostPluginParameterBankZone;
     mOnChangePluginIdentity: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4946,12 +4958,12 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
         pluginVendor: string,
         pluginVersion: string,
         formatVersion: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4960,42 +4972,42 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostStripEffectSlotSaturator: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_PluginOnValue()
+        logger.debug('MR_HostStripEffectSlotSaturator: constructor()');
 
         /**
          * @property
          */
-        this.mBypass = new MR_PluginBypassValue()
+        this.mOn = new MR_PluginOnValue();
 
         /**
          * @property
          */
-        this.mEdit = new MR_PluginEditValue()
+        this.mBypass = new MR_PluginBypassValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mEdit = new MR_PluginEditValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
+
+        /**
+         * @property
+         */
+        this.mParameterBankZone = new MR_HostPluginParameterBankZone();
 
         /**
          * @property
@@ -5007,7 +5019,7 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5016,7 +5028,7 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5029,7 +5041,7 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -5038,12 +5050,12 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostStripEffectSlotTools extends MR_HostObject {
-    mOn: MR_PluginOnValue
-    mBypass: MR_PluginBypassValue
-    mEdit: MR_PluginEditValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mParameterBankZone: MR_HostPluginParameterBankZone
+    mOn: MR_PluginOnValue;
+    mBypass: MR_PluginBypassValue;
+    mEdit: MR_PluginEditValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mParameterBankZone: MR_HostPluginParameterBankZone;
     mOnChangePluginIdentity: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5051,12 +5063,12 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
         pluginVendor: string,
         pluginVersion: string,
         formatVersion: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5065,42 +5077,42 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostStripEffectSlotTools: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_PluginOnValue()
+        logger.debug('MR_HostStripEffectSlotTools: constructor()');
 
         /**
          * @property
          */
-        this.mBypass = new MR_PluginBypassValue()
+        this.mOn = new MR_PluginOnValue();
 
         /**
          * @property
          */
-        this.mEdit = new MR_PluginEditValue()
+        this.mBypass = new MR_PluginBypassValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mEdit = new MR_PluginEditValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
+
+        /**
+         * @property
+         */
+        this.mParameterBankZone = new MR_HostPluginParameterBankZone();
 
         /**
          * @property
@@ -5112,7 +5124,7 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5121,7 +5133,7 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5134,7 +5146,7 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -5143,13 +5155,13 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostInsertEffectViewer extends MR_HostObject {
-    mAction: MR_HostInsertEffectViewerActions
-    mOn: MR_PluginOnValue
-    mBypass: MR_PluginBypassValue
-    mEdit: MR_PluginEditValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mParameterBankZone: MR_HostPluginParameterBankZone
+    mAction: MR_HostInsertEffectViewerActions;
+    mOn: MR_PluginOnValue;
+    mBypass: MR_PluginBypassValue;
+    mEdit: MR_PluginEditValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mParameterBankZone: MR_HostPluginParameterBankZone;
     mOnChangePluginIdentity: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5157,12 +5169,12 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
         pluginVendor: string,
         pluginVersion: string,
         formatVersion: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5171,47 +5183,47 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostInsertEffectViewer: constructor()')
-
-        /**
-         * @property
-         */
-        this.mAction = new MR_HostInsertEffectViewerActions()
+        logger.debug('MR_HostInsertEffectViewer: constructor()');
 
         /**
          * @property
          */
-        this.mOn = new MR_PluginOnValue()
+        this.mAction = new MR_HostInsertEffectViewerActions();
 
         /**
          * @property
          */
-        this.mBypass = new MR_PluginBypassValue()
+        this.mOn = new MR_PluginOnValue();
 
         /**
          * @property
          */
-        this.mEdit = new MR_PluginEditValue()
+        this.mBypass = new MR_PluginBypassValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mEdit = new MR_PluginEditValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mParameterBankZone = new MR_HostPluginParameterBankZone()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
+
+        /**
+         * @property
+         */
+        this.mParameterBankZone = new MR_HostPluginParameterBankZone();
 
         /**
          * @property
@@ -5223,7 +5235,7 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
             pluginVendor: string,
             pluginVersion: string,
             formatVersion: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5232,7 +5244,7 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5245,31 +5257,31 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
      * @returns {MR_HostInsertEffectViewer}
      */
     includeEmptySlotsOnly(): MR_HostInsertEffectViewer {
-        logger.info(`MR_HostInsertEffectViewer: includeEmptySlotsOnly()`)
-        return new MR_HostInsertEffectViewer()
+        logger.info(`MR_HostInsertEffectViewer: includeEmptySlotsOnly()`);
+        return new MR_HostInsertEffectViewer();
     }
 
     /**
      * @returns {MR_HostInsertEffectViewer}
      */
     excludeEmptySlots(): MR_HostInsertEffectViewer {
-        logger.info(`MR_HostInsertEffectViewer: excludeEmptySlots()`)
-        return new MR_HostInsertEffectViewer()
+        logger.info(`MR_HostInsertEffectViewer: excludeEmptySlots()`);
+        return new MR_HostInsertEffectViewer();
     }
 
     /**
      * @returns {MR_HostInsertEffectViewer}
      */
     followPluginWindowInFocus(): MR_HostInsertEffectViewer {
-        logger.info(`MR_HostInsertEffectViewer: followPluginWindowInFocus()`)
-        return new MR_HostInsertEffectViewer()
+        logger.info(`MR_HostInsertEffectViewer: followPluginWindowInFocus()`);
+        return new MR_HostInsertEffectViewer();
     }
 }
 
@@ -5278,12 +5290,12 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_HostInsertAndStripEffects extends MR_HostObject {
-    mStripEffects: MR_HostStripEffectSlotFolder
+    mStripEffects: MR_HostStripEffectSlotFolder;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5292,17 +5304,17 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostInsertAndStripEffects: constructor()')
+        logger.debug('MR_HostInsertAndStripEffects: constructor()');
 
         /**
          * @property
          */
-        this.mStripEffects = new MR_HostStripEffectSlotFolder()
+        this.mStripEffects = new MR_HostStripEffectSlotFolder();
 
         /**
          * @property
@@ -5311,7 +5323,7 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5324,7 +5336,7 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -5336,8 +5348,8 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
             `MR_HostInsertAndStripEffects: makeInsertEffectViewer(${JSON.stringify({
                 name,
             })})`
-        )
-        return new MR_HostInsertEffectViewer()
+        );
+        return new MR_HostInsertEffectViewer();
     }
 }
 
@@ -5346,14 +5358,14 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_SendSlot extends MR_HostObject {
-    mOn: MR_SendOn
-    mPrePost: MR_SendPrePost
-    mLevel: MR_SendLevel
+    mOn: MR_SendOn;
+    mPrePost: MR_SendPrePost;
+    mLevel: MR_SendLevel;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5362,27 +5374,27 @@ export class MR_SendSlot extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SendSlot: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_SendOn()
+        logger.debug('MR_SendSlot: constructor()');
 
         /**
          * @property
          */
-        this.mPrePost = new MR_SendPrePost()
+        this.mOn = new MR_SendOn();
 
         /**
          * @property
          */
-        this.mLevel = new MR_SendLevel()
+        this.mPrePost = new MR_SendPrePost();
+
+        /**
+         * @property
+         */
+        this.mLevel = new MR_SendLevel();
 
         /**
          * @property
@@ -5391,7 +5403,7 @@ export class MR_SendSlot extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5404,7 +5416,7 @@ export class MR_SendSlot extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -5413,15 +5425,15 @@ export class MR_SendSlot extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_ControlRoomCueSendSlot extends MR_HostObject {
-    mOn: MR_ControlRoomCueSendOnValue
-    mPrePost: MR_ControlRoomCueSendPrePostValue
-    mLevel: MR_ControlRoomCueSendLevelValue
-    mPan: MR_ControlRoomCueSendPanValue
+    mOn: MR_ControlRoomCueSendOnValue;
+    mPrePost: MR_ControlRoomCueSendPrePostValue;
+    mLevel: MR_ControlRoomCueSendLevelValue;
+    mPan: MR_ControlRoomCueSendPanValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5430,32 +5442,32 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ControlRoomCueSendSlot: constructor()')
-
-        /**
-         * @property
-         */
-        this.mOn = new MR_ControlRoomCueSendOnValue()
+        logger.debug('MR_ControlRoomCueSendSlot: constructor()');
 
         /**
          * @property
          */
-        this.mPrePost = new MR_ControlRoomCueSendPrePostValue()
+        this.mOn = new MR_ControlRoomCueSendOnValue();
 
         /**
          * @property
          */
-        this.mLevel = new MR_ControlRoomCueSendLevelValue()
+        this.mPrePost = new MR_ControlRoomCueSendPrePostValue();
 
         /**
          * @property
          */
-        this.mPan = new MR_ControlRoomCueSendPanValue()
+        this.mLevel = new MR_ControlRoomCueSendLevelValue();
+
+        /**
+         * @property
+         */
+        this.mPan = new MR_ControlRoomCueSendPanValue();
 
         /**
          * @property
@@ -5464,7 +5476,7 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5477,7 +5489,7 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -5486,26 +5498,26 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_MixerChannelValues extends MR_HostObject {
-    mVolume: MR_VolumeValue
-    mPan: MR_PanValue
-    mMute: MR_MuteValue
-    mSolo: MR_SoloValue
-    mMonitorEnable: MR_MonitorEnableValue
-    mRecordEnable: MR_RecordEnableValue
-    mEditorOpen: MR_EditorOpenValue
-    mInstrumentOpen: MR_InstrumentOpenValue
-    mSelected: MR_SelectedValue
-    mAutomationRead: MR_AutomationReadValue
-    mAutomationWrite: MR_AutomationWriteValue
-    mVUMeter: MR_VUMeterValue
-    mVUMeterMax: MR_VUMeterMaxValue
-    mVUMeterClip: MR_VUMeterClipValue
-    mVUMeterPeak: MR_VUMeterPeakValue
+    mVolume: MR_VolumeValue;
+    mPan: MR_PanValue;
+    mMute: MR_MuteValue;
+    mSolo: MR_SoloValue;
+    mMonitorEnable: MR_MonitorEnableValue;
+    mRecordEnable: MR_RecordEnableValue;
+    mEditorOpen: MR_EditorOpenValue;
+    mInstrumentOpen: MR_InstrumentOpenValue;
+    mSelected: MR_SelectedValue;
+    mAutomationRead: MR_AutomationReadValue;
+    mAutomationWrite: MR_AutomationWriteValue;
+    mVUMeter: MR_VUMeterValue;
+    mVUMeterMax: MR_VUMeterMaxValue;
+    mVUMeterClip: MR_VUMeterClipValue;
+    mVUMeterPeak: MR_VUMeterPeakValue;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5514,87 +5526,87 @@ export class MR_MixerChannelValues extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MixerChannelValues: constructor()')
-
-        /**
-         * @property
-         */
-        this.mVolume = new MR_VolumeValue()
+        logger.debug('MR_MixerChannelValues: constructor()');
 
         /**
          * @property
          */
-        this.mPan = new MR_PanValue()
+        this.mVolume = new MR_VolumeValue();
 
         /**
          * @property
          */
-        this.mMute = new MR_MuteValue()
+        this.mPan = new MR_PanValue();
 
         /**
          * @property
          */
-        this.mSolo = new MR_SoloValue()
+        this.mMute = new MR_MuteValue();
 
         /**
          * @property
          */
-        this.mMonitorEnable = new MR_MonitorEnableValue()
+        this.mSolo = new MR_SoloValue();
 
         /**
          * @property
          */
-        this.mRecordEnable = new MR_RecordEnableValue()
+        this.mMonitorEnable = new MR_MonitorEnableValue();
 
         /**
          * @property
          */
-        this.mEditorOpen = new MR_EditorOpenValue()
+        this.mRecordEnable = new MR_RecordEnableValue();
 
         /**
          * @property
          */
-        this.mInstrumentOpen = new MR_InstrumentOpenValue()
+        this.mEditorOpen = new MR_EditorOpenValue();
 
         /**
          * @property
          */
-        this.mSelected = new MR_SelectedValue()
+        this.mInstrumentOpen = new MR_InstrumentOpenValue();
 
         /**
          * @property
          */
-        this.mAutomationRead = new MR_AutomationReadValue()
+        this.mSelected = new MR_SelectedValue();
 
         /**
          * @property
          */
-        this.mAutomationWrite = new MR_AutomationWriteValue()
+        this.mAutomationRead = new MR_AutomationReadValue();
 
         /**
          * @property
          */
-        this.mVUMeter = new MR_VUMeterValue()
+        this.mAutomationWrite = new MR_AutomationWriteValue();
 
         /**
          * @property
          */
-        this.mVUMeterMax = new MR_VUMeterMaxValue()
+        this.mVUMeter = new MR_VUMeterValue();
 
         /**
          * @property
          */
-        this.mVUMeterClip = new MR_VUMeterClipValue()
+        this.mVUMeterMax = new MR_VUMeterMaxValue();
 
         /**
          * @property
          */
-        this.mVUMeterPeak = new MR_VUMeterPeakValue()
+        this.mVUMeterClip = new MR_VUMeterClipValue();
+
+        /**
+         * @property
+         */
+        this.mVUMeterPeak = new MR_VUMeterPeakValue();
 
         /**
          * @property
@@ -5603,7 +5615,7 @@ export class MR_MixerChannelValues extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5616,7 +5628,7 @@ export class MR_MixerChannelValues extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -5625,12 +5637,12 @@ export class MR_MixerChannelValues extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_MixerBankZone extends MR_HostObject {
-    mAction: MR_MixerBankZoneActions
+    mAction: MR_MixerBankZoneActions;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5639,17 +5651,17 @@ export class MR_MixerBankZone extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MixerBankZone: constructor()')
+        logger.debug('MR_MixerBankZone: constructor()');
 
         /**
          * @property
          */
-        this.mAction = new MR_MixerBankZoneActions()
+        this.mAction = new MR_MixerBankZoneActions();
 
         /**
          * @property
@@ -5658,7 +5670,7 @@ export class MR_MixerBankZone extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5671,183 +5683,183 @@ export class MR_MixerBankZone extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeAudioChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeAudioChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeAudioChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeInstrumentChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeInstrumentChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeInstrumentChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeSamplerChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeSamplerChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeSamplerChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeMIDIChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeMIDIChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeMIDIChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeFXChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeFXChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeFXChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeGroupChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeGroupChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeGroupChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeVCAChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeVCAChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeVCAChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeInputChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeInputChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeInputChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeOutputChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeOutputChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeOutputChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeWindowZoneLeftChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeWindowZoneLeftChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeWindowZoneLeftChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     includeWindowZoneRightChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: includeWindowZoneRightChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: includeWindowZoneRightChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeAudioChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeAudioChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeAudioChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeInstrumentChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeInstrumentChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeInstrumentChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeSamplerChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeSamplerChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeSamplerChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeMIDIChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeMIDIChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeMIDIChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeFXChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeFXChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeFXChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeGroupChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeGroupChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeGroupChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeVCAChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeVCAChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeVCAChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeInputChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeInputChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeInputChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeOutputChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeOutputChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeOutputChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeWindowZoneLeftChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeWindowZoneLeftChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeWindowZoneLeftChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
      * @returns {MR_MixerBankZone}
      */
     excludeWindowZoneRightChannels(): MR_MixerBankZone {
-        logger.info(`MR_MixerBankZone: excludeWindowZoneRightChannels()`)
-        return new MR_MixerBankZone()
+        logger.info(`MR_MixerBankZone: excludeWindowZoneRightChannels()`);
+        return new MR_MixerBankZone();
     }
 
     /**
@@ -5859,16 +5871,16 @@ export class MR_MixerBankZone extends MR_HostObject {
             `MR_MixerBankZone: setFollowVisibility(${JSON.stringify({
                 followVisibility,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
      * @returns {MR_MixerBankChannel}
      */
     makeMixerBankChannel(): MR_MixerBankChannel {
-        logger.info(`MR_MixerBankZone: makeMixerBankChannel()`)
-        return new MR_MixerBankChannel()
+        logger.info(`MR_MixerBankZone: makeMixerBankChannel()`);
+        return new MR_MixerBankChannel();
     }
 }
 
@@ -5877,13 +5889,13 @@ export class MR_MixerBankZone extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_TrackSelection extends MR_HostObject {
-    mMixerChannel: MR_SelectedTrackChannel
-    mAction: MR_TrackSelectionActions
+    mMixerChannel: MR_SelectedTrackChannel;
+    mAction: MR_TrackSelectionActions;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5892,22 +5904,22 @@ export class MR_TrackSelection extends MR_HostObject {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_TrackSelection: constructor()')
-
-        /**
-         * @property
-         */
-        this.mMixerChannel = new MR_SelectedTrackChannel()
+        logger.debug('MR_TrackSelection: constructor()');
 
         /**
          * @property
          */
-        this.mAction = new MR_TrackSelectionActions()
+        this.mMixerChannel = new MR_SelectedTrackChannel();
+
+        /**
+         * @property
+         */
+        this.mAction = new MR_TrackSelectionActions();
 
         /**
          * @property
@@ -5916,7 +5928,7 @@ export class MR_TrackSelection extends MR_HostObject {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -5929,7 +5941,7 @@ export class MR_TrackSelection extends MR_HostObject {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 }
 
@@ -5957,7 +5969,7 @@ export class MR_TrackSelection extends MR_HostObject {
  */
 export class MR_HostValue {
     constructor() {
-        logger.debug('MR_HostValue: constructor()')
+        logger.debug('MR_HostValue: constructor()');
     }
 
     /**
@@ -5981,19 +5993,19 @@ export class MR_HostValueUndefined extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6002,12 +6014,12 @@ export class MR_HostValueUndefined extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostValueUndefined: constructor()')
+        logger.debug('MR_HostValueUndefined: constructor()');
 
         /**
          * @property
@@ -6016,7 +6028,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6026,7 +6038,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6035,7 +6047,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6048,9 +6060,9 @@ export class MR_HostValueUndefined extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_HostValueUndefined: constructor()')
+        logger.debug('MR_HostValueUndefined: constructor()');
     }
 
     /**
@@ -6061,7 +6073,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
             `MR_HostValueUndefined: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6072,7 +6084,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
             `MR_HostValueUndefined: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6086,19 +6098,19 @@ export class MR_StartValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6107,12 +6119,12 @@ export class MR_StartValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_StartValue: constructor()')
+        logger.debug('MR_StartValue: constructor()');
 
         /**
          * @property
@@ -6121,7 +6133,7 @@ export class MR_StartValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6131,7 +6143,7 @@ export class MR_StartValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6140,7 +6152,7 @@ export class MR_StartValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6153,9 +6165,9 @@ export class MR_StartValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_StartValue: constructor()')
+        logger.debug('MR_StartValue: constructor()');
     }
 
     /**
@@ -6166,7 +6178,7 @@ export class MR_StartValue extends MR_HostValue {
             `MR_StartValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6177,7 +6189,7 @@ export class MR_StartValue extends MR_HostValue {
             `MR_StartValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6191,19 +6203,19 @@ export class MR_StopValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6212,12 +6224,12 @@ export class MR_StopValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_StopValue: constructor()')
+        logger.debug('MR_StopValue: constructor()');
 
         /**
          * @property
@@ -6226,7 +6238,7 @@ export class MR_StopValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6236,7 +6248,7 @@ export class MR_StopValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6245,7 +6257,7 @@ export class MR_StopValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6258,9 +6270,9 @@ export class MR_StopValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_StopValue: constructor()')
+        logger.debug('MR_StopValue: constructor()');
     }
 
     /**
@@ -6271,7 +6283,7 @@ export class MR_StopValue extends MR_HostValue {
             `MR_StopValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6282,7 +6294,7 @@ export class MR_StopValue extends MR_HostValue {
             `MR_StopValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6296,19 +6308,19 @@ export class MR_RecordValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6317,12 +6329,12 @@ export class MR_RecordValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_RecordValue: constructor()')
+        logger.debug('MR_RecordValue: constructor()');
 
         /**
          * @property
@@ -6331,7 +6343,7 @@ export class MR_RecordValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6341,7 +6353,7 @@ export class MR_RecordValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6350,7 +6362,7 @@ export class MR_RecordValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6363,9 +6375,9 @@ export class MR_RecordValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_RecordValue: constructor()')
+        logger.debug('MR_RecordValue: constructor()');
     }
 
     /**
@@ -6376,7 +6388,7 @@ export class MR_RecordValue extends MR_HostValue {
             `MR_RecordValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6387,7 +6399,7 @@ export class MR_RecordValue extends MR_HostValue {
             `MR_RecordValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6401,19 +6413,19 @@ export class MR_RewindValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6422,12 +6434,12 @@ export class MR_RewindValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_RewindValue: constructor()')
+        logger.debug('MR_RewindValue: constructor()');
 
         /**
          * @property
@@ -6436,7 +6448,7 @@ export class MR_RewindValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6446,7 +6458,7 @@ export class MR_RewindValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6455,7 +6467,7 @@ export class MR_RewindValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6468,9 +6480,9 @@ export class MR_RewindValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_RewindValue: constructor()')
+        logger.debug('MR_RewindValue: constructor()');
     }
 
     /**
@@ -6481,7 +6493,7 @@ export class MR_RewindValue extends MR_HostValue {
             `MR_RewindValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6492,7 +6504,7 @@ export class MR_RewindValue extends MR_HostValue {
             `MR_RewindValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6506,19 +6518,19 @@ export class MR_ForwardValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6527,12 +6539,12 @@ export class MR_ForwardValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ForwardValue: constructor()')
+        logger.debug('MR_ForwardValue: constructor()');
 
         /**
          * @property
@@ -6541,7 +6553,7 @@ export class MR_ForwardValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6551,7 +6563,7 @@ export class MR_ForwardValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6560,7 +6572,7 @@ export class MR_ForwardValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6573,9 +6585,9 @@ export class MR_ForwardValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_ForwardValue: constructor()')
+        logger.debug('MR_ForwardValue: constructor()');
     }
 
     /**
@@ -6586,7 +6598,7 @@ export class MR_ForwardValue extends MR_HostValue {
             `MR_ForwardValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6597,7 +6609,7 @@ export class MR_ForwardValue extends MR_HostValue {
             `MR_ForwardValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6611,19 +6623,19 @@ export class MR_CycleActiveValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6632,12 +6644,12 @@ export class MR_CycleActiveValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_CycleActiveValue: constructor()')
+        logger.debug('MR_CycleActiveValue: constructor()');
 
         /**
          * @property
@@ -6646,7 +6658,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6656,7 +6668,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6665,7 +6677,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6678,9 +6690,9 @@ export class MR_CycleActiveValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_CycleActiveValue: constructor()')
+        logger.debug('MR_CycleActiveValue: constructor()');
     }
 
     /**
@@ -6691,7 +6703,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
             `MR_CycleActiveValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6702,7 +6714,7 @@ export class MR_CycleActiveValue extends MR_HostValue {
             `MR_CycleActiveValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6716,19 +6728,19 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6737,12 +6749,12 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MetronomeActiveValue: constructor()')
+        logger.debug('MR_MetronomeActiveValue: constructor()');
 
         /**
          * @property
@@ -6751,7 +6763,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6761,7 +6773,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6770,7 +6782,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6783,9 +6795,9 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_MetronomeActiveValue: constructor()')
+        logger.debug('MR_MetronomeActiveValue: constructor()');
     }
 
     /**
@@ -6796,7 +6808,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             `MR_MetronomeActiveValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6807,7 +6819,7 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
             `MR_MetronomeActiveValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6821,19 +6833,19 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6842,12 +6854,12 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MetronomeClickLevel: constructor()')
+        logger.debug('MR_MetronomeClickLevel: constructor()');
 
         /**
          * @property
@@ -6856,7 +6868,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6866,7 +6878,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6875,7 +6887,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6888,9 +6900,9 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_MetronomeClickLevel: constructor()')
+        logger.debug('MR_MetronomeClickLevel: constructor()');
     }
 
     /**
@@ -6901,7 +6913,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             `MR_MetronomeClickLevel: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -6912,7 +6924,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
             `MR_MetronomeClickLevel: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -6926,19 +6938,19 @@ export class MR_VolumeValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -6947,12 +6959,12 @@ export class MR_VolumeValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_VolumeValue: constructor()')
+        logger.debug('MR_VolumeValue: constructor()');
 
         /**
          * @property
@@ -6961,7 +6973,7 @@ export class MR_VolumeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6971,7 +6983,7 @@ export class MR_VolumeValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6980,7 +6992,7 @@ export class MR_VolumeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -6993,9 +7005,9 @@ export class MR_VolumeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_VolumeValue: constructor()')
+        logger.debug('MR_VolumeValue: constructor()');
     }
 
     /**
@@ -7006,7 +7018,7 @@ export class MR_VolumeValue extends MR_HostValue {
             `MR_VolumeValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7017,7 +7029,7 @@ export class MR_VolumeValue extends MR_HostValue {
             `MR_VolumeValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7031,19 +7043,19 @@ export class MR_PanValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7052,12 +7064,12 @@ export class MR_PanValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PanValue: constructor()')
+        logger.debug('MR_PanValue: constructor()');
 
         /**
          * @property
@@ -7066,7 +7078,7 @@ export class MR_PanValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7076,7 +7088,7 @@ export class MR_PanValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7085,7 +7097,7 @@ export class MR_PanValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7098,9 +7110,9 @@ export class MR_PanValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_PanValue: constructor()')
+        logger.debug('MR_PanValue: constructor()');
     }
 
     /**
@@ -7111,7 +7123,7 @@ export class MR_PanValue extends MR_HostValue {
             `MR_PanValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7122,7 +7134,7 @@ export class MR_PanValue extends MR_HostValue {
             `MR_PanValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7136,19 +7148,19 @@ export class MR_MuteValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7157,12 +7169,12 @@ export class MR_MuteValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MuteValue: constructor()')
+        logger.debug('MR_MuteValue: constructor()');
 
         /**
          * @property
@@ -7171,7 +7183,7 @@ export class MR_MuteValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7181,7 +7193,7 @@ export class MR_MuteValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7190,7 +7202,7 @@ export class MR_MuteValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7203,9 +7215,9 @@ export class MR_MuteValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_MuteValue: constructor()')
+        logger.debug('MR_MuteValue: constructor()');
     }
 
     /**
@@ -7216,7 +7228,7 @@ export class MR_MuteValue extends MR_HostValue {
             `MR_MuteValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7227,7 +7239,7 @@ export class MR_MuteValue extends MR_HostValue {
             `MR_MuteValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7241,19 +7253,19 @@ export class MR_SoloValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7262,12 +7274,12 @@ export class MR_SoloValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SoloValue: constructor()')
+        logger.debug('MR_SoloValue: constructor()');
 
         /**
          * @property
@@ -7276,7 +7288,7 @@ export class MR_SoloValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7286,7 +7298,7 @@ export class MR_SoloValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7295,7 +7307,7 @@ export class MR_SoloValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7308,9 +7320,9 @@ export class MR_SoloValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_SoloValue: constructor()')
+        logger.debug('MR_SoloValue: constructor()');
     }
 
     /**
@@ -7321,7 +7333,7 @@ export class MR_SoloValue extends MR_HostValue {
             `MR_SoloValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7332,7 +7344,7 @@ export class MR_SoloValue extends MR_HostValue {
             `MR_SoloValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7346,19 +7358,19 @@ export class MR_MonitorEnableValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7367,12 +7379,12 @@ export class MR_MonitorEnableValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_MonitorEnableValue: constructor()')
+        logger.debug('MR_MonitorEnableValue: constructor()');
 
         /**
          * @property
@@ -7381,7 +7393,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7391,7 +7403,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7400,7 +7412,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7413,9 +7425,9 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_MonitorEnableValue: constructor()')
+        logger.debug('MR_MonitorEnableValue: constructor()');
     }
 
     /**
@@ -7426,7 +7438,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             `MR_MonitorEnableValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7437,7 +7449,7 @@ export class MR_MonitorEnableValue extends MR_HostValue {
             `MR_MonitorEnableValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7451,19 +7463,19 @@ export class MR_RecordEnableValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7472,12 +7484,12 @@ export class MR_RecordEnableValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_RecordEnableValue: constructor()')
+        logger.debug('MR_RecordEnableValue: constructor()');
 
         /**
          * @property
@@ -7486,7 +7498,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7496,7 +7508,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7505,7 +7517,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7518,9 +7530,9 @@ export class MR_RecordEnableValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_RecordEnableValue: constructor()')
+        logger.debug('MR_RecordEnableValue: constructor()');
     }
 
     /**
@@ -7531,7 +7543,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
             `MR_RecordEnableValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7542,7 +7554,7 @@ export class MR_RecordEnableValue extends MR_HostValue {
             `MR_RecordEnableValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7556,19 +7568,19 @@ export class MR_EditorOpenValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7577,12 +7589,12 @@ export class MR_EditorOpenValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_EditorOpenValue: constructor()')
+        logger.debug('MR_EditorOpenValue: constructor()');
 
         /**
          * @property
@@ -7591,7 +7603,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7601,7 +7613,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7610,7 +7622,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7623,9 +7635,9 @@ export class MR_EditorOpenValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_EditorOpenValue: constructor()')
+        logger.debug('MR_EditorOpenValue: constructor()');
     }
 
     /**
@@ -7636,7 +7648,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
             `MR_EditorOpenValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7647,7 +7659,7 @@ export class MR_EditorOpenValue extends MR_HostValue {
             `MR_EditorOpenValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7661,19 +7673,19 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7682,12 +7694,12 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_InstrumentOpenValue: constructor()')
+        logger.debug('MR_InstrumentOpenValue: constructor()');
 
         /**
          * @property
@@ -7696,7 +7708,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7706,7 +7718,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7715,7 +7727,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7728,9 +7740,9 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_InstrumentOpenValue: constructor()')
+        logger.debug('MR_InstrumentOpenValue: constructor()');
     }
 
     /**
@@ -7741,7 +7753,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             `MR_InstrumentOpenValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7752,7 +7764,7 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
             `MR_InstrumentOpenValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7766,19 +7778,19 @@ export class MR_SelectedValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7787,12 +7799,12 @@ export class MR_SelectedValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SelectedValue: constructor()')
+        logger.debug('MR_SelectedValue: constructor()');
 
         /**
          * @property
@@ -7801,7 +7813,7 @@ export class MR_SelectedValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7811,7 +7823,7 @@ export class MR_SelectedValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7820,7 +7832,7 @@ export class MR_SelectedValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7833,9 +7845,9 @@ export class MR_SelectedValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_SelectedValue: constructor()')
+        logger.debug('MR_SelectedValue: constructor()');
     }
 
     /**
@@ -7846,7 +7858,7 @@ export class MR_SelectedValue extends MR_HostValue {
             `MR_SelectedValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7857,7 +7869,7 @@ export class MR_SelectedValue extends MR_HostValue {
             `MR_SelectedValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7871,19 +7883,19 @@ export class MR_AutomationReadValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7892,12 +7904,12 @@ export class MR_AutomationReadValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_AutomationReadValue: constructor()')
+        logger.debug('MR_AutomationReadValue: constructor()');
 
         /**
          * @property
@@ -7906,7 +7918,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7916,7 +7928,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7925,7 +7937,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -7938,9 +7950,9 @@ export class MR_AutomationReadValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_AutomationReadValue: constructor()')
+        logger.debug('MR_AutomationReadValue: constructor()');
     }
 
     /**
@@ -7951,7 +7963,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
             `MR_AutomationReadValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -7962,7 +7974,7 @@ export class MR_AutomationReadValue extends MR_HostValue {
             `MR_AutomationReadValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -7976,19 +7988,19 @@ export class MR_AutomationWriteValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -7997,12 +8009,12 @@ export class MR_AutomationWriteValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_AutomationWriteValue: constructor()')
+        logger.debug('MR_AutomationWriteValue: constructor()');
 
         /**
          * @property
@@ -8011,7 +8023,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8021,7 +8033,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8030,7 +8042,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8043,9 +8055,9 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_AutomationWriteValue: constructor()')
+        logger.debug('MR_AutomationWriteValue: constructor()');
     }
 
     /**
@@ -8056,7 +8068,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             `MR_AutomationWriteValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8067,7 +8079,7 @@ export class MR_AutomationWriteValue extends MR_HostValue {
             `MR_AutomationWriteValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8081,19 +8093,19 @@ export class MR_VUMeterValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8102,12 +8114,12 @@ export class MR_VUMeterValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_VUMeterValue: constructor()')
+        logger.debug('MR_VUMeterValue: constructor()');
 
         /**
          * @property
@@ -8116,7 +8128,7 @@ export class MR_VUMeterValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8126,7 +8138,7 @@ export class MR_VUMeterValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8135,7 +8147,7 @@ export class MR_VUMeterValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8148,7 +8160,7 @@ export class MR_VUMeterValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8159,7 +8171,7 @@ export class MR_VUMeterValue extends MR_HostValue {
             `MR_VUMeterValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8170,7 +8182,7 @@ export class MR_VUMeterValue extends MR_HostValue {
             `MR_VUMeterValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8184,19 +8196,19 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8205,12 +8217,12 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_VUMeterMaxValue: constructor()')
+        logger.debug('MR_VUMeterMaxValue: constructor()');
 
         /**
          * @property
@@ -8219,7 +8231,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8229,7 +8241,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8238,7 +8250,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8251,7 +8263,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8262,7 +8274,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
             `MR_VUMeterMaxValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8273,7 +8285,7 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
             `MR_VUMeterMaxValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8287,19 +8299,19 @@ export class MR_VUMeterClipValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8308,12 +8320,12 @@ export class MR_VUMeterClipValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_VUMeterClipValue: constructor()')
+        logger.debug('MR_VUMeterClipValue: constructor()');
 
         /**
          * @property
@@ -8322,7 +8334,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8332,7 +8344,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8341,7 +8353,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8354,7 +8366,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8365,7 +8377,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
             `MR_VUMeterClipValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8376,7 +8388,7 @@ export class MR_VUMeterClipValue extends MR_HostValue {
             `MR_VUMeterClipValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8390,19 +8402,19 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8411,12 +8423,12 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_VUMeterPeakValue: constructor()')
+        logger.debug('MR_VUMeterPeakValue: constructor()');
 
         /**
          * @property
@@ -8425,7 +8437,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8435,7 +8447,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8444,7 +8456,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8457,7 +8469,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8468,7 +8480,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
             `MR_VUMeterPeakValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8479,7 +8491,7 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
             `MR_VUMeterPeakValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8493,19 +8505,19 @@ export class MR_SendOn extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8514,12 +8526,12 @@ export class MR_SendOn extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SendOn: constructor()')
+        logger.debug('MR_SendOn: constructor()');
 
         /**
          * @property
@@ -8528,7 +8540,7 @@ export class MR_SendOn extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8538,7 +8550,7 @@ export class MR_SendOn extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8547,7 +8559,7 @@ export class MR_SendOn extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8560,7 +8572,7 @@ export class MR_SendOn extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8571,7 +8583,7 @@ export class MR_SendOn extends MR_HostValue {
             `MR_SendOn: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8582,7 +8594,7 @@ export class MR_SendOn extends MR_HostValue {
             `MR_SendOn: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8596,19 +8608,19 @@ export class MR_SendPrePost extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8617,12 +8629,12 @@ export class MR_SendPrePost extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SendPrePost: constructor()')
+        logger.debug('MR_SendPrePost: constructor()');
 
         /**
          * @property
@@ -8631,7 +8643,7 @@ export class MR_SendPrePost extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8641,7 +8653,7 @@ export class MR_SendPrePost extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8650,7 +8662,7 @@ export class MR_SendPrePost extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8663,7 +8675,7 @@ export class MR_SendPrePost extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8674,7 +8686,7 @@ export class MR_SendPrePost extends MR_HostValue {
             `MR_SendPrePost: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8685,7 +8697,7 @@ export class MR_SendPrePost extends MR_HostValue {
             `MR_SendPrePost: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8699,19 +8711,19 @@ export class MR_SendLevel extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8720,12 +8732,12 @@ export class MR_SendLevel extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_SendLevel: constructor()')
+        logger.debug('MR_SendLevel: constructor()');
 
         /**
          * @property
@@ -8734,7 +8746,7 @@ export class MR_SendLevel extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8744,7 +8756,7 @@ export class MR_SendLevel extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8753,7 +8765,7 @@ export class MR_SendLevel extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8766,7 +8778,7 @@ export class MR_SendLevel extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8777,7 +8789,7 @@ export class MR_SendLevel extends MR_HostValue {
             `MR_SendLevel: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8788,7 +8800,7 @@ export class MR_SendLevel extends MR_HostValue {
             `MR_SendLevel: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8802,19 +8814,19 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8823,12 +8835,12 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ControlRoomCueSendOnValue: constructor()')
+        logger.debug('MR_ControlRoomCueSendOnValue: constructor()');
 
         /**
          * @property
@@ -8837,7 +8849,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8847,7 +8859,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8856,7 +8868,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8869,7 +8881,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8880,7 +8892,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
             `MR_ControlRoomCueSendOnValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8891,7 +8903,7 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
             `MR_ControlRoomCueSendOnValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -8905,19 +8917,19 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -8926,12 +8938,12 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ControlRoomCueSendPrePostValue: constructor()')
+        logger.debug('MR_ControlRoomCueSendPrePostValue: constructor()');
 
         /**
          * @property
@@ -8940,7 +8952,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8950,7 +8962,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8959,7 +8971,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -8972,7 +8984,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -8983,7 +8995,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
             `MR_ControlRoomCueSendPrePostValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -8994,7 +9006,7 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
             `MR_ControlRoomCueSendPrePostValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9008,19 +9020,19 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9029,12 +9041,12 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ControlRoomCueSendLevelValue: constructor()')
+        logger.debug('MR_ControlRoomCueSendLevelValue: constructor()');
 
         /**
          * @property
@@ -9043,7 +9055,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9053,7 +9065,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9062,7 +9074,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9075,7 +9087,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9086,7 +9098,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
             `MR_ControlRoomCueSendLevelValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9097,7 +9109,7 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
             `MR_ControlRoomCueSendLevelValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9111,19 +9123,19 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9132,12 +9144,12 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ControlRoomCueSendPanValue: constructor()')
+        logger.debug('MR_ControlRoomCueSendPanValue: constructor()');
 
         /**
          * @property
@@ -9146,7 +9158,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9156,7 +9168,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9165,7 +9177,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9178,7 +9190,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9189,7 +9201,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
             `MR_ControlRoomCueSendPanValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9200,7 +9212,7 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
             `MR_ControlRoomCueSendPanValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9214,19 +9226,19 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9235,12 +9247,12 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ControlRoomCueSendFolderBypassValue: constructor()')
+        logger.debug('MR_ControlRoomCueSendFolderBypassValue: constructor()');
 
         /**
          * @property
@@ -9249,7 +9261,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9259,7 +9271,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9268,7 +9280,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9281,7 +9293,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9292,7 +9304,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
             `MR_ControlRoomCueSendFolderBypassValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9303,7 +9315,7 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
             `MR_ControlRoomCueSendFolderBypassValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9317,19 +9329,19 @@ export class MR_PluginOnValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9338,12 +9350,12 @@ export class MR_PluginOnValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PluginOnValue: constructor()')
+        logger.debug('MR_PluginOnValue: constructor()');
 
         /**
          * @property
@@ -9352,7 +9364,7 @@ export class MR_PluginOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9362,7 +9374,7 @@ export class MR_PluginOnValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9371,7 +9383,7 @@ export class MR_PluginOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9384,7 +9396,7 @@ export class MR_PluginOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9395,7 +9407,7 @@ export class MR_PluginOnValue extends MR_HostValue {
             `MR_PluginOnValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9406,7 +9418,7 @@ export class MR_PluginOnValue extends MR_HostValue {
             `MR_PluginOnValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9420,19 +9432,19 @@ export class MR_PluginBypassValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9441,12 +9453,12 @@ export class MR_PluginBypassValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PluginBypassValue: constructor()')
+        logger.debug('MR_PluginBypassValue: constructor()');
 
         /**
          * @property
@@ -9455,7 +9467,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9465,7 +9477,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9474,7 +9486,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9487,7 +9499,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9498,7 +9510,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
             `MR_PluginBypassValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9509,7 +9521,7 @@ export class MR_PluginBypassValue extends MR_HostValue {
             `MR_PluginBypassValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9523,19 +9535,19 @@ export class MR_PluginEditValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9544,12 +9556,12 @@ export class MR_PluginEditValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PluginEditValue: constructor()')
+        logger.debug('MR_PluginEditValue: constructor()');
 
         /**
          * @property
@@ -9558,7 +9570,7 @@ export class MR_PluginEditValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9568,7 +9580,7 @@ export class MR_PluginEditValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9577,7 +9589,7 @@ export class MR_PluginEditValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9590,7 +9602,7 @@ export class MR_PluginEditValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9601,7 +9613,7 @@ export class MR_PluginEditValue extends MR_HostValue {
             `MR_PluginEditValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9612,7 +9624,7 @@ export class MR_PluginEditValue extends MR_HostValue {
             `MR_PluginEditValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9626,19 +9638,19 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9647,12 +9659,12 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterBypassValue: constructor()')
+        logger.debug('MR_PreFilterBypassValue: constructor()');
 
         /**
          * @property
@@ -9661,7 +9673,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9671,7 +9683,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9680,7 +9692,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9693,7 +9705,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9704,7 +9716,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
             `MR_PreFilterBypassValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9715,7 +9727,7 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
             `MR_PreFilterBypassValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9729,19 +9741,19 @@ export class MR_PreFilterGainValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9750,12 +9762,12 @@ export class MR_PreFilterGainValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterGainValue: constructor()')
+        logger.debug('MR_PreFilterGainValue: constructor()');
 
         /**
          * @property
@@ -9764,7 +9776,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9774,7 +9786,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9783,7 +9795,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9796,7 +9808,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9807,7 +9819,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
             `MR_PreFilterGainValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9818,7 +9830,7 @@ export class MR_PreFilterGainValue extends MR_HostValue {
             `MR_PreFilterGainValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9832,19 +9844,19 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9853,12 +9865,12 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterPhaseSwitchValue: constructor()')
+        logger.debug('MR_PreFilterPhaseSwitchValue: constructor()');
 
         /**
          * @property
@@ -9867,7 +9879,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9877,7 +9889,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9886,7 +9898,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9899,7 +9911,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -9910,7 +9922,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
             `MR_PreFilterPhaseSwitchValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -9921,7 +9933,7 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
             `MR_PreFilterPhaseSwitchValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -9935,19 +9947,19 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -9956,12 +9968,12 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterHighCutFrequencyValue: constructor()')
+        logger.debug('MR_PreFilterHighCutFrequencyValue: constructor()');
 
         /**
          * @property
@@ -9970,7 +9982,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9980,7 +9992,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -9989,7 +10001,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10002,7 +10014,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10013,7 +10025,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
             `MR_PreFilterHighCutFrequencyValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10024,7 +10036,7 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
             `MR_PreFilterHighCutFrequencyValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10038,19 +10050,19 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10059,12 +10071,12 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterHighCutOnValue: constructor()')
+        logger.debug('MR_PreFilterHighCutOnValue: constructor()');
 
         /**
          * @property
@@ -10073,7 +10085,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10083,7 +10095,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10092,7 +10104,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10105,7 +10117,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10116,7 +10128,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
             `MR_PreFilterHighCutOnValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10127,7 +10139,7 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
             `MR_PreFilterHighCutOnValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10141,19 +10153,19 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10162,12 +10174,12 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterHighCutSlopeValue: constructor()')
+        logger.debug('MR_PreFilterHighCutSlopeValue: constructor()');
 
         /**
          * @property
@@ -10176,7 +10188,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10186,7 +10198,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10195,7 +10207,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10208,7 +10220,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10219,7 +10231,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
             `MR_PreFilterHighCutSlopeValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10230,7 +10242,7 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
             `MR_PreFilterHighCutSlopeValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10244,19 +10256,19 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10265,12 +10277,12 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterLowCutFrequencyValue: constructor()')
+        logger.debug('MR_PreFilterLowCutFrequencyValue: constructor()');
 
         /**
          * @property
@@ -10279,7 +10291,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10289,7 +10301,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10298,7 +10310,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10311,7 +10323,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10322,7 +10334,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
             `MR_PreFilterLowCutFrequencyValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10333,7 +10345,7 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
             `MR_PreFilterLowCutFrequencyValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10347,19 +10359,19 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10368,12 +10380,12 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterLowCutOnValue: constructor()')
+        logger.debug('MR_PreFilterLowCutOnValue: constructor()');
 
         /**
          * @property
@@ -10382,7 +10394,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10392,7 +10404,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10401,7 +10413,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10414,7 +10426,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10425,7 +10437,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
             `MR_PreFilterLowCutOnValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10436,7 +10448,7 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
             `MR_PreFilterLowCutOnValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10450,19 +10462,19 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10471,12 +10483,12 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_PreFilterLowCutSlopeValue: constructor()')
+        logger.debug('MR_PreFilterLowCutSlopeValue: constructor()');
 
         /**
          * @property
@@ -10485,7 +10497,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10495,7 +10507,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10504,7 +10516,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10517,7 +10529,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10528,7 +10540,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
             `MR_PreFilterLowCutSlopeValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10539,7 +10551,7 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
             `MR_PreFilterLowCutSlopeValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10553,19 +10565,19 @@ export class MR_EQBandGainValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10574,12 +10586,12 @@ export class MR_EQBandGainValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_EQBandGainValue: constructor()')
+        logger.debug('MR_EQBandGainValue: constructor()');
 
         /**
          * @property
@@ -10588,7 +10600,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10598,7 +10610,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10607,7 +10619,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10620,7 +10632,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10631,7 +10643,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
             `MR_EQBandGainValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10642,7 +10654,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
             `MR_EQBandGainValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10656,19 +10668,19 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10677,12 +10689,12 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_EQBandFrequencyValue: constructor()')
+        logger.debug('MR_EQBandFrequencyValue: constructor()');
 
         /**
          * @property
@@ -10691,7 +10703,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10701,7 +10713,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10710,7 +10722,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10723,7 +10735,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10734,7 +10746,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
             `MR_EQBandFrequencyValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10745,7 +10757,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
             `MR_EQBandFrequencyValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10759,19 +10771,19 @@ export class MR_EQBandQualityValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10780,12 +10792,12 @@ export class MR_EQBandQualityValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_EQBandQualityValue: constructor()')
+        logger.debug('MR_EQBandQualityValue: constructor()');
 
         /**
          * @property
@@ -10794,7 +10806,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10804,7 +10816,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10813,7 +10825,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10826,7 +10838,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10837,7 +10849,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
             `MR_EQBandQualityValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10848,7 +10860,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
             `MR_EQBandQualityValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10862,19 +10874,19 @@ export class MR_EQBandOnValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10883,12 +10895,12 @@ export class MR_EQBandOnValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_EQBandOnValue: constructor()')
+        logger.debug('MR_EQBandOnValue: constructor()');
 
         /**
          * @property
@@ -10897,7 +10909,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10907,7 +10919,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10916,7 +10928,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -10929,7 +10941,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -10940,7 +10952,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
             `MR_EQBandOnValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -10951,7 +10963,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
             `MR_EQBandOnValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -10965,19 +10977,19 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -10986,12 +10998,12 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_EQBandFilterTypeValue: constructor()')
+        logger.debug('MR_EQBandFilterTypeValue: constructor()');
 
         /**
          * @property
@@ -11000,7 +11012,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11010,7 +11022,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11019,7 +11031,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11032,7 +11044,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11043,7 +11055,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
             `MR_EQBandFilterTypeValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11054,7 +11066,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
             `MR_EQBandFilterTypeValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11068,19 +11080,19 @@ export class MR_QuickControlValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11089,12 +11101,12 @@ export class MR_QuickControlValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_QuickControlValue: constructor()')
+        logger.debug('MR_QuickControlValue: constructor()');
 
         /**
          * @property
@@ -11103,7 +11115,7 @@ export class MR_QuickControlValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11113,7 +11125,7 @@ export class MR_QuickControlValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11122,7 +11134,7 @@ export class MR_QuickControlValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11135,7 +11147,7 @@ export class MR_QuickControlValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11146,7 +11158,7 @@ export class MR_QuickControlValue extends MR_HostValue {
             `MR_QuickControlValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11157,7 +11169,7 @@ export class MR_QuickControlValue extends MR_HostValue {
             `MR_QuickControlValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11171,19 +11183,19 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11192,12 +11204,12 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_FocusedQuickControlsLockedStateValue: constructor()')
+        logger.debug('MR_FocusedQuickControlsLockedStateValue: constructor()');
 
         /**
          * @property
@@ -11206,7 +11218,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11216,7 +11228,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11225,7 +11237,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11238,7 +11250,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11249,7 +11261,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
             `MR_FocusedQuickControlsLockedStateValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11260,7 +11272,7 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
             `MR_FocusedQuickControlsLockedStateValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11274,19 +11286,19 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11295,12 +11307,12 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostPluginParameterBankValue: constructor()')
+        logger.debug('MR_HostPluginParameterBankValue: constructor()');
 
         /**
          * @property
@@ -11309,7 +11321,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11319,7 +11331,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11328,7 +11340,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11341,7 +11353,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11352,7 +11364,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
             `MR_HostPluginParameterBankValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11363,7 +11375,7 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
             `MR_HostPluginParameterBankValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11377,19 +11389,19 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11398,12 +11410,12 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostValueAtMouseCursor: constructor()')
+        logger.debug('MR_HostValueAtMouseCursor: constructor()');
 
         /**
          * @property
@@ -11412,7 +11424,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11422,7 +11434,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11431,7 +11443,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11444,7 +11456,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11455,7 +11467,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
             `MR_HostValueAtMouseCursor: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11466,7 +11478,7 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
             `MR_HostValueAtMouseCursor: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11480,19 +11492,19 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11501,12 +11513,12 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostValueAtMouseCursorLockedState: constructor()')
+        logger.debug('MR_HostValueAtMouseCursorLockedState: constructor()');
 
         /**
          * @property
@@ -11515,7 +11527,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11525,7 +11537,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11534,7 +11546,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11547,7 +11559,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11558,7 +11570,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
             `MR_HostValueAtMouseCursorLockedState: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11569,7 +11581,7 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
             `MR_HostValueAtMouseCursorLockedState: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11583,19 +11595,19 @@ export class MR_HostControlRoomValue extends MR_HostValue {
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11604,12 +11616,12 @@ export class MR_HostControlRoomValue extends MR_HostValue {
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomValue: constructor()')
+        logger.debug('MR_HostControlRoomValue: constructor()');
 
         /**
          * @property
@@ -11618,7 +11630,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11628,7 +11640,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11637,7 +11649,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11650,7 +11662,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11661,7 +11673,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
             `MR_HostControlRoomValue: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11672,7 +11684,7 @@ export class MR_HostControlRoomValue extends MR_HostValue {
             `MR_HostControlRoomValue: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11686,19 +11698,19 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11707,12 +11719,12 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomSelectSourceCueValueByIndex: constructor()')
+        logger.debug('MR_HostControlRoomSelectSourceCueValueByIndex: constructor()');
 
         /**
          * @property
@@ -11721,7 +11733,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11731,7 +11743,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11740,7 +11752,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11753,7 +11765,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11764,7 +11776,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
             `MR_HostControlRoomSelectSourceCueValueByIndex: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11775,7 +11787,7 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
             `MR_HostControlRoomSelectSourceCueValueByIndex: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11789,19 +11801,19 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11810,12 +11822,12 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomSelectTargetMonitorValueByIndex: constructor()')
+        logger.debug('MR_HostControlRoomSelectTargetMonitorValueByIndex: constructor()');
 
         /**
          * @property
@@ -11824,7 +11836,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11834,7 +11846,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11843,7 +11855,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11856,7 +11868,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11867,7 +11879,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
             `MR_HostControlRoomSelectTargetMonitorValueByIndex: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11878,7 +11890,7 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
             `MR_HostControlRoomSelectTargetMonitorValueByIndex: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -11892,19 +11904,19 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: number
-    ) => void
+    ) => void;
     mOnDisplayValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         value: string,
         units: string
-    ) => void
+    ) => void;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         objectTitle: string,
         valueTitle: string
-    ) => void
+    ) => void;
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11913,12 +11925,12 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
         b: number,
         a: number,
         isActive: boolean
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_HostControlRoomSelectSourceExternalInputValueByIndex: constructor()')
+        logger.debug('MR_HostControlRoomSelectSourceExternalInputValueByIndex: constructor()');
 
         /**
          * @property
@@ -11927,7 +11939,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             value: number
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11937,7 +11949,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
             activeMapping: MR_ActiveMapping,
             value: string,
             units: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11946,7 +11958,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             title: string
-        ) => {}
+        ) => {};
 
         /**
          * @property
@@ -11959,7 +11971,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
             b: number,
             a: number,
             isActive: boolean
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -11970,7 +11982,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
             `MR_HostControlRoomSelectSourceExternalInputValueByIndex: increment(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 
     /**
@@ -11981,7 +11993,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
             `MR_HostControlRoomSelectSourceExternalInputValueByIndex: decrement(${JSON.stringify({
                 activeMapping,
             })})`
-        )
+        );
     }
 }
 
@@ -12039,7 +12051,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
  */
 export class MR_TransportTimeDisplayDetails {
     constructor() {
-        logger.debug('MR_TransportTimeDisplayDetails: constructor()')
+        logger.debug('MR_TransportTimeDisplayDetails: constructor()');
     }
 }
 
@@ -12048,29 +12060,29 @@ export class MR_TransportTimeDisplayDetails {
  * @augments MR_TransportTimeDisplayDetails
  */
 export class MR_TransportTimeDisplayDetailsPrimary extends MR_TransportTimeDisplayDetails {
-    mCycleLocatorLeft: MR_TransportTime
-    mCycleLocatorRight: MR_TransportTime
-    mTransportLocator: MR_TransportTime
+    mCycleLocatorLeft: MR_TransportTime;
+    mCycleLocatorRight: MR_TransportTime;
+    mTransportLocator: MR_TransportTime;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_TransportTimeDisplayDetailsPrimary: constructor()')
-
-        /**
-         * @property
-         */
-        this.mCycleLocatorLeft = new MR_TransportTime()
+        logger.debug('MR_TransportTimeDisplayDetailsPrimary: constructor()');
 
         /**
          * @property
          */
-        this.mCycleLocatorRight = new MR_TransportTime()
+        this.mCycleLocatorLeft = new MR_TransportTime();
 
         /**
          * @property
          */
-        this.mTransportLocator = new MR_TransportTime()
+        this.mCycleLocatorRight = new MR_TransportTime();
+
+        /**
+         * @property
+         */
+        this.mTransportLocator = new MR_TransportTime();
     }
 }
 
@@ -12079,29 +12091,29 @@ export class MR_TransportTimeDisplayDetailsPrimary extends MR_TransportTimeDispl
  * @augments MR_TransportTimeDisplayDetails
  */
 export class MR_TransportTimeDisplayDetailsSecondary extends MR_TransportTimeDisplayDetails {
-    mCycleLocatorLeft: MR_TransportTime
-    mCycleLocatorRight: MR_TransportTime
-    mTransportLocator: MR_TransportTime
+    mCycleLocatorLeft: MR_TransportTime;
+    mCycleLocatorRight: MR_TransportTime;
+    mTransportLocator: MR_TransportTime;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_TransportTimeDisplayDetailsSecondary: constructor()')
-
-        /**
-         * @property
-         */
-        this.mCycleLocatorLeft = new MR_TransportTime()
+        logger.debug('MR_TransportTimeDisplayDetailsSecondary: constructor()');
 
         /**
          * @property
          */
-        this.mCycleLocatorRight = new MR_TransportTime()
+        this.mCycleLocatorLeft = new MR_TransportTime();
 
         /**
          * @property
          */
-        this.mTransportLocator = new MR_TransportTime()
+        this.mCycleLocatorRight = new MR_TransportTime();
+
+        /**
+         * @property
+         */
+        this.mTransportLocator = new MR_TransportTime();
     }
 }
 
@@ -12109,24 +12121,24 @@ export class MR_TransportTimeDisplayDetailsSecondary extends MR_TransportTimeDis
  * @class MR_TransportTimeDisplay
  */
 export class MR_TransportTimeDisplay {
-    mPrimary: MR_TransportTimeDisplayDetailsPrimary
-    mSecondary: MR_TransportTimeDisplayDetailsSecondary
+    mPrimary: MR_TransportTimeDisplayDetailsPrimary;
+    mSecondary: MR_TransportTimeDisplayDetailsSecondary;
     mOnChangeTempoBPM: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         tempoBPM: number
-    ) => void
+    ) => void;
 
     constructor() {
         /**
          * @property
          */
-        this.mPrimary = new MR_TransportTimeDisplayDetailsPrimary()
+        this.mPrimary = new MR_TransportTimeDisplayDetailsPrimary();
 
         /**
          * @property
          */
-        this.mSecondary = new MR_TransportTimeDisplayDetailsSecondary()
+        this.mSecondary = new MR_TransportTimeDisplayDetailsSecondary();
 
         /**
          * @property
@@ -12135,9 +12147,9 @@ export class MR_TransportTimeDisplay {
             activeDevice: MR_ActiveDevice,
             activeMapping: MR_ActiveMapping,
             tempoBPM: number
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_TransportTimeDisplay: constructor()')
+        logger.debug('MR_TransportTimeDisplay: constructor()');
     }
 
     /**
@@ -12150,7 +12162,7 @@ export class MR_TransportTimeDisplay {
                 activeMapping,
                 tempoBPM,
             })})`
-        )
+        );
     }
 }
 
@@ -12163,7 +12175,7 @@ export class MR_TransportTime {
         activeMapping: MR_ActiveMapping,
         time: string,
         format: string
-    ) => void
+    ) => void;
 
     constructor() {
         /**
@@ -12174,9 +12186,9 @@ export class MR_TransportTime {
             activeMapping: MR_ActiveMapping,
             time: string,
             format: string
-        ) => {}
+        ) => {};
 
-        logger.debug('MR_TransportTime: constructor()')
+        logger.debug('MR_TransportTime: constructor()');
     }
 
     /**
@@ -12189,7 +12201,7 @@ export class MR_TransportTime {
                 activeMapping,
                 timeString,
             })})`
-        )
+        );
     }
 }
 
@@ -12197,27 +12209,27 @@ export class MR_TransportTime {
  * @class MR_HostPluginParameterBankZoneActions
  */
 export class MR_HostPluginParameterBankZoneActions {
-    mPrevBank: MR_HostPluginParameterBankZoneAction
-    mNextBank: MR_HostPluginParameterBankZoneAction
-    mResetBank: MR_HostPluginParameterBankZoneAction
+    mPrevBank: MR_HostPluginParameterBankZoneAction;
+    mNextBank: MR_HostPluginParameterBankZoneAction;
+    mResetBank: MR_HostPluginParameterBankZoneAction;
 
     constructor() {
         /**
          * @property
          */
-        this.mPrevBank = new MR_HostPluginParameterBankZoneAction()
+        this.mPrevBank = new MR_HostPluginParameterBankZoneAction();
 
         /**
          * @property
          */
-        this.mNextBank = new MR_HostPluginParameterBankZoneAction()
+        this.mNextBank = new MR_HostPluginParameterBankZoneAction();
 
         /**
          * @property
          */
-        this.mResetBank = new MR_HostPluginParameterBankZoneAction()
+        this.mResetBank = new MR_HostPluginParameterBankZoneAction();
 
-        logger.debug('MR_HostPluginParameterBankZoneActions: constructor()')
+        logger.debug('MR_HostPluginParameterBankZoneActions: constructor()');
     }
 }
 
@@ -12236,7 +12248,7 @@ export class MR_HostPluginParameterBankZoneActions {
  */
 export class MR_HostInsertEffectFilter {
     constructor() {
-        logger.debug('MR_HostInsertEffectFilter: constructor()')
+        logger.debug('MR_HostInsertEffectFilter: constructor()');
     }
 }
 
@@ -12246,7 +12258,7 @@ export class MR_HostInsertEffectFilter {
  */
 export class MR_HostInsertEffectFilterIncludeEmptySlotsOnly extends MR_HostInsertEffectFilter {
     constructor() {
-        super()
+        super();
     }
 }
 
@@ -12256,7 +12268,7 @@ export class MR_HostInsertEffectFilterIncludeEmptySlotsOnly extends MR_HostInser
  */
 export class MR_HostInsertEffectFilterExcludeEmptySlots extends MR_HostInsertEffectFilter {
     constructor() {
-        super()
+        super();
     }
 }
 
@@ -12266,7 +12278,7 @@ export class MR_HostInsertEffectFilterExcludeEmptySlots extends MR_HostInsertEff
  */
 export class MR_HostInsertEffectFilterFollowPluginWindowInFocus extends MR_HostInsertEffectFilter {
     constructor() {
-        super()
+        super();
     }
 }
 
@@ -12274,27 +12286,27 @@ export class MR_HostInsertEffectFilterFollowPluginWindowInFocus extends MR_HostI
  * @class MR_HostInsertEffectViewerActions
  */
 export class MR_HostInsertEffectViewerActions {
-    mPrev: MR_HostInsertEffectViewerAction
-    mNext: MR_HostInsertEffectViewerAction
-    mReset: MR_HostInsertEffectViewerAction
+    mPrev: MR_HostInsertEffectViewerAction;
+    mNext: MR_HostInsertEffectViewerAction;
+    mReset: MR_HostInsertEffectViewerAction;
 
     constructor() {
         /**
          * @property
          */
-        this.mPrev = new MR_HostInsertEffectViewerAction()
+        this.mPrev = new MR_HostInsertEffectViewerAction();
 
         /**
          * @property
          */
-        this.mNext = new MR_HostInsertEffectViewerAction()
+        this.mNext = new MR_HostInsertEffectViewerAction();
 
         /**
          * @property
          */
-        this.mReset = new MR_HostInsertEffectViewerAction()
+        this.mReset = new MR_HostInsertEffectViewerAction();
 
-        logger.debug('MR_HostInsertEffectViewerActions: constructor()')
+        logger.debug('MR_HostInsertEffectViewerActions: constructor()');
     }
 }
 
@@ -12302,39 +12314,39 @@ export class MR_HostInsertEffectViewerActions {
  * @class MR_MixerBankZoneActions
  */
 export class MR_MixerBankZoneActions {
-    mPrevBank: MR_MixerBankZoneAction
-    mNextBank: MR_MixerBankZoneAction
-    mShiftLeft: MR_MixerBankZoneAction
-    mShiftRight: MR_MixerBankZoneAction
-    mResetBank: MR_MixerBankZoneAction
+    mPrevBank: MR_MixerBankZoneAction;
+    mNextBank: MR_MixerBankZoneAction;
+    mShiftLeft: MR_MixerBankZoneAction;
+    mShiftRight: MR_MixerBankZoneAction;
+    mResetBank: MR_MixerBankZoneAction;
 
     constructor() {
         /**
          * @property
          */
-        this.mPrevBank = new MR_MixerBankZoneAction()
+        this.mPrevBank = new MR_MixerBankZoneAction();
 
         /**
          * @property
          */
-        this.mNextBank = new MR_MixerBankZoneAction()
+        this.mNextBank = new MR_MixerBankZoneAction();
 
         /**
          * @property
          */
-        this.mShiftLeft = new MR_MixerBankZoneAction()
+        this.mShiftLeft = new MR_MixerBankZoneAction();
 
         /**
          * @property
          */
-        this.mShiftRight = new MR_MixerBankZoneAction()
+        this.mShiftRight = new MR_MixerBankZoneAction();
 
         /**
          * @property
          */
-        this.mResetBank = new MR_MixerBankZoneAction()
+        this.mResetBank = new MR_MixerBankZoneAction();
 
-        logger.debug('MR_MixerBankZoneActions: constructor()')
+        logger.debug('MR_MixerBankZoneActions: constructor()');
     }
 }
 
@@ -12342,21 +12354,21 @@ export class MR_MixerBankZoneActions {
  * @class MR_TrackSelectionActions
  */
 export class MR_TrackSelectionActions {
-    mPrevTrack: MR_TrackSelectionAction
-    mNextTrack: MR_TrackSelectionAction
+    mPrevTrack: MR_TrackSelectionAction;
+    mNextTrack: MR_TrackSelectionAction;
 
     constructor() {
         /**
          * @property
          */
-        this.mPrevTrack = new MR_TrackSelectionAction()
+        this.mPrevTrack = new MR_TrackSelectionAction();
 
         /**
          * @property
          */
-        this.mNextTrack = new MR_TrackSelectionAction()
+        this.mNextTrack = new MR_TrackSelectionAction();
 
-        logger.debug('MR_TrackSelectionActions: constructor()')
+        logger.debug('MR_TrackSelectionActions: constructor()');
     }
 }
 
@@ -12365,7 +12377,7 @@ export class MR_TrackSelectionActions {
  */
 export class MR_HostBinding {
     constructor() {
-        logger.debug('MR_HostBinding: constructor()')
+        logger.debug('MR_HostBinding: constructor()');
     }
 
     /**
@@ -12377,8 +12389,8 @@ export class MR_HostBinding {
             `MR_HostBinding: setSubPage(${JSON.stringify({
                 subPage,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
@@ -12390,8 +12402,8 @@ export class MR_HostBinding {
             `MR_HostBinding: filterByValue(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
@@ -12405,8 +12417,8 @@ export class MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
@@ -12418,8 +12430,8 @@ export class MR_HostBinding {
             `MR_HostBinding: mapToValue(${JSON.stringify({
                 mapValue,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
@@ -12433,8 +12445,8 @@ export class MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 }
 
@@ -12448,12 +12460,12 @@ export class MR_ValueBinding extends MR_HostBinding {
         activeMapping: MR_ActiveMapping,
         currValue: number,
         valueDiff: number
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ValueBinding: constructor()')
+        logger.debug('MR_ValueBinding: constructor()');
 
         /**
          * @property
@@ -12463,47 +12475,47 @@ export class MR_ValueBinding extends MR_HostBinding {
             activeMapping: MR_ActiveMapping,
             currValue: number,
             valueDiff: number
-        ) => {}
+        ) => {};
     }
 
     /**
      * @returns {MR_ValueBinding}
      */
     setTypeDefault(): MR_ValueBinding {
-        logger.info(`MR_ValueBinding: setTypeDefault()`)
-        return this
+        logger.info(`MR_ValueBinding: setTypeDefault()`);
+        return this;
     }
 
     /**
      * @returns {MR_ValueBinding}
      */
     setTypeToggle(): MR_ValueBinding {
-        logger.info(`MR_ValueBinding: setTypeToggle()`)
-        return this
+        logger.info(`MR_ValueBinding: setTypeToggle()`);
+        return this;
     }
 
     /**
      * @returns {MR_ValueBinding}
      */
     setValueTakeOverModeJump(): MR_ValueBinding {
-        logger.info(`MR_ValueBinding: setValueTakeOverModeJump()`)
-        return this
+        logger.info(`MR_ValueBinding: setValueTakeOverModeJump()`);
+        return this;
     }
 
     /**
      * @returns {MR_ValueBinding}
      */
     setValueTakeOverModePickup(): MR_ValueBinding {
-        logger.info(`MR_ValueBinding: setValueTakeOverModePickup()`)
-        return this
+        logger.info(`MR_ValueBinding: setValueTakeOverModePickup()`);
+        return this;
     }
 
     /**
      * @returns {MR_ValueBinding}
      */
     setValueTakeOverModeScaled(): MR_ValueBinding {
-        logger.info(`MR_ValueBinding: setValueTakeOverModeScaled()`)
-        return this
+        logger.info(`MR_ValueBinding: setValueTakeOverModeScaled()`);
+        return this;
     }
 
     /**
@@ -12515,8 +12527,8 @@ export class MR_ValueBinding extends MR_HostBinding {
             `MR_ValueBinding: setSubPage(${JSON.stringify({
                 subPage,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
@@ -12528,8 +12540,8 @@ export class MR_ValueBinding extends MR_HostBinding {
             `MR_ValueBinding: filterByValue(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_ValueBinding()
+        );
+        return new MR_ValueBinding();
     }
 
     /**
@@ -12543,8 +12555,8 @@ export class MR_ValueBinding extends MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return new MR_ValueBinding()
+        );
+        return new MR_ValueBinding();
     }
 
     /**
@@ -12556,8 +12568,8 @@ export class MR_ValueBinding extends MR_HostBinding {
             `MR_ValueBinding: mapToValue(${JSON.stringify({
                 mapValue,
             })})`
-        )
-        return new MR_ValueBinding()
+        );
+        return new MR_ValueBinding();
     }
 
     /**
@@ -12571,8 +12583,8 @@ export class MR_ValueBinding extends MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return new MR_ValueBinding()
+        );
+        return new MR_ValueBinding();
     }
 }
 
@@ -12586,12 +12598,12 @@ export class MR_CommandBinding extends MR_HostBinding {
         activeMapping: MR_ActiveMapping,
         currValue: number,
         valueDiff: number
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_CommandBinding: constructor()')
+        logger.debug('MR_CommandBinding: constructor()');
 
         /**
          * @property
@@ -12601,7 +12613,7 @@ export class MR_CommandBinding extends MR_HostBinding {
             activeMapping: MR_ActiveMapping,
             currValue: number,
             valueDiff: number
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -12615,8 +12627,8 @@ export class MR_CommandBinding extends MR_HostBinding {
                 delaySeconds,
                 rateHz,
             })})`
-        )
-        return new MR_Repeating()
+        );
+        return new MR_Repeating();
     }
 
     /**
@@ -12628,8 +12640,8 @@ export class MR_CommandBinding extends MR_HostBinding {
             `MR_CommandBinding: setSubPage(${JSON.stringify({
                 subPage,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
@@ -12641,8 +12653,8 @@ export class MR_CommandBinding extends MR_HostBinding {
             `MR_CommandBinding: filterByValue(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_CommandBinding()
+        );
+        return new MR_CommandBinding();
     }
 
     /**
@@ -12656,8 +12668,8 @@ export class MR_CommandBinding extends MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return new MR_CommandBinding()
+        );
+        return new MR_CommandBinding();
     }
 
     /**
@@ -12669,8 +12681,8 @@ export class MR_CommandBinding extends MR_HostBinding {
             `MR_CommandBinding: mapToValue(${JSON.stringify({
                 mapValue,
             })})`
-        )
-        return new MR_CommandBinding()
+        );
+        return new MR_CommandBinding();
     }
 
     /**
@@ -12684,8 +12696,8 @@ export class MR_CommandBinding extends MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return new MR_CommandBinding()
+        );
+        return new MR_CommandBinding();
     }
 }
 
@@ -12699,12 +12711,12 @@ export class MR_ActionBinding extends MR_HostBinding {
         activeMapping: MR_ActiveMapping,
         currValue: number,
         valueDiff: number
-    ) => void
+    ) => void;
 
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_ActionBinding: constructor()')
+        logger.debug('MR_ActionBinding: constructor()');
 
         /**
          * @property
@@ -12714,7 +12726,7 @@ export class MR_ActionBinding extends MR_HostBinding {
             activeMapping: MR_ActiveMapping,
             currValue: number,
             valueDiff: number
-        ) => {}
+        ) => {};
     }
 
     /**
@@ -12728,8 +12740,8 @@ export class MR_ActionBinding extends MR_HostBinding {
                 delaySeconds,
                 rateHz,
             })})`
-        )
-        return new MR_Repeating()
+        );
+        return new MR_Repeating();
     }
 
     /**
@@ -12741,8 +12753,8 @@ export class MR_ActionBinding extends MR_HostBinding {
             `MR_ActionBinding: setSubPage(${JSON.stringify({
                 subPage,
             })})`
-        )
-        return this
+        );
+        return this;
     }
 
     /**
@@ -12754,8 +12766,8 @@ export class MR_ActionBinding extends MR_HostBinding {
             `MR_ActionBinding: filterByValue(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_ActionBinding()
+        );
+        return new MR_ActionBinding();
     }
 
     /**
@@ -12769,8 +12781,8 @@ export class MR_ActionBinding extends MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return new MR_ActionBinding()
+        );
+        return new MR_ActionBinding();
     }
 
     /**
@@ -12782,8 +12794,8 @@ export class MR_ActionBinding extends MR_HostBinding {
             `MR_ActionBinding: mapToValue(${JSON.stringify({
                 mapValue,
             })})`
-        )
-        return new MR_ActionBinding()
+        );
+        return new MR_ActionBinding();
     }
 
     /**
@@ -12797,8 +12809,8 @@ export class MR_ActionBinding extends MR_HostBinding {
                 from,
                 to,
             })})`
-        )
-        return new MR_ActionBinding()
+        );
+        return new MR_ActionBinding();
     }
 }
 
@@ -12813,15 +12825,15 @@ export class MR_ActionBinding extends MR_HostBinding {
  * @class MR_SubPageArea
  */
 export class MR_SubPageArea {
-    mAction: MR_SubPageAreaActions
+    mAction: MR_SubPageAreaActions;
 
     constructor() {
         /**
          * @property
          */
-        this.mAction = new MR_SubPageAreaActions()
+        this.mAction = new MR_SubPageAreaActions();
 
-        logger.debug('MR_SubPageArea: constructor()')
+        logger.debug('MR_SubPageArea: constructor()');
     }
 
     /**
@@ -12833,8 +12845,8 @@ export class MR_SubPageArea {
             `MR_SubPageArea: makeSubPage(${JSON.stringify({
                 name,
             })})`
-        )
-        return new MR_SubPage()
+        );
+        return new MR_SubPage();
     }
 }
 
@@ -12842,27 +12854,27 @@ export class MR_SubPageArea {
  * @class MR_SubPageAreaActions
  */
 export class MR_SubPageAreaActions {
-    mPrev: MR_SubPageAreaAction
-    mNext: MR_SubPageAreaAction
-    mReset: MR_SubPageAreaAction
+    mPrev: MR_SubPageAreaAction;
+    mNext: MR_SubPageAreaAction;
+    mReset: MR_SubPageAreaAction;
 
     constructor() {
         /**
          * @property
          */
-        this.mPrev = new MR_SubPageAreaAction()
+        this.mPrev = new MR_SubPageAreaAction();
 
         /**
          * @property
          */
-        this.mNext = new MR_SubPageAreaAction()
+        this.mNext = new MR_SubPageAreaAction();
 
         /**
          * @property
          */
-        this.mReset = new MR_SubPageAreaAction()
+        this.mReset = new MR_SubPageAreaAction();
 
-        logger.debug('MR_SubPageAreaActions: constructor()')
+        logger.debug('MR_SubPageAreaActions: constructor()');
     }
 }
 
@@ -12870,27 +12882,27 @@ export class MR_SubPageAreaActions {
  * @class MR_SubPage
  */
 export class MR_SubPage {
-    mAction: MR_SubPageActions
-    mOnActivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void
-    mOnDeactivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void
+    mAction: MR_SubPageActions;
+    mOnActivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void;
+    mOnDeactivate: (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => void;
 
     constructor() {
         /**
          * @property
          */
-        this.mAction = new MR_SubPageActions()
+        this.mAction = new MR_SubPageActions();
 
         /**
          * @property
          */
-        this.mOnActivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
+        this.mOnActivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {};
 
         /**
          * @property
          */
-        this.mOnDeactivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {}
+        this.mOnDeactivate = (activeDevice: MR_ActiveDevice, activeMapping: MR_ActiveMapping) => {};
 
-        logger.debug('MR_SubPage: constructor()')
+        logger.debug('MR_SubPage: constructor()');
     }
 }
 
@@ -12898,15 +12910,15 @@ export class MR_SubPage {
  * @class MR_SubPageActions
  */
 export class MR_SubPageActions {
-    mActivate: MR_SubPageActionActivate
+    mActivate: MR_SubPageActionActivate;
 
     constructor() {
         /**
          * @property
          */
-        this.mActivate = new MR_SubPageActionActivate()
+        this.mActivate = new MR_SubPageActionActivate();
 
-        logger.debug('MR_SubPageActions: constructor()')
+        logger.debug('MR_SubPageActions: constructor()');
     }
 }
 
@@ -12915,7 +12927,7 @@ export class MR_SubPageActions {
  */
 export class MR_Repeating {
     constructor() {
-        logger.debug('MR_Repeating: constructor()')
+        logger.debug('MR_Repeating: constructor()');
     }
 }
 
@@ -12923,15 +12935,15 @@ export class MR_Repeating {
  * @class MR_MappingPageActions
  */
 export class MR_MappingPageActions {
-    mActivate: MR_MappingPageActionActivate
+    mActivate: MR_MappingPageActionActivate;
 
     constructor() {
         /**
          * @property
          */
-        this.mActivate = new MR_MappingPageActionActivate()
+        this.mActivate = new MR_MappingPageActionActivate();
 
-        logger.debug('MR_SubPageActions: constructor()')
+        logger.debug('MR_SubPageActions: constructor()');
     }
 }
 
@@ -12950,7 +12962,7 @@ export class MR_MappingPageActions {
  */
 export class MR_DeviceDetectionUnit {
     constructor() {
-        logger.debug('MR_DeviceDetectionUnit: constructor()')
+        logger.debug('MR_DeviceDetectionUnit: constructor()');
     }
 
     /**
@@ -12973,8 +12985,8 @@ export class MR_DeviceDetectionUnit {
                 inputPort,
                 outputPort,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -12986,8 +12998,8 @@ export class MR_DeviceDetectionUnit {
             `MR_DeviceDetectionUnit: detectSingleInput(${JSON.stringify({
                 inputPort,
             })})`
-        )
-        return new MR_DetectionSingleInput()
+        );
+        return new MR_DetectionSingleInput();
     }
 }
 
@@ -12996,7 +13008,7 @@ export class MR_DeviceDetectionUnit {
  */
 export class MR_DetectionEntry {
     constructor() {
-        logger.debug('MR_DetectionEntry: constructor()')
+        logger.debug('MR_DetectionEntry: constructor()');
     }
 }
 
@@ -13012,9 +13024,9 @@ export class MR_DetectionEntry {
  */
 export class MR_DetectionPortPair extends MR_DetectionEntry {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_DetectionPortPair: constructor()')
+        logger.debug('MR_DetectionPortPair: constructor()');
     }
 
     /**
@@ -13026,8 +13038,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectInputNameContains(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13039,8 +13051,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectInputNameEquals(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13052,8 +13064,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectInputNameStartsWith(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13065,8 +13077,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectInputNameEndsWith(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13078,8 +13090,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectOutputNameContains(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13091,8 +13103,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectOutputNameEquals(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13104,8 +13116,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectOutputNameStartsWith(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13117,8 +13129,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
             `MR_DetectionPortPair: expectOutputNameEndsWith(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 
     /**
@@ -13138,8 +13150,8 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
                 deviceFamily,
                 modelNumber,
             })})`
-        )
-        return new MR_DetectionPortPair()
+        );
+        return new MR_DetectionPortPair();
     }
 }
 
@@ -13149,9 +13161,9 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
  */
 export class MR_DetectionSingleInput extends MR_DetectionEntry {
     constructor() {
-        super()
+        super();
 
-        logger.debug('MR_DetectionSingleInput: constructor()')
+        logger.debug('MR_DetectionSingleInput: constructor()');
     }
 
     /**
@@ -13163,8 +13175,8 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
             `MR_DetectionSingleInput: expectInputNameContains(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionSingleInput()
+        );
+        return new MR_DetectionSingleInput();
     }
 
     /**
@@ -13176,8 +13188,8 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
             `MR_DetectionSingleInput: expectInputNameEquals(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionSingleInput()
+        );
+        return new MR_DetectionSingleInput();
     }
 
     /**
@@ -13189,8 +13201,8 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
             `MR_DetectionSingleInput: expectInputNameStartsWith(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionSingleInput()
+        );
+        return new MR_DetectionSingleInput();
     }
 
     /**
@@ -13202,8 +13214,8 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
             `MR_DetectionSingleInput: expectInputNameEndsWith(${JSON.stringify({
                 filterValue,
             })})`
-        )
-        return new MR_DetectionSingleInput()
+        );
+        return new MR_DetectionSingleInput();
     }
 }
 
@@ -13211,27 +13223,27 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
  * @class MR_DeviceDriverActions
  */
 export class MR_DeviceDriverActions {
-    mPrevPage: MR_DeviceDriverAction
-    mNextPage: MR_DeviceDriverAction
-    mResetPage: MR_DeviceDriverAction
+    mPrevPage: MR_DeviceDriverAction;
+    mNextPage: MR_DeviceDriverAction;
+    mResetPage: MR_DeviceDriverAction;
 
     constructor() {
         /**
          * @property
          */
-        this.mPrevPage = new MR_DeviceDriverAction()
+        this.mPrevPage = new MR_DeviceDriverAction();
 
         /**
          * @property
          */
-        this.mNextPage = new MR_DeviceDriverAction()
+        this.mNextPage = new MR_DeviceDriverAction();
 
         /**
          * @property
          */
-        this.mResetPage = new MR_DeviceDriverAction()
+        this.mResetPage = new MR_DeviceDriverAction();
 
-        logger.debug('MR_DeviceDriverActions: constructor()')
+        logger.debug('MR_DeviceDriverActions: constructor()');
     }
 }
 
@@ -13240,7 +13252,7 @@ export class MR_DeviceDriverActions {
  */
 export class MR_InitialSysexFile {
     constructor() {
-        logger.debug('MR_InitialSysexFile: constructor()')
+        logger.debug('MR_InitialSysexFile: constructor()');
     }
 }
 
@@ -13249,12 +13261,12 @@ export class MR_InitialSysexFile {
  */
 export class MR_UserGuide {
     constructor() {
-        logger.debug('MR_UserGuide: constructor()')
+        logger.debug('MR_UserGuide: constructor()');
     }
 }
 
 // export classes etc.
-const module_object = new MR_MidiRemoteAPI()
-export const makeDeviceDriver = module_object.makeDeviceDriver
-export const mDefaults = new MR_HostDefaults()
-export default module_object
+const module_object = new MR_MidiRemoteAPI();
+export const makeDeviceDriver = module_object.makeDeviceDriver;
+export const mDefaults = new MR_HostDefaults();
+export default module_object;

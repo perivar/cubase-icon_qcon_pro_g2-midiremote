@@ -1,6 +1,6 @@
 declare global {
     interface ArrayConstructor {
-        from<T>(arrayLike: ArrayLike<T>): Array<T>
+        from<T>(arrayLike: ArrayLike<T>): Array<T>;
         // from<T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): Array<U>
     }
 }
@@ -12,14 +12,14 @@ if (!Array.from) {
         // shorthand
         // return Array.prototype.slice.call(arrayLike)
 
-        const result = []
+        const result = [];
 
         for (let i = 0; i < arrayLike.length; i++) {
-            result[i] = arrayLike[i]
+            result[i] = arrayLike[i];
         }
 
-        return result
-    }
+        return result;
+    };
 }
 
-export {}
+export {};

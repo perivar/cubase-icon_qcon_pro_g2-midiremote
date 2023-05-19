@@ -1,11 +1,11 @@
 // https://medium.com/netscape/firebase-cloud-functions-with-typescript-and-webpack-7781c882a05b
 // https://blog.logrocket.com/using-webpack-typescript/
 
-'use strict'
+'use strict';
 
-const path = require('path')
-const webpack = require('webpack')
-const pkg = require('./package.json')
+const path = require('path');
+const webpack = require('webpack');
+const pkg = require('./package.json');
 
 module.exports = {
     entry: './src/index.ts',
@@ -57,4 +57,4 @@ module.exports = {
             `,
         }),
     ],
-}
+};

@@ -7,16 +7,16 @@
 // const mockAPI = jest.mocked(midiremote_api)
 // mockAPI.makeDeviceDriver.mockImplementation()
 
-import midiremote_api from 'midiremote_api_v1'
+import midiremote_api from 'midiremote_api_v1';
 
-import { decorateSurface } from '../decorators/surface'
+import { decorateSurface } from '../decorators/surface';
 
-console.log('Starting midiremote test script ...')
-const driver = midiremote_api.makeDeviceDriver('Icon', 'QCon Pro G2', 'Nerseth')
-const surface = decorateSurface(driver.mSurface)
+console.log('Starting midiremote test script ...');
+const driver = midiremote_api.makeDeviceDriver('Icon', 'QCon Pro G2', 'Nerseth');
+const surface = decorateSurface(driver.mSurface);
 
 // console.log('Calls to method: ' + (midiremote_api.makeDeviceDriver as jest.Mock).mock.calls)
 
 test('surface', () => {
-    expect(surface.makeButton.length).toStrictEqual(4)
-})
+    expect(surface.makeButton.length).toStrictEqual(4);
+});

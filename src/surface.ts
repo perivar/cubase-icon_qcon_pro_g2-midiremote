@@ -1,22 +1,22 @@
-import { DecoratedDeviceSurface, LedButton } from './decorators/surface'
-import { createElements } from './util'
+import { DecoratedDeviceSurface, LedButton } from './decorators/surface';
+import { createElements } from './util';
 
-const channelWidth = 5
-export const channelElementsWidth = 8 * channelWidth
-export const controlSectionElementsWidth = 25.5
-export const surfaceHeight = 40
+const channelWidth = 5;
+export const channelElementsWidth = 8 * channelWidth;
+export const controlSectionElementsWidth = 25.5;
+export const surfaceHeight = 40;
 
 const makeSquareButton = (surface: DecoratedDeviceSurface, x: number, y: number) => {
-    return surface.makeLedButton(x + 0.25, y, 1.5, 1.5)
-}
+    return surface.makeLedButton(x + 0.25, y, 1.5, 1.5);
+};
 
 /**
  * Creates and returns the elements for eight channels, starting at the provided x position
  */
 export const createChannelSurfaceElements = (surface: DecoratedDeviceSurface, x: number) => {
     return createElements(8, (index) => {
-        const currentChannelXPosition = x + index * channelWidth
-        const encoder = surface.makeLedPushEncoder(currentChannelXPosition + 1, 3, 4, 4)
+        const currentChannelXPosition = x + index * channelWidth;
+        const encoder = surface.makeLedPushEncoder(currentChannelXPosition + 1, 3, 4, 4);
 
         return {
             index,
@@ -36,18 +36,18 @@ export const createChannelSurfaceElements = (surface: DecoratedDeviceSurface, x:
             },
 
             fader: surface.makeTouchSensitiveFader(2 + currentChannelXPosition, 20, 2, 16),
-        }
-    })
-}
+        };
+    });
+};
 
-export type ChannelSurfaceElements = ReturnType<typeof createChannelSurfaceElements>
+export type ChannelSurfaceElements = ReturnType<typeof createChannelSurfaceElements>;
 
 /**
  * Creates and returns control section elements, starting at the provided x position. "Control
  * section" means everything on an X-Touch that does not belong to one of the eight channels.
  */
 export const createControlSectionSurfaceElements = (surface: DecoratedDeviceSurface, x: number) => {
-    surface.makeBlindPanel(x + 1, 6, 23.25, 4) // Time display
+    surface.makeBlindPanel(x + 1, 6, 23.25, 4); // Time display
 
     // create the 3 rows of 7 buttons (21 buttons) below the function buttons
     // modify, automation, utility, transport
@@ -57,9 +57,9 @@ export const createControlSectionSurfaceElements = (surface: DecoratedDeviceSurf
             x + 6 + (index % 7) * 2.625,
             17 + Math.floor(index / 7) * 2.5 + (index < 14 ? 0 : 0.5)
         )
-    )
+    );
     const getMiscControlButtons = (indices: number[]) =>
-        indices.map((index) => miscControlButtons[index])
+        indices.map((index) => miscControlButtons[index]);
 
     return {
         mainFader: surface.makeTouchSensitiveFader(x + 2, 20, 2, 16),
@@ -136,7 +136,7 @@ export const createControlSectionSurfaceElements = (surface: DecoratedDeviceSurf
         footSwitches: createElements(2, (index) =>
             surface.makeButton(x + 20 + index * 2, 3.5, 1.5, 1.5).setShapeCircle()
         ),
-    }
-}
+    };
+};
 
-export type ControlSectionSurfaceElements = ReturnType<typeof createControlSectionSurfaceElements>
+export type ControlSectionSurfaceElements = ReturnType<typeof createControlSectionSurfaceElements>;

@@ -23,8 +23,8 @@ module.exports = {
         'prefer-spread': 'off',
         'es5/no-spread': 'warn',
         'es5/no-for-of': 'error',
-        // 'es5/no-rest-parameters': 'error',
-        'es5/no-es6-methods': 'error',
+        'es5/no-rest-parameters': 'warn',
+        'es5/no-es6-methods': 'warn',
         'es5/no-es6-static-methods': 'warn',
     },
-}
+};

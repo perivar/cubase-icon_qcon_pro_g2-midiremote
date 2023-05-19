@@ -1,4 +1,4 @@
-import { Config } from '@jest/types'
+import { Config } from '@jest/types';
 
 // By default, all files inside `node_modules` are not transformed. But some 3rd party
 // modules are published as untranspiled, Jest will not understand the code in these modules.
@@ -18,6 +18,6 @@ const config: Config.InitialOptions = {
     moduleNameMapper: {
         midiremote_api_v1: '<rootDir>/api/v1/midiremote_api_v1',
     },
-}
+};
 
-export default config
+export default config;

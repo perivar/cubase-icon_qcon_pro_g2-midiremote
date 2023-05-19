@@ -47,10 +47,12 @@
     // "verbatimModuleSyntax": true,
 
     /* Language and Environment */
-    "target": "ES5",
     "module": "commonjs",
     "moduleResolution": "node",
+    "target": "ES5",
     "lib": ["ES5", "DOM"], // include DOM to support console.log
+    // "target": "ES2021",
+    // "lib": ["ES2021"],
 
     /* Projects */
     // "incremental": true,
