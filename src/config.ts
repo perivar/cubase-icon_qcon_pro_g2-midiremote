@@ -6,10 +6,15 @@ export type ScriptConfiguration = {
     mapMainFaderToControlRoom: boolean
 }
 
+// When using tsup.mjs: Everything after "dash dash BEGIN JS dash dash"
+// is copied directly to the top of the build file (with some values being replaced).
+// BEGIN JS
+
 /**
  * Script configuration – edit the following options to match your preferences
  */
-const CONFIGURATION = {
+// eslint-disable-next-line
+var CONFIGURATION = {
     /**
      * If you have an extender unit, change this option to either `["extender", "main"]` (if your
      * extender is placed on the left side of the main unit) or `["main", "extender"]` (if the
