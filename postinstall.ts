@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv'
 import fs from 'fs'
 import path from 'path'
 import prependFile from 'prepend-file'
@@ -43,7 +44,7 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
 
     fs.readFile(filePath, 'utf8', function (err, data) {
         if (err) {
-            return console.log(err)
+            return console.error(err)
         }
 
         let replaced = data
@@ -54,28 +55,37 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
 
         fs.writeFile(filePath, replaced, 'utf8', function (err) {
             if (err) {
-                return console.log(err)
+                return console.error(err)
             }
         })
     })
 }
 
-const prependConfig = (configPath: string, outputPath: string) => {
+export const prependConfig = async (configPath: string, outputPath: string) => {
     const configFileContents = fs.readFileSync(configPath).toString('utf8')
     if (configFileContents) {
-        const scriptConfigArray = /--BEGIN JS--([\s\S]+)/.exec(configFileContents)
+        const scriptConfigMatches = /--BEGIN JS--([\s\S]+)/.exec(configFileContents)
 
-        if (scriptConfigArray) {
+        if (scriptConfigMatches) {
+            // read from .env file
+            dotenv.config()
             const devices = process.env['DEVICES'] ?? '["main"]'
+            // const copyCommand = process.env['COPY_COMMAND']
 
-            const scriptConfig = scriptConfigArray[1].replace(
+            const scriptConfig = scriptConfigMatches[1].replace(
                 'devices: ["main"]',
                 `devices: ${devices}`
             )
 
             if (scriptConfig) {
                 console.info(`Adding script config to '${outputPath}'`)
-                prependFile(outputPath, scriptConfig + '\n\n')
+                await prependFile(outputPath, scriptConfig + '\n\n')
+
+                // if (copyCommand) {
+                //     await execaCommand(copyCommand, { shell: true, stdout: process.stdout })
+                // }
+            } else {
+                console.error(`ERROR: Failed copying config file to top of output!`)
             }
         }
     }
@@ -98,4 +108,4 @@ const replaceMap: Map<RegExp, string> = new Map([
 
 replaceInFiles('dist', /.js/, replaceMap)
 
-// prependConfig('src/config.ts', 'dist/index.js')
+// prependConfig('src/config.ts', 'dist/icon/qcon_pro_g2/icon_qcon_pro_g2_webpack.js')

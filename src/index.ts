@@ -1,23 +1,11 @@
-// core-js polyfills
-// import 'core-js/es/array/iterator'
-// import 'core-js/es/array/from'
-// import 'core-js/es/array/reverse'
-// import 'core-js/es/array/flat-map'
-// import 'core-js/es/string/pad-start'
-// import 'core-js/es/string/replace-all'
-// import 'core-js/es/object/entries'
-// import 'core-js/es/reflect/construct'
-// Workaround because the core-js polyfill doesn't play nice with SWC:
-// Reflect.get = undefined
-
-// own polyfills
+// Polyfills
 import './polyfill/arrayFlatMap'
 import './polyfill/arrayFrom'
 import './polyfill/stringPadStart'
 import './polyfill/mathLog10'
 import './polyfill/objectAssign'
 
-// to easility be able to cleanup webpack afterwards, use require and not from
+// to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
 import midiremote_api = require('midiremote_api_v1')
 
 import { decoratePage } from './decorators/page'

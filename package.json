@@ -21,7 +21,9 @@
         "format": "prettier --check \"**/*.{js,ts}\"",
         "format-fix": "prettier --write \"**/*.{js,ts}\"",
         "dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"yarn clean-and-fix\"",
-        "test": "jest"
+        "test": "jest",
+        "go-webpack": "ts-node -r tsconfig-paths/register dist/icon/qcon_pro_g2/icon_qcon_pro_g2_webpack.js",
+        "go-tsup": "ts-node -r tsconfig-paths/register dist/icon/qcon_pro_g2/icon_qcon_pro_g2_tsup.js"
     },
     "author": "perivar",
     "license": "MIT",

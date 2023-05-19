@@ -10,7 +10,7 @@ const copyCommand = process.env.COPY_COMMAND
 const devices = process.env.DEVICES ?? '["main"]'
 
 build({
-    watch: process.argv.includes('--watch'),
+    watch: process.argv.indexOf('--watch') !== -1,
     entry: { icon_qcon_pro_g2_tsup: 'src/index.ts' },
     outDir: 'dist/icon/qcon_pro_g2',
     clean: false,

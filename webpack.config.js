@@ -4,6 +4,8 @@
 'use strict'
 
 const path = require('path')
+const webpack = require('webpack')
+const pkg = require('./package.json')
 
 module.exports = {
     entry: './src/index.ts',
@@ -44,4 +46,15 @@ module.exports = {
             type: 'this', // <-- Important. This seem to work fine for es5 output
         },
     },
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: `
+              Package name: ${pkg.name}
+              Package version: ${pkg.version}
+              Package author: ${pkg.author}
+              Package desc: ${pkg.description}
+              Tip! Find the CONFIGURATION section and modify it for your needs
+            `,
+        }),
+    ],
 }
