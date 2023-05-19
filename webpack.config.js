@@ -11,21 +11,23 @@ module.exports = {
     externals: 'midiremote_api_v1',
     module: {
         rules: [
+            // {
+            //     test: /\.tsx?$/,
+            //     loader: 'remove-comments-loader',
+            // },
             {
                 test: /\.tsx?$/,
                 use: [
                     {
                         loader: 'ts-loader',
-                        // options: {
-                        //     transpileOnly: true,
-                        // },
                     },
                 ],
             },
         ],
     },
     optimization: {
-        minimize: false,
+        minimize: false, // make sure to keep the format for readabilty
+        moduleIds: 'named', // use the filename as module-ids
     },
     resolve: {
         alias: {

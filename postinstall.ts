@@ -63,7 +63,7 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
 const prependConfig = (configPath: string, outputPath: string) => {
     const configFileContents = fs.readFileSync(configPath).toString('utf8')
     if (configFileContents) {
-        const scriptConfigArray = /BEGIN JS\n([\s\S]+)/.exec(configFileContents)
+        const scriptConfigArray = /--BEGIN JS--([\s\S]+)/.exec(configFileContents)
 
         if (scriptConfigArray) {
             const devices = process.env['DEVICES'] ?? '["main"]'
@@ -86,13 +86,14 @@ const prependConfig = (configPath: string, outputPath: string) => {
 // replaced = replaced.replace(/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, '//')
 
 const replaceMap: Map<RegExp, string> = new Map([
-    [/SCRIPT_VERSION/g, `"${process.env['npm_package_version']}"`],
+    [/SCRIPT_VERSION/g, `"${process.env['npm_package_version']}"`], // replace SCRIPT_VERSION with the version from package.json
     [/"use strict";?/g, ''],
     [/'use strict';?/g, ''],
     [/Object.defineProperty\(exports, "__esModule", { value: true }\);?/g, ''],
     [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);?/g, ''],
     [/Object.defineProperty\(exports, '__esModule', { value: true }\);?/g, ''],
     [/(var midiremote_api.*?)\s=\s__.*$/gm, "$1 = require('midiremote_api_v1')"],
+    [/\/\*{2,}\//g, ''], // remove comments like /****/
 ])
 
 replaceInFiles('dist', /.js/, replaceMap)

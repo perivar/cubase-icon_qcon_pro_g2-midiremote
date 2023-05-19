@@ -17,14 +17,20 @@ build({
     external: ['midiremote_api_v1'],
     noExternal: [],
     onSuccess: async () => {
+        console.info(`Starting tsup post-build phase (onSuccess) ...`)
+
         const outputPath = 'dist/icon/qcon_pro_g2/icon_qcon_pro_g2_tsup.js'
 
         const configFileContents = (await readFile('src/config.ts')).toString('utf8')
 
         if (configFileContents) {
-            const scriptConfigArray = /BEGIN JS\n([\s\S]+)/.exec(configFileContents)
+            // console.info(`Succesfully read config file ...`)
+
+            const scriptConfigArray = /--BEGIN JS--([\s\S]+)/.exec(configFileContents)
 
             if (scriptConfigArray) {
+                // console.info(`Succesfully parsed config file ...`)
+
                 const scriptConfig = scriptConfigArray[1].replace(
                     'devices: ["main"]',
                     `devices: ${devices}`
@@ -38,6 +44,8 @@ build({
                         await execaCommand(copyCommand, { shell: true, stdout: process.stdout })
                     }
                 }
+            } else {
+                console.error(`ERROR: Failed copying config file to top of output!`)
             }
         }
     },

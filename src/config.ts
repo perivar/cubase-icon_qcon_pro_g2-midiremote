@@ -6,20 +6,10 @@ export type ScriptConfiguration = {
     mapMainFaderToControlRoom: boolean
 }
 
-// set some default values
-export const config = {
-    devices: ['main'],
-    enableAutoSelect: true,
-    mapMainFaderToControlRoom: true,
-}
-
-// AT ts-expect-error allow 'CONFIGURATION is used before definition' since we are copying the below text
-// export const config = CONFIGURATION as ScriptConfiguration
-
-// Everything below "BEGIN JS" is copied directly to the top of the build file (with some values
-// being replaced).
-
+// When using tsup.mjs: Everything after "dash dash BEGIN JS dash dash"
+// is copied directly to the top of the build file (with some values being replaced).
 // BEGIN JS
+
 /**
  * Script configuration – edit the following options to match your preferences
  */
@@ -52,3 +42,5 @@ var CONFIGURATION = {
      */
     mapMainFaderToControlRoom: true,
 }
+
+export const config = CONFIGURATION
