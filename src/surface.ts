@@ -19,8 +19,8 @@ export const createChannelSurfaceElements = (surface: DecoratedDeviceSurface, x:
         const encoder = surface.makeLedPushEncoder(currentChannelXPosition + 1, 3, 4, 4);
 
         return {
-            index,
-            encoder,
+            index: index,
+            encoder: encoder,
             scribbleStrip: {
                 encoderLabel: surface
                     .makeLabelField(currentChannelXPosition + 1, 7, 4, 2)

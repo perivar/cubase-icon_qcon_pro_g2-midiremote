@@ -41,9 +41,11 @@ import './polyfill/objectAssign';
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
 import midiremote_api = require('midiremote_api_v1');
 
+import { logger } from 'midiremote_api_v1';
+
 import { decoratePage } from './decorators/page';
 import { decorateSurface } from './decorators/surface';
-import { Devices } from './Devices';
+import { Devices, MainDevice } from './Devices';
 import { makeHostMapping } from './mapping';
 import { bindDeviceToMidi, makeGlobalBooleanVariables } from './midi';
 import { setupDeviceConnection } from './midi/connection';
@@ -56,8 +58,11 @@ const surface = decorateSurface(driver.mSurface);
 // Create devices, i.e., midi ports and surface elements for each physical device
 const devices = new Devices(driver, surface);
 
-const { activationCallbacks: activationCallbacks, segmentDisplayManager: segmentDisplayManager } =
-    setupDeviceConnection(driver, devices);
+const deviceConnection = setupDeviceConnection(driver, devices);
+// PIN: avoid destructuring
+const activationCallbacks = deviceConnection.activationCallbacks;
+const segmentDisplayManager = deviceConnection.segmentDisplayManager;
+
 activationCallbacks.addCallback(() => {
     // @ts-expect-error The script version is filled in by postinstall
     console.log('Activating cubase-icon_qcon_pro_g2-midiremote v' + SCRIPT_VERSION);
@@ -80,6 +85,23 @@ const timerUtils = makeTimerUtils(page, surface);
 // Bind elements to MIDI
 devices.forEach((device) => {
     bindDeviceToMidi(device, globalBooleanVariables, activationCallbacks, timerUtils);
+
+    if (device instanceof MainDevice) {
+        const controlSectionElements = device.controlSectionElements;
+        const channelElements = device.channelElements;
+
+        // PIN: REMOVE ME
+        logger.warn(
+            `bindDeviceToMidi(${JSON.stringify(
+                {
+                    channelElements: channelElements,
+                    controlSectionElements: controlSectionElements,
+                },
+                null,
+                2
+            )})`
+        );
+    }
 });
 
 // Map elements to host functions

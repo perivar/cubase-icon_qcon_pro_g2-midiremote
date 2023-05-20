@@ -29,8 +29,8 @@ module.exports = {
         'es5/no-block-scoping': 'off', // allow blocks
         'es5/no-classes': 'off', // allow classes
         'es5/no-computed-properties': 'error',
-        'es5/no-default-parameters': 'warn',
-        'es5/no-destructuring': 'warn',
+        'es5/no-default-parameters': 'off', // this converts fine by tsc
+        'es5/no-destructuring': 'error',
         'es5/no-exponentiation-operator': 'error',
         'es5/no-for-of': 'error',
         'es5/no-generators': 'error',

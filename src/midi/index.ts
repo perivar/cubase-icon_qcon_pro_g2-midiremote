@@ -34,9 +34,11 @@ export const bindDeviceToMidi = (
     device: Device,
     globalBooleanVariables: GlobalBooleanVariables,
     activationCallbacks: ActivationCallbacks,
-    { setTimeout: setTimeout }: TimerUtils
+    timerUtils: TimerUtils
 ) => {
     const ports = device.ports;
+    // PIN: avoid destructuring
+    const setTimeout = timerUtils.setTimeout;
 
     function bindFader(ports: PortPair, fader: TouchSensitiveFader, faderIndex: number) {
         fader.mSurfaceValue.mMidiBinding.setInputPort(ports.input).bindToPitchBend(faderIndex);

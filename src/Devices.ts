@@ -31,11 +31,13 @@ export abstract class Device {
     readonly firstChannelIndex: number;
     channelElements: ChannelSurfaceElements;
 
-    constructor(
-        { driver, firstChannelIndex, surface, surfaceXPosition }: DeviceProperties,
-        isExtender: boolean,
-        panelWidth: number
-    ) {
+    constructor(deviceProperties: DeviceProperties, isExtender: boolean, panelWidth: number) {
+        // PIN: avoid destructuring
+        const driver = deviceProperties.driver;
+        const firstChannelIndex = deviceProperties.firstChannelIndex;
+        const surface = deviceProperties.surface;
+        const surfaceXPosition = deviceProperties.surfaceXPosition;
+
         this.firstChannelIndex = firstChannelIndex;
 
         this.ports = makePortPair(driver, isExtender);
@@ -56,10 +58,12 @@ export class MainDevice extends Device {
     constructor(properties: DeviceProperties) {
         super(properties, false, MainDevice.surfaceWidth);
 
-        this.controlSectionElements = createControlSectionSurfaceElements(
+        const surfacelements = createControlSectionSurfaceElements(
             properties.surface,
             properties.surfaceXPosition + channelElementsWidth
         );
+
+        this.controlSectionElements = surfacelements;
     }
 }
 
@@ -87,8 +91,8 @@ export class Devices {
 
             const device = new deviceClass({
                 firstChannelIndex: deviceIndex * 8,
-                driver,
-                surface,
+                driver: driver,
+                surface: surface,
                 surfaceXPosition: nextDeviceXPosition,
             });
 

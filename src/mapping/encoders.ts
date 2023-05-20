@@ -52,17 +52,16 @@ export const bindEncoders = (
     const subPageArea = page.makeSubPageArea('Encoders');
 
     const bindEncoderAssignments = (assignmentButtonId: number, pages: EncoderPage[]) => {
+        // PIN: REMOVE ME
         logger.warn(
-            'bindEncoderAssignments(' +
-                JSON.stringify(
-                    {
-                        assignmentButtonId: assignmentButtonId,
-                        pages: pages,
-                    },
-                    null,
-                    2
-                ) +
-                ')'
+            `bindEncoderAssignments(${JSON.stringify(
+                {
+                    assignmentButtonId: assignmentButtonId,
+                    pages: pages,
+                },
+                null,
+                2
+            )})`
         );
 
         const encoderPageSize = channelElements.length;
@@ -86,149 +85,144 @@ export const bindEncoders = (
         });
 
         // Create the corresponding sub pages and bindings for each encoder page
-        const createdSubPages = pages.map(
-            (
-                {
-                    name: pageName,
-                    assignments: assignmentsConfig,
-                    areAssignmentsChannelRelated: areAssignmentsChannelRelated,
-                },
-                encoderPageIndex
-            ) => {
-                const subPageName = `${pageName} ${encoderPageIndex + 1}`;
-                const subPage = subPageArea.makeSubPage(subPageName);
-                const flipSubPage = subPageArea.makeSubPage(`${subPageName} Flip`);
+        const createdSubPages = pages.map((pageInfo, encoderPageIndex) => {
+            // PIN: avoid destructuring
+            const pageName = pageInfo.name;
+            const assignmentsConfig = pageInfo.assignments;
+            const areAssignmentsChannelRelated = pageInfo.areAssignmentsChannelRelated;
 
-                // PIN: converted for-of loop to ES5
-                for (let i = 0, arr = deviceButtons; i < arr.length; i++) {
-                    const buttons = arr[i];
-                    const flipButton = buttons.flip;
+            const subPageName = `${pageName} ${encoderPageIndex + 1}`;
+            const subPage = subPageArea.makeSubPage(subPageName);
+            const flipSubPage = subPageArea.makeSubPage(`${subPageName} Flip`);
 
-                    page.makeActionBinding(
-                        flipButton.mSurfaceValue,
-                        flipSubPage.mAction.mActivate
-                    ).setSubPage(subPage);
-                    page.makeActionBinding(
-                        flipButton.mSurfaceValue,
-                        subPage.mAction.mActivate
-                    ).setSubPage(flipSubPage);
-                }
+            // PIN: converted for-of loop to ES5
+            for (let i = 0, arr = deviceButtons; i < arr.length; i++) {
+                const buttons = arr[i];
+                const flipButton = buttons.flip;
 
-                const onSubPageActivate = makeCallbackCollection(subPage, 'mOnActivate');
-                onSubPageActivate.addCallback((context) => {
-                    segmentDisplayManager.setAssignment(
-                        context,
-                        pages.length === 1 ? '  ' : `${encoderPageIndex + 1}.${pages.length}`
-                    );
+                page.makeActionBinding(
+                    flipButton.mSurfaceValue,
+                    flipSubPage.mAction.mActivate
+                ).setSubPage(subPage);
+                page.makeActionBinding(
+                    flipButton.mSurfaceValue,
+                    subPage.mAction.mActivate
+                ).setSubPage(flipSubPage);
+            }
 
-                    // PIN: converted for-of Array.entries() loop to ES5
-                    // for (const [
-                    //     assignmentId,
-                    //     isActive,
-                    // ] of globalBooleanVariables.isEncoderAssignmentActive.entries()) {
-                    for (
-                        let i = 0,
-                            arr = getArrayEntries(globalBooleanVariables.isEncoderAssignmentActive);
-                        i < arr.length;
-                        i++
-                    ) {
-                        const activeObj = arr[i];
-                        const assignmentId = activeObj[0];
-                        const isActive = activeObj[1];
-
-                        // `runCallbacksInstantly=true` to update the LED(s) right away:
-                        isActive.set(context, assignmentButtonId === assignmentId, true);
-                    }
-
-                    globalBooleanVariables.isFlipModeActive.set(context, false);
-                    globalBooleanVariables.isValueDisplayModeActive.set(context, false);
-                });
-
-                flipSubPage.mOnActivate = (context) => {
-                    // `runCallbacksInstantly=true` to update the LED(s) right away:
-                    globalBooleanVariables.isFlipModeActive.set(context, true, true);
-                };
-
-                const assignments =
-                    typeof assignmentsConfig === 'function'
-                        ? mixerBankChannels.map((channel, channelIndex) =>
-                              assignmentsConfig(channel, channelIndex)
-                          )
-                        : assignmentsConfig;
+            const onSubPageActivate = makeCallbackCollection(subPage, 'mOnActivate');
+            onSubPageActivate.addCallback((context) => {
+                segmentDisplayManager.setAssignment(
+                    context,
+                    pages.length === 1 ? '  ' : `${encoderPageIndex + 1}.${pages.length}`
+                );
 
                 // PIN: converted for-of Array.entries() loop to ES5
-                // for (const [channelIndex, { encoder, fader }] of channelElements.entries()) {
-                for (let i = 0, arr = getArrayEntries(channelElements); i < arr.length; i++) {
-                    const channelObj = arr[i];
-                    const channelIndex = channelObj[0];
-                    const channelElement = channelObj[1];
-                    const encoder = channelElement.encoder;
-                    const fader = channelElement.fader;
+                // for (const [
+                //     assignmentId,
+                //     isActive,
+                // ] of globalBooleanVariables.isEncoderAssignmentActive.entries()) {
+                for (
+                    let i = 0,
+                        arr = getArrayEntries(globalBooleanVariables.isEncoderAssignmentActive);
+                    i < arr.length;
+                    i++
+                ) {
+                    const activeObj = arr[i];
+                    const assignmentId = activeObj[0];
+                    const isActive = activeObj[1];
 
-                    const assignment: EncoderAssignment =
-                        // PIN: converted spread-to-object to ES5
-                        Object.assign(
-                            { displayMode: EncoderDisplayMode.SingleDot },
-                            {
-                                encoderValue:
-                                    page.mCustom.makeHostValueVariable('unassignedEncoderValue'),
-                            },
-                            {
-                                pushToggleValue: page.mCustom.makeHostValueVariable(
-                                    'unassignedEncoderPushValue'
-                                ),
-                            },
-                            assignments[channelIndex]
-                        );
-
-                    // Non-flipped encoder page sub page bindings
-                    page.makeValueBinding(
-                        encoder.mEncoderValue,
-                        assignment.encoderValue
-                    ).setSubPage(subPage);
-                    if (config.enableAutoSelect) {
-                        page.makeValueBinding(
-                            fader.mTouchedValue,
-                            mixerBankChannels[channelIndex].mValue.mSelected
-                        )
-                            .filterByValue(1)
-                            .setSubPage(subPage);
-                    }
-
-                    if (assignment.pushToggleValue) {
-                        page.makeValueBinding(encoder.mPushValue, assignment.pushToggleValue)
-                            .setTypeToggle()
-                            .setSubPage(subPage);
-                    }
-
-                    // Flipped encoder page sub page bindings
-                    page.makeValueBinding(fader.mSurfaceValue, assignment.encoderValue).setSubPage(
-                        flipSubPage
-                    );
-                    if (config.enableAutoSelect) {
-                        page.makeValueBinding(
-                            fader.mTouchedValue,
-                            mixerBankChannels[channelIndex].mValue.mSelected
-                        )
-                            // Don't select mixer channels on touch when a fader's value does not belong to its
-                            // mixer channel
-                            .filterByValue(+areAssignmentsChannelRelated)
-                            .setSubPage(flipSubPage);
-                    }
-
-                    onSubPageActivate.addCallback((context) => {
-                        encoder.mDisplayModeValue.setProcessValue(context, assignment.displayMode);
-                        // TODO https://forums.steinberg.net/t/831123
-                        // channelEncoderDisplayModeHostValues[channelIndex].setProcessValue(
-                        //   context,
-                        //   assignment.displayMode
-                        // );
-                    });
+                    // `runCallbacksInstantly=true` to update the LED(s) right away:
+                    isActive.set(context, assignmentButtonId === assignmentId, true);
                 }
 
-                return { subPage: subPage, flipSubPage: flipSubPage };
+                globalBooleanVariables.isFlipModeActive.set(context, false);
+                globalBooleanVariables.isValueDisplayModeActive.set(context, false);
+            });
+
+            flipSubPage.mOnActivate = (context) => {
+                // `runCallbacksInstantly=true` to update the LED(s) right away:
+                globalBooleanVariables.isFlipModeActive.set(context, true, true);
+            };
+
+            const assignments =
+                typeof assignmentsConfig === 'function'
+                    ? mixerBankChannels.map((channel, channelIndex) =>
+                          assignmentsConfig(channel, channelIndex)
+                      )
+                    : assignmentsConfig;
+
+            // PIN: converted for-of Array.entries() loop to ES5
+            // for (const [channelIndex, { encoder, fader }] of channelElements.entries()) {
+            for (let i = 0, arr = getArrayEntries(channelElements); i < arr.length; i++) {
+                const channelObj = arr[i];
+                const channelIndex = channelObj[0];
+                const channelElement = channelObj[1];
+                const encoder = channelElement.encoder;
+                const fader = channelElement.fader;
+
+                const assignment: EncoderAssignment =
+                    // PIN: converted spread-to-object to ES5
+                    Object.assign(
+                        { displayMode: EncoderDisplayMode.SingleDot },
+                        {
+                            encoderValue:
+                                page.mCustom.makeHostValueVariable('unassignedEncoderValue'),
+                        },
+                        {
+                            pushToggleValue: page.mCustom.makeHostValueVariable(
+                                'unassignedEncoderPushValue'
+                            ),
+                        },
+                        assignments[channelIndex]
+                    );
+
+                // Non-flipped encoder page sub page bindings
+                page.makeValueBinding(encoder.mEncoderValue, assignment.encoderValue).setSubPage(
+                    subPage
+                );
+                if (config.enableAutoSelect) {
+                    page.makeValueBinding(
+                        fader.mTouchedValue,
+                        mixerBankChannels[channelIndex].mValue.mSelected
+                    )
+                        .filterByValue(1)
+                        .setSubPage(subPage);
+                }
+
+                if (assignment.pushToggleValue) {
+                    page.makeValueBinding(encoder.mPushValue, assignment.pushToggleValue)
+                        .setTypeToggle()
+                        .setSubPage(subPage);
+                }
+
+                // Flipped encoder page sub page bindings
+                page.makeValueBinding(fader.mSurfaceValue, assignment.encoderValue).setSubPage(
+                    flipSubPage
+                );
+                if (config.enableAutoSelect) {
+                    page.makeValueBinding(
+                        fader.mTouchedValue,
+                        mixerBankChannels[channelIndex].mValue.mSelected
+                    )
+                        // Don't select mixer channels on touch when a fader's value does not belong to its
+                        // mixer channel
+                        .filterByValue(+areAssignmentsChannelRelated)
+                        .setSubPage(flipSubPage);
+                }
+
+                onSubPageActivate.addCallback((context) => {
+                    encoder.mDisplayModeValue.setProcessValue(context, assignment.displayMode);
+                    // TODO https://forums.steinberg.net/t/831123
+                    // channelEncoderDisplayModeHostValues[channelIndex].setProcessValue(
+                    //   context,
+                    //   assignment.displayMode
+                    // );
+                });
             }
-        );
+
+            return { subPage: subPage, flipSubPage: flipSubPage };
+        });
 
         // Bind encoder assign buttons to cycle through sub pages in a round-robin fashion
         // PIN: converted for-of loop to ES5
@@ -373,7 +367,9 @@ export const bindEncoders = (
         .makeInsertEffectViewer('Inserts')
         .followPluginWindowInFocus();
     const parameterBankZone = effectsViewer.mParameterBankZone;
-    const [pluginSubPages] = bindEncoderAssignments(4, [
+
+    // PIN: avoid destructuring
+    const encoderAssignments = bindEncoderAssignments(4, [
         {
             name: 'Plugin',
             assignments: () => {
@@ -386,6 +382,7 @@ export const bindEncoders = (
             areAssignmentsChannelRelated: false,
         },
     ]);
+    const pluginSubPages = encoderAssignments[0];
 
     // PIN: converted for-of loop to ES5
     for (let i = 0, arr = deviceButtons; i < arr.length; i++) {
