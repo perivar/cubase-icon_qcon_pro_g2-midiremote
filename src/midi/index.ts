@@ -346,13 +346,20 @@ export const bindDeviceToMidi = (
 
         // PIN: converted a large for-of Array.entries() loop to ES5
 
+        // const encoderAssignMapping = [0, 3, 1, 4, 2, 5];
+        // encoderAssignMapping.map(function (value, index) {
+        //     buttons.encoderAssign[value].bindToNote(ports, 40 + index);
+        // });
+
         // assignment: 6 = (40 - 45) - page up/down, pan, inserts, eq, fx send
         // on x-touch the 6 buttons are labelled: track, pan/surround, eq, send, plug-in, inst
         // Mackie mapping from 40 - 45 is: track, send, pan/surround, plug-in, eq, instrument
-        const encoderAssignMapping = [0, 3, 1, 4, 2, 5];
-        encoderAssignMapping.map((index) =>
-            buttons.encoderAssign[index].bindToNote(ports, 40 + index)
-        );
+        buttons.encoderAssign[0].bindToNote(ports, 40); // page up - monitor, pre-gain, phase
+        buttons.encoderAssign[3].bindToNote(ports, 41); // page down - sends
+        buttons.encoderAssign[1].bindToNote(ports, 42); // pan
+        buttons.encoderAssign[4].bindToNote(ports, 43); // inserts - inserts
+        buttons.encoderAssign[2].bindToNote(ports, 44); // eq
+        buttons.encoderAssign[5].bindToNote(ports, 45); // fx send - strip and quick controls
 
         // buttons: 8 = (46 - 53)
         buttons.navigation.bank.left.bindToNote(ports, 46);
