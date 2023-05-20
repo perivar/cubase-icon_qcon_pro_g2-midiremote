@@ -8,3 +8,4 @@ info.log
 yarn-error.log
 warn.log
 warn polyfill.log
+warn es2021.log

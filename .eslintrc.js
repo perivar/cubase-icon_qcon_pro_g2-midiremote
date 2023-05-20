@@ -38,8 +38,8 @@ module.exports = {
         'es5/no-object-super': 'off', // allow classes and super()
         'es5/no-rest-parameters': 'warn',
         'es5/no-shorthand-properties': 'warn',
-        'es5/no-spread': 'warn',
-        'es5/no-template-literals': 'off', // allow string templates
+        'es5/no-spread': 'warn', // if enabled this automatically converts to concat()
+        'es5/no-template-literals': 'off', // allow string templates as they convert fine by tsc
         'es5/no-typeof-symbol': 'error',
         'es5/no-unicode-code-point-escape': 'error',
         'es5/no-unicode-regex': 'error',

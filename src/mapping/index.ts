@@ -1,3 +1,5 @@
+import { logger } from 'midiremote_api_v1';
+
 import { config } from '../config';
 import { DecoratedFactoryMappingPage } from '../decorators/page';
 import { Devices, MainDevice } from '../Devices';
@@ -60,6 +62,17 @@ export const makeHostMapping = (
 
             return channel;
         });
+
+    // PIN: REMOVE ME
+    logger.warn(
+        `makeHostMapping(${JSON.stringify(
+            {
+                mixerBankChannels: mixerBankChannels,
+            },
+            null,
+            2
+        )})`
+    );
 
     bindEncoders(page, devices, mixerBankChannels, segmentDisplayManager, globalBooleanVariables);
 

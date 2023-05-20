@@ -24,6 +24,45 @@ export interface EncoderPage {
     areAssignmentsChannelRelated: boolean;
 }
 
+// PIN: REMOVE ME
+const debugInformation = (
+    debugTitle: string,
+    assignmentButtonId: number,
+    pages: EncoderPage[],
+    mixerBankChannels: MR_MixerBankChannel[]
+) => {
+    const pagesDebug = pages.map((pageInfo, encoderPageIndex) => {
+        const pageName = pageInfo.name;
+        const assignmentsConfig = pageInfo.assignments;
+        const areAssignmentsChannelRelated = pageInfo.areAssignmentsChannelRelated;
+
+        const assignments =
+            typeof assignmentsConfig === 'function'
+                ? mixerBankChannels.map((channel, channelIndex) =>
+                      assignmentsConfig(channel, channelIndex)
+                  )
+                : assignmentsConfig;
+
+        return {
+            // index: encoderPageIndex,
+            assignmentButtonId: assignmentButtonId,
+            name: pageName,
+            assignments: assignments,
+            areAssignmentsChannelRelated: areAssignmentsChannelRelated,
+        };
+    });
+
+    logger.warn(
+        `${debugTitle}(${JSON.stringify(
+            {
+                pagesDebug: pagesDebug,
+            },
+            null,
+            2
+        )})`
+    );
+};
+
 export const bindEncoders = (
     page: DecoratedFactoryMappingPage,
     devices: Devices,
@@ -52,19 +91,15 @@ export const bindEncoders = (
     const subPageArea = page.makeSubPageArea('Encoders');
 
     const bindEncoderAssignments = (assignmentButtonId: number, pages: EncoderPage[]) => {
-        // PIN: REMOVE ME
-        logger.warn(
-            `bindEncoderAssignments(${JSON.stringify(
-                {
-                    assignmentButtonId: assignmentButtonId,
-                    pages: pages,
-                },
-                null,
-                2
-            )})`
-        );
-
         const encoderPageSize = channelElements.length;
+
+        // PIN: REMOVE ME
+        debugInformation(
+            'encoder-asssignments-pre-split',
+            assignmentButtonId,
+            pages,
+            mixerBankChannels
+        );
 
         // Split each encoder page with more encoder assignments than physical encoders into multiple
         // pages
@@ -83,6 +118,14 @@ export const bindEncoders = (
 
             return page;
         });
+
+        // PIN: REMOVE ME
+        debugInformation(
+            'encoder-asssignments-post-split',
+            assignmentButtonId,
+            pages,
+            mixerBankChannels
+        );
 
         // Create the corresponding sub pages and bindings for each encoder page
         const createdSubPages = pages.map((pageInfo, encoderPageIndex) => {
