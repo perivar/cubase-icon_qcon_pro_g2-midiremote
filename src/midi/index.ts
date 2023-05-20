@@ -34,7 +34,7 @@ export const bindDeviceToMidi = (
     device: Device,
     globalBooleanVariables: GlobalBooleanVariables,
     activationCallbacks: ActivationCallbacks,
-    { setTimeout }: TimerUtils
+    { setTimeout: setTimeout }: TimerUtils
 ) => {
     const ports = device.ports;
 
@@ -410,7 +410,9 @@ export const bindDeviceToMidi = (
         buttons.scrub.bindToNote(ports, 101);
 
         // Segment Display - handled by the SegmentDisplayManager, except for:
-        const { smpte, beats, solo } = elements.displayLeds;
+        const smpte = elements.displayLeds.smpte,
+            beats = elements.displayLeds.beats,
+            solo = elements.displayLeds.solo;
         const lamps = [smpte, beats, solo];
         lamps.forEach((lamp, index) => {
             lamp.bindToNote(ports.output, 113 + index);

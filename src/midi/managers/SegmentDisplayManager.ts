@@ -69,8 +69,8 @@ export class SegmentDisplayManager {
 
             this.devices.forEach((device) => {
                 if (device instanceof MainDevice) {
-                    const { smpte: smpteLed, beats: beatsLed } =
-                        device.controlSectionElements.displayLeds;
+                    const smpteLed = device.controlSectionElements.displayLeds.smpte,
+                        beatsLed = device.controlSectionElements.displayLeds.beats;
 
                     smpteLed.mSurfaceValue.setProcessValue(
                         context,

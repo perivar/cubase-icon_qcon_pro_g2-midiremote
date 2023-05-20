@@ -100,7 +100,7 @@ export const makeTimerUtils = (page: MR_FactoryMappingPage, surface: MR_DeviceSu
 
         timeouts[timeoutId] = {
             scheduledExecutionTime: performance.now() + timeout * 1000,
-            callback,
+            callback: callback,
         };
     };
 
@@ -126,7 +126,7 @@ export const makeTimerUtils = (page: MR_FactoryMappingPage, surface: MR_DeviceSu
         }
     };
 
-    return { setTimeout };
+    return { setTimeout: setTimeout };
 };
 
 export class ContextStateVariable<ValueType> {

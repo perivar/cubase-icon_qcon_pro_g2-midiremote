@@ -262,7 +262,8 @@ export const bindControlButtons = (
     ).setTypeToggle();
 
     // Navigation Buttons
-    const { bank, channel } = buttons.navigation;
+    const bank = buttons.navigation.bank,
+        channel = buttons.navigation.channel;
     page.makeActionBinding(bank.left.mSurfaceValue, mixerBankZone.mAction.mPrevBank);
     page.makeActionBinding(bank.right.mSurfaceValue, mixerBankZone.mAction.mNextBank);
     page.makeActionBinding(channel.left.mSurfaceValue, mixerBankZone.mAction.mShiftLeft);
@@ -288,7 +289,8 @@ export const bindJogWheelSection = (
         scrubButton.mLedValue.setProcessValue(context, 0);
     };
 
-    const { mJogLeftValue: jogLeft, mJogRightValue: jogRight } = controlSectionElements.jogWheel;
+    const jogLeft = controlSectionElements.jogWheel.mJogLeftValue,
+        jogRight = controlSectionElements.jogWheel.mJogRightValue;
     page.makeCommandBinding(jogLeft, 'Transport', 'Jog Left').setSubPage(jogSubPage);
     page.makeCommandBinding(jogRight, 'Transport', 'Jog Right').setSubPage(jogSubPage);
     page.makeCommandBinding(jogLeft, 'Transport', 'Nudge Cursor Left').setSubPage(scrubSubPage);

@@ -104,7 +104,7 @@ export const makeHostMapping = (
     activationCallbacks.addCallback((context) => {
         isDriverActivated.set(context, true);
 
-        const { time, timeFormat } = initialTransportLocatorPosition.get(context);
+        const { time: time, timeFormat: timeFormat } = initialTransportLocatorPosition.get(context);
         segmentDisplayManager.updateTime(context, time, timeFormat);
 
         // TODO: This is a workaround forcing the Beats/SMPTE LEDs to be set. It is required since
@@ -128,7 +128,7 @@ export const makeHostMapping = (
         timeFormat
     ) => {
         if (!isDriverActivated.get(context)) {
-            initialTransportLocatorPosition.set(context, { time, timeFormat });
+            initialTransportLocatorPosition.set(context, { time: time, timeFormat: timeFormat });
         } else {
             segmentDisplayManager.updateTime(context, time, timeFormat);
         }

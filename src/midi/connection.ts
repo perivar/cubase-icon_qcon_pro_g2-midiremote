@@ -37,5 +37,8 @@ export const setupDeviceConnection = (driver: MR_DeviceDriver, devices: Devices)
         });
     };
 
-    return { activationCallbacks, segmentDisplayManager };
+    return {
+        activationCallbacks: activationCallbacks,
+        segmentDisplayManager: segmentDisplayManager,
+    };
 };

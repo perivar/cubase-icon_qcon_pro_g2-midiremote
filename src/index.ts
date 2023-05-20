@@ -10,6 +10,28 @@
 // Workaround because the core-js polyfill doesn't play nice with SWC:
 // Reflect.get = undefined
 
+// first undefine the methods
+Object.defineProperty(Array.prototype, 'flatMap', {
+    configurable: true,
+    enumerable: true,
+    value: undefined,
+});
+Object.defineProperty(String.prototype, 'padStart', {
+    configurable: true,
+    enumerable: true,
+    value: undefined,
+});
+Object.defineProperty(Math, 'log10', {
+    configurable: true,
+    enumerable: true,
+    value: undefined,
+});
+Object.defineProperty(Object, 'assign', {
+    configurable: true,
+    enumerable: true,
+    value: undefined,
+});
+
 // own polyfills
 import './polyfill/arrayFlatMap';
 import './polyfill/stringPadStart';
@@ -34,7 +56,8 @@ const surface = decorateSurface(driver.mSurface);
 // Create devices, i.e., midi ports and surface elements for each physical device
 const devices = new Devices(driver, surface);
 
-const { activationCallbacks, segmentDisplayManager } = setupDeviceConnection(driver, devices);
+const { activationCallbacks: activationCallbacks, segmentDisplayManager: segmentDisplayManager } =
+    setupDeviceConnection(driver, devices);
 activationCallbacks.addCallback(() => {
     // @ts-expect-error The script version is filled in by postinstall
     console.log('Activating cubase-icon_qcon_pro_g2-midiremote v' + SCRIPT_VERSION);

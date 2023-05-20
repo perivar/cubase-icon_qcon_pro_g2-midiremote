@@ -1,3 +1,4 @@
+/* eslint-disable es5/no-es6-static-methods */
 // first undefine the method
 Object.defineProperty(Array, 'from', {
     configurable: true,

@@ -1,4 +1,4 @@
-import { mDefaults, MR_HostValue, MR_MixerBankChannel } from 'midiremote_api_v1';
+import { logger, mDefaults, MR_HostValue, MR_MixerBankChannel } from 'midiremote_api_v1';
 
 import { config } from '../config';
 import { DecoratedFactoryMappingPage } from '../decorators/page';
@@ -52,6 +52,19 @@ export const bindEncoders = (
     const subPageArea = page.makeSubPageArea('Encoders');
 
     const bindEncoderAssignments = (assignmentButtonId: number, pages: EncoderPage[]) => {
+        logger.warn(
+            'bindEncoderAssignments(' +
+                JSON.stringify(
+                    {
+                        assignmentButtonId: assignmentButtonId,
+                        pages: pages,
+                    },
+                    null,
+                    2
+                ) +
+                ')'
+        );
+
         const encoderPageSize = channelElements.length;
 
         // Split each encoder page with more encoder assignments than physical encoders into multiple
@@ -75,7 +88,11 @@ export const bindEncoders = (
         // Create the corresponding sub pages and bindings for each encoder page
         const createdSubPages = pages.map(
             (
-                { name: pageName, assignments: assignmentsConfig, areAssignmentsChannelRelated },
+                {
+                    name: pageName,
+                    assignments: assignmentsConfig,
+                    areAssignmentsChannelRelated: areAssignmentsChannelRelated,
+                },
                 encoderPageIndex
             ) => {
                 const subPageName = `${pageName} ${encoderPageIndex + 1}`;
@@ -209,7 +226,7 @@ export const bindEncoders = (
                     });
                 }
 
-                return { subPage, flipSubPage };
+                return { subPage: subPage, flipSubPage: flipSubPage };
             }
         );
 

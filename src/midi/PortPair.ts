@@ -37,5 +37,5 @@ export const makePortPair = (driver: MR_DeviceDriver, isExtender: boolean): Port
         output.sendMidi(context, [0x90, pitch, +Boolean(velocity) * 0xff]);
     };
 
-    return { input, output };
+    return { input: input, output: output };
 };
