@@ -3553,6 +3553,8 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_MixerBankChannel extends MR_HostObject {
+    channelNumber: number;
+
     mValue: MR_MixerChannelValues;
     mPreFilter: MR_PreFilter;
     mChannelEQ: MR_ChannelEQ;
@@ -3561,11 +3563,13 @@ export class MR_MixerBankChannel extends MR_HostObject {
     mCueSends: MR_ControlRoomCueSendSlotFolder;
     mQuickControls: MR_QuickControls;
     mInstrumentPluginSlot: MR_HostInstrumentPluginSlot;
+
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
     ) => void;
+
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -3576,10 +3580,13 @@ export class MR_MixerBankChannel extends MR_HostObject {
         isActive: boolean
     ) => void;
 
-    constructor() {
+    constructor(channelNumber: number) {
         super();
 
         logger.debug('MR_MixerBankChannel: constructor()');
+
+        // set parameters
+        this.channelNumber = channelNumber;
 
         // define class-name
         this.class = 'MR_MixerBankChannel';
@@ -6211,6 +6218,9 @@ export class MR_MixerChannelValues extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_MixerBankZone extends MR_HostObject {
+    // keep track of the current channel number
+    channelNumber: number;
+
     mAction: MR_MixerBankZoneActions;
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
@@ -6231,6 +6241,10 @@ export class MR_MixerBankZone extends MR_HostObject {
         super();
 
         logger.debug('MR_MixerBankZone: constructor()');
+
+        // init channel number to zero since we will increment before getting next number
+        // in makeMixerBankChannel()
+        this.channelNumber = 0;
 
         // define class-name
         this.class = 'MR_MixerBankZone';
@@ -6456,8 +6470,15 @@ export class MR_MixerBankZone extends MR_HostObject {
      * @returns {MR_MixerBankChannel}
      */
     makeMixerBankChannel(): MR_MixerBankChannel {
-        logger.info(`MR_MixerBankZone: makeMixerBankChannel()`);
-        return new MR_MixerBankChannel();
+        this.channelNumber++;
+
+        logger.info(
+            `MR_MixerBankZone: makeMixerBankChannel(${JSON.stringify({
+                newChannelNumber: this.channelNumber,
+            })})`
+        );
+
+        return new MR_MixerBankChannel(this.channelNumber);
     }
 }
 
