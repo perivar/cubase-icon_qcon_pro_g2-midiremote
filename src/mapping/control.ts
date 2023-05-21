@@ -17,11 +17,11 @@ const setShiftableButtonsLedValues = (
         let i = 0,
             arr = [
                 buttons.edit,
-                buttons.modify[0],
-                buttons.modify[2],
-                buttons.utility[2],
-                buttons.transport[0],
-                buttons.transport[1],
+                buttons.modify[0], // Undo
+                buttons.modify[2], // Save
+                buttons.utility[2], //  Solo Defeat
+                buttons.transport[0], // Left
+                buttons.transport[1], // Right
             ];
         i < arr.length;
         i++
