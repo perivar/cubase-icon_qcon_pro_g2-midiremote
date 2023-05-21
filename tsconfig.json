@@ -22,8 +22,8 @@
     /* Modules */
     "baseUrl": ".",
     "paths": {
-      "midiremote_api_v1": ["api/v1/midiremote_api_v1"],
-      "#pkg/*": ["./src/*"]
+      "midiremote_api_v1": ["api/v1/midiremote_api_v1"]
+      // "#pkg/*": ["./src/*"]
     },
     // exclude the @types/node using a dummy node-directory to get proper es5 warnings, make sure the dummy dir is first
     // "typeRoots": ["./types", "./node_modules/@types"],

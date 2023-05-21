@@ -64,19 +64,19 @@ const activationCallbacks = deviceConnection.activationCallbacks;
 const segmentDisplayManager = deviceConnection.segmentDisplayManager;
 
 activationCallbacks.addCallback(() => {
-    // @ts-expect-error The script version is filled in by postinstall
-    console.log('Activating cubase-icon_qcon_pro_g2-midiremote v' + SCRIPT_VERSION);
-    console.log(
-        'A newer version may be available at https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote'
-    );
+  // @ts-expect-error The script version is filled in by postinstall
+  console.log('Activating cubase-icon_qcon_pro_g2-midiremote v' + SCRIPT_VERSION);
+  console.log(
+    'A newer version may be available at https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote'
+  );
 });
 
 const globalBooleanVariables = makeGlobalBooleanVariables(surface);
 
 activationCallbacks.addCallback((context) => {
-    // Setting `runCallbacksInstantly` to `true` below is a workaround for
-    // https://forums.steinberg.net/t/831123.
-    globalBooleanVariables.areMotorsActive.set(context, true, true);
+  // Setting `runCallbacksInstantly` to `true` below is a workaround for
+  // https://forums.steinberg.net/t/831123.
+  globalBooleanVariables.areMotorsActive.set(context, true, true);
 });
 
 const page = decoratePage(driver.mMapping.makePage('Mixer'), surface);
@@ -84,26 +84,26 @@ const timerUtils = makeTimerUtils(page, surface);
 
 // Bind elements to MIDI
 devices.forEach((device) => {
-    bindDeviceToMidi(device, globalBooleanVariables, activationCallbacks, timerUtils);
+  bindDeviceToMidi(device, globalBooleanVariables, activationCallbacks, timerUtils);
 
-    if (process.env['NODE_ENV'] === 'development') {
-        if (device instanceof MainDevice) {
-            const controlSectionElements = device.controlSectionElements;
-            const channelElements = device.channelElements;
+  if (process.env['NODE_ENV'] === 'development') {
+    if (device instanceof MainDevice) {
+      const controlSectionElements = device.controlSectionElements;
+      const channelElements = device.channelElements;
 
-            // PIN: REMOVE ME
-            logger.warn(
-                `bindDeviceToMidi(${JSON.stringify(
-                    {
-                        channelElements: channelElements,
-                        controlSectionElements: controlSectionElements,
-                    },
-                    null,
-                    2
-                )})`
-            );
-        }
+      // PIN: REMOVE ME
+      logger.warn(
+        `bindDeviceToMidi(${JSON.stringify(
+          {
+            channelElements: channelElements,
+            controlSectionElements: controlSectionElements,
+          },
+          null,
+          2
+        )})`
+      );
     }
+  }
 });
 
 // Map elements to host functions

@@ -18,5 +18,5 @@ const surface = decorateSurface(driver.mSurface);
 // console.log('Calls to method: ' + (midiremote_api.makeDeviceDriver as jest.Mock).mock.calls)
 
 test('surface', () => {
-    expect(surface.makeButton.length).toStrictEqual(4);
+  expect(surface.makeButton.length).toStrictEqual(4);
 });
