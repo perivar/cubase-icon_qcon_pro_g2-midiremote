@@ -99,6 +99,7 @@ const replaceMap: Map<RegExp, string> = new Map([
     [/SCRIPT_VERSION/g, `"${process.env['npm_package_version']}"`], // replace SCRIPT_VERSION with the version from package.json
     [/"use strict";?/g, ''],
     [/'use strict';?/g, ''],
+    [/if \(false\) \{\}/g, ''],
     [/Object.defineProperty\(exports, "__esModule", { value: true }\);?/g, ''],
     [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);?/g, ''],
     [/Object.defineProperty\(exports, '__esModule', { value: true }\);?/g, ''],

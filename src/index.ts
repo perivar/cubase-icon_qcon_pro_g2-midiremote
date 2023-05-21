@@ -86,11 +86,11 @@ const timerUtils = makeTimerUtils(page, surface);
 devices.forEach((device) => {
     bindDeviceToMidi(device, globalBooleanVariables, activationCallbacks, timerUtils);
 
-    if (device instanceof MainDevice) {
-        const controlSectionElements = device.controlSectionElements;
-        const channelElements = device.channelElements;
+    if (process.env['NODE_ENV'] === 'development') {
+        if (device instanceof MainDevice) {
+            const controlSectionElements = device.controlSectionElements;
+            const channelElements = device.channelElements;
 
-        if (process.env['NODE_ENV'] === 'development') {
             // PIN: REMOVE ME
             logger.warn(
                 `bindDeviceToMidi(${JSON.stringify(

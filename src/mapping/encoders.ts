@@ -47,12 +47,12 @@ if (process.env['NODE_ENV'] === 'development') {
                 typeof assignmentsConfig === 'function'
                     ? mixerBankChannels.map((channel, channelIndex) => {
                           const conf = assignmentsConfig(channel, channelIndex);
-                          return mergeOptions({ channelIndex: channelIndex }, conf);
+                          return mergeOptions({ __chanIndex: channelIndex }, conf);
                       })
                     : assignmentsConfig;
 
             return {
-                index: encoderPageIndex,
+                __pageIndex: encoderPageIndex,
                 assignmentButtonId: assignmentButtonId,
                 name: pageName,
                 assignments: assignments,
