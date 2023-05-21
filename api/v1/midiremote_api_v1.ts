@@ -65,9 +65,8 @@ export const logger = createLogger({
         }),
         new transports.Console({
             level: 'fatal',
-            // cannot use format.colorize() when running in es5 mode
-            // format: format.combine(format.colorize(), format.splat(), format.simple()),
-            format: format.combine(format.splat(), format.simple()),
+            // have to have Object.assign available to run format.colorize()
+            format: format.combine(format.colorize(), format.splat(), format.simple()),
         }),
     ],
 });

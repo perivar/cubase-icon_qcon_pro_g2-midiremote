@@ -63,16 +63,18 @@ export const makeHostMapping = (
             return channel;
         });
 
-    // PIN: REMOVE ME
-    logger.warn(
-        `makeHostMapping(${JSON.stringify(
-            {
-                mixerBankChannels: mixerBankChannels,
-            },
-            null,
-            2
-        )})`
-    );
+    if (process.env['NODE_ENV'] === 'development') {
+        // PIN: REMOVE ME
+        logger.warn(
+            `makeHostMapping(${JSON.stringify(
+                {
+                    mixerBankChannels: mixerBankChannels,
+                },
+                null,
+                2
+            )})`
+        );
+    }
 
     bindEncoders(page, devices, mixerBankChannels, segmentDisplayManager, globalBooleanVariables);
 

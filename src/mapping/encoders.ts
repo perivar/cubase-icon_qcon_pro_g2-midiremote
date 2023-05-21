@@ -24,45 +24,53 @@ export interface EncoderPage {
     areAssignmentsChannelRelated: boolean;
 }
 
-// PIN: REMOVE ME
-const debugPageInformation = (
-    debugTitle: string,
-    assignmentButtonId: number,
-    pages: EncoderPage[],
-    mixerBankChannels: MR_MixerBankChannel[]
-) => {
-    const pagesDebug = pages.map((pageInfo, encoderPageIndex) => {
-        const pageName = pageInfo.name;
-        const assignmentsConfig = pageInfo.assignments;
-        const areAssignmentsChannelRelated = pageInfo.areAssignmentsChannelRelated;
+let debugPageInformation = (
+    _debugTitle: string,
+    _assignmentButtonId: number,
+    _pages: EncoderPage[],
+    _mixerBankChannels: MR_MixerBankChannel[]
+) => {};
+if (process.env['NODE_ENV'] === 'development') {
+    // PIN: REMOVE ME
+    debugPageInformation = (
+        debugTitle: string,
+        assignmentButtonId: number,
+        pages: EncoderPage[],
+        mixerBankChannels: MR_MixerBankChannel[]
+    ) => {
+        const pagesDebug = pages.map((pageInfo, encoderPageIndex) => {
+            const pageName = pageInfo.name;
+            const assignmentsConfig = pageInfo.assignments;
+            const areAssignmentsChannelRelated = pageInfo.areAssignmentsChannelRelated;
 
-        const assignments =
-            typeof assignmentsConfig === 'function'
-                ? mixerBankChannels.map((channel, channelIndex) => {
-                      const conf = assignmentsConfig(channel, channelIndex);
-                      return mergeOptions({ channelIndex: channelIndex }, conf);
-                  })
-                : assignmentsConfig;
+            const assignments =
+                typeof assignmentsConfig === 'function'
+                    ? mixerBankChannels.map((channel, channelIndex) => {
+                          const conf = assignmentsConfig(channel, channelIndex);
+                          return mergeOptions({ channelIndex: channelIndex }, conf);
+                      })
+                    : assignmentsConfig;
 
-        return {
-            index: encoderPageIndex,
-            assignmentButtonId: assignmentButtonId,
-            name: pageName,
-            assignments: assignments,
-            areAssignmentsChannelRelated: areAssignmentsChannelRelated,
-        };
-    });
+            return {
+                index: encoderPageIndex,
+                assignmentButtonId: assignmentButtonId,
+                name: pageName,
+                assignments: assignments,
+                areAssignmentsChannelRelated: areAssignmentsChannelRelated,
+            };
+        });
 
-    logger.warn(
-        `${debugTitle}(${JSON.stringify(
-            {
-                pagesDebug: pagesDebug,
-            },
-            null,
-            2
-        )})`
-    );
-};
+        logger.warn(
+            `${debugTitle}(${JSON.stringify(
+                {
+                    pagesDebug: pagesDebug,
+                },
+                null,
+                2
+            )})`
+        );
+    };
+}
 
 export const bindEncoders = (
     page: DecoratedFactoryMappingPage,
@@ -94,13 +102,15 @@ export const bindEncoders = (
     const bindEncoderAssignments = (assignmentButtonId: number, pages: EncoderPage[]) => {
         const encoderPageSize = channelElements.length;
 
-        // PIN: REMOVE ME
-        debugPageInformation(
-            'encoder-asssignments-pre-split',
-            assignmentButtonId,
-            pages,
-            mixerBankChannels
-        );
+        if (process.env['NODE_ENV'] === 'development') {
+            // PIN: REMOVE ME
+            debugPageInformation(
+                'encoder-asssignments-pre-split',
+                assignmentButtonId,
+                pages,
+                mixerBankChannels
+            );
+        }
 
         // Split each encoder page with more encoder assignments than physical encoders into multiple
         // pages
@@ -120,13 +130,15 @@ export const bindEncoders = (
             return page;
         });
 
-        // PIN: REMOVE ME
-        debugPageInformation(
-            'encoder-asssignments-post-split',
-            assignmentButtonId,
-            pages,
-            mixerBankChannels
-        );
+        if (process.env['NODE_ENV'] === 'development') {
+            // PIN: REMOVE ME
+            debugPageInformation(
+                'encoder-asssignments-post-split',
+                assignmentButtonId,
+                pages,
+                mixerBankChannels
+            );
+        }
 
         // Create the corresponding sub pages and bindings for each encoder page
         const createdSubPages = pages.map((pageInfo, encoderPageIndex) => {
@@ -266,23 +278,25 @@ export const bindEncoders = (
                 });
             }
 
-            // PIN: REMOVE ME
-            logger.warn(
-                `createdSubPages(${JSON.stringify(
-                    {
-                        index: encoderPageIndex,
-                        pageName: pageName,
-                        assignmentsConfig: assignmentsConfig,
-                        areAssignmentsChannelRelated: areAssignmentsChannelRelated,
+            if (process.env['NODE_ENV'] === 'development') {
+                // PIN: REMOVE ME
+                logger.warn(
+                    `createdSubPages(${JSON.stringify(
+                        {
+                            index: encoderPageIndex,
+                            pageName: pageName,
+                            assignmentsConfig: assignmentsConfig,
+                            areAssignmentsChannelRelated: areAssignmentsChannelRelated,
 
-                        subPageName: subPageName,
-                        subPage: subPage,
-                        flipSubPage: flipSubPage,
-                    },
-                    null,
-                    2
-                )})`
-            );
+                            subPageName: subPageName,
+                            subPage: subPage,
+                            flipSubPage: flipSubPage,
+                        },
+                        null,
+                        2
+                    )})`
+                );
+            }
 
             return { subPage: subPage, flipSubPage: flipSubPage };
         });
@@ -317,30 +331,34 @@ export const bindEncoders = (
                 previousSubPages = currentSubPages;
             }
 
+            if (process.env['NODE_ENV'] === 'development') {
+                // PIN: REMOVE ME
+                logger.warn(
+                    `bind-cycle-sub-pages(${JSON.stringify(
+                        {
+                            i: i,
+                            buttons: buttons,
+                            page: page,
+                        },
+                        null,
+                        2
+                    )})`
+                );
+            }
+        }
+
+        if (process.env['NODE_ENV'] === 'development') {
             // PIN: REMOVE ME
             logger.warn(
-                `bind-cycle-sub-pages(${JSON.stringify(
+                `created-sub-pages(${JSON.stringify(
                     {
-                        i: i,
-                        buttons: buttons,
-                        page: page,
+                        createdSubPages: createdSubPages,
                     },
                     null,
                     2
                 )})`
             );
         }
-
-        // PIN: REMOVE ME
-        logger.warn(
-            `created-sub-pages(${JSON.stringify(
-                {
-                    createdSubPages: createdSubPages,
-                },
-                null,
-                2
-            )})`
-        );
 
         return createdSubPages;
     };

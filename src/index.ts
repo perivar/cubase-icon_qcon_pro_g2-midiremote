@@ -10,33 +10,33 @@
 // Workaround because the core-js polyfill doesn't play nice with SWC:
 // Reflect.get = undefined
 
-// first undefine the methods
-Object.defineProperty(Array.prototype, 'flatMap', {
-    configurable: true,
-    enumerable: true,
-    value: undefined,
-});
-Object.defineProperty(String.prototype, 'padStart', {
-    configurable: true,
-    enumerable: true,
-    value: undefined,
-});
-Object.defineProperty(Math, 'log10', {
-    configurable: true,
-    enumerable: true,
-    value: undefined,
-});
-Object.defineProperty(Object, 'assign', {
-    configurable: true,
-    enumerable: true,
-    value: undefined,
-});
+// To test in es5 mode - first undefine the polyfilled methods
+// Object.defineProperty(Array.prototype, 'flatMap', {
+//     configurable: true,
+//     enumerable: true,
+//     value: undefined,
+// });
+// Object.defineProperty(String.prototype, 'padStart', {
+//     configurable: true,
+//     enumerable: true,
+//     value: undefined,
+// });
+// Object.defineProperty(Math, 'log10', {
+//     configurable: true,
+//     enumerable: true,
+//     value: undefined,
+// });
+// Object.defineProperty(Object, 'assign', {
+//     configurable: true,
+//     enumerable: true,
+//     value: undefined,
+// });
 
 // own polyfills
 import './polyfill/arrayFlatMap';
 import './polyfill/stringPadStart';
 import './polyfill/mathLog10';
-import './polyfill/objectAssign';
+// import './polyfill/objectAssign';
 
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
 import midiremote_api = require('midiremote_api_v1');
@@ -90,17 +90,19 @@ devices.forEach((device) => {
         const controlSectionElements = device.controlSectionElements;
         const channelElements = device.channelElements;
 
-        // PIN: REMOVE ME
-        logger.warn(
-            `bindDeviceToMidi(${JSON.stringify(
-                {
-                    channelElements: channelElements,
-                    controlSectionElements: controlSectionElements,
-                },
-                null,
-                2
-            )})`
-        );
+        if (process.env['NODE_ENV'] === 'development') {
+            // PIN: REMOVE ME
+            logger.warn(
+                `bindDeviceToMidi(${JSON.stringify(
+                    {
+                        channelElements: channelElements,
+                        controlSectionElements: controlSectionElements,
+                    },
+                    null,
+                    2
+                )})`
+            );
+        }
     }
 });
 
