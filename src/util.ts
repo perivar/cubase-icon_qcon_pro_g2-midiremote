@@ -74,21 +74,33 @@ export const getArrayEntries = <T>(obj: Array<T>): [number, T][] => {
 };
 
 // alternative to Object.assign
+// for recusive method use on of the methods here:
+// https://stackoverflow.com/questions/171251/how-can-i-merge-properties-of-two-javascript-objects-dynamically
 /**
  * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
  * @param obj1
  * @param obj2
  * @returns obj3 a new object based on obj1 and obj2
  */
-export const mergeOptions = (obj1: any, obj2: any) => {
-    const obj3: any = {};
+export const mergeOptions = (obj1: any, obj2: any, obj3?: any, obj4?: any) => {
+    const resObj: any = {};
     for (const attrname in obj1) {
-        obj3[attrname] = obj1[attrname];
+        resObj[attrname] = obj1[attrname];
     }
     for (const attrname in obj2) {
-        obj3[attrname] = obj2[attrname];
+        resObj[attrname] = obj2[attrname];
     }
-    return obj3;
+    if (obj3) {
+        for (const attrname in obj3) {
+            resObj[attrname] = obj3[attrname];
+        }
+    }
+    if (obj4) {
+        for (const attrname in obj4) {
+            resObj[attrname] = obj4[attrname];
+        }
+    }
+    return resObj;
 };
 
 /**

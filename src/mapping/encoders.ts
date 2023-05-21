@@ -113,7 +113,7 @@ export const bindEncoders = (
                 }
                 return chunks.map((chunk) => {
                     // PIN: converted spread-to-object to ES5
-                    return Object.assign(page, { assignments: chunk });
+                    return mergeOptions(page, { assignments: chunk });
                 });
             }
 
@@ -208,7 +208,7 @@ export const bindEncoders = (
 
                 const assignment: EncoderAssignment =
                     // PIN: converted spread-to-object to ES5
-                    Object.assign(
+                    mergeOptions(
                         { displayMode: EncoderDisplayMode.SingleDot },
                         {
                             encoderValue:
