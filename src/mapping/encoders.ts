@@ -89,13 +89,13 @@ export const bindEncoders = (
         .flatMap((device) => (device as MainDevice).controlSectionElements.buttons);
 
     // Bind encoder display modes to custom host values
-    // const channelEncoderDisplayModeHostValues = channelElements.map((channel, channelIndex) => {
-    //     const hostValue = page.mCustom.makeSettableHostValueVariable(
-    //         `encoderDisplayMode${channelIndex}`
-    //     );
-    //     page.makeValueBinding(channel.encoder.mDisplayModeValue, hostValue);
-    //     return hostValue;
-    // });
+    const channelEncoderDisplayModeHostValues = channelElements.map((channel, channelIndex) => {
+        const hostValue = page.mCustom.makeSettableHostValueVariable(
+            `encoderDisplayMode${channelIndex}`
+        );
+        page.makeValueBinding(channel.encoder.mDisplayModeValue, hostValue);
+        return hostValue;
+    });
 
     const subPageArea = page.makeSubPageArea('Encoders');
 
