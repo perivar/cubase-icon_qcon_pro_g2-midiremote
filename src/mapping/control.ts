@@ -249,6 +249,7 @@ export const bindControlButtons = (
     .setTypeToggle();
 
   // Navigation Buttons
+  // PIN: avoid destructuring
   const bank = buttons.navigation.bank,
     channel = buttons.navigation.channel;
   page.makeActionBinding(bank.left.mSurfaceValue, mixerBankZone.mAction.mPrevBank);
@@ -276,6 +277,7 @@ export const bindJogWheelSection = (
     scrubButton.mLedValue.setProcessValue(context, 0);
   };
 
+  // PIN: avoid destructuring
   const jogLeft = controlSectionElements.jogWheel.mJogLeftValue,
     jogRight = controlSectionElements.jogWheel.mJogRightValue;
   page.makeCommandBinding(jogLeft, "Transport", "Jog Left").setSubPage(jogSubPage);

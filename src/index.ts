@@ -51,6 +51,7 @@ import { bindDeviceToMidi, makeGlobalBooleanVariables } from "./midi";
 import { setupDeviceConnection } from "./midi/connection";
 import { makeTimerUtils } from "./util";
 
+// PIN: set device to Icon QCon Pro G2
 const driver = midiremote_api.makeDeviceDriver("Icon", "QCon Pro G2", "Nerseth");
 
 const surface = decorateSurface(driver.mSurface);

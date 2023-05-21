@@ -52,6 +52,7 @@ export interface DecoratedDeviceSurface extends MR_DeviceSurface {
 export const decorateSurface = (surface: MR_DeviceSurface) => {
   const decoratedSurface = surface as DecoratedDeviceSurface;
 
+  // PIN: converted spread-to-object arguments to ES5
   decoratedSurface.makeLedButton = (x: number, y: number, w: number, h: number) => {
     const button = surface.makeButton(x, y, w, h) as LedButton;
 
@@ -102,12 +103,14 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
     return button;
   };
 
+  // PIN: converted spread-to-object arguments to ES5
   decoratedSurface.makeLedPushEncoder = (x: number, y: number, w: number, h: number) => {
     const encoder = surface.makePushEncoder(x, y, w, h) as LedPushEncoder;
     encoder.mDisplayModeValue = surface.makeCustomValueVariable("encoderDisplayMode");
     return encoder;
   };
 
+  // PIN: converted spread-to-object arguments to ES5
   decoratedSurface.makeTouchSensitiveFader = (x: number, y: number, w: number, h: number) => {
     const fader = surface.makeFader(x, y, w, h) as TouchSensitiveFader;
 
@@ -119,6 +122,7 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
     return fader;
   };
 
+  // PIN: converted spread-to-object arguments to ES5
   decoratedSurface.makeJogWheel = (x: number, y: number, w: number, h: number) => {
     const jogWheel = surface.makeKnob(x, y, w, h) as JogWheel;
 
@@ -172,6 +176,7 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
     return jogWheel;
   };
 
+  // PIN: converted spread-to-object arguments to ES5
   decoratedSurface.makeDecoratedLamp = (x: number, y: number, w: number, h: number) => {
     const lamp = decoratedSurface.makeLamp(x, y, w, h) as DecoratedLamp;
 

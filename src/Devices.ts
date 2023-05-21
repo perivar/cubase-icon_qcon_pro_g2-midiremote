@@ -85,6 +85,7 @@ export class Devices {
 
     let nextDeviceXPosition = 0;
 
+    // PIN: converted spread-to-array to ES5
     for (let i = 0; i < deviceClasses.length; i++) {
       const deviceIndex = i;
       const deviceClass = deviceClasses[i];
@@ -105,6 +106,7 @@ export class Devices {
       driver
         .makeDetectionUnit()
         .detectPortPair(this.devices[0].ports.input, this.devices[0].ports.output)
+        // PIN: changed to Icon QCon Pro G2
         .expectInputNameContains("iCON QCON Pro G2")
         .expectOutputNameContains("iCON QCON Pro G2");
     }
