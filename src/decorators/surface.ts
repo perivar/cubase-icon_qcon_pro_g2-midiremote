@@ -13,6 +13,7 @@ import { CallbackCollection, ContextStateVariable, makeCallbackCollection } from
 
 export interface LedButton extends MR_Button {
   mLedValue: MR_SurfaceCustomValueVariable;
+  shadowValue: MR_SurfaceCustomValueVariable;
   onSurfaceValueChange: CallbackCollection<
     Parameters<MR_Button["mSurfaceValue"]["mOnProcessValueChange"]>
   >;
@@ -62,18 +63,21 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
     );
     button.mLedValue = surface.makeCustomValueVariable("LedButtonLed");
 
-    const shadowValue = surface.makeCustomValueVariable("LedButtonProxy");
+    button.shadowValue = surface.makeCustomValueVariable("LedButtonProxy");
 
     button.bindToNote = (ports, note, isChannelButton = false) => {
       const currentSurfaceValue = new ContextStateVariable(0);
       button.mSurfaceValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, note);
       button.onSurfaceValueChange.addCallback((context, newValue) => {
+        console.log("button surface value changed to " + newValue + " for " + note);
         currentSurfaceValue.set(context, newValue);
         ports.output.sendNoteOn(context, note, newValue || currentLedValue.get(context));
       });
 
       const currentLedValue = new ContextStateVariable(0);
       button.mLedValue.mOnProcessValueChange = (context, newValue) => {
+        console.log("button led value changed to " + newValue + " for " + note);
+
         currentLedValue.set(context, newValue);
         ports.output.sendNoteOn(context, note, newValue);
       };
@@ -81,8 +85,10 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
       // Binding the button's mSurfaceValue to a host function may alter it to not change when the
       // button is pressed. Hence, `shadowValue` is used to make the button light up while it's
       // pressed.
-      shadowValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, note);
-      shadowValue.mOnProcessValueChange = (context, newValue) => {
+      button.shadowValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, note);
+      button.shadowValue.mOnProcessValueChange = (context, newValue) => {
+        console.log("button shadow led value changed to " + newValue + " for " + note);
+
         ports.output.sendNoteOn(
           context,
           note,
