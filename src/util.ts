@@ -73,6 +73,24 @@ export const getArrayEntries = <T>(obj: Array<T>): [number, T][] => {
     return keys;
 };
 
+// alternative to Object.assign
+/**
+ * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
+ * @param obj1
+ * @param obj2
+ * @returns obj3 a new object based on obj1 and obj2
+ */
+export const mergeOptions = (obj1: any, obj2: any) => {
+    const obj3: any = {};
+    for (const attrname in obj1) {
+        obj3[attrname] = obj1[attrname];
+    }
+    for (const attrname in obj2) {
+        obj3[attrname] = obj2[attrname];
+    }
+    return obj3;
+};
+
 /**
  * This is one **hell** of a hack: It resembles the functionality of a global `setTimeout` function
  * by combining a surface variable, a sub page, and an action binding's `makeRepeating()` xD

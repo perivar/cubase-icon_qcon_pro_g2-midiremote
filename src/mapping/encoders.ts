@@ -6,7 +6,7 @@ import { Devices, MainDevice } from '../Devices';
 import { EncoderDisplayMode, GlobalBooleanVariables } from '../midi';
 import { SegmentDisplayManager } from '../midi/managers/SegmentDisplayManager';
 import { ChannelSurfaceElements } from '../surface';
-import { createElements, getArrayEntries, makeCallbackCollection } from '../util';
+import { createElements, getArrayEntries, makeCallbackCollection, mergeOptions } from '../util';
 
 export interface EncoderAssignment {
     encoderValue: MR_HostValue;
@@ -25,7 +25,7 @@ export interface EncoderPage {
 }
 
 // PIN: REMOVE ME
-const debugInformation = (
+const debugPageInformation = (
     debugTitle: string,
     assignmentButtonId: number,
     pages: EncoderPage[],
@@ -38,13 +38,14 @@ const debugInformation = (
 
         const assignments =
             typeof assignmentsConfig === 'function'
-                ? mixerBankChannels.map((channel, channelIndex) =>
-                      assignmentsConfig(channel, channelIndex)
-                  )
+                ? mixerBankChannels.map((channel, channelIndex) => {
+                      const conf = assignmentsConfig(channel, channelIndex);
+                      return mergeOptions({ channelIndex: channelIndex }, conf);
+                  })
                 : assignmentsConfig;
 
         return {
-            // index: encoderPageIndex,
+            index: encoderPageIndex,
             assignmentButtonId: assignmentButtonId,
             name: pageName,
             assignments: assignments,
@@ -94,7 +95,7 @@ export const bindEncoders = (
         const encoderPageSize = channelElements.length;
 
         // PIN: REMOVE ME
-        debugInformation(
+        debugPageInformation(
             'encoder-asssignments-pre-split',
             assignmentButtonId,
             pages,
@@ -120,7 +121,7 @@ export const bindEncoders = (
         });
 
         // PIN: REMOVE ME
-        debugInformation(
+        debugPageInformation(
             'encoder-asssignments-post-split',
             assignmentButtonId,
             pages,
@@ -188,6 +189,7 @@ export const bindEncoders = (
                 globalBooleanVariables.isFlipModeActive.set(context, true, true);
             };
 
+            // if assignments is a function, convert it to an array
             const assignments =
                 typeof assignmentsConfig === 'function'
                     ? mixerBankChannels.map((channel, channelIndex) =>
@@ -264,6 +266,24 @@ export const bindEncoders = (
                 });
             }
 
+            // PIN: REMOVE ME
+            logger.warn(
+                `createdSubPages(${JSON.stringify(
+                    {
+                        index: encoderPageIndex,
+                        pageName: pageName,
+                        assignmentsConfig: assignmentsConfig,
+                        areAssignmentsChannelRelated: areAssignmentsChannelRelated,
+
+                        subPageName: subPageName,
+                        subPage: subPage,
+                        flipSubPage: flipSubPage,
+                    },
+                    null,
+                    2
+                )})`
+            );
+
             return { subPage: subPage, flipSubPage: flipSubPage };
         });
 
@@ -280,6 +300,7 @@ export const bindEncoders = (
             );
 
             let previousSubPages = createdSubPages[0];
+
             // PIN: converted for-of loop to ES5
             for (let i = 0, arr = createdSubPages; i < arr.length; i++) {
                 const currentSubPages = arr[i];
@@ -295,7 +316,31 @@ export const bindEncoders = (
 
                 previousSubPages = currentSubPages;
             }
+
+            // PIN: REMOVE ME
+            logger.warn(
+                `bind-cycle-sub-pages(${JSON.stringify(
+                    {
+                        i: i,
+                        buttons: buttons,
+                        page: page,
+                    },
+                    null,
+                    2
+                )})`
+            );
         }
+
+        // PIN: REMOVE ME
+        logger.warn(
+            `created-sub-pages(${JSON.stringify(
+                {
+                    createdSubPages: createdSubPages,
+                },
+                null,
+                2
+            )})`
+        );
 
         return createdSubPages;
     };

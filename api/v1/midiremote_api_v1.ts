@@ -4694,8 +4694,8 @@ export class MR_MixConsole extends MR_HostObject {
      * @param {string} name
      * @returns {MR_MixerBankZone}
      */
-    makeMixerBankZone(name = ''): MR_MixerBankZone {
-        return new MR_MixerBankZone();
+    makeMixerBankZone(name?: string): MR_MixerBankZone {
+        return new MR_MixerBankZone(name);
     }
 }
 
@@ -6237,10 +6237,14 @@ export class MR_MixerBankZone extends MR_HostObject {
         isActive: boolean
     ) => void;
 
-    constructor() {
-        super();
+    constructor(name?: string) {
+        super(name);
 
-        logger.debug('MR_MixerBankZone: constructor()');
+        logger.debug(
+            `MR_MixerBankZone: constructor(${JSON.stringify({
+                name: name,
+            })})`
+        );
 
         // init channel number to zero since we will increment before getting next number
         // in makeMixerBankChannel()
@@ -6282,7 +6286,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeAudioChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeAudioChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6290,7 +6294,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeInstrumentChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeInstrumentChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6298,7 +6302,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeSamplerChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeSamplerChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6306,7 +6310,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeMIDIChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeMIDIChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6314,7 +6318,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeFXChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeFXChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6322,7 +6326,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeGroupChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeGroupChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6330,7 +6334,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeVCAChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeVCAChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6338,7 +6342,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeInputChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeInputChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6346,7 +6350,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeOutputChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeOutputChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6354,7 +6358,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeWindowZoneLeftChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeWindowZoneLeftChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6362,7 +6366,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     includeWindowZoneRightChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: includeWindowZoneRightChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6370,7 +6374,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeAudioChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeAudioChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6378,7 +6382,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeInstrumentChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeInstrumentChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6386,7 +6390,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeSamplerChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeSamplerChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6394,7 +6398,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeMIDIChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeMIDIChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6402,7 +6406,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeFXChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeFXChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6410,7 +6414,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeGroupChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeGroupChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6418,7 +6422,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeVCAChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeVCAChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6426,7 +6430,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeInputChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeInputChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6434,7 +6438,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeOutputChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeOutputChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6442,7 +6446,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeWindowZoneLeftChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeWindowZoneLeftChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
@@ -6450,7 +6454,7 @@ export class MR_MixerBankZone extends MR_HostObject {
      */
     excludeWindowZoneRightChannels(): MR_MixerBankZone {
         logger.info(`MR_MixerBankZone: excludeWindowZoneRightChannels()`);
-        return new MR_MixerBankZone();
+        return this;
     }
 
     /**
