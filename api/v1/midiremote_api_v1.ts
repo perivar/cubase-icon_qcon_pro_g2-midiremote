@@ -3327,11 +3327,13 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
     mLimiter: MR_HostStripEffectSlotLimiter;
     mSaturator: MR_HostStripEffectSlotSaturator;
     mTools: MR_HostStripEffectSlotTools;
+
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
     ) => void;
+
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4895,16 +4897,20 @@ export class MR_PreFilter extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_ChannelEQBand extends MR_HostObject {
+    band: number;
+
     mGain: MR_EQBandGainValue;
     mFreq: MR_EQBandFrequencyValue;
     mQ: MR_EQBandQualityValue;
     mOn: MR_EQBandOnValue;
     mFilterType: MR_EQBandFilterTypeValue;
+
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
     ) => void;
+
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -4915,35 +4921,42 @@ export class MR_ChannelEQBand extends MR_HostObject {
         isActive: boolean
     ) => void;
 
-    constructor() {
+    constructor(band: number) {
         super();
 
-        logger.debug('MR_ChannelEQBand: constructor()');
+        logger.debug(
+            `MR_ChannelEQBand: constructor(${JSON.stringify({
+                band: band,
+            })})`
+        );
+
+        // set parameter
+        this.band = band;
 
         /**
          * @property
          */
-        this.mGain = new MR_EQBandGainValue();
+        this.mGain = new MR_EQBandGainValue(band);
 
         /**
          * @property
          */
-        this.mFreq = new MR_EQBandFrequencyValue();
+        this.mFreq = new MR_EQBandFrequencyValue(band);
 
         /**
          * @property
          */
-        this.mQ = new MR_EQBandQualityValue();
+        this.mQ = new MR_EQBandQualityValue(band);
 
         /**
          * @property
          */
-        this.mOn = new MR_EQBandOnValue();
+        this.mOn = new MR_EQBandOnValue(band);
 
         /**
          * @property
          */
-        this.mFilterType = new MR_EQBandFilterTypeValue();
+        this.mFilterType = new MR_EQBandFilterTypeValue(band);
 
         /**
          * @property
@@ -4978,11 +4991,13 @@ export class MR_ChannelEQ extends MR_HostObject {
     mBand2: MR_ChannelEQBand;
     mBand3: MR_ChannelEQBand;
     mBand4: MR_ChannelEQBand;
+
     mOnTitleChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
         title: string
     ) => void;
+
     mOnColorChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -5001,22 +5016,22 @@ export class MR_ChannelEQ extends MR_HostObject {
         /**
          * @property
          */
-        this.mBand1 = new MR_ChannelEQBand();
+        this.mBand1 = new MR_ChannelEQBand(1);
 
         /**
          * @property
          */
-        this.mBand2 = new MR_ChannelEQBand();
+        this.mBand2 = new MR_ChannelEQBand(2);
 
         /**
          * @property
          */
-        this.mBand3 = new MR_ChannelEQBand();
+        this.mBand3 = new MR_ChannelEQBand(3);
 
         /**
          * @property
          */
-        this.mBand4 = new MR_ChannelEQBand();
+        this.mBand4 = new MR_ChannelEQBand(4);
 
         /**
          * @property
@@ -6553,14 +6568,6 @@ export class MR_HostValue {
      * @param {MR_ActiveMapping} activeMapping
      */
     decrement(activeMapping: MR_ActiveMapping): void {}
-
-    toString() {
-        const curValue = this.class;
-
-        return `MR_HostValue: toString(${JSON.stringify({
-            curValue: curValue,
-        })})`;
-    }
 }
 
 /**
@@ -11334,6 +11341,8 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_EQBandGainValue extends MR_HostValue {
+    band: number;
+
     mOnProcessValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11361,10 +11370,17 @@ export class MR_EQBandGainValue extends MR_HostValue {
         isActive: boolean
     ) => void;
 
-    constructor() {
+    constructor(band: number) {
         super();
 
-        logger.debug('MR_EQBandGainValue: constructor()');
+        logger.debug(
+            `MR_EQBandGainValue: constructor(${JSON.stringify({
+                band: band,
+            })})`
+        );
+
+        // set parameter
+        this.band = band;
 
         // define class-name
         this.class = 'MR_EQBandGainValue';
@@ -11440,6 +11456,8 @@ export class MR_EQBandGainValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_EQBandFrequencyValue extends MR_HostValue {
+    band: number;
+
     mOnProcessValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11467,10 +11485,17 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
         isActive: boolean
     ) => void;
 
-    constructor() {
+    constructor(band: number) {
         super();
 
-        logger.debug('MR_EQBandFrequencyValue: constructor()');
+        logger.debug(
+            `MR_EQBandFrequencyValue: constructor(${JSON.stringify({
+                band: band,
+            })})`
+        );
+
+        // set parameter
+        this.band = band;
 
         // define class-name
         this.class = 'MR_EQBandFrequencyValue';
@@ -11546,6 +11571,8 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_EQBandQualityValue extends MR_HostValue {
+    band: number;
+
     mOnProcessValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11573,10 +11600,17 @@ export class MR_EQBandQualityValue extends MR_HostValue {
         isActive: boolean
     ) => void;
 
-    constructor() {
+    constructor(band: number) {
         super();
 
-        logger.debug('MR_EQBandQualityValue: constructor()');
+        logger.debug(
+            `MR_EQBandQualityValue: constructor(${JSON.stringify({
+                band: band,
+            })})`
+        );
+
+        // set parameter
+        this.band = band;
 
         // define class-name
         this.class = 'MR_EQBandQualityValue';
@@ -11652,6 +11686,8 @@ export class MR_EQBandQualityValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_EQBandOnValue extends MR_HostValue {
+    band: number;
+
     mOnProcessValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11679,10 +11715,17 @@ export class MR_EQBandOnValue extends MR_HostValue {
         isActive: boolean
     ) => void;
 
-    constructor() {
+    constructor(band: number) {
         super();
 
-        logger.debug('MR_EQBandOnValue: constructor()');
+        logger.debug(
+            `MR_EQBandOnValue: constructor(${JSON.stringify({
+                band: band,
+            })})`
+        );
+
+        // set parameter
+        this.band = band;
 
         // define class-name
         this.class = 'MR_EQBandOnValue';
@@ -11758,6 +11801,8 @@ export class MR_EQBandOnValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_EQBandFilterTypeValue extends MR_HostValue {
+    band: number;
+
     mOnProcessValueChange: (
         activeDevice: MR_ActiveDevice,
         activeMapping: MR_ActiveMapping,
@@ -11785,10 +11830,17 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
         isActive: boolean
     ) => void;
 
-    constructor() {
+    constructor(band: number) {
         super();
 
-        logger.debug('MR_EQBandFilterTypeValue: constructor()');
+        logger.debug(
+            `MR_EQBandFilterTypeValue: constructor(${JSON.stringify({
+                band: band,
+            })})`
+        );
+
+        // set parameter
+        this.band = band;
 
         // define class-name
         this.class = 'MR_EQBandFilterTypeValue';
