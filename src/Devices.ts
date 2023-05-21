@@ -1,9 +1,9 @@
-import { MR_DeviceDriver } from 'midiremote_api_v1';
+import { MR_DeviceDriver } from "midiremote_api_v1";
 
-import { config } from './config';
-import { DecoratedDeviceSurface } from './decorators/surface';
-import { LcdManager } from './midi/managers/LcdManager';
-import { makePortPair, PortPair } from './midi/PortPair';
+import { config } from "./config";
+import { DecoratedDeviceSurface } from "./decorators/surface";
+import { LcdManager } from "./midi/managers/LcdManager";
+import { makePortPair, PortPair } from "./midi/PortPair";
 import {
   channelElementsWidth,
   ChannelSurfaceElements,
@@ -12,7 +12,7 @@ import {
   createChannelSurfaceElements,
   createControlSectionSurfaceElements,
   surfaceHeight,
-} from './surface';
+} from "./surface";
 
 interface DeviceProperties {
   driver: MR_DeviceDriver;
@@ -80,7 +80,7 @@ export class Devices {
 
   constructor(driver: MR_DeviceDriver, surface: DecoratedDeviceSurface) {
     const deviceClasses = config.devices.map((deviceType) =>
-      deviceType === 'main' ? MainDevice : ExtenderDevice
+      deviceType === "main" ? MainDevice : ExtenderDevice
     );
 
     let nextDeviceXPosition = 0;
@@ -105,8 +105,8 @@ export class Devices {
       driver
         .makeDetectionUnit()
         .detectPortPair(this.devices[0].ports.input, this.devices[0].ports.output)
-        .expectInputNameContains('iCON QCON Pro G2')
-        .expectOutputNameContains('iCON QCON Pro G2');
+        .expectInputNameContains("iCON QCON Pro G2")
+        .expectOutputNameContains("iCON QCON Pro G2");
     }
   }
 

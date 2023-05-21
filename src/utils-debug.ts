@@ -1,7 +1,7 @@
-import { logger, MR_MixerBankChannel } from 'midiremote_api_v1';
+import { logger, MR_MixerBankChannel } from "midiremote_api_v1";
 
-import { EncoderPage } from './mapping/encoders';
-import { mergeOptions } from './utils-es5';
+import { EncoderPage } from "./mapping/encoders";
+import { mergeOptions } from "./utils-es5";
 
 export let debugPageInformation = (
   _debugTitle: string,
@@ -9,7 +9,7 @@ export let debugPageInformation = (
   _pages: EncoderPage[],
   _mixerBankChannels: MR_MixerBankChannel[]
 ) => {};
-if (process.env['NODE_ENV'] === 'development') {
+if (process.env["NODE_ENV"] === "development") {
   debugPageInformation = (
     debugTitle: string,
     assignmentButtonId: number,
@@ -22,7 +22,7 @@ if (process.env['NODE_ENV'] === 'development') {
       const areAssignmentsChannelRelated = pageInfo.areAssignmentsChannelRelated;
 
       const assignments =
-        typeof assignmentsConfig === 'function'
+        typeof assignmentsConfig === "function"
           ? mixerBankChannels.map((channel, channelIndex) => {
               const conf = assignmentsConfig(channel, channelIndex);
               return mergeOptions({ __chanIndex: channelIndex }, conf);

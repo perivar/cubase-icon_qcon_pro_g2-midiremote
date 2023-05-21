@@ -3,27 +3,27 @@
 // https://github.com/paulpflug/abbreviate/blob/master/src/index.coffee
 
 const regexes = [/[\s\-_,]/, /[\W]/, /[aieouäöü]/, /[a-z]/, /[AIEOUÄÖÜ]/, /[A-Z0-9]/];
-const digraphs = ['ch', 'gh', 'gn', 'kn', 'ph', 'qu', 'sh', 'th', 'wh', 'wr'];
+const digraphs = ["ch", "gh", "gn", "kn", "ph", "qu", "sh", "th", "wh", "wr"];
 const diblends = [
-  'bl',
-  'br',
-  'cl',
-  'cr',
-  'fl',
-  'fr',
-  'gl',
-  'gr',
-  'pl',
-  'pr',
-  'sc',
-  'sl',
-  'sm',
-  'sn',
-  'sp',
-  'st',
+  "bl",
+  "br",
+  "cl",
+  "cr",
+  "fl",
+  "fr",
+  "gl",
+  "gr",
+  "pl",
+  "pr",
+  "sc",
+  "sl",
+  "sm",
+  "sn",
+  "sp",
+  "st",
 ];
-const trigraphs = ['chr', 'sch'];
-const triblends = ['shr', 'spl', 'spr', 'squ', 'str', 'thr'];
+const trigraphs = ["chr", "sch"];
+const triblends = ["shr", "spl", "spr", "squ", "str", "thr"];
 
 export const abbreviate = (
   str: string,
@@ -46,20 +46,20 @@ export const abbreviate = (
   }
 
   if (length <= 0 && strict) {
-    return '';
+    return "";
   }
 
   if (length >= str.length) {
     return str;
   }
 
-  str = str.replace(/^[\s\-_,]+/, '').replace(/[\s\-_,]+$/, '');
+  str = str.replace(/^[\s\-_,]+/, "").replace(/[\s\-_,]+$/, "");
 
   if (length >= str.length) {
     return str;
   }
 
-  let chars = str.split('');
+  let chars = str.split("");
   let pos = 1;
   const order = [pos];
   let orderedCount = 1;
@@ -203,9 +203,9 @@ export const abbreviate = (
     if (length && order[i2] <= length) {
       return val;
     } else {
-      return '';
+      return "";
     }
   });
 
-  return chars.join('');
+  return chars.join("");
 };

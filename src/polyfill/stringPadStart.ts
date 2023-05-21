@@ -10,9 +10,9 @@ if (!String.prototype.padStart) {
     targetLength = Math.floor(targetLength) || 0;
     if (targetLength < this.length) return String(this);
 
-    padString = padString ? String(padString) : ' ';
+    padString = padString ? String(padString) : " ";
 
-    let pad = '';
+    let pad = "";
     const len = targetLength - this.length;
     let i = 0;
     while (pad.length < len) {

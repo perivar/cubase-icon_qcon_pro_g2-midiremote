@@ -1,7 +1,7 @@
-import * as dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-import prependFile from 'prepend-file';
+import * as dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
+import prependFile from "prepend-file";
 
 const getFilesRecursive = (sourcePath: string, filter: RegExp, fileList?: string[]) => {
   const filelist: string[] = fileList || [];
@@ -42,7 +42,7 @@ const replaceInFiles = (assetsPath: string, filter: RegExp, replaceMap: Map<RegE
 const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
   console.info(`Processing '${filePath}'`);
 
-  fs.readFile(filePath, 'utf8', function (err, data) {
+  fs.readFile(filePath, "utf8", function (err, data) {
     if (err) {
       return console.error(err);
     }
@@ -53,7 +53,7 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
       replaced = replaced.replace(searchValue, replaceValue);
     });
 
-    fs.writeFile(filePath, replaced, 'utf8', function (err) {
+    fs.writeFile(filePath, replaced, "utf8", function (err) {
       if (err) {
         return console.error(err);
       }
@@ -62,14 +62,14 @@ const replaceInFile = (filePath: string, replaceMap: Map<RegExp, string>) => {
 };
 
 export const prependConfig = async (configPath: string, outputPath: string) => {
-  const configFileContents = fs.readFileSync(configPath).toString('utf8');
+  const configFileContents = fs.readFileSync(configPath).toString("utf8");
   if (configFileContents) {
     const scriptConfigMatches = /--BEGIN JS--([\s\S]+)/.exec(configFileContents);
 
     if (scriptConfigMatches) {
       // read from .env file
       dotenv.config();
-      const devices = process.env['DEVICES'] ?? '["main"]';
+      const devices = process.env["DEVICES"] ?? '["main"]';
       // const copyCommand = process.env['COPY_COMMAND']
 
       const scriptConfig = scriptConfigMatches[1].replace(
@@ -79,7 +79,7 @@ export const prependConfig = async (configPath: string, outputPath: string) => {
 
       if (scriptConfig) {
         console.info(`Adding script config to '${outputPath}'`);
-        await prependFile(outputPath, scriptConfig + '\n\n');
+        await prependFile(outputPath, scriptConfig + "\n\n");
 
         // if (copyCommand) {
         //     await execaCommand(copyCommand, { shell: true, stdout: process.stdout })
@@ -96,17 +96,17 @@ export const prependConfig = async (configPath: string, outputPath: string) => {
 // replaced = replaced.replace(/Object.defineProperty\(exports, "__esModule", { value: true }\);/g, '//')
 
 const replaceMap: Map<RegExp, string> = new Map([
-  [/SCRIPT_VERSION/g, `"${process.env['npm_package_version']}"`], // replace SCRIPT_VERSION with the version from package.json
-  [/"use strict";?/g, ''],
-  [/'use strict';?/g, ''],
-  [/if \(false\) \{\}/g, ''],
-  [/Object.defineProperty\(exports, "__esModule", { value: true }\);?/g, ''],
-  [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);?/g, ''],
-  [/Object.defineProperty\(exports, '__esModule', { value: true }\);?/g, ''],
+  [/SCRIPT_VERSION/g, `"${process.env["npm_package_version"]}"`], // replace SCRIPT_VERSION with the version from package.json
+  [/"use strict";?/g, ""],
+  [/'use strict';?/g, ""],
+  [/if \(false\) \{\}/g, ""],
+  [/Object.defineProperty\(exports, "__esModule", { value: true }\);?/g, ""],
+  [/Object.defineProperty\(exports, "__esModule", \({ value: true }\)\);?/g, ""],
+  [/Object.defineProperty\(exports, '__esModule', { value: true }\);?/g, ""],
   [/(var midiremote_api.*?)\s=\s__.*$/gm, "$1 = require('midiremote_api_v1')"],
-  [/\/\*{2,}\//g, ''], // remove comments like /****/
+  [/\/\*{2,}\//g, ""], // remove comments like /****/
 ]);
 
-replaceInFiles('dist', /.js/, replaceMap);
+replaceInFiles("dist", /.js/, replaceMap);
 
 // prependConfig('src/config.ts', 'dist/icon/qcon_pro_g2/icon_qcon_pro_g2_webpack.js')

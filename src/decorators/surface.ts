@@ -6,15 +6,15 @@ import {
   MR_Lamp,
   MR_PushEncoder,
   MR_SurfaceCustomValueVariable,
-} from 'midiremote_api_v1';
+} from "midiremote_api_v1";
 
-import { EnhancedMidiOutput, PortPair } from '../midi/PortPair';
-import { CallbackCollection, ContextStateVariable, makeCallbackCollection } from '../util';
+import { EnhancedMidiOutput, PortPair } from "../midi/PortPair";
+import { CallbackCollection, ContextStateVariable, makeCallbackCollection } from "../util";
 
 export interface LedButton extends MR_Button {
   mLedValue: MR_SurfaceCustomValueVariable;
   onSurfaceValueChange: CallbackCollection<
-    Parameters<MR_Button['mSurfaceValue']['mOnProcessValueChange']>
+    Parameters<MR_Button["mSurfaceValue"]["mOnProcessValueChange"]>
   >;
   bindToNote: (ports: PortPair, note: number, isChannelButton?: boolean) => void;
 }
@@ -40,13 +40,13 @@ export interface DecoratedLamp extends MR_Lamp {
 }
 
 export interface DecoratedDeviceSurface extends MR_DeviceSurface {
-  makeLedButton: (...args: Parameters<MR_DeviceSurface['makeButton']>) => LedButton;
-  makeLedPushEncoder: (...args: Parameters<MR_DeviceSurface['makePushEncoder']>) => LedPushEncoder;
+  makeLedButton: (...args: Parameters<MR_DeviceSurface["makeButton"]>) => LedButton;
+  makeLedPushEncoder: (...args: Parameters<MR_DeviceSurface["makePushEncoder"]>) => LedPushEncoder;
   makeTouchSensitiveFader: (
-    ...args: Parameters<MR_DeviceSurface['makeFader']>
+    ...args: Parameters<MR_DeviceSurface["makeFader"]>
   ) => TouchSensitiveFader;
-  makeJogWheel: (...args: Parameters<MR_DeviceSurface['makeKnob']>) => JogWheel;
-  makeDecoratedLamp: (...args: Parameters<MR_DeviceSurface['makeLamp']>) => DecoratedLamp;
+  makeJogWheel: (...args: Parameters<MR_DeviceSurface["makeKnob"]>) => JogWheel;
+  makeDecoratedLamp: (...args: Parameters<MR_DeviceSurface["makeLamp"]>) => DecoratedLamp;
 }
 
 export const decorateSurface = (surface: MR_DeviceSurface) => {
@@ -57,11 +57,11 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
 
     button.onSurfaceValueChange = makeCallbackCollection(
       button.mSurfaceValue,
-      'mOnProcessValueChange'
+      "mOnProcessValueChange"
     );
-    button.mLedValue = surface.makeCustomValueVariable('LedButtonLed');
+    button.mLedValue = surface.makeCustomValueVariable("LedButtonLed");
 
-    const shadowValue = surface.makeCustomValueVariable('LedButtonProxy');
+    const shadowValue = surface.makeCustomValueVariable("LedButtonProxy");
 
     button.bindToNote = (ports, note, isChannelButton = false) => {
       const currentSurfaceValue = new ContextStateVariable(0);
@@ -92,7 +92,7 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
       if (isChannelButton) {
         // Turn the button's LED off when it becomes unassigned
         button.mSurfaceValue.mOnTitleChange = (context, title) => {
-          if (title === '') {
+          if (title === "") {
             ports.output.sendNoteOn(context, note, 0);
           }
         };
@@ -104,17 +104,17 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
 
   decoratedSurface.makeLedPushEncoder = (x: number, y: number, w: number, h: number) => {
     const encoder = surface.makePushEncoder(x, y, w, h) as LedPushEncoder;
-    encoder.mDisplayModeValue = surface.makeCustomValueVariable('encoderDisplayMode');
+    encoder.mDisplayModeValue = surface.makeCustomValueVariable("encoderDisplayMode");
     return encoder;
   };
 
   decoratedSurface.makeTouchSensitiveFader = (x: number, y: number, w: number, h: number) => {
     const fader = surface.makeFader(x, y, w, h) as TouchSensitiveFader;
 
-    fader.mTouchedValue = surface.makeCustomValueVariable('faderTouched');
+    fader.mTouchedValue = surface.makeCustomValueVariable("faderTouched");
     // Workaround because `filterByValue` in the encoder bindings hides zero values from
     // `mOnProcessValueChange`
-    fader.mTouchedValueInternal = surface.makeCustomValueVariable('faderTouchedInternal');
+    fader.mTouchedValueInternal = surface.makeCustomValueVariable("faderTouchedInternal");
 
     return fader;
   };
@@ -122,10 +122,10 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
   decoratedSurface.makeJogWheel = (x: number, y: number, w: number, h: number) => {
     const jogWheel = surface.makeKnob(x, y, w, h) as JogWheel;
 
-    const mProxyValue = surface.makeCustomValueVariable('jogWheelProxy');
-    jogWheel.mKnobModeEnabledValue = surface.makeCustomValueVariable('jogWheelKnobModeEnabled');
-    jogWheel.mJogRightValue = surface.makeCustomValueVariable('jogWheelJogRight');
-    jogWheel.mJogLeftValue = surface.makeCustomValueVariable('jogWheelJogLeft');
+    const mProxyValue = surface.makeCustomValueVariable("jogWheelProxy");
+    jogWheel.mKnobModeEnabledValue = surface.makeCustomValueVariable("jogWheelKnobModeEnabled");
+    jogWheel.mJogRightValue = surface.makeCustomValueVariable("jogWheelJogRight");
+    jogWheel.mJogLeftValue = surface.makeCustomValueVariable("jogWheelJogLeft");
 
     jogWheel.bindToControlChange = (input, controlChangeNumber) => {
       mProxyValue.mMidiBinding

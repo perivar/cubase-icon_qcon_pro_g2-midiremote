@@ -1,14 +1,14 @@
-import { MR_ActiveDevice } from 'midiremote_api_v1';
+import { MR_ActiveDevice } from "midiremote_api_v1";
 
-import { abbreviate } from '../../abbreviate';
-import { Device } from '../../Devices';
+import { abbreviate } from "../../abbreviate";
+import { Device } from "../../Devices";
 
 export class LcdManager {
   /**
    * Strips any non-ASCII character from the provided string, since devices only support ASCII.
    **/
   static stripNonAsciiCharacters(input: string) {
-    return input.replace(/[^\x00-\x7F]/g, '');
+    return input.replace(/[^\x00-\x7F]/g, "");
   }
 
   /**
@@ -43,7 +43,7 @@ export class LcdManager {
   }
 
   private static makeSpaces(length: number) {
-    return Array(length + 1).join(' ');
+    return Array(length + 1).join(" ");
   }
 
   constructor(private device: Device) {}
@@ -59,7 +59,7 @@ export class LcdManager {
 
   setChannelText(context: MR_ActiveDevice, row: number, channelIndex: number, text: string) {
     while (text.length < 7) {
-      text += ' ';
+      text += " ";
     }
     this.sendText(context, row * 56 + (channelIndex % 8) * 7, text);
   }

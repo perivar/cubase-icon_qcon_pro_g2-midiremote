@@ -1,70 +1,70 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createLogger, format, transports } from 'winston';
+import { createLogger, format, transports } from "winston";
 
 const formatMeta = (meta: { [key: string]: any[] }) => {
   // You can format the splat yourself
   if (meta && Array.isArray(meta)) {
-    const splat = meta['splat'];
+    const splat = meta["splat"];
     if (splat && splat.length) {
       return splat.length === 1 ? JSON.stringify(splat[0]) : JSON.stringify(splat);
     }
   }
-  return '';
+  return "";
 };
 
 const customFormat = format.printf((info) => {
-  return `[${info['timestamp']}] ${info['level']}\t ${info['label'] ?? ''} ${
-    info['message']
-  } ${formatMeta(info['meta'])}`;
+  return `[${info["timestamp"]}] ${info["level"]}\t ${info["label"] ?? ""} ${
+    info["message"]
+  } ${formatMeta(info["meta"])}`;
 });
 
 export const logger = createLogger({
   transports: [
     new transports.File({
-      level: 'warn',
-      filename: 'warn.log',
-      options: { flags: 'w' }, // restart file on each run
+      level: "warn",
+      filename: "warn.log",
+      options: { flags: "w" }, // restart file on each run
       format: format.combine(
-        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
         // format.splat(), // do not use splat format with custom formatter
         // format.json()
         customFormat
       ),
     }),
     new transports.File({
-      level: 'error',
-      filename: 'error.log',
-      options: { flags: 'w' }, // restart file on each run
+      level: "error",
+      filename: "error.log",
+      options: { flags: "w" }, // restart file on each run
       format: format.combine(
-        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
         format.splat(),
         format.json()
       ),
     }),
     new transports.File({
-      level: 'debug',
-      filename: 'debug.log',
-      options: { flags: 'w' }, // restart file on each run
+      level: "debug",
+      filename: "debug.log",
+      options: { flags: "w" }, // restart file on each run
       format: format.combine(
-        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
         // format.splat(), // do not use splat format with custom formatter
         // format.json()
         customFormat
       ),
     }),
     new transports.File({
-      level: 'info',
-      filename: 'info.log',
-      options: { flags: 'w' }, // restart file on each run
+      level: "info",
+      filename: "info.log",
+      options: { flags: "w" }, // restart file on each run
       format: format.combine(
-        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
         // format.splat(), // do not use splat format with custom formatter
         // format.json()
         customFormat
       ),
     }),
     new transports.Console({
-      level: 'fatal',
+      level: "fatal",
       // have to have Object.assign available to run format.colorize()
       format: format.combine(format.colorize(), format.splat(), format.simple()),
     }),
@@ -159,8 +159,8 @@ export class MR_MidiRemoteAPI {
   mDefaults: MR_HostDefaults;
 
   constructor() {
-    logger.info('MidiRemoteAPI initializing ...');
-    logger.debug('MR_MidiRemoteAPI: constructor()');
+    logger.info("MidiRemoteAPI initializing ...");
+    logger.debug("MR_MidiRemoteAPI: constructor()");
 
     /**
      * @property
@@ -194,17 +194,17 @@ export class MR_MidiRemoteAPI {
  * @class MR_HostDefaults
  */
 export class MR_HostDefaults {
-  class = 'MR_HostDefaults';
+  class = "MR_HostDefaults";
 
   constructor() {
-    logger.debug('MR_HostDefaults: constructor()');
+    logger.debug("MR_HostDefaults: constructor()");
   }
 
   /**
    * @returns {string}
    */
   getAppName(): string {
-    return 'Mocked Midi Remote API';
+    return "Mocked Midi Remote API";
   }
 
   /**
@@ -277,7 +277,7 @@ export class MR_HostDefaults {
  */
 export class MR_ActiveDevice {
   constructor() {
-    logger.debug('MR_ActiveDevice: constructor()');
+    logger.debug("MR_ActiveDevice: constructor()");
   }
 
   /**
@@ -294,7 +294,7 @@ export class MR_ActiveDevice {
    */
   getState(key: string): string {
     logger.info(`MR_ActiveDevice: getState(${key}`);
-    return 'Not Implemented';
+    return "Not Implemented";
   }
 }
 
@@ -303,7 +303,7 @@ export class MR_ActiveDevice {
  */
 export class MR_ActiveMapping {
   constructor() {
-    logger.debug('MR_ActiveMapping: constructor()');
+    logger.debug("MR_ActiveMapping: constructor()");
   }
 }
 
@@ -311,10 +311,10 @@ export class MR_ActiveMapping {
  * @class MR_HostAction
  */
 export class MR_HostAction {
-  class = 'MR_HostAction';
+  class = "MR_HostAction";
 
   constructor() {
-    logger.debug('MR_HostAction: constructor()');
+    logger.debug("MR_HostAction: constructor()");
   }
 
   /**
@@ -333,10 +333,10 @@ export class MR_HostPluginParameterBankZoneAction extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_HostPluginParameterBankZoneAction: constructor()');
+    logger.debug("MR_HostPluginParameterBankZoneAction: constructor()");
 
     // define class-name
-    this.class = 'MR_HostPluginParameterBankZoneAction';
+    this.class = "MR_HostPluginParameterBankZoneAction";
   }
 
   /**
@@ -355,10 +355,10 @@ export class MR_HostInsertEffectViewerAction extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_HostInsertEffectViewerAction: constructor()');
+    logger.debug("MR_HostInsertEffectViewerAction: constructor()");
 
     // define class-name
-    this.class = 'MR_HostInsertEffectViewerAction';
+    this.class = "MR_HostInsertEffectViewerAction";
   }
 
   /**
@@ -377,13 +377,13 @@ export class MR_MixerBankZoneAction extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_MixerBankZoneAction: constructor()');
+    logger.debug("MR_MixerBankZoneAction: constructor()");
 
     // define class-name
-    this.class = 'MR_MixerBankZoneAction';
+    this.class = "MR_MixerBankZoneAction";
 
     // define class-name
-    this.class = 'MR_MixerBankZoneAction';
+    this.class = "MR_MixerBankZoneAction";
   }
 
   /**
@@ -402,10 +402,10 @@ export class MR_TrackSelectionAction extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_TrackSelectionAction: constructor()');
+    logger.debug("MR_TrackSelectionAction: constructor()");
 
     // define class-name
-    this.class = 'MR_TrackSelectionAction';
+    this.class = "MR_TrackSelectionAction";
   }
 
   /**
@@ -424,10 +424,10 @@ export class MR_SubPageActionActivate extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_SubPageActionActivate: constructor()');
+    logger.debug("MR_SubPageActionActivate: constructor()");
 
     // define class-name
-    this.class = 'MR_SubPageActionActivate';
+    this.class = "MR_SubPageActionActivate";
   }
 
   /**
@@ -446,10 +446,10 @@ export class MR_SubPageAreaAction extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_SubPageAreaAction: constructor()');
+    logger.debug("MR_SubPageAreaAction: constructor()");
 
     // define class-name
-    this.class = 'MR_SubPageAreaAction';
+    this.class = "MR_SubPageAreaAction";
   }
 
   /**
@@ -468,10 +468,10 @@ export class MR_MappingPageActionActivate extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_MappingPageActionActivate: constructor()');
+    logger.debug("MR_MappingPageActionActivate: constructor()");
 
     // define class-name
-    this.class = 'MR_MappingPageActionActivate';
+    this.class = "MR_MappingPageActionActivate";
   }
 
   /**
@@ -490,10 +490,10 @@ export class MR_DeviceDriverAction extends MR_HostAction {
   constructor() {
     super();
 
-    logger.debug('MR_DeviceDriverAction: constructor()');
+    logger.debug("MR_DeviceDriverAction: constructor()");
 
     // define class-name
-    this.class = 'MR_DeviceDriverAction';
+    this.class = "MR_DeviceDriverAction";
   }
 
   /**
@@ -648,7 +648,7 @@ export class MR_DeviceDriver {
  */
 export class MR_Ports {
   constructor() {
-    logger.debug('MR_Ports: constructor()');
+    logger.debug("MR_Ports: constructor()");
   }
 
   /**
@@ -658,7 +658,7 @@ export class MR_Ports {
    * @param {string} name
    * @returns {MR_DeviceMidiInput}
    */
-  makeMidiInput(name = ''): MR_DeviceMidiInput {
+  makeMidiInput(name = ""): MR_DeviceMidiInput {
     logger.info(
       `MR_Ports: makeMidiInput(${JSON.stringify({
         name: name,
@@ -675,7 +675,7 @@ export class MR_Ports {
    * @param {string} name
    * @returns {MR_DeviceMidiOutput}
    */
-  makeMidiOutput(name = ''): MR_DeviceMidiOutput {
+  makeMidiOutput(name = ""): MR_DeviceMidiOutput {
     logger.info(
       `MR_Ports: makeMidiOutput(${JSON.stringify({
         name: name,
@@ -694,7 +694,7 @@ export class MR_Ports {
  */
 export class MR_DeviceMidiInput {
   name: string | undefined;
-  class = 'MR_DeviceMidiInput';
+  class = "MR_DeviceMidiInput";
 
   /**
    * @callback OnSysex
@@ -728,7 +728,7 @@ export class MR_DeviceMidiInput {
  */
 export class MR_DeviceMidiOutput {
   name: string | undefined;
-  class = 'MR_DeviceMidiOutput';
+  class = "MR_DeviceMidiOutput";
 
   constructor(name?: string) {
     logger.debug(
@@ -783,7 +783,7 @@ export class MR_DeviceMidiOutput {
  */
 export class MR_DeviceSurface {
   constructor() {
-    logger.debug('MR_DeviceSurface: constructor()');
+    logger.debug("MR_DeviceSurface: constructor()");
   }
 
   /**
@@ -984,7 +984,7 @@ export class MR_DeviceSurface {
  * @class MR_SurfaceElement
  */
 export class MR_SurfaceElement {
-  class = 'MR_SurfaceElement';
+  class = "MR_SurfaceElement";
 
   x = 0;
   y = 0;
@@ -1045,7 +1045,7 @@ export class MR_PushEncoder extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_PushEncoder';
+    this.class = "MR_PushEncoder";
 
     /**
      * @property
@@ -1093,7 +1093,7 @@ export class MR_Knob extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_Knob';
+    this.class = "MR_Knob";
 
     /**
      * @property
@@ -1136,7 +1136,7 @@ export class MR_Fader extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_Fader';
+    this.class = "MR_Fader";
 
     /**
      * @property
@@ -1197,7 +1197,7 @@ export class MR_Button extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_Button';
+    this.class = "MR_Button";
 
     /**
      * @property
@@ -1276,7 +1276,7 @@ export class MR_ModWheel extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_ModWheel';
+    this.class = "MR_ModWheel";
 
     /**
      * @property
@@ -1319,7 +1319,7 @@ export class MR_PitchBend extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_PitchBend';
+    this.class = "MR_PitchBend";
 
     /**
      * @property
@@ -1362,7 +1362,7 @@ export class MR_TriggerPad extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_TriggerPad';
+    this.class = "MR_TriggerPad";
 
     /**
      * @property
@@ -1406,7 +1406,7 @@ export class MR_PadXY extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_PadXY';
+    this.class = "MR_PadXY";
 
     /**
      * @property
@@ -1455,7 +1455,7 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_JoyStickXY';
+    this.class = "MR_JoyStickXY";
 
     /**
      * @property
@@ -1503,7 +1503,7 @@ export class MR_Lamp extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_Lamp';
+    this.class = "MR_Lamp";
 
     /**
      * @property
@@ -1548,7 +1548,7 @@ export class MR_BlindPanel extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_BlindPanel';
+    this.class = "MR_BlindPanel";
   }
 
   /**
@@ -1595,7 +1595,7 @@ export class MR_PianoKeys extends MR_SurfaceElement {
     );
 
     // define class-name
-    this.class = 'MR_PianoKeys';
+    this.class = "MR_PianoKeys";
   }
 }
 
@@ -1603,7 +1603,7 @@ export class MR_PianoKeys extends MR_SurfaceElement {
  * @class MR_SurfaceLabelField
  */
 export class MR_SurfaceLabelField {
-  class = 'MR_SurfaceLabelField';
+  class = "MR_SurfaceLabelField";
 
   constructor(x: number, y: number, w: number, h: number) {
     logger.debug(
@@ -1686,7 +1686,7 @@ export class MR_ControlLayer {
  * Represents a continuous value state of a [SurfaceElement](#surfaceelement).
  */
 export class MR_SurfaceValue {
-  class = 'MR_SurfaceValue';
+  class = "MR_SurfaceValue";
   name: string | undefined;
 
   constructor(name?: string) {
@@ -1747,10 +1747,10 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
   constructor() {
     super();
 
-    logger.debug('MR_SurfaceElementValue: constructor()');
+    logger.debug("MR_SurfaceElementValue: constructor()");
 
     // define class-name
-    this.class = 'MR_SurfaceElementValue';
+    this.class = "MR_SurfaceElementValue";
 
     /**
      * @property
@@ -1849,7 +1849,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
     );
 
     // define class-name
-    this.class = 'MR_SurfaceCustomValueVariable';
+    this.class = "MR_SurfaceCustomValueVariable";
 
     /**
      * @property
@@ -1923,7 +1923,7 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
  * @class MR_SurfaceValueMidiBinding
  */
 export class MR_SurfaceValueMidiBinding {
-  class = 'MR_SurfaceValueMidiBinding';
+  class = "MR_SurfaceValueMidiBinding";
 
   inputPort: MR_DeviceMidiInput | undefined;
   outputPort: MR_DeviceMidiOutput | undefined;
@@ -1938,7 +1938,7 @@ export class MR_SurfaceValueMidiBinding {
     | undefined;
 
   constructor() {
-    logger.debug('MR_SurfaceValueMidiBinding: constructor()');
+    logger.debug("MR_SurfaceValueMidiBinding: constructor()");
 
     this.inputPort = undefined;
     this.outputPort = undefined;
@@ -2101,13 +2101,13 @@ export class MR_SurfaceValueMidiBinding {
  * @class MR_MidiBindingValueRange7Bit
  */
 export class MR_MidiBindingValueRange7Bit {
-  class = 'MR_MidiBindingValueRange7Bit';
+  class = "MR_MidiBindingValueRange7Bit";
 
   constructor() {
-    logger.debug('MR_MidiBindingValueRange7Bit: constructor()');
+    logger.debug("MR_MidiBindingValueRange7Bit: constructor()");
 
     // define class-name
-    this.class = 'MR_MidiBindingValueRange7Bit';
+    this.class = "MR_MidiBindingValueRange7Bit";
   }
 }
 
@@ -2115,13 +2115,13 @@ export class MR_MidiBindingValueRange7Bit {
  * @class MR_MidiBindingValueRange14Bit
  */
 export class MR_MidiBindingValueRange14Bit {
-  class = 'MR_MidiBindingValueRange14Bit';
+  class = "MR_MidiBindingValueRange14Bit";
 
   constructor() {
-    logger.debug('MR_MidiBindingValueRange14Bit: constructor()');
+    logger.debug("MR_MidiBindingValueRange14Bit: constructor()");
 
     // define class-name
-    this.class = 'MR_MidiBindingValueRange14Bit';
+    this.class = "MR_MidiBindingValueRange14Bit";
   }
 }
 
@@ -2129,7 +2129,7 @@ export class MR_MidiBindingValueRange14Bit {
  * @class MR_MidiChannelBinding
  */
 export class MR_MidiChannelBinding {
-  class = 'MR_MidiChannelBinding';
+  class = "MR_MidiChannelBinding";
 
   constructor() {
     logger.debug(`MR_MidiChannelBinding: constructor()`);
@@ -2158,7 +2158,7 @@ export class MR_MidiBindingToNote extends MR_MidiChannelBinding {
     this.pitch = pitch;
 
     // define class-name
-    this.class = 'MR_MidiBindingToNote';
+    this.class = "MR_MidiBindingToNote";
   }
 
   /**
@@ -2200,7 +2200,7 @@ export class MR_MidiBindingToControlChange extends MR_MidiChannelBinding {
     this.controlChangeNumber = controlChangeNumber;
 
     // define class-name
-    this.class = 'MR_MidiBindingToControlChange';
+    this.class = "MR_MidiBindingToControlChange";
   }
 
   /**
@@ -2278,7 +2278,7 @@ export class MR_MidiBindingToControlChange14Bit extends MR_MidiChannelBinding {
     this.controlChangeNumber = controlChangeNumber;
 
     // define class-name
-    this.class = 'MR_MidiBindingToControlChange14Bit';
+    this.class = "MR_MidiBindingToControlChange14Bit";
   }
 
   /**
@@ -2356,7 +2356,7 @@ export class MR_MidiBindingToControlChange14BitNRPN extends MR_MidiChannelBindin
     this.controlChangeNumber = controlChangeNumber;
 
     // define class-name
-    this.class = 'MR_MidiBindingToControlChange14BitNRPN';
+    this.class = "MR_MidiBindingToControlChange14BitNRPN";
   }
 
   /**
@@ -2433,7 +2433,7 @@ export class MR_MidiBindingToPitchBend extends MR_MidiChannelBinding {
     this.channelNumber = channelNumber;
 
     // define class-name
-    this.class = 'MR_MidiBindingToPitchBend';
+    this.class = "MR_MidiBindingToPitchBend";
 
     /**
      * @property
@@ -2463,7 +2463,7 @@ export class MR_MidiBindingToChannelPressure extends MR_MidiChannelBinding {
     this.channelNumber = channelNumber;
 
     // define class-name
-    this.class = 'MR_MidiBindingToChannelPressure';
+    this.class = "MR_MidiBindingToChannelPressure";
 
     /**
      * @property
@@ -2507,10 +2507,10 @@ export class MR_MidiBindingToChannelPressure extends MR_MidiChannelBinding {
  * @class MR_Mapping
  */
 export class MR_Mapping {
-  class = 'MR_Mapping';
+  class = "MR_Mapping";
 
   constructor() {
-    logger.debug('MR_Mapping: constructor()');
+    logger.debug("MR_Mapping: constructor()");
   }
 }
 
@@ -2522,10 +2522,10 @@ export class MR_FactoryMapping extends MR_Mapping {
   constructor() {
     super();
 
-    logger.debug('MR_FactoryMapping: constructor()');
+    logger.debug("MR_FactoryMapping: constructor()");
 
     // define class-name
-    this.class = 'MR_FactoryMapping';
+    this.class = "MR_FactoryMapping";
   }
 
   /**
@@ -2547,7 +2547,7 @@ export class MR_FactoryMapping extends MR_Mapping {
  * @class MR_Page
  */
 export class MR_Page {
-  class = 'MR_Page';
+  class = "MR_Page";
   name: string | undefined;
 
   constructor(name?: string) {
@@ -2698,10 +2698,10 @@ export class MR_FactoryMappingPage extends MR_Page {
   constructor(name?: string) {
     super(name);
 
-    logger.debug('MR_FactoryMappingPage: constructor()');
+    logger.debug("MR_FactoryMappingPage: constructor()");
 
     // define class-name
-    this.class = 'MR_FactoryMappingPage';
+    this.class = "MR_FactoryMappingPage";
 
     /**
      * @property
@@ -2868,7 +2868,7 @@ export class MR_FactoryMappingPage extends MR_Page {
  * var hostSelectedTrackChannel = page.mHostAccess.mTrackSelection.mMixerChannel
  */
 export class MR_HostAccess {
-  class = 'MR_HostAccess';
+  class = "MR_HostAccess";
 
   mTransport: MR_HostTransport;
   mMixConsole: MR_MixConsole;
@@ -2878,7 +2878,7 @@ export class MR_HostAccess {
   mFocusedQuickControls: MR_FocusedQuickControls;
 
   constructor() {
-    logger.debug('MR_HostAccess: constructor()');
+    logger.debug("MR_HostAccess: constructor()");
 
     /**
      * @property
@@ -2916,7 +2916,7 @@ export class MR_HostAccess {
  * @class MR_HostObject
  */
 export class MR_HostObject {
-  class = 'MR_HostObject';
+  class = "MR_HostObject";
   name: string | undefined;
 
   constructor(name?: string) {
@@ -2954,10 +2954,10 @@ export class MR_HostObjectUndefined extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostObjectUndefined: constructor()');
+    logger.debug("MR_HostObjectUndefined: constructor()");
 
     // define class-name
-    this.class = 'MR_HostObjectUndefined';
+    this.class = "MR_HostObjectUndefined";
 
     /**
      * @property
@@ -3024,10 +3024,10 @@ export class MR_HostTransport extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostTransport: constructor()');
+    logger.debug("MR_HostTransport: constructor()");
 
     // define class-name
-    this.class = 'MR_HostTransport';
+    this.class = "MR_HostTransport";
 
     /**
      * @property
@@ -3086,7 +3086,7 @@ export class MR_QuickControls extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_QuickControls: constructor()');
+    logger.debug("MR_QuickControls: constructor()");
 
     /**
      * @property
@@ -3160,7 +3160,7 @@ export class MR_FocusedQuickControls extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_FocusedQuickControls: constructor()');
+    logger.debug("MR_FocusedQuickControls: constructor()");
 
     /**
      * @property
@@ -3236,10 +3236,10 @@ export class MR_HostPluginParameterBankZone extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostPluginParameterBankZone: constructor()');
+    logger.debug("MR_HostPluginParameterBankZone: constructor()");
 
     // define class-name
-    this.class = 'MR_HostPluginParameterBankZone';
+    this.class = "MR_HostPluginParameterBankZone";
 
     /**
      * @property
@@ -3309,10 +3309,10 @@ export class MR_HostStripEffectSlotFolder extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostStripEffectSlotFolder: constructor()');
+    logger.debug("MR_HostStripEffectSlotFolder: constructor()");
 
     // define class-name
-    this.class = 'MR_HostStripEffectSlotFolder';
+    this.class = "MR_HostStripEffectSlotFolder";
 
     /**
      * @property
@@ -3386,10 +3386,10 @@ export class MR_SendSlotFolder extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_SendSlotFolder: constructor()');
+    logger.debug("MR_SendSlotFolder: constructor()");
 
     // define class-name
-    this.class = 'MR_SendSlotFolder';
+    this.class = "MR_SendSlotFolder";
 
     /**
      * @property
@@ -3459,7 +3459,7 @@ export class MR_ControlRoomCueSendSlotFolder extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_ControlRoomCueSendSlotFolder: constructor()');
+    logger.debug("MR_ControlRoomCueSendSlotFolder: constructor()");
 
     /**
      * @property
@@ -3545,13 +3545,13 @@ export class MR_MixerBankChannel extends MR_HostObject {
   constructor(channelNumber: number) {
     super();
 
-    logger.debug('MR_MixerBankChannel: constructor()');
+    logger.debug("MR_MixerBankChannel: constructor()");
 
     // set parameters
     this.channelNumber = channelNumber;
 
     // define class-name
-    this.class = 'MR_MixerBankChannel';
+    this.class = "MR_MixerBankChannel";
 
     /**
      * @property
@@ -3648,7 +3648,7 @@ export class MR_SelectedTrackChannel extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_SelectedTrackChannel: constructor()');
+    logger.debug("MR_SelectedTrackChannel: constructor()");
 
     /**
      * @property
@@ -3739,10 +3739,10 @@ export class MR_HostMouseCursor extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostMouseCursor: constructor()');
+    logger.debug("MR_HostMouseCursor: constructor()");
 
     // define class-name
-    this.class = 'MR_HostMouseCursor';
+    this.class = "MR_HostMouseCursor";
 
     /**
      * @property
@@ -3813,10 +3813,10 @@ export class MR_HostControlRoomChannelMain extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomChannelMain: constructor()');
+    logger.debug("MR_HostControlRoomChannelMain: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomChannelMain';
+    this.class = "MR_HostControlRoomChannelMain";
 
     /**
      * @property
@@ -3950,10 +3950,10 @@ export class MR_HostControlRoomChannelPhonesByIndex extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomChannelPhonesByIndex: constructor()');
+    logger.debug("MR_HostControlRoomChannelPhonesByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomChannelPhonesByIndex';
+    this.class = "MR_HostControlRoomChannelPhonesByIndex";
 
     /**
      * @property
@@ -4082,10 +4082,10 @@ export class MR_HostControlRoomChannelCueByIndex extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomChannelCueByIndex: constructor()');
+    logger.debug("MR_HostControlRoomChannelCueByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomChannelCueByIndex';
+    this.class = "MR_HostControlRoomChannelCueByIndex";
 
     /**
      * @property
@@ -4192,10 +4192,10 @@ export class MR_HostControlRoomChannelExternalInputByIndex extends MR_HostObject
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomChannelExternalInputByIndex: constructor()');
+    logger.debug("MR_HostControlRoomChannelExternalInputByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomChannelExternalInputByIndex';
+    this.class = "MR_HostControlRoomChannelExternalInputByIndex";
 
     /**
      * @property
@@ -4262,10 +4262,10 @@ export class MR_HostControlRoomChannelTalkbackByIndex extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomChannelTalkbackByIndex: constructor()');
+    logger.debug("MR_HostControlRoomChannelTalkbackByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomChannelTalkbackByIndex';
+    this.class = "MR_HostControlRoomChannelTalkbackByIndex";
 
     /**
      * @property
@@ -4332,10 +4332,10 @@ export class MR_HostControlRoomChannelMonitorByIndex extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomChannelMonitorByIndex: constructor()');
+    logger.debug("MR_HostControlRoomChannelMonitorByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomChannelMonitorByIndex';
+    this.class = "MR_HostControlRoomChannelMonitorByIndex";
 
     /**
      * @property
@@ -4406,10 +4406,10 @@ export class MR_HostControlRoom extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoom: constructor()');
+    logger.debug("MR_HostControlRoom: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoom';
+    this.class = "MR_HostControlRoom";
 
     /**
      * @property
@@ -4625,7 +4625,7 @@ export class MR_MixConsole extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_MixConsole: constructor()');
+    logger.debug("MR_MixConsole: constructor()");
 
     /**
      * @property
@@ -4690,7 +4690,7 @@ export class MR_TransportValues extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_TransportValues: constructor()');
+    logger.debug("MR_TransportValues: constructor()");
 
     /**
      * @property
@@ -4788,7 +4788,7 @@ export class MR_PreFilter extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilter: constructor()');
+    logger.debug("MR_PreFilter: constructor()");
 
     /**
      * @property
@@ -4978,7 +4978,7 @@ export class MR_ChannelEQ extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_ChannelEQ: constructor()');
+    logger.debug("MR_ChannelEQ: constructor()");
 
     /**
      * @property
@@ -5061,10 +5061,10 @@ export class MR_HostInstrumentPluginSlot extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostInstrumentPluginSlot: constructor()');
+    logger.debug("MR_HostInstrumentPluginSlot: constructor()");
 
     // define class-name
-    this.class = 'MR_HostInstrumentPluginSlot';
+    this.class = "MR_HostInstrumentPluginSlot";
 
     /**
      * @property
@@ -5169,10 +5169,10 @@ export class MR_HostStripEffectSlotGate extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostStripEffectSlotGate: constructor()');
+    logger.debug("MR_HostStripEffectSlotGate: constructor()");
 
     // define class-name
-    this.class = 'MR_HostStripEffectSlotGate';
+    this.class = "MR_HostStripEffectSlotGate";
 
     /**
      * @property
@@ -5277,10 +5277,10 @@ export class MR_HostStripEffectSlotCompressor extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostStripEffectSlotCompressor: constructor()');
+    logger.debug("MR_HostStripEffectSlotCompressor: constructor()");
 
     // define class-name
-    this.class = 'MR_HostStripEffectSlotCompressor';
+    this.class = "MR_HostStripEffectSlotCompressor";
 
     /**
      * @property
@@ -5385,10 +5385,10 @@ export class MR_HostStripEffectSlotLimiter extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostStripEffectSlotLimiter: constructor()');
+    logger.debug("MR_HostStripEffectSlotLimiter: constructor()");
 
     // define class-name
-    this.class = 'MR_HostStripEffectSlotLimiter';
+    this.class = "MR_HostStripEffectSlotLimiter";
 
     /**
      * @property
@@ -5493,10 +5493,10 @@ export class MR_HostStripEffectSlotSaturator extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostStripEffectSlotSaturator: constructor()');
+    logger.debug("MR_HostStripEffectSlotSaturator: constructor()");
 
     // define class-name
-    this.class = 'MR_HostStripEffectSlotSaturator';
+    this.class = "MR_HostStripEffectSlotSaturator";
 
     /**
      * @property
@@ -5601,10 +5601,10 @@ export class MR_HostStripEffectSlotTools extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostStripEffectSlotTools: constructor()');
+    logger.debug("MR_HostStripEffectSlotTools: constructor()");
 
     // define class-name
-    this.class = 'MR_HostStripEffectSlotTools';
+    this.class = "MR_HostStripEffectSlotTools";
 
     /**
      * @property
@@ -5717,7 +5717,7 @@ export class MR_HostInsertEffectViewer extends MR_HostObject {
     );
 
     // define class-name
-    this.class = 'MR_HostInsertEffectViewer';
+    this.class = "MR_HostInsertEffectViewer";
 
     /**
      * @property
@@ -5838,10 +5838,10 @@ export class MR_HostInsertAndStripEffects extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_HostInsertAndStripEffects: constructor()');
+    logger.debug("MR_HostInsertAndStripEffects: constructor()");
 
     // define class-name
-    this.class = 'MR_HostInsertAndStripEffects';
+    this.class = "MR_HostInsertAndStripEffects";
 
     /**
      * @property
@@ -5911,10 +5911,10 @@ export class MR_SendSlot extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_SendSlot: constructor()');
+    logger.debug("MR_SendSlot: constructor()");
 
     // define class-name
-    this.class = 'MR_SendSlot';
+    this.class = "MR_SendSlot";
 
     /**
      * @property
@@ -5982,10 +5982,10 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_ControlRoomCueSendSlot: constructor()');
+    logger.debug("MR_ControlRoomCueSendSlot: constructor()");
 
     // define class-name
-    this.class = 'MR_ControlRoomCueSendSlot';
+    this.class = "MR_ControlRoomCueSendSlot";
 
     /**
      * @property
@@ -6069,10 +6069,10 @@ export class MR_MixerChannelValues extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_MixerChannelValues: constructor()');
+    logger.debug("MR_MixerChannelValues: constructor()");
 
     // define class-name
-    this.class = 'MR_MixerChannelValues';
+    this.class = "MR_MixerChannelValues";
 
     /**
      * @property
@@ -6211,7 +6211,7 @@ export class MR_MixerBankZone extends MR_HostObject {
     this.channelNumber = 0;
 
     // define class-name
-    this.class = 'MR_MixerBankZone';
+    this.class = "MR_MixerBankZone";
 
     /**
      * @property
@@ -6471,7 +6471,7 @@ export class MR_TrackSelection extends MR_HostObject {
   constructor() {
     super();
 
-    logger.debug('MR_TrackSelection: constructor()');
+    logger.debug("MR_TrackSelection: constructor()");
 
     /**
      * @property
@@ -6530,7 +6530,7 @@ export class MR_TrackSelection extends MR_HostObject {
  * Represents a continuous value state of a [HostObject](#hostobject).
  */
 export class MR_HostValue {
-  class = 'MR_HostValue';
+  class = "MR_HostValue";
   name: string | undefined;
 
   constructor(name?: string) {
@@ -6598,7 +6598,7 @@ export class MR_HostValueUndefined extends MR_HostValue {
     );
 
     // define class-name
-    this.class = 'MR_HostValueUndefined';
+    this.class = "MR_HostValueUndefined";
 
     /**
      * @property
@@ -6641,10 +6641,10 @@ export class MR_HostValueUndefined extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_HostValueUndefined: constructor()');
+    logger.debug("MR_HostValueUndefined: constructor()");
 
     // define class-name
-    this.class = 'MR_HostValueUndefined';
+    this.class = "MR_HostValueUndefined";
   }
 
   /**
@@ -6706,10 +6706,10 @@ export class MR_StartValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_StartValue: constructor()');
+    logger.debug("MR_StartValue: constructor()");
 
     // define class-name
-    this.class = 'MR_StartValue';
+    this.class = "MR_StartValue";
 
     /**
      * @property
@@ -6752,10 +6752,10 @@ export class MR_StartValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_StartValue: constructor()');
+    logger.debug("MR_StartValue: constructor()");
 
     // define class-name
-    this.class = 'MR_StartValue';
+    this.class = "MR_StartValue";
   }
 
   /**
@@ -6817,10 +6817,10 @@ export class MR_StopValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_StopValue: constructor()');
+    logger.debug("MR_StopValue: constructor()");
 
     // define class-name
-    this.class = 'MR_StopValue';
+    this.class = "MR_StopValue";
 
     /**
      * @property
@@ -6863,10 +6863,10 @@ export class MR_StopValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_StopValue: constructor()');
+    logger.debug("MR_StopValue: constructor()");
 
     // define class-name
-    this.class = 'MR_StopValue';
+    this.class = "MR_StopValue";
   }
 
   /**
@@ -6928,10 +6928,10 @@ export class MR_RecordValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_RecordValue: constructor()');
+    logger.debug("MR_RecordValue: constructor()");
 
     // define class-name
-    this.class = 'MR_RecordValue';
+    this.class = "MR_RecordValue";
 
     /**
      * @property
@@ -6974,10 +6974,10 @@ export class MR_RecordValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_RecordValue: constructor()');
+    logger.debug("MR_RecordValue: constructor()");
 
     // define class-name
-    this.class = 'MR_RecordValue';
+    this.class = "MR_RecordValue";
   }
 
   /**
@@ -7039,10 +7039,10 @@ export class MR_RewindValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_RewindValue: constructor()');
+    logger.debug("MR_RewindValue: constructor()");
 
     // define class-name
-    this.class = 'MR_RewindValue';
+    this.class = "MR_RewindValue";
 
     /**
      * @property
@@ -7085,10 +7085,10 @@ export class MR_RewindValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_RewindValue: constructor()');
+    logger.debug("MR_RewindValue: constructor()");
 
     // define class-name
-    this.class = 'MR_RewindValue';
+    this.class = "MR_RewindValue";
   }
 
   /**
@@ -7150,10 +7150,10 @@ export class MR_ForwardValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_ForwardValue: constructor()');
+    logger.debug("MR_ForwardValue: constructor()");
 
     // define class-name
-    this.class = 'MR_ForwardValue';
+    this.class = "MR_ForwardValue";
 
     /**
      * @property
@@ -7196,10 +7196,10 @@ export class MR_ForwardValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_ForwardValue: constructor()');
+    logger.debug("MR_ForwardValue: constructor()");
 
     // define class-name
-    this.class = 'MR_ForwardValue';
+    this.class = "MR_ForwardValue";
   }
 
   /**
@@ -7261,10 +7261,10 @@ export class MR_CycleActiveValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_CycleActiveValue: constructor()');
+    logger.debug("MR_CycleActiveValue: constructor()");
 
     // define class-name
-    this.class = 'MR_CycleActiveValue';
+    this.class = "MR_CycleActiveValue";
 
     /**
      * @property
@@ -7307,10 +7307,10 @@ export class MR_CycleActiveValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_CycleActiveValue: constructor()');
+    logger.debug("MR_CycleActiveValue: constructor()");
 
     // define class-name
-    this.class = 'MR_CycleActiveValue';
+    this.class = "MR_CycleActiveValue";
   }
 
   /**
@@ -7372,10 +7372,10 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_MetronomeActiveValue: constructor()');
+    logger.debug("MR_MetronomeActiveValue: constructor()");
 
     // define class-name
-    this.class = 'MR_MetronomeActiveValue';
+    this.class = "MR_MetronomeActiveValue";
 
     /**
      * @property
@@ -7418,10 +7418,10 @@ export class MR_MetronomeActiveValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_MetronomeActiveValue: constructor()');
+    logger.debug("MR_MetronomeActiveValue: constructor()");
 
     // define class-name
-    this.class = 'MR_MetronomeActiveValue';
+    this.class = "MR_MetronomeActiveValue";
   }
 
   /**
@@ -7483,7 +7483,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_MetronomeClickLevel: constructor()');
+    logger.debug("MR_MetronomeClickLevel: constructor()");
 
     /**
      * @property
@@ -7526,7 +7526,7 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_MetronomeClickLevel: constructor()');
+    logger.debug("MR_MetronomeClickLevel: constructor()");
   }
 
   /**
@@ -7588,10 +7588,10 @@ export class MR_VolumeValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_VolumeValue: constructor()');
+    logger.debug("MR_VolumeValue: constructor()");
 
     // define class-name
-    this.class = 'MR_VolumeValue';
+    this.class = "MR_VolumeValue";
 
     /**
      * @property
@@ -7634,10 +7634,10 @@ export class MR_VolumeValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_VolumeValue: constructor()');
+    logger.debug("MR_VolumeValue: constructor()");
 
     // define class-name
-    this.class = 'MR_VolumeValue';
+    this.class = "MR_VolumeValue";
   }
 
   /**
@@ -7699,10 +7699,10 @@ export class MR_PanValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PanValue: constructor()');
+    logger.debug("MR_PanValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PanValue';
+    this.class = "MR_PanValue";
 
     /**
      * @property
@@ -7745,10 +7745,10 @@ export class MR_PanValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_PanValue: constructor()');
+    logger.debug("MR_PanValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PanValue';
+    this.class = "MR_PanValue";
   }
 
   /**
@@ -7810,10 +7810,10 @@ export class MR_MuteValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_MuteValue: constructor()');
+    logger.debug("MR_MuteValue: constructor()");
 
     // define class-name
-    this.class = 'MR_MuteValue';
+    this.class = "MR_MuteValue";
 
     /**
      * @property
@@ -7856,10 +7856,10 @@ export class MR_MuteValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_MuteValue: constructor()');
+    logger.debug("MR_MuteValue: constructor()");
 
     // define class-name
-    this.class = 'MR_MuteValue';
+    this.class = "MR_MuteValue";
   }
 
   /**
@@ -7921,10 +7921,10 @@ export class MR_SoloValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_SoloValue: constructor()');
+    logger.debug("MR_SoloValue: constructor()");
 
     // define class-name
-    this.class = 'MR_SoloValue';
+    this.class = "MR_SoloValue";
 
     /**
      * @property
@@ -7967,10 +7967,10 @@ export class MR_SoloValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_SoloValue: constructor()');
+    logger.debug("MR_SoloValue: constructor()");
 
     // define class-name
-    this.class = 'MR_SoloValue';
+    this.class = "MR_SoloValue";
   }
 
   /**
@@ -8032,10 +8032,10 @@ export class MR_MonitorEnableValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_MonitorEnableValue: constructor()');
+    logger.debug("MR_MonitorEnableValue: constructor()");
 
     // define class-name
-    this.class = 'MR_MonitorEnableValue';
+    this.class = "MR_MonitorEnableValue";
 
     /**
      * @property
@@ -8078,10 +8078,10 @@ export class MR_MonitorEnableValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_MonitorEnableValue: constructor()');
+    logger.debug("MR_MonitorEnableValue: constructor()");
 
     // define class-name
-    this.class = 'MR_MonitorEnableValue';
+    this.class = "MR_MonitorEnableValue";
   }
 
   /**
@@ -8143,10 +8143,10 @@ export class MR_RecordEnableValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_RecordEnableValue: constructor()');
+    logger.debug("MR_RecordEnableValue: constructor()");
 
     // define class-name
-    this.class = 'MR_RecordEnableValue';
+    this.class = "MR_RecordEnableValue";
 
     /**
      * @property
@@ -8189,10 +8189,10 @@ export class MR_RecordEnableValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_RecordEnableValue: constructor()');
+    logger.debug("MR_RecordEnableValue: constructor()");
 
     // define class-name
-    this.class = 'MR_RecordEnableValue';
+    this.class = "MR_RecordEnableValue";
   }
 
   /**
@@ -8254,10 +8254,10 @@ export class MR_EditorOpenValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_EditorOpenValue: constructor()');
+    logger.debug("MR_EditorOpenValue: constructor()");
 
     // define class-name
-    this.class = 'MR_EditorOpenValue';
+    this.class = "MR_EditorOpenValue";
 
     /**
      * @property
@@ -8300,10 +8300,10 @@ export class MR_EditorOpenValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_EditorOpenValue: constructor()');
+    logger.debug("MR_EditorOpenValue: constructor()");
 
     // define class-name
-    this.class = 'MR_EditorOpenValue';
+    this.class = "MR_EditorOpenValue";
   }
 
   /**
@@ -8365,10 +8365,10 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_InstrumentOpenValue: constructor()');
+    logger.debug("MR_InstrumentOpenValue: constructor()");
 
     // define class-name
-    this.class = 'MR_InstrumentOpenValue';
+    this.class = "MR_InstrumentOpenValue";
 
     /**
      * @property
@@ -8411,10 +8411,10 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_InstrumentOpenValue: constructor()');
+    logger.debug("MR_InstrumentOpenValue: constructor()");
 
     // define class-name
-    this.class = 'MR_InstrumentOpenValue';
+    this.class = "MR_InstrumentOpenValue";
   }
 
   /**
@@ -8476,10 +8476,10 @@ export class MR_SelectedValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_SelectedValue: constructor()');
+    logger.debug("MR_SelectedValue: constructor()");
 
     // define class-name
-    this.class = 'MR_SelectedValue';
+    this.class = "MR_SelectedValue";
 
     /**
      * @property
@@ -8522,10 +8522,10 @@ export class MR_SelectedValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_SelectedValue: constructor()');
+    logger.debug("MR_SelectedValue: constructor()");
 
     // define class-name
-    this.class = 'MR_SelectedValue';
+    this.class = "MR_SelectedValue";
   }
 
   /**
@@ -8587,10 +8587,10 @@ export class MR_AutomationReadValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_AutomationReadValue: constructor()');
+    logger.debug("MR_AutomationReadValue: constructor()");
 
     // define class-name
-    this.class = 'MR_AutomationReadValue';
+    this.class = "MR_AutomationReadValue";
 
     /**
      * @property
@@ -8633,10 +8633,10 @@ export class MR_AutomationReadValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_AutomationReadValue: constructor()');
+    logger.debug("MR_AutomationReadValue: constructor()");
 
     // define class-name
-    this.class = 'MR_AutomationReadValue';
+    this.class = "MR_AutomationReadValue";
   }
 
   /**
@@ -8698,10 +8698,10 @@ export class MR_AutomationWriteValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_AutomationWriteValue: constructor()');
+    logger.debug("MR_AutomationWriteValue: constructor()");
 
     // define class-name
-    this.class = 'MR_AutomationWriteValue';
+    this.class = "MR_AutomationWriteValue";
 
     /**
      * @property
@@ -8744,10 +8744,10 @@ export class MR_AutomationWriteValue extends MR_HostValue {
       isActive: boolean
     ) => {};
 
-    logger.debug('MR_AutomationWriteValue: constructor()');
+    logger.debug("MR_AutomationWriteValue: constructor()");
 
     // define class-name
-    this.class = 'MR_AutomationWriteValue';
+    this.class = "MR_AutomationWriteValue";
   }
 
   /**
@@ -8809,10 +8809,10 @@ export class MR_VUMeterValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_VUMeterValue: constructor()');
+    logger.debug("MR_VUMeterValue: constructor()");
 
     // define class-name
-    this.class = 'MR_VUMeterValue';
+    this.class = "MR_VUMeterValue";
 
     /**
      * @property
@@ -8915,10 +8915,10 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_VUMeterMaxValue: constructor()');
+    logger.debug("MR_VUMeterMaxValue: constructor()");
 
     // define class-name
-    this.class = 'MR_VUMeterMaxValue';
+    this.class = "MR_VUMeterMaxValue";
 
     /**
      * @property
@@ -9021,10 +9021,10 @@ export class MR_VUMeterClipValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_VUMeterClipValue: constructor()');
+    logger.debug("MR_VUMeterClipValue: constructor()");
 
     // define class-name
-    this.class = 'MR_VUMeterClipValue';
+    this.class = "MR_VUMeterClipValue";
 
     /**
      * @property
@@ -9127,10 +9127,10 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_VUMeterPeakValue: constructor()');
+    logger.debug("MR_VUMeterPeakValue: constructor()");
 
     // define class-name
-    this.class = 'MR_VUMeterPeakValue';
+    this.class = "MR_VUMeterPeakValue";
 
     /**
      * @property
@@ -9233,10 +9233,10 @@ export class MR_SendOn extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_SendOn: constructor()');
+    logger.debug("MR_SendOn: constructor()");
 
     // define class-name
-    this.class = 'MR_SendOn';
+    this.class = "MR_SendOn";
 
     /**
      * @property
@@ -9339,10 +9339,10 @@ export class MR_SendPrePost extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_SendPrePost: constructor()');
+    logger.debug("MR_SendPrePost: constructor()");
 
     // define class-name
-    this.class = 'MR_SendPrePost';
+    this.class = "MR_SendPrePost";
 
     /**
      * @property
@@ -9445,10 +9445,10 @@ export class MR_SendLevel extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_SendLevel: constructor()');
+    logger.debug("MR_SendLevel: constructor()");
 
     // define class-name
-    this.class = 'MR_SendLevel';
+    this.class = "MR_SendLevel";
 
     /**
      * @property
@@ -9551,10 +9551,10 @@ export class MR_ControlRoomCueSendOnValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_ControlRoomCueSendOnValue: constructor()');
+    logger.debug("MR_ControlRoomCueSendOnValue: constructor()");
 
     // define class-name
-    this.class = 'MR_ControlRoomCueSendOnValue';
+    this.class = "MR_ControlRoomCueSendOnValue";
 
     /**
      * @property
@@ -9657,10 +9657,10 @@ export class MR_ControlRoomCueSendPrePostValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_ControlRoomCueSendPrePostValue: constructor()');
+    logger.debug("MR_ControlRoomCueSendPrePostValue: constructor()");
 
     // define class-name
-    this.class = 'MR_ControlRoomCueSendPrePostValue';
+    this.class = "MR_ControlRoomCueSendPrePostValue";
 
     /**
      * @property
@@ -9763,10 +9763,10 @@ export class MR_ControlRoomCueSendLevelValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_ControlRoomCueSendLevelValue: constructor()');
+    logger.debug("MR_ControlRoomCueSendLevelValue: constructor()");
 
     // define class-name
-    this.class = 'MR_ControlRoomCueSendLevelValue';
+    this.class = "MR_ControlRoomCueSendLevelValue";
 
     /**
      * @property
@@ -9869,10 +9869,10 @@ export class MR_ControlRoomCueSendPanValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_ControlRoomCueSendPanValue: constructor()');
+    logger.debug("MR_ControlRoomCueSendPanValue: constructor()");
 
     // define class-name
-    this.class = 'MR_ControlRoomCueSendPanValue';
+    this.class = "MR_ControlRoomCueSendPanValue";
 
     /**
      * @property
@@ -9975,10 +9975,10 @@ export class MR_ControlRoomCueSendFolderBypassValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_ControlRoomCueSendFolderBypassValue: constructor()');
+    logger.debug("MR_ControlRoomCueSendFolderBypassValue: constructor()");
 
     // define class-name
-    this.class = 'MR_ControlRoomCueSendFolderBypassValue';
+    this.class = "MR_ControlRoomCueSendFolderBypassValue";
 
     /**
      * @property
@@ -10081,10 +10081,10 @@ export class MR_PluginOnValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PluginOnValue: constructor()');
+    logger.debug("MR_PluginOnValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PluginOnValue';
+    this.class = "MR_PluginOnValue";
 
     /**
      * @property
@@ -10187,13 +10187,13 @@ export class MR_PluginBypassValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PluginBypassValue: constructor()');
+    logger.debug("MR_PluginBypassValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PluginBypassValue';
+    this.class = "MR_PluginBypassValue";
 
     // define class-name
-    this.class = 'MR_PluginBypassValue';
+    this.class = "MR_PluginBypassValue";
 
     /**
      * @property
@@ -10296,10 +10296,10 @@ export class MR_PluginEditValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PluginEditValue: constructor()');
+    logger.debug("MR_PluginEditValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PluginEditValue';
+    this.class = "MR_PluginEditValue";
 
     /**
      * @property
@@ -10402,10 +10402,10 @@ export class MR_PreFilterBypassValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterBypassValue: constructor()');
+    logger.debug("MR_PreFilterBypassValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterBypassValue';
+    this.class = "MR_PreFilterBypassValue";
 
     /**
      * @property
@@ -10508,10 +10508,10 @@ export class MR_PreFilterGainValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterGainValue: constructor()');
+    logger.debug("MR_PreFilterGainValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterGainValue';
+    this.class = "MR_PreFilterGainValue";
 
     /**
      * @property
@@ -10614,10 +10614,10 @@ export class MR_PreFilterPhaseSwitchValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterPhaseSwitchValue: constructor()');
+    logger.debug("MR_PreFilterPhaseSwitchValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterPhaseSwitchValue';
+    this.class = "MR_PreFilterPhaseSwitchValue";
 
     /**
      * @property
@@ -10720,10 +10720,10 @@ export class MR_PreFilterHighCutFrequencyValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterHighCutFrequencyValue: constructor()');
+    logger.debug("MR_PreFilterHighCutFrequencyValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterHighCutFrequencyValue';
+    this.class = "MR_PreFilterHighCutFrequencyValue";
 
     /**
      * @property
@@ -10826,10 +10826,10 @@ export class MR_PreFilterHighCutOnValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterHighCutOnValue: constructor()');
+    logger.debug("MR_PreFilterHighCutOnValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterHighCutOnValue';
+    this.class = "MR_PreFilterHighCutOnValue";
 
     /**
      * @property
@@ -10932,10 +10932,10 @@ export class MR_PreFilterHighCutSlopeValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterHighCutSlopeValue: constructor()');
+    logger.debug("MR_PreFilterHighCutSlopeValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterHighCutSlopeValue';
+    this.class = "MR_PreFilterHighCutSlopeValue";
 
     /**
      * @property
@@ -11038,10 +11038,10 @@ export class MR_PreFilterLowCutFrequencyValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterLowCutFrequencyValue: constructor()');
+    logger.debug("MR_PreFilterLowCutFrequencyValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterLowCutFrequencyValue';
+    this.class = "MR_PreFilterLowCutFrequencyValue";
 
     /**
      * @property
@@ -11144,10 +11144,10 @@ export class MR_PreFilterLowCutOnValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterLowCutOnValue: constructor()');
+    logger.debug("MR_PreFilterLowCutOnValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterLowCutOnValue';
+    this.class = "MR_PreFilterLowCutOnValue";
 
     /**
      * @property
@@ -11250,10 +11250,10 @@ export class MR_PreFilterLowCutSlopeValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_PreFilterLowCutSlopeValue: constructor()');
+    logger.debug("MR_PreFilterLowCutSlopeValue: constructor()");
 
     // define class-name
-    this.class = 'MR_PreFilterLowCutSlopeValue';
+    this.class = "MR_PreFilterLowCutSlopeValue";
 
     /**
      * @property
@@ -11368,7 +11368,7 @@ export class MR_EQBandGainValue extends MR_HostValue {
     this.band = band;
 
     // define class-name
-    this.class = 'MR_EQBandGainValue';
+    this.class = "MR_EQBandGainValue";
 
     /**
      * @property
@@ -11483,7 +11483,7 @@ export class MR_EQBandFrequencyValue extends MR_HostValue {
     this.band = band;
 
     // define class-name
-    this.class = 'MR_EQBandFrequencyValue';
+    this.class = "MR_EQBandFrequencyValue";
 
     /**
      * @property
@@ -11598,7 +11598,7 @@ export class MR_EQBandQualityValue extends MR_HostValue {
     this.band = band;
 
     // define class-name
-    this.class = 'MR_EQBandQualityValue';
+    this.class = "MR_EQBandQualityValue";
 
     /**
      * @property
@@ -11713,7 +11713,7 @@ export class MR_EQBandOnValue extends MR_HostValue {
     this.band = band;
 
     // define class-name
-    this.class = 'MR_EQBandOnValue';
+    this.class = "MR_EQBandOnValue";
 
     /**
      * @property
@@ -11828,7 +11828,7 @@ export class MR_EQBandFilterTypeValue extends MR_HostValue {
     this.band = band;
 
     // define class-name
-    this.class = 'MR_EQBandFilterTypeValue';
+    this.class = "MR_EQBandFilterTypeValue";
 
     /**
      * @property
@@ -11931,10 +11931,10 @@ export class MR_QuickControlValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_QuickControlValue: constructor()');
+    logger.debug("MR_QuickControlValue: constructor()");
 
     // define class-name
-    this.class = 'MR_QuickControlValue';
+    this.class = "MR_QuickControlValue";
 
     /**
      * @property
@@ -12037,10 +12037,10 @@ export class MR_FocusedQuickControlsLockedStateValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_FocusedQuickControlsLockedStateValue: constructor()');
+    logger.debug("MR_FocusedQuickControlsLockedStateValue: constructor()");
 
     // define class-name
-    this.class = 'MR_FocusedQuickControlsLockedStateValue';
+    this.class = "MR_FocusedQuickControlsLockedStateValue";
 
     /**
      * @property
@@ -12143,10 +12143,10 @@ export class MR_HostPluginParameterBankValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_HostPluginParameterBankValue: constructor()');
+    logger.debug("MR_HostPluginParameterBankValue: constructor()");
 
     // define class-name
-    this.class = 'MR_HostPluginParameterBankValue';
+    this.class = "MR_HostPluginParameterBankValue";
 
     /**
      * @property
@@ -12249,10 +12249,10 @@ export class MR_HostValueAtMouseCursor extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_HostValueAtMouseCursor: constructor()');
+    logger.debug("MR_HostValueAtMouseCursor: constructor()");
 
     // define class-name
-    this.class = 'MR_HostValueAtMouseCursor';
+    this.class = "MR_HostValueAtMouseCursor";
 
     /**
      * @property
@@ -12355,10 +12355,10 @@ export class MR_HostValueAtMouseCursorLockedState extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_HostValueAtMouseCursorLockedState: constructor()');
+    logger.debug("MR_HostValueAtMouseCursorLockedState: constructor()");
 
     // define class-name
-    this.class = 'MR_HostValueAtMouseCursorLockedState';
+    this.class = "MR_HostValueAtMouseCursorLockedState";
 
     /**
      * @property
@@ -12461,10 +12461,10 @@ export class MR_HostControlRoomValue extends MR_HostValue {
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomValue: constructor()');
+    logger.debug("MR_HostControlRoomValue: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomValue';
+    this.class = "MR_HostControlRoomValue";
 
     /**
      * @property
@@ -12567,10 +12567,10 @@ export class MR_HostControlRoomSelectSourceCueValueByIndex extends MR_HostValue 
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomSelectSourceCueValueByIndex: constructor()');
+    logger.debug("MR_HostControlRoomSelectSourceCueValueByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomSelectSourceCueValueByIndex';
+    this.class = "MR_HostControlRoomSelectSourceCueValueByIndex";
 
     /**
      * @property
@@ -12673,10 +12673,10 @@ export class MR_HostControlRoomSelectTargetMonitorValueByIndex extends MR_HostVa
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomSelectTargetMonitorValueByIndex: constructor()');
+    logger.debug("MR_HostControlRoomSelectTargetMonitorValueByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomSelectTargetMonitorValueByIndex';
+    this.class = "MR_HostControlRoomSelectTargetMonitorValueByIndex";
 
     /**
      * @property
@@ -12779,10 +12779,10 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
   constructor() {
     super();
 
-    logger.debug('MR_HostControlRoomSelectSourceExternalInputValueByIndex: constructor()');
+    logger.debug("MR_HostControlRoomSelectSourceExternalInputValueByIndex: constructor()");
 
     // define class-name
-    this.class = 'MR_HostControlRoomSelectSourceExternalInputValueByIndex';
+    this.class = "MR_HostControlRoomSelectSourceExternalInputValueByIndex";
 
     /**
      * @property
@@ -12903,7 +12903,7 @@ export class MR_HostControlRoomSelectSourceExternalInputValueByIndex extends MR_
  */
 export class MR_TransportTimeDisplayDetails {
   constructor() {
-    logger.debug('MR_TransportTimeDisplayDetails: constructor()');
+    logger.debug("MR_TransportTimeDisplayDetails: constructor()");
   }
 }
 
@@ -12919,7 +12919,7 @@ export class MR_TransportTimeDisplayDetailsPrimary extends MR_TransportTimeDispl
   constructor() {
     super();
 
-    logger.debug('MR_TransportTimeDisplayDetailsPrimary: constructor()');
+    logger.debug("MR_TransportTimeDisplayDetailsPrimary: constructor()");
 
     /**
      * @property
@@ -12950,7 +12950,7 @@ export class MR_TransportTimeDisplayDetailsSecondary extends MR_TransportTimeDis
   constructor() {
     super();
 
-    logger.debug('MR_TransportTimeDisplayDetailsSecondary: constructor()');
+    logger.debug("MR_TransportTimeDisplayDetailsSecondary: constructor()");
 
     /**
      * @property
@@ -13001,7 +13001,7 @@ export class MR_TransportTimeDisplay {
       tempoBPM: number
     ) => {};
 
-    logger.debug('MR_TransportTimeDisplay: constructor()');
+    logger.debug("MR_TransportTimeDisplay: constructor()");
   }
 
   /**
@@ -13040,7 +13040,7 @@ export class MR_TransportTime {
       format: string
     ) => {};
 
-    logger.debug('MR_TransportTime: constructor()');
+    logger.debug("MR_TransportTime: constructor()");
   }
 
   /**
@@ -13061,7 +13061,7 @@ export class MR_TransportTime {
  * @class MR_HostPluginParameterBankZoneActions
  */
 export class MR_HostPluginParameterBankZoneActions {
-  class = 'MR_HostPluginParameterBankZoneActions';
+  class = "MR_HostPluginParameterBankZoneActions";
 
   mPrevBank: MR_HostPluginParameterBankZoneAction;
   mNextBank: MR_HostPluginParameterBankZoneAction;
@@ -13083,7 +13083,7 @@ export class MR_HostPluginParameterBankZoneActions {
      */
     this.mResetBank = new MR_HostPluginParameterBankZoneAction();
 
-    logger.debug('MR_HostPluginParameterBankZoneActions: constructor()');
+    logger.debug("MR_HostPluginParameterBankZoneActions: constructor()");
   }
 }
 
@@ -13101,10 +13101,10 @@ export class MR_HostPluginParameterBankZoneActions {
  * @class MR_HostInsertEffectFilter
  */
 export class MR_HostInsertEffectFilter {
-  class = 'MR_HostInsertEffectFilter';
+  class = "MR_HostInsertEffectFilter";
 
   constructor() {
-    logger.debug('MR_HostInsertEffectFilter: constructor()');
+    logger.debug("MR_HostInsertEffectFilter: constructor()");
   }
 }
 
@@ -13142,7 +13142,7 @@ export class MR_HostInsertEffectFilterFollowPluginWindowInFocus extends MR_HostI
  * @class MR_HostInsertEffectViewerActions
  */
 export class MR_HostInsertEffectViewerActions {
-  class = 'MR_HostInsertEffectViewerActions';
+  class = "MR_HostInsertEffectViewerActions";
 
   mPrev: MR_HostInsertEffectViewerAction;
   mNext: MR_HostInsertEffectViewerAction;
@@ -13164,7 +13164,7 @@ export class MR_HostInsertEffectViewerActions {
      */
     this.mReset = new MR_HostInsertEffectViewerAction();
 
-    logger.debug('MR_HostInsertEffectViewerActions: constructor()');
+    logger.debug("MR_HostInsertEffectViewerActions: constructor()");
   }
 }
 
@@ -13172,7 +13172,7 @@ export class MR_HostInsertEffectViewerActions {
  * @class MR_MixerBankZoneActions
  */
 export class MR_MixerBankZoneActions {
-  class = 'MR_MixerBankZoneActions';
+  class = "MR_MixerBankZoneActions";
 
   mPrevBank: MR_MixerBankZoneAction;
   mNextBank: MR_MixerBankZoneAction;
@@ -13181,7 +13181,7 @@ export class MR_MixerBankZoneActions {
   mResetBank: MR_MixerBankZoneAction;
 
   constructor() {
-    logger.debug('MR_MixerBankZoneActions: constructor()');
+    logger.debug("MR_MixerBankZoneActions: constructor()");
 
     /**
      * @property
@@ -13228,7 +13228,7 @@ export class MR_TrackSelectionActions {
      */
     this.mNextTrack = new MR_TrackSelectionAction();
 
-    logger.debug('MR_TrackSelectionActions: constructor()');
+    logger.debug("MR_TrackSelectionActions: constructor()");
   }
 }
 
@@ -13236,10 +13236,10 @@ export class MR_TrackSelectionActions {
  * @class MR_HostBinding
  */
 export class MR_HostBinding {
-  class = 'MR_HostBinding';
+  class = "MR_HostBinding";
 
   constructor() {
-    logger.debug('MR_HostBinding: constructor()');
+    logger.debug("MR_HostBinding: constructor()");
   }
 
   /**
@@ -13327,7 +13327,7 @@ export class MR_ValueBinding extends MR_HostBinding {
   constructor() {
     super();
 
-    logger.debug('MR_ValueBinding: constructor()');
+    logger.debug("MR_ValueBinding: constructor()");
 
     /**
      * @property
@@ -13465,7 +13465,7 @@ export class MR_CommandBinding extends MR_HostBinding {
   constructor() {
     super();
 
-    logger.debug('MR_CommandBinding: constructor()');
+    logger.debug("MR_CommandBinding: constructor()");
 
     /**
      * @property
@@ -13578,7 +13578,7 @@ export class MR_ActionBinding extends MR_HostBinding {
   constructor() {
     super();
 
-    logger.debug('MR_ActionBinding: constructor()');
+    logger.debug("MR_ActionBinding: constructor()");
 
     /**
      * @property
@@ -13744,7 +13744,7 @@ export class MR_SubPageAreaActions {
      */
     this.mReset = new MR_SubPageAreaAction();
 
-    logger.debug('MR_SubPageAreaActions: constructor()');
+    logger.debug("MR_SubPageAreaActions: constructor()");
   }
 }
 
@@ -13789,7 +13789,7 @@ export class MR_SubPage {
  * @class MR_SubPageActions
  */
 export class MR_SubPageActions {
-  class = 'MR_SubPageActions';
+  class = "MR_SubPageActions";
   mActivate: MR_SubPageActionActivate;
 
   constructor() {
@@ -13798,7 +13798,7 @@ export class MR_SubPageActions {
      */
     this.mActivate = new MR_SubPageActionActivate();
 
-    logger.debug('MR_SubPageActions: constructor()');
+    logger.debug("MR_SubPageActions: constructor()");
   }
 }
 
@@ -13806,10 +13806,10 @@ export class MR_SubPageActions {
  * @class MR_Repeating
  */
 export class MR_Repeating {
-  class = 'MR_Repeating';
+  class = "MR_Repeating";
 
   constructor() {
-    logger.debug('MR_Repeating: constructor()');
+    logger.debug("MR_Repeating: constructor()");
   }
 }
 
@@ -13817,7 +13817,7 @@ export class MR_Repeating {
  * @class MR_MappingPageActions
  */
 export class MR_MappingPageActions {
-  class = 'MR_MappingPageActions';
+  class = "MR_MappingPageActions";
   mActivate: MR_MappingPageActionActivate;
 
   constructor() {
@@ -13826,7 +13826,7 @@ export class MR_MappingPageActions {
      */
     this.mActivate = new MR_MappingPageActionActivate();
 
-    logger.debug('MR_SubPageActions: constructor()');
+    logger.debug("MR_SubPageActions: constructor()");
   }
 }
 
@@ -13844,10 +13844,10 @@ export class MR_MappingPageActions {
  *
  */
 export class MR_DeviceDetectionUnit {
-  class = 'MR_DeviceDetectionUnit';
+  class = "MR_DeviceDetectionUnit";
 
   constructor() {
-    logger.debug('MR_DeviceDetectionUnit: constructor()');
+    logger.debug("MR_DeviceDetectionUnit: constructor()");
   }
 
   /**
@@ -13892,10 +13892,10 @@ export class MR_DeviceDetectionUnit {
  * @class MR_DetectionEntry
  */
 export class MR_DetectionEntry {
-  class = 'MR_DetectionEntry';
+  class = "MR_DetectionEntry";
 
   constructor() {
-    logger.debug('MR_DetectionEntry: constructor()');
+    logger.debug("MR_DetectionEntry: constructor()");
   }
 }
 
@@ -13913,10 +13913,10 @@ export class MR_DetectionPortPair extends MR_DetectionEntry {
   constructor() {
     super();
 
-    logger.debug('MR_DetectionPortPair: constructor()');
+    logger.debug("MR_DetectionPortPair: constructor()");
 
     // define class-name
-    this.class = 'MR_DetectionPortPair';
+    this.class = "MR_DetectionPortPair";
   }
 
   /**
@@ -14053,10 +14053,10 @@ export class MR_DetectionSingleInput extends MR_DetectionEntry {
   constructor() {
     super();
 
-    logger.debug('MR_DetectionSingleInput: constructor()');
+    logger.debug("MR_DetectionSingleInput: constructor()");
 
     // define class-name
-    this.class = 'MR_DetectionSingleInput';
+    this.class = "MR_DetectionSingleInput";
   }
 
   /**
@@ -14136,7 +14136,7 @@ export class MR_DeviceDriverActions {
      */
     this.mResetPage = new MR_DeviceDriverAction();
 
-    logger.debug('MR_DeviceDriverActions: constructor()');
+    logger.debug("MR_DeviceDriverActions: constructor()");
   }
 }
 
@@ -14145,7 +14145,7 @@ export class MR_DeviceDriverActions {
  */
 export class MR_InitialSysexFile {
   constructor() {
-    logger.debug('MR_InitialSysexFile: constructor()');
+    logger.debug("MR_InitialSysexFile: constructor()");
   }
 }
 
@@ -14154,7 +14154,7 @@ export class MR_InitialSysexFile {
  */
 export class MR_UserGuide {
   constructor() {
-    logger.debug('MR_UserGuide: constructor()');
+    logger.debug("MR_UserGuide: constructor()");
   }
 }
 

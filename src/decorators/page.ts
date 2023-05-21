@@ -3,14 +3,14 @@ import {
   MR_DeviceSurface,
   MR_FactoryMappingPage,
   MR_HostValueUndefined,
-} from 'midiremote_api_v1';
+} from "midiremote_api_v1";
 
 interface SettableHostValueUndefined extends MR_HostValueUndefined {
   setProcessValue: (activeDevice: MR_ActiveDevice, value: number) => void;
 }
 
 export interface DecoratedFactoryMappingPage extends MR_FactoryMappingPage {
-  mCustom: MR_FactoryMappingPage['mCustom'] & {
+  mCustom: MR_FactoryMappingPage["mCustom"] & {
     makeSettableHostValueVariable: (name: string) => SettableHostValueUndefined;
   };
 }

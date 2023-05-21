@@ -1,5 +1,5 @@
-import { DecoratedDeviceSurface, LedButton } from './decorators/surface';
-import { createElements } from './util';
+import { DecoratedDeviceSurface, LedButton } from "./decorators/surface";
+import { createElements } from "./util";
 
 const channelWidth = 5;
 export const channelElementsWidth = 8 * channelWidth;
@@ -25,9 +25,9 @@ export const createChannelSurfaceElements = (surface: DecoratedDeviceSurface, x:
         encoderLabel: surface
           .makeLabelField(currentChannelXPosition + 1, 7, 4, 2)
           .relateTo(encoder),
-        trackTitle: surface.makeCustomValueVariable('scribbleStripTrackTitle'),
+        trackTitle: surface.makeCustomValueVariable("scribbleStripTrackTitle"),
       },
-      vuMeter: surface.makeCustomValueVariable('vuMeter'),
+      vuMeter: surface.makeCustomValueVariable("vuMeter"),
       buttons: {
         record: makeSquareButton(surface, 2 + currentChannelXPosition, 10),
         solo: makeSquareButton(surface, 2 + currentChannelXPosition, 12),

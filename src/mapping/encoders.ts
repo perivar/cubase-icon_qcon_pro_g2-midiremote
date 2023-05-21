@@ -1,14 +1,14 @@
-import { logger, mDefaults, MR_HostValue, MR_MixerBankChannel } from 'midiremote_api_v1';
+import { logger, mDefaults, MR_HostValue, MR_MixerBankChannel } from "midiremote_api_v1";
 
-import { config } from '../config';
-import { DecoratedFactoryMappingPage } from '../decorators/page';
-import { Devices, MainDevice } from '../Devices';
-import { EncoderDisplayMode, GlobalBooleanVariables } from '../midi';
-import { SegmentDisplayManager } from '../midi/managers/SegmentDisplayManager';
-import { ChannelSurfaceElements } from '../surface';
-import { createElements, makeCallbackCollection } from '../util';
-import { debugPageInformation } from '../utils-debug';
-import { getArrayEntries, mergeOptions } from '../utils-es5';
+import { config } from "../config";
+import { DecoratedFactoryMappingPage } from "../decorators/page";
+import { Devices, MainDevice } from "../Devices";
+import { EncoderDisplayMode, GlobalBooleanVariables } from "../midi";
+import { SegmentDisplayManager } from "../midi/managers/SegmentDisplayManager";
+import { ChannelSurfaceElements } from "../surface";
+import { createElements, makeCallbackCollection } from "../util";
+import { debugPageInformation } from "../utils-debug";
+import { getArrayEntries, mergeOptions } from "../utils-es5";
 
 export interface EncoderAssignment {
   encoderValue: MR_HostValue;
@@ -51,15 +51,15 @@ export const bindEncoders = (
     return hostValue;
   });
 
-  const subPageArea = page.makeSubPageArea('Encoders');
+  const subPageArea = page.makeSubPageArea("Encoders");
 
   const bindEncoderAssignments = (assignmentButtonId: number, pages: EncoderPage[]) => {
     const encoderPageSize = channelElements.length;
 
-    if (process.env['NODE_ENV'] === 'development') {
+    if (process.env["NODE_ENV"] === "development") {
       // PIN: REMOVE ME
       debugPageInformation(
-        'encoder-asssignments-pre-split',
+        "encoder-asssignments-pre-split",
         assignmentButtonId,
         pages,
         mixerBankChannels
@@ -84,10 +84,10 @@ export const bindEncoders = (
       return page;
     });
 
-    if (process.env['NODE_ENV'] === 'development') {
+    if (process.env["NODE_ENV"] === "development") {
       // PIN: REMOVE ME
       debugPageInformation(
-        'encoder-asssignments-post-split',
+        "encoder-asssignments-post-split",
         assignmentButtonId,
         pages,
         mixerBankChannels
@@ -118,11 +118,11 @@ export const bindEncoders = (
           .setSubPage(flipSubPage);
       }
 
-      const onSubPageActivate = makeCallbackCollection(subPage, 'mOnActivate');
+      const onSubPageActivate = makeCallbackCollection(subPage, "mOnActivate");
       onSubPageActivate.addCallback((context) => {
         segmentDisplayManager.setAssignment(
           context,
-          pages.length === 1 ? '  ' : `${encoderPageIndex + 1}.${pages.length}`
+          pages.length === 1 ? "  " : `${encoderPageIndex + 1}.${pages.length}`
         );
 
         // PIN: converted for-of Array.entries() loop to ES5
@@ -154,7 +154,7 @@ export const bindEncoders = (
 
       // if assignments is a function, convert it to an array
       const assignments =
-        typeof assignmentsConfig === 'function'
+        typeof assignmentsConfig === "function"
           ? mixerBankChannels.map((channel, channelIndex) =>
               assignmentsConfig(channel, channelIndex)
             )
@@ -174,10 +174,10 @@ export const bindEncoders = (
           mergeOptions(
             { displayMode: EncoderDisplayMode.SingleDot },
             {
-              encoderValue: page.mCustom.makeHostValueVariable('unassignedEncoderValue'),
+              encoderValue: page.mCustom.makeHostValueVariable("unassignedEncoderValue"),
             },
             {
-              pushToggleValue: page.mCustom.makeHostValueVariable('unassignedEncoderPushValue'),
+              pushToggleValue: page.mCustom.makeHostValueVariable("unassignedEncoderPushValue"),
             },
             assignments[channelIndex]
           );
@@ -219,7 +219,7 @@ export const bindEncoders = (
         });
       }
 
-      if (process.env['NODE_ENV'] === 'development') {
+      if (process.env["NODE_ENV"] === "development") {
         // PIN: REMOVE ME
         logger.warn(
           `createdSubPages(${JSON.stringify(
@@ -269,7 +269,7 @@ export const bindEncoders = (
         previousSubPages = currentSubPages;
       }
 
-      if (process.env['NODE_ENV'] === 'development') {
+      if (process.env["NODE_ENV"] === "development") {
         // PIN: REMOVE ME
         logger.warn(
           `bind-cycle-sub-pages(${JSON.stringify(
@@ -285,7 +285,7 @@ export const bindEncoders = (
       }
     }
 
-    if (process.env['NODE_ENV'] === 'development') {
+    if (process.env["NODE_ENV"] === "development") {
       // PIN: REMOVE ME
       logger.warn(
         `created-sub-pages(${JSON.stringify(
@@ -304,7 +304,7 @@ export const bindEncoders = (
   // Defining Pan first so it is activated by default
   bindEncoderAssignments(1, [
     {
-      name: 'Pan',
+      name: "Pan",
       assignments: (mixerBankChannel) => ({
         displayMode: EncoderDisplayMode.BoostOrCut,
         encoderValue: mixerBankChannel.mValue.mPan,
@@ -316,7 +316,7 @@ export const bindEncoders = (
 
   bindEncoderAssignments(0, [
     {
-      name: 'Monitor',
+      name: "Monitor",
       assignments: (mixerBankChannel) => ({
         displayMode: EncoderDisplayMode.Wrap,
         encoderValue: mixerBankChannel.mValue.mMonitorEnable,
@@ -325,7 +325,7 @@ export const bindEncoders = (
       areAssignmentsChannelRelated: true,
     },
     {
-      name: 'Input Gain',
+      name: "Input Gain",
       assignments: (mixerBankChannel) => ({
         displayMode: EncoderDisplayMode.BoostOrCut,
         encoderValue: mixerBankChannel.mPreFilter.mGain,
@@ -333,7 +333,7 @@ export const bindEncoders = (
       areAssignmentsChannelRelated: true,
     },
     {
-      name: 'Input Phase',
+      name: "Input Phase",
       assignments: (mixerBankChannel) => ({
         displayMode: EncoderDisplayMode.Wrap,
         encoderValue: mixerBankChannel.mPreFilter.mPhaseSwitch,
@@ -345,7 +345,7 @@ export const bindEncoders = (
   const mChannelEQ = page.mHostAccess.mTrackSelection.mMixerChannel.mChannelEQ;
   bindEncoderAssignments(2, [
     {
-      name: 'EQ',
+      name: "EQ",
       assignments: [
         mChannelEQ.mBand1,
         mChannelEQ.mBand2,
@@ -381,7 +381,7 @@ export const bindEncoders = (
   const sendSlotsCount = mDefaults.getNumberOfSendSlots();
   bindEncoderAssignments(3, [
     {
-      name: 'Sends',
+      name: "Sends",
       // PIN: converted spread-to-array to ES5 with concat and typehint
       assignments: ([] as EncoderAssignment[]).concat(
         // concat two arrays
@@ -408,14 +408,14 @@ export const bindEncoders = (
   ]);
 
   const effectsViewer = page.mHostAccess.mTrackSelection.mMixerChannel.mInsertAndStripEffects
-    .makeInsertEffectViewer('Inserts')
+    .makeInsertEffectViewer("Inserts")
     .followPluginWindowInFocus();
   const parameterBankZone = effectsViewer.mParameterBankZone;
 
   // PIN: avoid destructuring
   const encoderAssignments = bindEncoderAssignments(4, [
     {
-      name: 'Plugin',
+      name: "Plugin",
       assignments: () => {
         const parameterValue = parameterBankZone.makeParameterValue();
         return {
@@ -455,7 +455,7 @@ export const bindEncoders = (
 
   bindEncoderAssignments(5, [
     {
-      name: 'Quick Controls',
+      name: "Quick Controls",
       assignments: (mixerBankChannel, channelIndex) => {
         return {
           encoderValue: mQuickControls.getByIndex(channelIndex),
@@ -465,7 +465,7 @@ export const bindEncoders = (
       areAssignmentsChannelRelated: false,
     },
     {
-      name: 'Channel Strip',
+      name: "Channel Strip",
       assignments: [
         mStripEffects.mGate,
         mStripEffects.mCompressor,

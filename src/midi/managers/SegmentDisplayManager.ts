@@ -1,7 +1,7 @@
-import { MR_ActiveDevice } from 'midiremote_api_v1';
+import { MR_ActiveDevice } from "midiremote_api_v1";
 
-import { Devices, MainDevice } from '../../Devices';
-import { ContextStateVariable, createElements } from '../../util';
+import { Devices, MainDevice } from "../../Devices";
+import { ContextStateVariable, createElements } from "../../util";
 
 export class SegmentDisplayManager {
   private segmentValues = createElements(12, () => new ContextStateVariable(0x00));
@@ -36,13 +36,13 @@ export class SegmentDisplayManager {
     for (let i = string.length - 1; i >= 0; i--) {
       const char = string.charAt(i);
 
-      if (char === '.' || char === ':') {
+      if (char === "." || char === ":") {
         hasCurrentSegmentDot = true;
       } else {
         this.updateSegment(
           context,
           currentSegmentId,
-          char === ' ' ? null : parseInt(char, 10),
+          char === " " ? null : parseInt(char, 10),
           hasCurrentSegmentDot
         );
         currentSegmentId++;
@@ -53,7 +53,7 @@ export class SegmentDisplayManager {
 
   constructor(private devices: Devices) {}
 
-  private lastTimeFormat = new ContextStateVariable('');
+  private lastTimeFormat = new ContextStateVariable("");
 
   /**
    * Update the 7-segment displays to show the provided `time` string – a string consisting of
@@ -83,17 +83,17 @@ export class SegmentDisplayManager {
     if (match) {
       time =
         match[1] +
-        match[2].padStart(2, ' ') +
+        match[2].padStart(2, " ") +
         match[3] +
-        match[4].padStart(2, ' ') +
+        match[4].padStart(2, " ") +
         match[5] +
-        match[6].padStart(3, ' ');
+        match[6].padStart(3, " ");
     }
 
     this.updateSegmentsByString(
       context,
       0,
-      time.padStart(10 + time.replace(/[^\.\:]/g, '').length, ' ')
+      time.padStart(10 + time.replace(/[^\.\:]/g, "").length, " ")
     );
   }
 

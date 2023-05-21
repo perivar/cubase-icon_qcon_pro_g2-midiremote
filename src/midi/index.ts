@@ -1,12 +1,12 @@
-import { MR_ActiveDevice, MR_DeviceSurface } from 'midiremote_api_v1';
+import { MR_ActiveDevice, MR_DeviceSurface } from "midiremote_api_v1";
 
-import { TouchSensitiveFader } from '../decorators/surface';
-import { Device, MainDevice } from '../Devices';
-import { ContextStateVariable, createElements, GlobalBooleanVariable, TimerUtils } from '../util';
-import { getArrayEntries } from '../utils-es5';
-import { ActivationCallbacks } from './connection';
-import { LcdManager } from './managers/LcdManager';
-import { PortPair } from './PortPair';
+import { TouchSensitiveFader } from "../decorators/surface";
+import { Device, MainDevice } from "../Devices";
+import { ContextStateVariable, createElements, GlobalBooleanVariable, TimerUtils } from "../util";
+import { getArrayEntries } from "../utils-es5";
+import { ActivationCallbacks } from "./connection";
+import { LcdManager } from "./managers/LcdManager";
+import { PortPair } from "./PortPair";
 
 export enum EncoderDisplayMode {
   SingleDot = 0,
@@ -74,7 +74,7 @@ export const bindDeviceToMidi = (
 
     // Set fader to `0` when unassigned
     fader.mSurfaceValue.mOnTitleChange = (context, title) => {
-      if (title === '') {
+      if (title === "") {
         forceUpdate.set(context, true);
         fader.mSurfaceValue.setProcessValue(context, 0);
         // `mOnProcessValueChange` somehow isn't run here on `setProcessValue()`, hence:
@@ -123,8 +123,8 @@ export const bindDeviceToMidi = (
     };
 
     // Scribble Strip
-    const currentParameterName = new ContextStateVariable('');
-    const currentDisplayValue = new ContextStateVariable('');
+    const currentParameterName = new ContextStateVariable("");
+    const currentDisplayValue = new ContextStateVariable("");
     const isLocalValueModeActive = new ContextStateVariable(false);
 
     const updateDisplay = (context: MR_ActiveDevice) => {
@@ -142,19 +142,19 @@ export const bindDeviceToMidi = (
       value =
         {
           // French
-          Éteint: 'Eteint',
+          Éteint: "Eteint",
 
           // Japanese
-          オン: 'On',
-          オフ: 'Off',
+          オン: "On",
+          オフ: "Off",
 
           // Russian
-          'Вкл.': 'On',
-          'Выкл.': 'Off',
+          "Вкл.": "On",
+          "Выкл.": "Off",
 
           // Chinese
-          开: 'On',
-          关: 'Off',
+          开: "On",
+          关: "Off",
         }[value] ?? value;
 
       currentDisplayValue.set(
@@ -177,7 +177,7 @@ export const bindDeviceToMidi = (
     };
     channel.encoder.mEncoderValue.mOnTitleChange = (context, title1, title2) => {
       // Reset encoder LED ring when channel becomes unassigned
-      if (title1 === '') {
+      if (title1 === "") {
         ports.output.sendMidi(context, [0xb0, 0x30 + channelIndex, 0]);
       }
 
@@ -189,43 +189,43 @@ export const bindDeviceToMidi = (
       title2 =
         {
           // English
-          'Pan Left-Right': 'Pan',
+          "Pan Left-Right": "Pan",
 
           // German
-          'Pan links/rechts': 'Pan',
+          "Pan links/rechts": "Pan",
 
           // Spanish
-          'Pan izquierda-derecha': 'Pan',
+          "Pan izquierda-derecha": "Pan",
 
           // French
-          'Pan gauche-droit': 'Pan',
-          'Pré/Post': 'PrePost',
+          "Pan gauche-droit": "Pan",
+          "Pré/Post": "PrePost",
 
           // Italian
-          'Pan sinistra-destra': 'Pan',
-          Monitoraggio: 'Monitor',
+          "Pan sinistra-destra": "Pan",
+          Monitoraggio: "Monitor",
 
           // Japanese
-          左右パン: 'Pan',
-          モニタリング: 'Monitor',
-          レベル: 'Level',
+          左右パン: "Pan",
+          モニタリング: "Monitor",
+          レベル: "Level",
 
           // Portuguese
-          'Pan Esquerda-Direita': 'Pan',
-          Nível: 'Nivel',
-          'Pré/Pós': 'PrePost',
+          "Pan Esquerda-Direita": "Pan",
+          Nível: "Nivel",
+          "Pré/Pós": "PrePost",
 
           // Russian
-          'Панорама Лево-Право': 'Pan',
-          Монитор: 'Monitor',
-          Уровень: 'Level',
-          'Пре/Пост': 'PrePost',
+          "Панорама Лево-Право": "Pan",
+          Монитор: "Monitor",
+          Уровень: "Level",
+          "Пре/Пост": "PrePost",
 
           // Chinese
-          '声像 左-右': 'Pan',
-          监听: 'Monitor',
-          电平: 'Level',
-          '前置/后置': 'PrePost',
+          "声像 左-右": "Pan",
+          监听: "Monitor",
+          电平: "Level",
+          "前置/后置": "PrePost",
         }[title2] ?? title2;
 
       currentParameterName.set(

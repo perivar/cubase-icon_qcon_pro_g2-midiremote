@@ -1,20 +1,20 @@
-import { logger } from 'midiremote_api_v1';
+import { logger } from "midiremote_api_v1";
 
-import { config } from '../config';
-import { DecoratedFactoryMappingPage } from '../decorators/page';
-import { Devices, MainDevice } from '../Devices';
-import { GlobalBooleanVariables } from '../midi';
-import { ActivationCallbacks } from '../midi/connection';
-import { SegmentDisplayManager } from '../midi/managers/SegmentDisplayManager';
-import { ContextStateVariable } from '../util';
+import { config } from "../config";
+import { DecoratedFactoryMappingPage } from "../decorators/page";
+import { Devices, MainDevice } from "../Devices";
+import { GlobalBooleanVariables } from "../midi";
+import { ActivationCallbacks } from "../midi/connection";
+import { SegmentDisplayManager } from "../midi/managers/SegmentDisplayManager";
+import { ContextStateVariable } from "../util";
 import {
   bindControlButtons,
   bindDirectionButtons,
   bindFootControl,
   bindJogWheelSection,
   bindSegmentDisplaySection,
-} from './control';
-import { bindEncoders } from './encoders';
+} from "./control";
+import { bindEncoders } from "./encoders";
 
 export const makeHostMapping = (
   page: DecoratedFactoryMappingPage,
@@ -56,7 +56,7 @@ export const makeHostMapping = (
       return channel;
     });
 
-  if (process.env['NODE_ENV'] === 'development') {
+  if (process.env["NODE_ENV"] === "development") {
     // PIN: REMOVE ME
     logger.warn(
       `makeHostMapping(${JSON.stringify(
@@ -107,7 +107,7 @@ export const makeHostMapping = (
   // activated. The workaround below defers the first time display update until the driver is
   // activated.
   const isDriverActivated = new ContextStateVariable(false);
-  const initialTransportLocatorPosition = new ContextStateVariable({ time: '', timeFormat: '' });
+  const initialTransportLocatorPosition = new ContextStateVariable({ time: "", timeFormat: "" });
 
   activationCallbacks.addCallback((context) => {
     isDriverActivated.set(context, true);

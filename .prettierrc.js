@@ -1,16 +1,16 @@
 module.exports = {
-  arrowParens: 'always',
+  arrowParens: "always",
   bracketSpacing: true,
   bracketSameLine: true,
-  singleQuote: true,
-  trailingComma: 'es5',
+  singleQuote: false,
+  trailingComma: "es5",
   tabWidth: 2,
-  endOfLine: 'auto',
+  endOfLine: "auto",
   semi: true,
   printWidth: 100,
   overrides: [
     {
-      files: ['jsconfig.json', 'tsconfig.json'],
+      files: ["jsconfig.json", "tsconfig.json"],
       options: {
         tabWidth: 2,
       },

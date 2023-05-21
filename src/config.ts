@@ -1,4 +1,4 @@
-export type DevicesConfiguration = Array<'main' | 'extender'>;
+export type DevicesConfiguration = Array<"main" | "extender">;
 
 export type ScriptConfiguration = {
   devices: DevicesConfiguration;
@@ -27,7 +27,7 @@ var CONFIGURATION = {
    * ports, i.e., the first input and the first output port belong to the leftmost device while the
    * last input and the last output port belong to the rightmost device.
    */
-  devices: ['main'],
+  devices: ["main"],
 
   /**
    * Whether touching a channel's fader will select the channel ("Auto Select"). Replace `true` with

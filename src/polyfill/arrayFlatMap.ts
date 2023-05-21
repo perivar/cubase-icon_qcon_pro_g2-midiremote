@@ -16,10 +16,10 @@ if (!Array.prototype.flatMap) {
   ): U[] {
     const self = thisArg || this;
     if (self === null) {
-      throw new TypeError('Array.prototype.flatMap ' + 'called on null or undefined');
+      throw new TypeError("Array.prototype.flatMap " + "called on null or undefined");
     }
-    if (typeof callback !== 'function') {
-      throw new TypeError(callback + ' is not a function');
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + " is not a function");
     }
 
     let list: U[] = [];

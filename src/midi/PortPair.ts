@@ -3,7 +3,7 @@ import {
   MR_DeviceDriver,
   MR_DeviceMidiInput,
   MR_DeviceMidiOutput,
-} from 'midiremote_api_v1';
+} from "midiremote_api_v1";
 
 export interface PortPair {
   input: MR_DeviceMidiInput;
@@ -18,7 +18,7 @@ export interface EnhancedMidiOutput extends MR_DeviceMidiOutput {
 let nextPortPairIndex = 1;
 
 export const makePortPair = (driver: MR_DeviceDriver, isExtender: boolean): PortPair => {
-  const name = isExtender ? 'Extender' : 'Main';
+  const name = isExtender ? "Extender" : "Main";
   const portPairIndex = nextPortPairIndex++;
   const input = driver.mPorts.makeMidiInput(`Input ${portPairIndex} - ${name}`);
   const output = driver.mPorts.makeMidiOutput(

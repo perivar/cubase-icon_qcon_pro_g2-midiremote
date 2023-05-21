@@ -1,13 +1,13 @@
-import { MR_DeviceDriver } from 'midiremote_api_v1';
+import { MR_DeviceDriver } from "midiremote_api_v1";
 
-import { Devices } from '../Devices';
-import { makeCallbackCollection } from '../util';
-import { SegmentDisplayManager } from './managers/SegmentDisplayManager';
+import { Devices } from "../Devices";
+import { makeCallbackCollection } from "../util";
+import { SegmentDisplayManager } from "./managers/SegmentDisplayManager";
 
-export type ActivationCallbacks = ReturnType<typeof setupDeviceConnection>['activationCallbacks'];
+export type ActivationCallbacks = ReturnType<typeof setupDeviceConnection>["activationCallbacks"];
 
 export const setupDeviceConnection = (driver: MR_DeviceDriver, devices: Devices) => {
-  const activationCallbacks = makeCallbackCollection(driver, 'mOnActivate');
+  const activationCallbacks = makeCallbackCollection(driver, "mOnActivate");
   const segmentDisplayManager = new SegmentDisplayManager(devices);
 
   driver.mOnDeactivate = (context) => {

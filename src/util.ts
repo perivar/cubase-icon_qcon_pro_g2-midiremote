@@ -3,9 +3,9 @@ import {
   MR_DeviceSurface,
   MR_FactoryMappingPage,
   MR_SurfaceCustomValueVariable,
-} from 'midiremote_api_v1';
+} from "midiremote_api_v1";
 
-import { getObjectEntries } from './utils-es5';
+import { getObjectEntries } from "./utils-es5";
 
 export const createElements = <E>(count: number, factoryFunction: (index: number) => E): E[] => {
   const elements = [];
@@ -65,8 +65,8 @@ const timeouts: Record<
  * by combining a surface variable, a sub page, and an action binding's `makeRepeating()` xD
  */
 export const makeTimerUtils = (page: MR_FactoryMappingPage, surface: MR_DeviceSurface) => {
-  const timerPage = page.makeSubPageArea('Timer').makeSubPage('Timer Page');
-  const triggerVariable = surface.makeCustomValueVariable('timerTrigger');
+  const timerPage = page.makeSubPageArea("Timer").makeSubPage("Timer Page");
+  const triggerVariable = surface.makeCustomValueVariable("timerTrigger");
 
   page.makeActionBinding(triggerVariable, timerPage.mAction.mActivate).makeRepeating(1, 1);
 
@@ -130,7 +130,7 @@ export class ContextStateVariable<ValueType> {
 
   get(context: MR_ActiveDevice): ValueType {
     const state = context.getState(this.name);
-    return state === '' ? this.initialValue : JSON.parse(state);
+    return state === "" ? this.initialValue : JSON.parse(state);
   }
 }
 
