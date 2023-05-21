@@ -39,3 +39,8 @@ export const mergeOptions = (obj1: any, obj2: any, obj3?: any, obj4?: any) => {
   }
   return resObj;
 };
+
+// alternative to Math.log10 polyfill
+export const Log10 = (x: number) => {
+  return Math.log(x) / Math.LN10;
+};

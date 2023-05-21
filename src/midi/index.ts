@@ -3,7 +3,7 @@ import { MR_ActiveDevice, MR_DeviceSurface } from "midiremote_api_v1";
 import { TouchSensitiveFader } from "../decorators/surface";
 import { Device, MainDevice } from "../Devices";
 import { ContextStateVariable, createElements, GlobalBooleanVariable, TimerUtils } from "../util";
-import { getArrayEntries } from "../utils-es5";
+import { getArrayEntries, Log10 } from "../utils-es5";
 import { ActivationCallbacks } from "./connection";
 import { LcdManager } from "./managers/LcdManager";
 import { PortPair } from "./PortPair";
@@ -254,7 +254,7 @@ export const bindDeviceToMidi = (
 
       if (now - lastMeterUpdateTime > 125) {
         // Apply a log scale twice to make the meters look more like Cubase's MixConsole meters
-        newValue = 1 + Math.log10(0.1 + 0.9 * (1 + Math.log10(0.1 + 0.9 * newValue)));
+        newValue = 1 + Log10(0.1 + 0.9 * (1 + Log10(0.1 + 0.9 * newValue)));
 
         lastMeterUpdateTime = now;
         ports.output.sendMidi(context, [

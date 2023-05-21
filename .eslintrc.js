@@ -5,8 +5,15 @@ module.exports = {
     node: true,
   },
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "import", "simple-import-sort", "unused-imports", "es5"],
-  extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  plugins: ["@typescript-eslint", "import", "simple-import-sort", "unused-imports", "es5", "es"],
+  extends: [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:es/no-new-in-es2016",
+    // "plugin:es/no-new-in-es2017",
+    "plugin:es/no-new-in-es2019",
+    // "plugin:es/no-new-in-es2020",
+  ],
   rules: {
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -23,13 +30,13 @@ module.exports = {
     "prefer-spread": "off",
 
     "es5/no-es6-methods": "error",
-    "es5/no-es6-static-methods": "warn",
+    "es5/no-es6-static-methods": "error",
     "es5/no-arrow-functions": "off", // allow arrow functions
     "es5/no-binary-and-octal-literals": "error",
     "es5/no-block-scoping": "off", // allow blocks
     "es5/no-classes": "off", // allow classes
     "es5/no-computed-properties": "error",
-    "es5/no-default-parameters": "off", // this converts fine by tsc
+    "es5/no-default-parameters": "off", // this converts fine by tsc, so disable it here
     "es5/no-destructuring": "error",
     "es5/no-exponentiation-operator": "error",
     "es5/no-for-of": "error",

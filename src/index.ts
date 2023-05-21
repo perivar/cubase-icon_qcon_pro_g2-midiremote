@@ -11,31 +11,31 @@
 // Reflect.get = undefined
 
 // To test in es5 mode - first undefine the polyfilled methods
-// Object.defineProperty(Array.prototype, 'flatMap', {
-//     configurable: true,
-//     enumerable: true,
-//     value: undefined,
+// Object.defineProperty(Array.prototype, "flatMap", {
+//   configurable: true,
+//   enumerable: true,
+//   value: undefined,
 // });
-// Object.defineProperty(String.prototype, 'padStart', {
-//     configurable: true,
-//     enumerable: true,
-//     value: undefined,
+// Object.defineProperty(String.prototype, "padStart", {
+//   configurable: true,
+//   enumerable: true,
+//   value: undefined,
 // });
-// Object.defineProperty(Math, 'log10', {
-//     configurable: true,
-//     enumerable: true,
-//     value: undefined,
+// Object.defineProperty(Math, "log10", {
+//   configurable: true,
+//   enumerable: true,
+//   value: undefined,
 // });
-// Object.defineProperty(Object, 'assign', {
-//     configurable: true,
-//     enumerable: true,
-//     value: undefined,
+// Object.defineProperty(Object, "assign", {
+//   configurable: true,
+//   enumerable: true,
+//   value: undefined,
 // });
 
 // own polyfills
 import "./polyfill/arrayFlatMap";
 import "./polyfill/stringPadStart";
-import "./polyfill/mathLog10";
+// import "./polyfill/mathLog10";
 // import './polyfill/objectAssign';
 
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
