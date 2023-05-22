@@ -1,3 +1,4 @@
+/* eslint-disable es/no-object-entries */
 declare global {
   // https://github.com/microsoft/TypeScript/blob/v4.6.2/lib/lib.es2017.object.d.ts#L34-L44
   interface ObjectConstructor {

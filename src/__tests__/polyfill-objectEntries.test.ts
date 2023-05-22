@@ -1,3 +1,4 @@
+/* eslint-disable es/no-object-entries */
 // first undefine the method
 Object.defineProperty(Object, "entries", {
   configurable: true,

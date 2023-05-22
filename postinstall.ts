@@ -1,3 +1,4 @@
+/* eslint-disable es/no-async-functions */
 import * as dotenv from "dotenv";
 import fs from "fs";
 import path from "path";

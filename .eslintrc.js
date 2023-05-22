@@ -9,10 +9,12 @@ module.exports = {
   extends: [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    // "plugin:es/no-new-in-es2015",
     "plugin:es/no-new-in-es2016",
-    // "plugin:es/no-new-in-es2017",
+    "plugin:es/no-new-in-es2017",
+    "plugin:es/no-new-in-es2018",
     "plugin:es/no-new-in-es2019",
-    // "plugin:es/no-new-in-es2020",
+    "plugin:es/no-new-in-es2020",
   ],
   rules: {
     "@typescript-eslint/no-var-requires": "off",
@@ -50,5 +52,7 @@ module.exports = {
     "es5/no-typeof-symbol": "error",
     "es5/no-unicode-code-point-escape": "error",
     "es5/no-unicode-regex": "error",
+
+    "es/no-nullish-coalescing-operators": "off", // this converts fine by tsc
   },
 };

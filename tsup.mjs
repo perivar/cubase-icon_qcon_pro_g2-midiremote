@@ -1,3 +1,5 @@
+/* eslint-disable es/no-nullish-coalescing-operators */
+/* eslint-disable es/no-async-functions */
 import { readFile } from "node:fs/promises";
 
 import * as dotenv from "dotenv";
