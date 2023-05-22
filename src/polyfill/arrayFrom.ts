@@ -1,3 +1,4 @@
+/* eslint-disable es/no-array-from */
 declare global {
   interface ArrayConstructor {
     from<T>(arrayLike: ArrayLike<T>): Array<T>;

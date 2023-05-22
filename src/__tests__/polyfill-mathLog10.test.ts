@@ -1,3 +1,4 @@
+/* eslint-disable es/no-math-log10 */
 // first undefine the method
 Object.defineProperty(Math, "log10", {
   configurable: true,

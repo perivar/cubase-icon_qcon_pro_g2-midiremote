@@ -1,3 +1,5 @@
+/* eslint-disable es/no-spread-elements */
+/* eslint-disable es/no-rest-parameters */
 import {
   MR_ActiveDevice,
   MR_DeviceSurface,

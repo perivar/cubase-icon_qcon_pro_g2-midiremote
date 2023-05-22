@@ -1,4 +1,3 @@
-/* eslint-disable es5/no-rest-parameters */
 import {
   MR_Button,
   MR_DeviceMidiInput,

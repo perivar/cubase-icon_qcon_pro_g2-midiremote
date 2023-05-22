@@ -5,16 +5,11 @@ module.exports = {
     node: true,
   },
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "import", "simple-import-sort", "unused-imports", "es5", "es"],
+  plugins: ["@typescript-eslint", "import", "simple-import-sort", "unused-imports", "es"],
   extends: [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    // "plugin:es/no-new-in-es2015",
-    "plugin:es/no-new-in-es2016",
-    "plugin:es/no-new-in-es2017",
-    "plugin:es/no-new-in-es2018",
-    "plugin:es/no-new-in-es2019",
-    "plugin:es/no-new-in-es2020",
+    "plugin:es/restrict-to-es5",
   ],
   rules: {
     "@typescript-eslint/no-var-requires": "off",
@@ -31,28 +26,26 @@ module.exports = {
     "prefer-rest-params": "off",
     "prefer-spread": "off",
 
-    "es5/no-es6-methods": "error",
-    "es5/no-es6-static-methods": "error",
-    "es5/no-arrow-functions": "off", // allow arrow functions
-    "es5/no-binary-and-octal-literals": "error",
-    "es5/no-block-scoping": "off", // allow blocks
-    "es5/no-classes": "off", // allow classes
-    "es5/no-computed-properties": "error",
-    "es5/no-default-parameters": "off", // this converts fine by tsc, so disable it here
-    "es5/no-destructuring": "error",
-    "es5/no-exponentiation-operator": "error",
-    "es5/no-for-of": "error",
-    "es5/no-generators": "error",
-    "es5/no-modules": "off", // allow using export as they convert fine by tsc
-    "es5/no-object-super": "off", // allow classes and super()
-    "es5/no-rest-parameters": "warn",
-    "es5/no-shorthand-properties": "error",
-    "es5/no-spread": "warn", // if enabled this automatically converts to concat()
-    "es5/no-template-literals": "off", // allow string templates as they convert fine by tsc
-    "es5/no-typeof-symbol": "error",
-    "es5/no-unicode-code-point-escape": "error",
-    "es5/no-unicode-regex": "error",
-
     "es/no-nullish-coalescing-operators": "off", // this converts fine by tsc
+    "es/no-arrow-functions": "off", // allow arrow functions
+    "es/no-block-scoped-functions": "off", // allow blocks
+    "es/no-block-scoped-variables": "off", // allow blocks
+    "es/no-classes": "off", // allow classes
+    "es/no-default-parameters": "off", // this converts fine by tsc, so disable it here
+    "es/no-modules": "off", // allow using export as they convert fine by tsc
+    "es/no-object-super": "off", // allow classes and super()
+    "es/no-template-literals": "off", // allow string templates as they convert fine by tsc
+    "es/no-rest-parameters": "warn",
+    "es/no-spread-elements": "warn", // if enabled this automatically converts to concat()
+    "es/no-computed-properties": "error",
+    "es/no-destructuring": "error",
+    "es/no-generators": "error",
+    "es/no-object-assign": "error",
+    "es/no-math-log10": "error",
+    "es/no-array-from": "error",
+    // "es/no-string-prototype-padstart": [error, { aggressive: true }],
   },
+  // settings: {
+  //   es: { aggressive: true },
+  // },
 };

@@ -1,4 +1,4 @@
-/* eslint-disable es5/no-es6-static-methods */
+/* eslint-disable es/no-object-assign */
 // first undefine the method
 Object.defineProperty(Object, "assign", {
   configurable: true,

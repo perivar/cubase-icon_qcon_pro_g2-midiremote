@@ -43,6 +43,7 @@ export const bindEncoders = (
     .flatMap((device) => (device as MainDevice).controlSectionElements.buttons);
 
   // Bind encoder display modes to custom host values
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const channelEncoderDisplayModeHostValues = channelElements.map((channel, channelIndex) => {
     const hostValue = page.mCustom.makeSettableHostValueVariable(
       `encoderDisplayMode${channelIndex}`

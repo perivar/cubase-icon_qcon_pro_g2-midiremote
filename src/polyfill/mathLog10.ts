@@ -1,3 +1,4 @@
+/* eslint-disable es/no-math-log10 */
 declare global {
   interface Math {
     log10(x: number): number;
