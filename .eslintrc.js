@@ -41,10 +41,10 @@ module.exports = {
     "es5/no-exponentiation-operator": "error",
     "es5/no-for-of": "error",
     "es5/no-generators": "error",
-    "es5/no-modules": "off", // allow using export
+    "es5/no-modules": "off", // allow using export as they convert fine by tsc
     "es5/no-object-super": "off", // allow classes and super()
     "es5/no-rest-parameters": "warn",
-    "es5/no-shorthand-properties": "warn",
+    "es5/no-shorthand-properties": "error",
     "es5/no-spread": "warn", // if enabled this automatically converts to concat()
     "es5/no-template-literals": "off", // allow string templates as they convert fine by tsc
     "es5/no-typeof-symbol": "error",

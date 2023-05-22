@@ -1,3 +1,4 @@
+/* eslint-disable es5/no-rest-parameters */
 import {
   MR_Button,
   MR_DeviceMidiInput,
@@ -13,7 +14,6 @@ import { CallbackCollection, ContextStateVariable, makeCallbackCollection } from
 
 export interface LedButton extends MR_Button {
   mLedValue: MR_SurfaceCustomValueVariable;
-  shadowValue: MR_SurfaceCustomValueVariable;
   onSurfaceValueChange: CallbackCollection<
     Parameters<MR_Button["mSurfaceValue"]["mOnProcessValueChange"]>
   >;
@@ -63,7 +63,7 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
     );
     button.mLedValue = surface.makeCustomValueVariable("LedButtonLed");
 
-    button.shadowValue = surface.makeCustomValueVariable("LedButtonProxy");
+    const shadowValue = surface.makeCustomValueVariable("LedButtonProxy");
 
     button.bindToNote = (ports, note, isChannelButton = false) => {
       const currentSurfaceValue = new ContextStateVariable(0);
@@ -85,8 +85,8 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
       // Binding the button's mSurfaceValue to a host function may alter it to not change when the
       // button is pressed. Hence, `shadowValue` is used to make the button light up while it's
       // pressed.
-      button.shadowValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, note);
-      button.shadowValue.mOnProcessValueChange = (context, newValue) => {
+      shadowValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, note);
+      shadowValue.mOnProcessValueChange = (context, newValue) => {
         console.log("button shadow led value changed to " + newValue + " for " + note);
 
         ports.output.sendNoteOn(
