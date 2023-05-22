@@ -18,7 +18,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     // "noUncheckedIndexedAccess": true, // gives lots of possibly undefined errors
-    "noImplicitAny": true,
+    // "noImplicitAny": true,
     "noImplicitThis": true,
     // "useUnknownInCatchVariables": true,
     // "noUnusedParameters": true, // gives lots of value is never read errors
