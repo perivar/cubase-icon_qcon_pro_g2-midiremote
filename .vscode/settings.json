@@ -37,5 +37,6 @@
   },
   "files.autoSave": "onFocusChange",
   "jest.autoRun": {},
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
