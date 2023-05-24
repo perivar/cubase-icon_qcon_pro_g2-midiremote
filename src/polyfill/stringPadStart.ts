@@ -1,6 +1,6 @@
 declare global {
   interface String {
-    padStart(targetLength: number, padString: string): string;
+    padStart(maxLength: number, fillString?: string): string;
   }
 }
 
