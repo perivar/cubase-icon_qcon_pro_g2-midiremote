@@ -1,10 +1,25 @@
 // alternative to Object.entries polyfill
+// return key-value pairs
+// Input:
+//   {
+//     a: 'somestring',
+//     b: 42
+//   }
+// Output:
+//   "a: somestring"
+//   "b: 42"
 // https://stackoverflow.com/questions/45849831/object-entries-alternative-for-internet-explorer-and-reactjs
 export const getObjectEntries = <T>(obj: { [s: string]: T }): [string, T][] => {
   return Object.keys(obj).map((key) => [key, obj[key]]);
 };
 
 // alternative to Array.entries polyfill
+// Input:
+//   ["A", "B", "C"];
+// Output:
+//   [ 0, 'A' ]
+//   [ 1, 'B' ]
+//   [ 2, 'C' ]
 export const getArrayEntries = <T>(obj: Array<T>): [number, T][] => {
   const keys: [number, T][] = [];
   for (let i = 0; i < obj.length; i++) {
