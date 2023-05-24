@@ -26,11 +26,7 @@ module.exports = {
       // As mentioned in the comments, you should extend TypeScript plugins here,
       // instead of extending them outside the `overrides`.
       // If you don't want to extend any rules, you don't need an `extends` attribute.
-      extends: [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:es/restrict-to-es5",
-        "plugin:es/no-new-in-es2017",
-      ],
+      extends: ["plugin:@typescript-eslint/recommended", "plugin:es/restrict-to-es5"],
       rules: {
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-explicit-any": "off",
