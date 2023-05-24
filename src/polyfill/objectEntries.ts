@@ -2,7 +2,7 @@
 declare global {
   // https://github.com/microsoft/TypeScript/blob/v4.6.2/lib/lib.es2017.object.d.ts#L34-L44
   interface ObjectConstructor {
-    entries<T>(o: { [s: string]: T }): [string, T][];
+    entries<T>(o: { [s: string]: T } | ArrayLike<T>): [string, T][];
   }
 }
 

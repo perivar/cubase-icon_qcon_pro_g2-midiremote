@@ -1,12 +1,15 @@
 diff --git a/node_modules/@types/node/index.d.ts b/node_modules/@types/node/index.d.ts
-index 97cb955..e577604 100755
+index 97cb955..c803b06 100755
 --- a/node_modules/@types/node/index.d.ts
 +++ b/node_modules/@types/node/index.d.ts
-@@ -71,7 +71,6 @@
+@@ -71,10 +71,6 @@
  // NOTE: These definitions support NodeJS and TypeScript 4.9+.
  
  // Reference required types from the default lib:
 -/// <reference lib="es2020" />
- /// <reference lib="esnext.asynciterable" />
- /// <reference lib="esnext.intl" />
- /// <reference lib="esnext.bigint" />
+-/// <reference lib="esnext.asynciterable" />
+-/// <reference lib="esnext.intl" />
+-/// <reference lib="esnext.bigint" />
+ 
+ // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
+ /// <reference path="assert.d.ts" />
