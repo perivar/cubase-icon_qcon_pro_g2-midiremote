@@ -276,6 +276,8 @@ export class MR_HostDefaults {
  * Represents a detected and activated device of a specific [DeviceDriver](#devicedriver).
  */
 export class MR_ActiveDevice {
+  dictionary: { [key: string]: string } = {};
+
   constructor() {
     logger.debug("MR_ActiveDevice: constructor()");
   }
@@ -286,6 +288,8 @@ export class MR_ActiveDevice {
    */
   setState(key: string, val: string): void {
     logger.info(`MR_ActiveDevice: setState(${key} = ${val})`);
+
+    this.dictionary[key] = val;
   }
 
   /**
@@ -294,7 +298,8 @@ export class MR_ActiveDevice {
    */
   getState(key: string): string {
     logger.info(`MR_ActiveDevice: getState(${key}`);
-    return "Not Implemented";
+
+    return this.dictionary[key];
   }
 }
 

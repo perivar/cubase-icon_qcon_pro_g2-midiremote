@@ -41,7 +41,7 @@ import "./polyfill/stringPadStart";
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
 import midiremote_api = require("midiremote_api_v1");
 
-import { logger } from "midiremote_api_v1";
+import { logger, MR_ActiveDevice } from "midiremote_api_v1";
 
 import { decoratePage } from "./decorators/page";
 import { decorateSurface } from "./decorators/surface";
@@ -49,7 +49,9 @@ import { Devices, MainDevice } from "./Devices";
 import { makeHostMapping } from "./mapping";
 import { bindDeviceToMidi, makeGlobalBooleanVariables } from "./midi";
 import { setupDeviceConnection } from "./midi/connection";
+import { ChannelSurfaceElements } from "./surface";
 import { makeTimerUtils } from "./util";
+import { getArrayEntries } from "./utils-es5";
 
 // PIN: set device to Icon QCon Pro G2
 const driver = midiremote_api.makeDeviceDriver("Icon", "QCon Pro G2", "Nerseth");
@@ -109,3 +111,22 @@ devices.forEach((device) => {
 
 // Map elements to host functions
 makeHostMapping(page, devices, segmentDisplayManager, globalBooleanVariables, activationCallbacks);
+
+if (process.env["NODE_ENV"] === "development") {
+  // run some events
+  const channelElements: ChannelSurfaceElements = devices.flatMap(
+    (device) => device.channelElements
+  );
+
+  for (let i = 0, arr = getArrayEntries(channelElements); i < arr.length; i++) {
+    const channelObj = arr[i];
+    const channelIndex = channelObj[0];
+    const channel = channelObj[1];
+
+    channel.encoder.mEncoderValue.mOnDisplayValueChange(
+      new MR_ActiveDevice(),
+      "Audio 00" + channelIndex,
+      "gram"
+    );
+  }
+}
