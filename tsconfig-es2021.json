@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "sourceMap": false,
+    "noEmit": true,
+    "target": "ES2021",
+    "lib": ["ES2021"]
+  },
+  "include": ["*.ts"]
+}

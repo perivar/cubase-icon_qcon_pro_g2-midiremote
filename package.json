@@ -15,7 +15,7 @@
     "postinstall": "patch-package",
     "webpack": "webpack --mode production",
     "build": "yarn tsc && yarn webpack && yarn clean && yarn lint-fix",
-    "clean": "ts-node ./postinstall.ts",
+    "clean": "ts-node --project ./tsconfig-es2021.json ./postinstall.ts",
     "clean-and-fix": "yarn clean && yarn lint-fix",
     "lint": "eslint \"**/*.{mjs,js,ts}\"",
     "lint-fix": "eslint \"**/*.{mjs,js,ts}\" --fix",
