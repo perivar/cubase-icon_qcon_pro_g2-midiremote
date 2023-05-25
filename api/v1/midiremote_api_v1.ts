@@ -299,7 +299,8 @@ export class MR_ActiveDevice {
   getState(key: string): string {
     logger.info(`MR_ActiveDevice: getState(${key}`);
 
-    return this.dictionary[key];
+    const state = this.dictionary[key];
+    return state ?? "";
   }
 }
 
@@ -787,6 +788,22 @@ export class MR_DeviceMidiOutput {
  * // bind midi ports to surface elements
  */
 export class MR_DeviceSurface {
+  pushEncoders: MR_PushEncoder[] = [];
+  knobs: MR_Knob[] = [];
+  faders: MR_Fader[] = [];
+  buttons: MR_Button[] = [];
+  modWheels: MR_ModWheel[] = [];
+  pitchBends: MR_PitchBend[] = [];
+  triggerPads: MR_TriggerPad[] = [];
+  padXYs: MR_PadXY[] = [];
+  joyStickXYs: MR_JoyStickXY[] = [];
+  lamps: MR_Lamp[] = [];
+  blindPanels: MR_BlindPanel[] = [];
+  pianoKeys: MR_PianoKeys[] = [];
+  labelFields: MR_SurfaceLabelField[] = [];
+  controlLayerZones: MR_ControlLayerZone[] = [];
+  customValueVariables: MR_SurfaceCustomValueVariable[] = [];
+
   constructor() {
     logger.debug("MR_DeviceSurface: constructor()");
   }
@@ -800,7 +817,9 @@ export class MR_DeviceSurface {
    */
   makePushEncoder(x: number, y: number, w: number, h: number): MR_PushEncoder {
     logger.info(`MR_DeviceSurface: makePushEncoder(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_PushEncoder(x, y, w, h);
+    const pushEncoder = new MR_PushEncoder(x, y, w, h);
+    this.pushEncoders.push(pushEncoder);
+    return pushEncoder;
   }
 
   /**
@@ -812,7 +831,9 @@ export class MR_DeviceSurface {
    */
   makeKnob(x: number, y: number, w: number, h: number): MR_Knob {
     logger.info(`MR_DeviceSurface: makeKnob(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_Knob(x, y, w, h);
+    const knob = new MR_Knob(x, y, w, h);
+    this.knobs.push(knob);
+    return knob;
   }
 
   /**
@@ -824,7 +845,9 @@ export class MR_DeviceSurface {
    */
   makeFader(x: number, y: number, w: number, h: number): MR_Fader {
     logger.info(`MR_DeviceSurface: makeFader(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_Fader(x, y, w, h);
+    const fader = new MR_Fader(x, y, w, h);
+    this.faders.push(fader);
+    return fader;
   }
 
   /**
@@ -836,7 +859,9 @@ export class MR_DeviceSurface {
    */
   makeButton(x: number, y: number, w: number, h: number): MR_Button {
     logger.info(`MR_DeviceSurface: makeButton(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_Button(x, y, w, h);
+    const button = new MR_Button(x, y, w, h);
+    this.buttons.push(button);
+    return button;
   }
 
   /**
@@ -848,7 +873,9 @@ export class MR_DeviceSurface {
    */
   makeModWheel(x: number, y: number, w: number, h: number): MR_ModWheel {
     logger.info(`MR_DeviceSurface: makeModWheel(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_ModWheel(x, y, w, h);
+    const modWheel = new MR_ModWheel(x, y, w, h);
+    this.modWheels.push(modWheel);
+    return modWheel;
   }
 
   /**
@@ -860,7 +887,9 @@ export class MR_DeviceSurface {
    */
   makePitchBend(x: number, y: number, w: number, h: number): MR_PitchBend {
     logger.info(`MR_DeviceSurface: makePitchBend(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_PitchBend(x, y, w, h);
+    const pitchBend = new MR_PitchBend(x, y, w, h);
+    this.pitchBends.push(pitchBend);
+    return pitchBend;
   }
 
   /**
@@ -872,7 +901,9 @@ export class MR_DeviceSurface {
    */
   makeTriggerPad(x: number, y: number, w: number, h: number): MR_TriggerPad {
     logger.info(`MR_DeviceSurface: makeTriggerPad(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_TriggerPad(x, y, w, h);
+    const triggerPad = new MR_TriggerPad(x, y, w, h);
+    this.triggerPads.push(triggerPad);
+    return triggerPad;
   }
 
   /**
@@ -884,7 +915,9 @@ export class MR_DeviceSurface {
    */
   makePadXY(x: number, y: number, w: number, h: number): MR_PadXY {
     logger.info(`MR_DeviceSurface: makePadXY(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_PadXY(x, y, w, h);
+    const padXY = new MR_PadXY(x, y, w, h);
+    this.padXYs.push(padXY);
+    return padXY;
   }
 
   /**
@@ -896,7 +929,9 @@ export class MR_DeviceSurface {
    */
   makeJoyStickXY(x: number, y: number, w: number, h: number): MR_JoyStickXY {
     logger.info(`MR_DeviceSurface: makeJoyStickXY(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_JoyStickXY(x, y, w, h);
+    const joyStickXY = new MR_JoyStickXY(x, y, w, h);
+    this.joyStickXYs.push(joyStickXY);
+    return joyStickXY;
   }
 
   /**
@@ -908,7 +943,9 @@ export class MR_DeviceSurface {
    */
   makeLamp(x: number, y: number, w: number, h: number): MR_Lamp {
     logger.info(`MR_DeviceSurface: makeLamp(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_Lamp(x, y, w, h);
+    const lamp = new MR_Lamp(x, y, w, h);
+    this.lamps.push(lamp);
+    return lamp;
   }
 
   /**
@@ -920,7 +957,9 @@ export class MR_DeviceSurface {
    */
   makeBlindPanel(x: number, y: number, w: number, h: number): MR_BlindPanel {
     logger.info(`MR_DeviceSurface: makeBlindPanel(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_BlindPanel(x, y, w, h);
+    const blindPanel = new MR_BlindPanel(x, y, w, h);
+    this.blindPanels.push(blindPanel);
+    return blindPanel;
   }
 
   /**
@@ -950,7 +989,9 @@ export class MR_DeviceSurface {
         lastKeyIndex: lastKeyIndex,
       })})`
     );
-    return new MR_PianoKeys(x, y, w, h, firstKeyIndex, lastKeyIndex);
+    const pianoKeys = new MR_PianoKeys(x, y, w, h, firstKeyIndex, lastKeyIndex);
+    this.pianoKeys.push(pianoKeys);
+    return pianoKeys;
   }
 
   /**
@@ -962,7 +1003,9 @@ export class MR_DeviceSurface {
    */
   makeLabelField(x: number, y: number, w: number, h: number): MR_SurfaceLabelField {
     logger.info(`MR_DeviceSurface: makeLabelField(${JSON.stringify({ x: x, y: y, w: w, h: h })})`);
-    return new MR_SurfaceLabelField(x, y, w, h);
+    const labelField = new MR_SurfaceLabelField(x, y, w, h);
+    this.labelFields.push(labelField);
+    return labelField;
   }
 
   /**
@@ -971,7 +1014,9 @@ export class MR_DeviceSurface {
    */
   makeControlLayerZone(name: string): MR_ControlLayerZone {
     logger.info(`MR_DeviceSurface: makeControlLayerZone(${JSON.stringify({ name: name })})`);
-    return new MR_ControlLayerZone(name);
+    const controlLayerZone = new MR_ControlLayerZone(name);
+    this.controlLayerZones.push(controlLayerZone);
+    return controlLayerZone;
   }
 
   /**
@@ -981,7 +1026,9 @@ export class MR_DeviceSurface {
    */
   makeCustomValueVariable(name: string): MR_SurfaceCustomValueVariable {
     logger.info(`MR_DeviceSurface: makeCustomValueVariable(${JSON.stringify({ name: name })})`);
-    return new MR_SurfaceCustomValueVariable(name);
+    const customValueVariable = new MR_SurfaceCustomValueVariable(name);
+    this.customValueVariables.push(customValueVariable);
+    return customValueVariable;
   }
 }
 
@@ -2555,6 +2602,11 @@ export class MR_Page {
   class = "MR_Page";
   name: string | undefined;
 
+  // valueBindings: MR_ValueBinding[] = [];
+  // commandBindings: MR_CommandBinding[] = [];
+  // actionBindings: MR_ActionBinding[] = [];
+  subPageAreas: { [key: string]: MR_SubPageArea } = {};
+
   constructor(name?: string) {
     logger.debug(
       `MR_Page: constructor(${JSON.stringify({
@@ -2579,7 +2631,9 @@ export class MR_Page {
       })})`
     );
 
-    return new MR_ValueBinding();
+    const valueBinding = new MR_ValueBinding(surfaceValue, hostValue);
+    // this.valueBindings.push(valueBinding);
+    return valueBinding;
   }
 
   /**
@@ -2601,7 +2655,9 @@ export class MR_Page {
       })})`
     );
 
-    return new MR_CommandBinding();
+    const commandBinding = new MR_CommandBinding(surfaceValue, commandCategory, commandName);
+    // this.commandBindings.push(commandBinding);
+    return commandBinding;
   }
 
   /**
@@ -2617,7 +2673,9 @@ export class MR_Page {
       })})`
     );
 
-    return new MR_ActionBinding();
+    const actionBinding = new MR_ActionBinding(surfaceValue, hostAction);
+    // this.actionBindings.push(actionBinding);
+    return actionBinding;
   }
 
   /**
@@ -2631,7 +2689,9 @@ export class MR_Page {
       })})`
     );
 
-    return new MR_SubPageArea(name);
+    const subPageArea = new MR_SubPageArea(name);
+    // this.subPageAreas[name] = subPageArea;
+    return subPageArea;
   }
 
   /**
@@ -2750,7 +2810,9 @@ export class MR_FactoryMappingPage extends MR_Page {
       })})`
     );
 
-    return new MR_ValueBinding();
+    const valueBinding = new MR_ValueBinding(surfaceValue, hostValue);
+    // this.valueBindings.push(valueBinding);
+    return valueBinding;
   }
 
   /**
@@ -2772,7 +2834,9 @@ export class MR_FactoryMappingPage extends MR_Page {
       })})`
     );
 
-    return new MR_CommandBinding();
+    const commandBinding = new MR_CommandBinding(surfaceValue, commandCategory, commandName);
+    // this.commandBindings.push(commandBinding);
+    return commandBinding;
   }
 
   /**
@@ -2791,7 +2855,9 @@ export class MR_FactoryMappingPage extends MR_Page {
       })})`
     );
 
-    return new MR_ActionBinding();
+    const actionBinding = new MR_ActionBinding(surfaceValue, hostAction);
+    // this.actionBindings.push(actionBinding);
+    return actionBinding;
   }
 
   /**
@@ -2805,7 +2871,9 @@ export class MR_FactoryMappingPage extends MR_Page {
       })})`
     );
 
-    return new MR_SubPageArea(name);
+    const subPageArea = new MR_SubPageArea(name);
+    this.subPageAreas[name] = subPageArea;
+    return subPageArea;
   }
 
   /**
@@ -2824,7 +2892,7 @@ export class MR_FactoryMappingPage extends MR_Page {
       })})`
     );
 
-    return new MR_FactoryMappingPage();
+    return this;
   }
 
   /**
@@ -2843,7 +2911,7 @@ export class MR_FactoryMappingPage extends MR_Page {
       })})`
     );
 
-    return new MR_FactoryMappingPage();
+    return this;
   }
 
   /**
@@ -2862,7 +2930,7 @@ export class MR_FactoryMappingPage extends MR_Page {
       })})`
     );
 
-    return new MR_FactoryMappingPage();
+    return this;
   }
 }
 
@@ -13243,6 +13311,8 @@ export class MR_TrackSelectionActions {
 export class MR_HostBinding {
   class = "MR_HostBinding";
 
+  subPage: MR_SubPage | undefined;
+
   constructor() {
     logger.debug("MR_HostBinding: constructor()");
   }
@@ -13257,6 +13327,8 @@ export class MR_HostBinding {
         subPage: subPage,
       })})`
     );
+
+    this.subPage = subPage;
     return this;
   }
 
@@ -13329,7 +13401,7 @@ export class MR_ValueBinding extends MR_HostBinding {
     valueDiff: number
   ) => void;
 
-  constructor() {
+  constructor(surfaceValue?: MR_SurfaceValue, hostValue?: MR_HostValue) {
     super();
 
     logger.debug("MR_ValueBinding: constructor()");
@@ -13395,6 +13467,7 @@ export class MR_ValueBinding extends MR_HostBinding {
         subPage: subPage,
       })})`
     );
+    this.subPage = subPage;
     return this;
   }
 
@@ -13467,7 +13540,7 @@ export class MR_CommandBinding extends MR_HostBinding {
     valueDiff: number
   ) => void;
 
-  constructor() {
+  constructor(surfaceValue?: MR_SurfaceValue, commandCategory?: string, commandName?: string) {
     super();
 
     logger.debug("MR_CommandBinding: constructor()");
@@ -13580,7 +13653,7 @@ export class MR_ActionBinding extends MR_HostBinding {
     valueDiff: number
   ) => void;
 
-  constructor() {
+  constructor(surfaceValue?: MR_SurfaceValue, hostAction?: MR_HostAction) {
     super();
 
     logger.debug("MR_ActionBinding: constructor()");
@@ -13692,8 +13765,10 @@ export class MR_ActionBinding extends MR_HostBinding {
  * @class MR_SubPageArea
  */
 export class MR_SubPageArea {
-  mAction: MR_SubPageAreaActions;
   name: string | undefined;
+  subPages: { [key: string]: MR_SubPage } = {};
+
+  mAction: MR_SubPageAreaActions;
 
   constructor(name?: string) {
     logger.debug(
@@ -13721,7 +13796,10 @@ export class MR_SubPageArea {
         name: name,
       })})`
     );
-    return new MR_SubPage(name);
+
+    const subPage = new MR_SubPage(name);
+    this.subPages[name] = subPage;
+    return subPage;
   }
 }
 

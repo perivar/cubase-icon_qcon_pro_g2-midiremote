@@ -41,7 +41,7 @@ import "./polyfill/stringPadStart";
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
 import midiremote_api = require("midiremote_api_v1");
 
-import { logger, MR_ActiveDevice } from "midiremote_api_v1";
+import { logger, MR_ActiveDevice, MR_ActiveMapping } from "midiremote_api_v1";
 
 import { decoratePage } from "./decorators/page";
 import { decorateSurface } from "./decorators/surface";
@@ -67,6 +67,9 @@ const activationCallbacks = deviceConnection.activationCallbacks;
 const segmentDisplayManager = deviceConnection.segmentDisplayManager;
 
 activationCallbacks.addCallback(() => {
+  if (process.env["NODE_ENV"] === "development") {
+    const SCRIPT_VERSION = "DEBUG";
+  }
   // @ts-expect-error The script version is filled in by postinstall
   console.log("Activating cubase-icon_qcon_pro_g2-midiremote v" + SCRIPT_VERSION);
   console.log(
@@ -113,7 +116,16 @@ devices.forEach((device) => {
 makeHostMapping(page, devices, segmentDisplayManager, globalBooleanVariables, activationCallbacks);
 
 if (process.env["NODE_ENV"] === "development") {
-  // run some events
+  // call MR_DeviceDriver mOnActivate
+  const activeDevice = new MR_ActiveDevice();
+  logger.info(
+    `Calling MR_DeviceDriver mOnActivate(${JSON.stringify({
+      activeDevice: activeDevice,
+    })})`
+  );
+  driver.mOnActivate(activeDevice);
+
+  // call channels mOnDisplayValueChange
   const channelElements: ChannelSurfaceElements = devices.flatMap(
     (device) => device.channelElements
   );
@@ -123,10 +135,27 @@ if (process.env["NODE_ENV"] === "development") {
     const channelIndex = channelObj[0];
     const channel = channelObj[1];
 
-    channel.encoder.mEncoderValue.mOnDisplayValueChange(
-      new MR_ActiveDevice(),
-      "Audio 00" + channelIndex,
-      "gram"
+    // parameters
+    const activeDevice = new MR_ActiveDevice();
+    const value = "Audio 00" + channelIndex;
+    const unit = "gram";
+
+    logger.info(
+      `Calling mEncoderValue mOnDisplayValueChange(${JSON.stringify({
+        activeDevice: activeDevice,
+        value: value,
+        unit: unit,
+      })})`
     );
+    channel.encoder.mEncoderValue.mOnDisplayValueChange(activeDevice, value, unit);
+  }
+
+  // call timer
+  const timerPageArea = page.subPageAreas["Timer"];
+  if (timerPageArea) {
+    const timerPage = timerPageArea.subPages["Timer Page"];
+    if (timerPage) {
+      timerPage.mOnActivate(activeDevice, new MR_ActiveMapping());
+    }
   }
 }
