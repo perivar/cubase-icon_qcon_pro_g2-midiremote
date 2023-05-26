@@ -51,6 +51,7 @@ import { bindDeviceToMidi, makeGlobalBooleanVariables } from "./midi";
 import { setupDeviceConnection } from "./midi/connection";
 import { ChannelSurfaceElements } from "./surface";
 import { makeTimerUtils } from "./util";
+import { debugCallMethod } from "./utils-debug";
 import { getArrayEntries } from "./utils-es5";
 
 // PIN: set device to Icon QCon Pro G2
@@ -67,14 +68,13 @@ const activationCallbacks = deviceConnection.activationCallbacks;
 const segmentDisplayManager = deviceConnection.segmentDisplayManager;
 
 activationCallbacks.addCallback(() => {
-  if (process.env["NODE_ENV"] === "development") {
-    const SCRIPT_VERSION = "DEBUG";
+  if (process.env["NODE_ENV"] !== "development") {
+    // @ts-expect-error The script version is filled in by postinstall
+    console.log("Activating cubase-icon_qcon_pro_g2-midiremote v" + SCRIPT_VERSION);
+    console.log(
+      "A newer version may be available at https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote"
+    );
   }
-  // @ts-expect-error The script version is filled in by postinstall
-  console.log("Activating cubase-icon_qcon_pro_g2-midiremote v" + SCRIPT_VERSION);
-  console.log(
-    "A newer version may be available at https://github.com/perivar/cubase-icon_qcon_pro_g2-midiremote"
-  );
 });
 
 const globalBooleanVariables = makeGlobalBooleanVariables(surface);
@@ -135,19 +135,70 @@ if (process.env["NODE_ENV"] === "development") {
     const channelIndex = channelObj[0];
     const channel = channelObj[1];
 
-    // parameters
     const activeDevice = new MR_ActiveDevice();
-    const value = "Audio 00" + channelIndex;
-    const unit = "gram";
 
-    logger.info(
-      `Calling mEncoderValue mOnDisplayValueChange(${JSON.stringify({
-        activeDevice: activeDevice,
-        value: value,
-        unit: unit,
-      })})`
+    // encoder
+    debugCallMethod(
+      "mEncoderValue.mOnDisplayValueChange",
+      channel.encoder.mEncoderValue.mOnDisplayValueChange,
+      [activeDevice, "Audio 00" + channelIndex, "gram"]
     );
-    channel.encoder.mEncoderValue.mOnDisplayValueChange(activeDevice, value, unit);
+    debugCallMethod(
+      "mEncoderValue.mOnProcessValueChange",
+      channel.encoder.mEncoderValue.mOnProcessValueChange,
+      [activeDevice, 0.5, 0]
+    );
+    debugCallMethod("mEncoderValue.mOnTitleChange", channel.encoder.mEncoderValue.mOnTitleChange, [
+      activeDevice,
+      "",
+      "Pan izquierda-derecha",
+    ]);
+
+    // faders
+    debugCallMethod(
+      "fader.mTouchedValueInternal.mOnProcessValueChange",
+      channel.fader.mTouchedValueInternal.mOnProcessValueChange,
+      [activeDevice, 0.75, 0]
+    );
+    debugCallMethod(
+      "fader.mSurfaceValue.mOnProcessValueChange",
+      channel.fader.mSurfaceValue.mOnProcessValueChange,
+      [activeDevice, 0.66, 1]
+    );
+    debugCallMethod(
+      "fader.mSurfaceValue.mOnTitleChange",
+      channel.fader.mSurfaceValue.mOnTitleChange,
+      [activeDevice, ""]
+    );
+
+    // buttons
+    debugCallMethod(
+      "buttons.solo.onSurfaceValueChange",
+      channel.buttons.solo.onSurfaceValueChange,
+      [activeDevice, 0.56, 0.45]
+    );
+    debugCallMethod(
+      "buttons.solo.mLedValue.mOnProcessValueChange",
+      channel.buttons.solo.mLedValue.mOnProcessValueChange,
+      [activeDevice, 0.23, 0.11]
+    );
+    debugCallMethod(
+      "buttons.solo.mSurfaceValue.mOnTitleChange",
+      channel.buttons.solo.mSurfaceValue.mOnTitleChange,
+      [activeDevice, ""]
+    );
+
+    // other
+    debugCallMethod(
+      "scribbleStrip.trackTitle.mOnTitleChange",
+      channel.scribbleStrip.trackTitle.mOnTitleChange,
+      [activeDevice, ""]
+    );
+    debugCallMethod("vuMeter.mOnProcessValueChange", channel.vuMeter.mOnProcessValueChange, [
+      activeDevice,
+      0.78,
+      0.5,
+    ]);
   }
 
   // call timer

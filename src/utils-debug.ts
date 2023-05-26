@@ -9,6 +9,8 @@ export let debugPageInformation = (
   _pages: EncoderPage[],
   _mixerBankChannels: MR_MixerBankChannel[]
 ) => {};
+export let debugCallMethod = (_fnName: string, _fn: any, _fnparams: any[]): void => {};
+
 if (process.env["NODE_ENV"] === "development") {
   debugPageInformation = (
     debugTitle: string,
@@ -47,5 +49,15 @@ if (process.env["NODE_ENV"] === "development") {
         2
       )})`
     );
+  };
+
+  debugCallMethod = (fnName: string, fn: any, fnparams: any[]): void => {
+    const params = fnparams.slice(1);
+    logger.info(`Calling ${fnName}(${JSON.stringify({ params: params })})`);
+
+    // is object a function?
+    if (typeof fn === "function") {
+      fn.apply(null, fnparams);
+    }
   };
 }
