@@ -1,10 +1,21 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true,
-  },
+  root: true, // Make sure eslint picks up the config at the root of the directory
+
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "import", "simple-import-sort", "unused-imports", "es"],
+
+  parserOptions: {
+    ecmaVersion: "latest", // Use the latest ecmascript standard
+    sourceType: "module", // Allows using import/export statements
+
+    // tsconfigRootDir: __dirname,
+    // project: ["./tsconfig.json"],
+  },
+
+  env: {
+    node: true, // Enables Node.js global variables and Node.js scoping.
+  },
+
+  plugins: ["import", "simple-import-sort", "unused-imports"],
 
   // applies to everything
   extends: ["plugin:prettier/recommended"],
@@ -13,27 +24,32 @@ module.exports = {
     "unused-imports/no-unused-imports-ts": "warn",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "no-empty-function": "off",
-    "prefer-rest-params": "off",
-    "prefer-spread": "off",
   },
 
   // https://stackoverflow.com/questions/58510287/parseroptions-project-has-been-set-for-typescript-eslint-parser
   overrides: [
     {
-      files: ["src/**/*.ts", "src/**/*.tsx"], // Your TypeScript files extension
+      files: "src/**/*.+(ts|tsx)",
+
+      parser: "@typescript-eslint/parser",
+
+      parserOptions: {
+        ecmaVersion: 5,
+        tsconfigRootDir: __dirname,
+        project: ["./tsconfig-es5.json"],
+      },
+
+      plugins: ["@typescript-eslint", "import", "simple-import-sort", "unused-imports", "es"],
 
       // As mentioned in the comments, you should extend TypeScript plugins here,
       // instead of extending them outside the `overrides`.
       // If you don't want to extend any rules, you don't need an `extends` attribute.
-      extends: ["plugin:@typescript-eslint/recommended", "plugin:es/restrict-to-es5"],
+      extends: [
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:es/restrict-to-es5",
+      ],
       rules: {
-        "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-        "@typescript-eslint/no-this-alias": "warn",
-        "@typescript-eslint/ban-ts-comment": "warn",
         "import/no-unresolved": "off",
         "unused-imports/no-unused-imports-ts": "warn",
         "simple-import-sort/imports": "error",
@@ -41,6 +57,13 @@ module.exports = {
         "no-empty-function": "off",
         "prefer-rest-params": "off",
         "prefer-spread": "off",
+
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+        "@typescript-eslint/no-this-alias": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
 
         "es/no-nullish-coalescing-operators": "off", // this converts fine by tsc
         "es/no-arrow-functions": "off", // allow arrow functions
@@ -59,12 +82,6 @@ module.exports = {
         "es/no-object-assign": "error",
         "es/no-math-log10": "error",
         "es/no-array-from": "error",
-      },
-
-      parserOptions: {
-        sourceType: "module",
-        tsconfigRootDir: __dirname,
-        project: ["./tsconfig.json"], // Specify it only for TypeScript files
       },
     },
   ],

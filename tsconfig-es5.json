@@ -1,0 +1,76 @@
+// Note! if there is no warnings then @types/node is probably auto-imported
+// https://github.com/microsoft/TypeScript/issues/32405
+//
+// fix to avoid auto-import of @types/node which cause the
+// typescript compiler to not output the correct warnings when targeting es5
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/21310#issuecomment-434329726
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/21310#issuecomment-343804830
+// https://github.com/microsoft/TypeScript/issues/18588#issuecomment-432247126
+// https://github.com/rollup/rollup/issues/2142#issuecomment-470217991
+
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    /* Type Checking */
+    "strict": true,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    // "noUncheckedIndexedAccess": true, // gives lots of possibly undefined errors
+    // "noImplicitAny": true,
+    "noImplicitThis": true,
+    // "useUnknownInCatchVariables": true,
+    // "noUnusedParameters": true, // gives lots of value is never read errors
+    "noImplicitReturns": true,
+
+    /* Modules */
+    "baseUrl": ".",
+    "paths": {
+      "midiremote_api_v1": ["api/v1/midiremote_api_v1"]
+      // "#pkg/*": ["./src/*"]
+    },
+    // exclude the @types/node using a dummy node-directory to get proper es5 warnings, make sure the dummy dir is first
+    // "typeRoots": ["types", "node_modules/@types"],
+    // "types": ["jest", "node"],
+    // Note! a better solution is to downgrade @types/node to "@types/node": "~16.0.0",
+    // as well as making a patch that removes references to later es versions from @types/node/index.d.ts
+
+    /* JavaScript Support */
+    "checkJs": true,
+
+    /* Emit */
+    "outDir": "./dist",
+    "removeComments": false,
+    "sourceMap": true,
+    "noEmit": false,
+    // "declaration": true,
+    // "declarationMap": true,
+    // "experimentalDecorators": true,
+    // "emitDecoratorMetadata": true,
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    // "verbatimModuleSyntax": true,
+
+    /* Language and Environment */
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES5",
+    "lib": ["ES5", "DOM"], // include DOM to support console.log
+    // "target": "ES2021",
+    // "lib": ["ES2021", "DOM"],
+
+    /* Projects */
+    // "incremental": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": ["src/"],
+  "exclude": ["**/node_modules"]
+}

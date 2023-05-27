@@ -22,6 +22,9 @@ module.exports = {
         use: [
           {
             loader: "ts-loader",
+            options: {
+              configFile: "tsconfig-es5.json",
+            },
           },
         ],
       },
