@@ -58,7 +58,6 @@
     "tsc-watch": "^6.0.4",
     "tsconfig-paths": "^4.2.0",
     "tsup": "^6.7.0",
-    "type-fest": "^3.11.0",
     "typescript": "^5.0.4",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1",
