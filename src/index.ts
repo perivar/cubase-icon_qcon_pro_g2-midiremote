@@ -1,14 +1,15 @@
 // core-js polyfills
 import "core-js/es/array/iterator"; // required for tsup when using classes and iterators
-// import "core-js/es/array/from";
-// import "core-js/es/array/reverse";
+import "core-js/es/array/from";
+import "core-js/es/array/reverse";
 import "core-js/es/array/flat-map";
 import "core-js/es/string/pad-start";
-// import "core-js/es/string/replace-all";
-// import "core-js/es/object/entries";
+import "core-js/es/string/replace-all";
+import "core-js/es/object/entries";
 import "core-js/es/reflect/construct"; // required for tsup when using classes and extending them
-// Workaround because the core-js polyfill doesn't play nice with SWC:
-// Reflect.get = undefined
+
+// @ts-expect-error Workaround because the core-js polyfill doesn't play nice with SWC:
+Reflect.get = undefined;
 
 // To test in es5 mode - first undefine the polyfilled methods
 // Object.defineProperty(Array.prototype, "flatMap", {
