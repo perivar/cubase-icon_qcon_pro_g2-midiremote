@@ -32,7 +32,8 @@ Reflect.get = undefined;
 //   enumerable: true,
 //   value: undefined,
 // });
-// own polyfills
+
+// Own polyfills
 // import "./polyfill/arrayFlatMap";
 // import "./polyfill/stringPadStart";
 // import "./polyfill/mathLog10";
@@ -41,18 +42,13 @@ Reflect.get = undefined;
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
 import midiremote_api = require("midiremote_api_v1");
 
-import { logger, MR_ActiveDevice, MR_ActiveMapping } from "midiremote_api_v1";
-
 import { decoratePage } from "./decorators/page";
 import { decorateSurface } from "./decorators/surface";
-import { Devices, MainDevice } from "./Devices";
+import { Devices } from "./Devices";
 import { makeHostMapping } from "./mapping";
 import { bindDeviceToMidi, makeGlobalBooleanVariables } from "./midi";
 import { setupDeviceConnection } from "./midi/connection";
-import { ChannelSurfaceElements } from "./surface";
 import { makeTimerUtils } from "./util";
-import { debugCallMethod } from "./utils-debug";
-import { getArrayEntries } from "./utils-es5";
 
 // PIN: set device to Icon QCon Pro G2
 const driver = midiremote_api.makeDeviceDriver("Icon", "QCon Pro G2", "Nerseth");
@@ -91,122 +87,7 @@ const timerUtils = makeTimerUtils(page, surface);
 // Bind elements to MIDI
 devices.forEach((device) => {
   bindDeviceToMidi(device, globalBooleanVariables, activationCallbacks, timerUtils);
-
-  if (process.env["NODE_ENV"] === "development") {
-    if (device instanceof MainDevice) {
-      const controlSectionElements = device.controlSectionElements;
-      const channelElements = device.channelElements;
-
-      // PIN: REMOVE ME
-      logger.warn(
-        `bindDeviceToMidi(${JSON.stringify(
-          {
-            channelElements: channelElements,
-            controlSectionElements: controlSectionElements,
-          },
-          null,
-          2
-        )})`
-      );
-    }
-  }
 });
 
 // Map elements to host functions
 makeHostMapping(page, devices, segmentDisplayManager, globalBooleanVariables, activationCallbacks);
-
-if (process.env["NODE_ENV"] === "development") {
-  // call MR_DeviceDriver mOnActivate
-  const activeDevice = new MR_ActiveDevice();
-  logger.info(
-    `Calling MR_DeviceDriver mOnActivate(${JSON.stringify({
-      activeDevice: activeDevice,
-    })})`
-  );
-  driver.mOnActivate(activeDevice);
-
-  // call channels mOnDisplayValueChange
-  const channelElements: ChannelSurfaceElements = devices.flatMap(
-    (device) => device.channelElements
-  );
-
-  for (let i = 0, arr = getArrayEntries(channelElements); i < arr.length; i++) {
-    const channelObj = arr[i];
-    const channelIndex = channelObj[0];
-    const channel = channelObj[1];
-
-    const activeDevice = new MR_ActiveDevice();
-
-    // encoder
-    debugCallMethod(
-      "mEncoderValue.mOnDisplayValueChange",
-      channel.encoder.mEncoderValue.mOnDisplayValueChange,
-      [activeDevice, "Audio 00" + channelIndex, "gram"]
-    );
-    debugCallMethod(
-      "mEncoderValue.mOnProcessValueChange",
-      channel.encoder.mEncoderValue.mOnProcessValueChange,
-      [activeDevice, 0.5, 0]
-    );
-    debugCallMethod("mEncoderValue.mOnTitleChange", channel.encoder.mEncoderValue.mOnTitleChange, [
-      activeDevice,
-      "",
-      "Pan izquierda-derecha",
-    ]);
-
-    // faders
-    debugCallMethod(
-      "fader.mTouchedValueInternal.mOnProcessValueChange",
-      channel.fader.mTouchedValueInternal.mOnProcessValueChange,
-      [activeDevice, 0.75, 0]
-    );
-    debugCallMethod(
-      "fader.mSurfaceValue.mOnProcessValueChange",
-      channel.fader.mSurfaceValue.mOnProcessValueChange,
-      [activeDevice, 0.66, 1]
-    );
-    debugCallMethod(
-      "fader.mSurfaceValue.mOnTitleChange",
-      channel.fader.mSurfaceValue.mOnTitleChange,
-      [activeDevice, ""]
-    );
-
-    // buttons
-    debugCallMethod(
-      "buttons.solo.onSurfaceValueChange",
-      channel.buttons.solo.onSurfaceValueChange,
-      [activeDevice, 0.56, 0.45]
-    );
-    debugCallMethod(
-      "buttons.solo.mLedValue.mOnProcessValueChange",
-      channel.buttons.solo.mLedValue.mOnProcessValueChange,
-      [activeDevice, 0.23, 0.11]
-    );
-    debugCallMethod(
-      "buttons.solo.mSurfaceValue.mOnTitleChange",
-      channel.buttons.solo.mSurfaceValue.mOnTitleChange,
-      [activeDevice, ""]
-    );
-
-    // other
-    debugCallMethod(
-      "scribbleStrip.trackTitle.mOnTitleChange",
-      channel.scribbleStrip.trackTitle.mOnTitleChange,
-      [activeDevice, ""]
-    );
-    debugCallMethod("vuMeter.mOnProcessValueChange", channel.vuMeter.mOnProcessValueChange, [
-      activeDevice,
-      0.78,
-      0.5,
-    ]);
-  }
-
-  // call timer
-  const timerPageArea = page.subPageAreas["Timer"];
-  if (timerPageArea) {
-    const timerPage = timerPageArea.subPages["Timer Page"];
-    if (timerPage) {
-      timerPage.mOnActivate(activeDevice, new MR_ActiveMapping());
-    }
-  }
-}

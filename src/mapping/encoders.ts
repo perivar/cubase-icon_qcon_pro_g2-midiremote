@@ -1,4 +1,4 @@
-import { logger, mDefaults, MR_HostValue, MR_MixerBankChannel } from "midiremote_api_v1";
+import { mDefaults, MR_HostValue, MR_MixerBankChannel } from "midiremote_api_v1";
 
 import { config } from "../config";
 import { DecoratedFactoryMappingPage } from "../decorators/page";
@@ -7,7 +7,6 @@ import { EncoderDisplayMode, GlobalBooleanVariables } from "../midi";
 import { SegmentDisplayManager } from "../midi/managers/SegmentDisplayManager";
 import { ChannelSurfaceElements } from "../surface";
 import { createElements, makeCallbackCollection } from "../util";
-import { debugPageInformation } from "../utils-debug";
 import { getArrayEntries, mergeOptions } from "../utils-es5";
 
 export interface EncoderAssignment {
@@ -57,16 +56,6 @@ export const bindEncoders = (
   const bindEncoderAssignments = (assignmentButtonId: number, pages: EncoderPage[]) => {
     const encoderPageSize = channelElements.length;
 
-    if (process.env["NODE_ENV"] === "development") {
-      // PIN: REMOVE ME
-      debugPageInformation(
-        "encoder-asssignments-pre-split",
-        assignmentButtonId,
-        pages,
-        mixerBankChannels
-      );
-    }
-
     // Split each encoder page with more encoder assignments than physical encoders into multiple
     // pages
     pages = pages.flatMap((page) => {
@@ -84,16 +73,6 @@ export const bindEncoders = (
 
       return page;
     });
-
-    if (process.env["NODE_ENV"] === "development") {
-      // PIN: REMOVE ME
-      debugPageInformation(
-        "encoder-asssignments-post-split",
-        assignmentButtonId,
-        pages,
-        mixerBankChannels
-      );
-    }
 
     // Create the corresponding sub pages and bindings for each encoder page
     const createdSubPages = pages.map((pageInfo, encoderPageIndex) => {
@@ -220,26 +199,6 @@ export const bindEncoders = (
         });
       }
 
-      if (process.env["NODE_ENV"] === "development") {
-        // PIN: REMOVE ME
-        logger.warn(
-          `createdSubPages(${JSON.stringify(
-            {
-              index: encoderPageIndex,
-              pageName: pageName,
-              assignmentsConfig: assignmentsConfig,
-              areAssignmentsChannelRelated: areAssignmentsChannelRelated,
-
-              subPageName: subPageName,
-              subPage: subPage,
-              flipSubPage: flipSubPage,
-            },
-            null,
-            2
-          )})`
-        );
-      }
-
       return { subPage: subPage, flipSubPage: flipSubPage };
     });
 
@@ -269,34 +228,6 @@ export const bindEncoders = (
 
         previousSubPages = currentSubPages;
       }
-
-      if (process.env["NODE_ENV"] === "development") {
-        // PIN: REMOVE ME
-        logger.warn(
-          `bind-cycle-sub-pages(${JSON.stringify(
-            {
-              i: i,
-              buttons: buttons,
-              page: page,
-            },
-            null,
-            2
-          )})`
-        );
-      }
-    }
-
-    if (process.env["NODE_ENV"] === "development") {
-      // PIN: REMOVE ME
-      logger.warn(
-        `created-sub-pages(${JSON.stringify(
-          {
-            createdSubPages: createdSubPages,
-          },
-          null,
-          2
-        )})`
-      );
     }
 
     return createdSubPages;
