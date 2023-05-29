@@ -2,10 +2,4 @@ node_modules/
 dist/
 .api/
 .env
-error.log
-debug.log
-info.log
-yarn-error.log
-warn.log
-warn polyfill.log
-warn es2021.log
+*.log

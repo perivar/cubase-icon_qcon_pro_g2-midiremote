@@ -13,9 +13,8 @@ const formatMeta = (meta: { [key: string]: any[] }) => {
 };
 
 const customFormat = format.printf((info) => {
-  return `[${info["timestamp"]}] ${info["level"]}\t ${info["label"] ?? ""} ${
-    info["message"]
-  } ${formatMeta(info["meta"])}`;
+  // [${info["timestamp"]}]
+  return `${info["level"]}\t ${info["label"] ?? ""} ${info["message"]} ${formatMeta(info["meta"])}`;
 });
 
 export const logger = createLogger({
