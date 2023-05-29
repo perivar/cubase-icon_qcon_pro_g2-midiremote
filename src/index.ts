@@ -36,7 +36,7 @@
 import "./polyfill/arrayFlatMap";
 import "./polyfill/stringPadStart";
 // import "./polyfill/mathLog10";
-// import './polyfill/objectAssign';
+// import "./polyfill/objectAssign";
 
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
 import midiremote_api = require("midiremote_api_v1");

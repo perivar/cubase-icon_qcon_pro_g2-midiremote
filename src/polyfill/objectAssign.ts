@@ -1,7 +1,7 @@
 /* eslint-disable es/no-object-assign */
 declare global {
-  interface Object {
-    assign(target: any, ...rest: any): any;
+  interface ObjectConstructor {
+    assign(target: object, ...sources: any[]): any;
   }
 }
 

@@ -2601,9 +2601,9 @@ export class MR_Page {
   class = "MR_Page";
   name: string | undefined;
 
-  // valueBindings: MR_ValueBinding[] = [];
-  // commandBindings: MR_CommandBinding[] = [];
-  // actionBindings: MR_ActionBinding[] = [];
+  valueBindings: MR_ValueBinding[] = [];
+  commandBindings: MR_CommandBinding[] = [];
+  actionBindings: MR_ActionBinding[] = [];
   subPageAreas: { [key: string]: MR_SubPageArea } = {};
 
   constructor(name?: string) {
@@ -2631,7 +2631,7 @@ export class MR_Page {
     );
 
     const valueBinding = new MR_ValueBinding(surfaceValue, hostValue);
-    // this.valueBindings.push(valueBinding);
+    this.valueBindings.push(valueBinding);
     return valueBinding;
   }
 
@@ -2655,7 +2655,7 @@ export class MR_Page {
     );
 
     const commandBinding = new MR_CommandBinding(surfaceValue, commandCategory, commandName);
-    // this.commandBindings.push(commandBinding);
+    this.commandBindings.push(commandBinding);
     return commandBinding;
   }
 
@@ -2673,7 +2673,7 @@ export class MR_Page {
     );
 
     const actionBinding = new MR_ActionBinding(surfaceValue, hostAction);
-    // this.actionBindings.push(actionBinding);
+    this.actionBindings.push(actionBinding);
     return actionBinding;
   }
 
@@ -2689,7 +2689,7 @@ export class MR_Page {
     );
 
     const subPageArea = new MR_SubPageArea(name);
-    // this.subPageAreas[name] = subPageArea;
+    this.subPageAreas[name] = subPageArea;
     return subPageArea;
   }
 
@@ -2810,7 +2810,7 @@ export class MR_FactoryMappingPage extends MR_Page {
     );
 
     const valueBinding = new MR_ValueBinding(surfaceValue, hostValue);
-    // this.valueBindings.push(valueBinding);
+    this.valueBindings.push(valueBinding);
     return valueBinding;
   }
 
@@ -2834,7 +2834,7 @@ export class MR_FactoryMappingPage extends MR_Page {
     );
 
     const commandBinding = new MR_CommandBinding(surfaceValue, commandCategory, commandName);
-    // this.commandBindings.push(commandBinding);
+    this.commandBindings.push(commandBinding);
     return commandBinding;
   }
 
@@ -2855,7 +2855,7 @@ export class MR_FactoryMappingPage extends MR_Page {
     );
 
     const actionBinding = new MR_ActionBinding(surfaceValue, hostAction);
-    // this.actionBindings.push(actionBinding);
+    this.actionBindings.push(actionBinding);
     return actionBinding;
   }
 
@@ -13311,6 +13311,10 @@ export class MR_HostBinding {
   class = "MR_HostBinding";
 
   subPage: MR_SubPage | undefined;
+  filterValue: number | undefined;
+  from: number | undefined;
+  to: number | undefined;
+  mapValue: number | undefined;
 
   constructor() {
     logger.debug("MR_HostBinding: constructor()");
@@ -13341,6 +13345,7 @@ export class MR_HostBinding {
         filterValue: filterValue,
       })})`
     );
+    this.filterValue = filterValue;
     return this;
   }
 
@@ -13356,6 +13361,8 @@ export class MR_HostBinding {
         to: to,
       })})`
     );
+    this.from = from;
+    this.to = to;
     return this;
   }
 
@@ -13369,6 +13376,7 @@ export class MR_HostBinding {
         mapValue: mapValue,
       })})`
     );
+    this.mapValue = mapValue;
     return this;
   }
 
@@ -13384,6 +13392,8 @@ export class MR_HostBinding {
         to: to,
       })})`
     );
+    this.from = from;
+    this.to = to;
     return this;
   }
 }
@@ -13393,6 +13403,12 @@ export class MR_HostBinding {
  * @augments MR_HostBinding
  */
 export class MR_ValueBinding extends MR_HostBinding {
+  typeDefault: boolean | undefined;
+  typeToggle: boolean | undefined;
+  valueTakeOverModeJump: boolean | undefined;
+  valueTakeOverModePickup: boolean | undefined;
+  valueTakeOverModeScaled: boolean | undefined;
+
   mOnValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -13421,6 +13437,7 @@ export class MR_ValueBinding extends MR_HostBinding {
    */
   setTypeDefault(): MR_ValueBinding {
     logger.info(`MR_ValueBinding: setTypeDefault()`);
+    this.typeDefault = true;
     return this;
   }
 
@@ -13429,6 +13446,7 @@ export class MR_ValueBinding extends MR_HostBinding {
    */
   setTypeToggle(): MR_ValueBinding {
     logger.info(`MR_ValueBinding: setTypeToggle()`);
+    this.typeToggle = true;
     return this;
   }
 
@@ -13437,6 +13455,7 @@ export class MR_ValueBinding extends MR_HostBinding {
    */
   setValueTakeOverModeJump(): MR_ValueBinding {
     logger.info(`MR_ValueBinding: setValueTakeOverModeJump()`);
+    this.valueTakeOverModeJump = true;
     return this;
   }
 
@@ -13445,6 +13464,7 @@ export class MR_ValueBinding extends MR_HostBinding {
    */
   setValueTakeOverModePickup(): MR_ValueBinding {
     logger.info(`MR_ValueBinding: setValueTakeOverModePickup()`);
+    this.valueTakeOverModePickup = true;
     return this;
   }
 
@@ -13453,6 +13473,7 @@ export class MR_ValueBinding extends MR_HostBinding {
    */
   setValueTakeOverModeScaled(): MR_ValueBinding {
     logger.info(`MR_ValueBinding: setValueTakeOverModeScaled()`);
+    this.valueTakeOverModeScaled = true;
     return this;
   }
 
@@ -13480,7 +13501,8 @@ export class MR_ValueBinding extends MR_HostBinding {
         filterValue: filterValue,
       })})`
     );
-    return new MR_ValueBinding();
+    this.filterValue = filterValue;
+    return this;
   }
 
   /**
@@ -13495,7 +13517,9 @@ export class MR_ValueBinding extends MR_HostBinding {
         to: to,
       })})`
     );
-    return new MR_ValueBinding();
+    this.from = from;
+    this.to = to;
+    return this;
   }
 
   /**
@@ -13508,7 +13532,8 @@ export class MR_ValueBinding extends MR_HostBinding {
         mapValue: mapValue,
       })})`
     );
-    return new MR_ValueBinding();
+    this.mapValue = mapValue;
+    return this;
   }
 
   /**
@@ -13523,7 +13548,9 @@ export class MR_ValueBinding extends MR_HostBinding {
         to: to,
       })})`
     );
-    return new MR_ValueBinding();
+    this.from = from;
+    this.to = to;
+    return this;
   }
 }
 
@@ -13532,6 +13559,8 @@ export class MR_ValueBinding extends MR_HostBinding {
  * @augments MR_HostBinding
  */
 export class MR_CommandBinding extends MR_HostBinding {
+  repeating: MR_Repeating | undefined;
+
   mOnValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -13567,7 +13596,8 @@ export class MR_CommandBinding extends MR_HostBinding {
         rateHz: rateHz,
       })})`
     );
-    return new MR_Repeating();
+    this.repeating = new MR_Repeating(delaySeconds, rateHz);
+    return this.repeating;
   }
 
   /**
@@ -13580,6 +13610,7 @@ export class MR_CommandBinding extends MR_HostBinding {
         subPage: subPage,
       })})`
     );
+    this.subPage = subPage;
     return this;
   }
 
@@ -13593,7 +13624,8 @@ export class MR_CommandBinding extends MR_HostBinding {
         filterValue: filterValue,
       })})`
     );
-    return new MR_CommandBinding();
+    this.filterValue = filterValue;
+    return this;
   }
 
   /**
@@ -13608,7 +13640,9 @@ export class MR_CommandBinding extends MR_HostBinding {
         to: to,
       })})`
     );
-    return new MR_CommandBinding();
+    this.from = from;
+    this.to = to;
+    return this;
   }
 
   /**
@@ -13621,7 +13655,8 @@ export class MR_CommandBinding extends MR_HostBinding {
         mapValue: mapValue,
       })})`
     );
-    return new MR_CommandBinding();
+    this.mapValue = mapValue;
+    return this;
   }
 
   /**
@@ -13636,7 +13671,9 @@ export class MR_CommandBinding extends MR_HostBinding {
         to: to,
       })})`
     );
-    return new MR_CommandBinding();
+    this.from = from;
+    this.to = to;
+    return this;
   }
 }
 
@@ -13645,6 +13682,8 @@ export class MR_CommandBinding extends MR_HostBinding {
  * @augments MR_HostBinding
  */
 export class MR_ActionBinding extends MR_HostBinding {
+  repeating: MR_Repeating | undefined;
+
   mOnValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -13680,7 +13719,8 @@ export class MR_ActionBinding extends MR_HostBinding {
         rateHz: rateHz,
       })})`
     );
-    return new MR_Repeating();
+    this.repeating = new MR_Repeating(delaySeconds, rateHz);
+    return this.repeating;
   }
 
   /**
@@ -13693,6 +13733,7 @@ export class MR_ActionBinding extends MR_HostBinding {
         subPage: subPage,
       })})`
     );
+    this.subPage = subPage;
     return this;
   }
 
@@ -13706,7 +13747,8 @@ export class MR_ActionBinding extends MR_HostBinding {
         filterValue: filterValue,
       })})`
     );
-    return new MR_ActionBinding();
+    this.filterValue = filterValue;
+    return this;
   }
 
   /**
@@ -13721,7 +13763,9 @@ export class MR_ActionBinding extends MR_HostBinding {
         to: to,
       })})`
     );
-    return new MR_ActionBinding();
+    this.from = from;
+    this.to = to;
+    return this;
   }
 
   /**
@@ -13734,7 +13778,8 @@ export class MR_ActionBinding extends MR_HostBinding {
         mapValue: mapValue,
       })})`
     );
-    return new MR_ActionBinding();
+    this.mapValue = mapValue;
+    return this;
   }
 
   /**
@@ -13749,7 +13794,9 @@ export class MR_ActionBinding extends MR_HostBinding {
         to: to,
       })})`
     );
-    return new MR_ActionBinding();
+    this.from = from;
+    this.to = to;
+    return this;
   }
 }
 
@@ -13890,8 +13937,18 @@ export class MR_SubPageActions {
 export class MR_Repeating {
   class = "MR_Repeating";
 
-  constructor() {
-    logger.debug("MR_Repeating: constructor()");
+  delaySeconds: number | undefined;
+  rateHz: number | undefined;
+
+  constructor(delaySeconds: number, rateHz: number) {
+    logger.debug(
+      `MR_Repeating: constructor(${JSON.stringify({
+        delaySeconds,
+        rateHz,
+      })})`
+    );
+    this.delaySeconds = delaySeconds;
+    this.rateHz = rateHz;
   }
 }
 
