@@ -68,14 +68,15 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
       const currentSurfaceValue = new ContextStateVariable(0);
       button.mSurfaceValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, note);
       button.onSurfaceValueChange.addCallback((context, newValue) => {
-        console.log("button surface value changed to " + newValue + " for " + note);
+        // console.log("button surface value changed to " + newValue + " for " + note);
+
         currentSurfaceValue.set(context, newValue);
         ports.output.sendNoteOn(context, note, newValue || currentLedValue.get(context));
       });
 
       const currentLedValue = new ContextStateVariable(0);
       button.mLedValue.mOnProcessValueChange = (context, newValue) => {
-        console.log("button led value changed to " + newValue + " for " + note);
+        // console.log("button led value changed to " + newValue + " for " + note);
 
         currentLedValue.set(context, newValue);
         ports.output.sendNoteOn(context, note, newValue);
@@ -86,7 +87,7 @@ export const decorateSurface = (surface: MR_DeviceSurface) => {
       // pressed.
       shadowValue.mMidiBinding.setInputPort(ports.input).bindToNote(0, note);
       shadowValue.mOnProcessValueChange = (context, newValue) => {
-        console.log("button shadow led value changed to " + newValue + " for " + note);
+        // console.log("button shadow led value changed to " + newValue + " for " + note);
 
         ports.output.sendNoteOn(
           context,
