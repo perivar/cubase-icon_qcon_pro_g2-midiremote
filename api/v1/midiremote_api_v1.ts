@@ -1080,6 +1080,8 @@ export class MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_PushEncoder extends MR_SurfaceElement {
+  controlLayer: MR_ControlLayer | undefined;
+
   mEncoderValue: MR_SurfaceElementValue;
   mPushValue: MR_SurfaceElementValue;
 
@@ -1120,6 +1122,7 @@ export class MR_PushEncoder extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1129,6 +1132,8 @@ export class MR_PushEncoder extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Knob extends MR_SurfaceElement {
+  controlLayer: MR_ControlLayer | undefined;
+
   mSurfaceValue: MR_SurfaceElementValue;
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1163,6 +1168,7 @@ export class MR_Knob extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1172,6 +1178,10 @@ export class MR_Knob extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Fader extends MR_SurfaceElement {
+  typeVertical: boolean | undefined;
+  typeHorizontal: boolean | undefined;
+  controlLayer: MR_ControlLayer | undefined;
+
   mSurfaceValue: MR_SurfaceElementValue;
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1201,6 +1211,7 @@ export class MR_Fader extends MR_SurfaceElement {
   setTypeVertical(): MR_Fader {
     logger.info(`MR_Fader: setTypeVertical()`);
 
+    this.typeVertical = true;
     return this;
   }
 
@@ -1210,6 +1221,7 @@ export class MR_Fader extends MR_SurfaceElement {
   setTypeHorizontal(): MR_Fader {
     logger.info(`MR_Fader: setTypeVertical()`);
 
+    this.typeHorizontal = true;
     return this;
   }
 
@@ -1224,6 +1236,7 @@ export class MR_Fader extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1233,6 +1246,12 @@ export class MR_Fader extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Button extends MR_SurfaceElement {
+  typePush: boolean | undefined;
+  typeToggle: boolean | undefined;
+  shapeRectangle: boolean | undefined;
+  shapeCircle: boolean | undefined;
+  controlLayer: MR_ControlLayer | undefined;
+
   mSurfaceValue: MR_SurfaceElementValue;
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1262,6 +1281,7 @@ export class MR_Button extends MR_SurfaceElement {
   setTypePush(): MR_Button {
     logger.info(`MR_Button: setTypePush()`);
 
+    this.typePush = true;
     return this;
   }
 
@@ -1271,6 +1291,7 @@ export class MR_Button extends MR_SurfaceElement {
   setTypeToggle(): MR_Button {
     logger.info(`MR_Button: setTypeToggle()`);
 
+    this.typeToggle = true;
     return this;
   }
 
@@ -1280,6 +1301,7 @@ export class MR_Button extends MR_SurfaceElement {
   setShapeRectangle(): MR_Button {
     logger.info(`MR_Button: setShapeRectangle()`);
 
+    this.shapeRectangle = true;
     return this;
   }
 
@@ -1289,6 +1311,7 @@ export class MR_Button extends MR_SurfaceElement {
   setShapeCircle(): MR_Button {
     logger.info(`MR_Button: setShapeCircle()`);
 
+    this.shapeCircle = true;
     return this;
   }
 
@@ -1303,6 +1326,7 @@ export class MR_Button extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1312,6 +1336,8 @@ export class MR_Button extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_ModWheel extends MR_SurfaceElement {
+  controlLayer: MR_ControlLayer | undefined;
+
   mSurfaceValue: MR_SurfaceElementValue;
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1346,6 +1372,7 @@ export class MR_ModWheel extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1355,6 +1382,8 @@ export class MR_ModWheel extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_PitchBend extends MR_SurfaceElement {
+  controlLayer: MR_ControlLayer | undefined;
+
   mSurfaceValue: MR_SurfaceElementValue;
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1389,6 +1418,7 @@ export class MR_PitchBend extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1398,6 +1428,8 @@ export class MR_PitchBend extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_TriggerPad extends MR_SurfaceElement {
+  controlLayer: MR_ControlLayer | undefined;
+
   mSurfaceValue: MR_SurfaceElementValue;
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1432,6 +1464,7 @@ export class MR_TriggerPad extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1441,6 +1474,8 @@ export class MR_TriggerPad extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_PadXY extends MR_SurfaceElement {
+  controlLayer: MR_ControlLayer | undefined;
+
   mX: MR_SurfaceElementValue;
   mY: MR_SurfaceElementValue;
 
@@ -1481,6 +1516,7 @@ export class MR_PadXY extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1490,6 +1526,8 @@ export class MR_PadXY extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_JoyStickXY extends MR_SurfaceElement {
+  controlLayer: MR_ControlLayer | undefined;
+
   mX: MR_SurfaceElementValue;
   mY: MR_SurfaceElementValue;
 
@@ -1530,6 +1568,7 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
       })})`
     );
 
+    this.controlLayer = controlLayer;
     return this;
   }
 }
@@ -1539,6 +1578,9 @@ export class MR_JoyStickXY extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_Lamp extends MR_SurfaceElement {
+  shapeRectangle: boolean | undefined;
+  shapeCircle: boolean | undefined;
+
   mSurfaceValue: MR_SurfaceElementValue;
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1568,6 +1610,7 @@ export class MR_Lamp extends MR_SurfaceElement {
   setShapeRectangle(): MR_Lamp {
     logger.info(`MR_Lamp: setShapeRectangle()`);
 
+    this.shapeRectangle = true;
     return this;
   }
 
@@ -1577,6 +1620,7 @@ export class MR_Lamp extends MR_SurfaceElement {
   setShapeCircle(): MR_Lamp {
     logger.info(`MR_Lamp: setShapeCircle()`);
 
+    this.shapeCircle = true;
     return this;
   }
 }
@@ -1586,6 +1630,9 @@ export class MR_Lamp extends MR_SurfaceElement {
  * @augments MR_SurfaceElement
  */
 export class MR_BlindPanel extends MR_SurfaceElement {
+  shapeRectangle: boolean | undefined;
+  shapeCircle: boolean | undefined;
+
   constructor(x: number, y: number, w: number, h: number) {
     super(x, y, w, h);
 
@@ -1608,6 +1655,7 @@ export class MR_BlindPanel extends MR_SurfaceElement {
   setShapeRectangle(): MR_BlindPanel {
     logger.info(`MR_BlindPanel: setShapeRectangle()`);
 
+    this.shapeRectangle = true;
     return this;
   }
 
@@ -1617,6 +1665,7 @@ export class MR_BlindPanel extends MR_SurfaceElement {
   setShapeCircle(): MR_BlindPanel {
     logger.info(`MR_BlindPanel: setShapeCircle()`);
 
+    this.shapeCircle = true;
     return this;
   }
 }
@@ -1654,6 +1703,8 @@ export class MR_PianoKeys extends MR_SurfaceElement {
  * @class MR_SurfaceLabelField
  */
 export class MR_SurfaceLabelField {
+  surfaceElement: MR_SurfaceLabelField | undefined;
+
   class = "MR_SurfaceLabelField";
 
   constructor(x: number, y: number, w: number, h: number) {
@@ -1678,7 +1729,8 @@ export class MR_SurfaceLabelField {
       })})`
     );
 
-    return new MR_SurfaceLabelField(0, 0, 0, 0);
+    this.surfaceElement = new MR_SurfaceLabelField(0, 0, 0, 0);
+    return this.surfaceElement;
   }
 }
 
@@ -1687,6 +1739,7 @@ export class MR_SurfaceLabelField {
  */
 export class MR_ControlLayerZone {
   name: string | undefined;
+  controlLayers: MR_ControlLayer[] = [];
 
   constructor(name?: string) {
     logger.debug(
@@ -1710,7 +1763,9 @@ export class MR_ControlLayerZone {
       })})`
     );
 
-    return new MR_ControlLayer(name);
+    const controlLayer = new MR_ControlLayer(name);
+    this.controlLayers.push(controlLayer);
+    return controlLayer;
   }
 }
 
@@ -1739,6 +1794,8 @@ export class MR_ControlLayer {
 export class MR_SurfaceValue {
   class = "MR_SurfaceValue";
   name: string | undefined;
+  value: number | undefined;
+  activeDevice: MR_ActiveDevice | undefined;
 
   constructor(name?: string) {
     logger.debug(
@@ -1762,6 +1819,9 @@ export class MR_SurfaceValue {
         value: value,
       })})`
     );
+
+    this.activeDevice = activeDevice;
+    this.value = value;
   }
 
   /**
@@ -1772,7 +1832,8 @@ export class MR_SurfaceValue {
     logger.debug(
       `MR_SurfaceValue: getProcessValue(${JSON.stringify({ activeDevice: activeDevice })})`
     );
-    return -1;
+
+    return this.value ?? -1;
   }
 }
 
@@ -1855,6 +1916,9 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
         value: value,
       })})`
     );
+
+    this.activeDevice = activeDevice;
+    this.value = value;
   }
 
   /**
@@ -1867,7 +1931,8 @@ export class MR_SurfaceElementValue extends MR_SurfaceValue {
         activeDevice: activeDevice,
       })})`
     );
-    return -1;
+
+    return this.value ?? -1;
   }
 }
 
@@ -1954,6 +2019,9 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
         value: value,
       })})`
     );
+
+    this.activeDevice = activeDevice;
+    this.value = value;
   }
 
   /**
@@ -1966,7 +2034,8 @@ export class MR_SurfaceCustomValueVariable extends MR_SurfaceValue {
         activeDevice: activeDevice,
       })})`
     );
-    return -1;
+
+    return this.value ?? -1;
   }
 }
 
@@ -3628,7 +3697,7 @@ export class MR_MixerBankChannel extends MR_HostObject {
     /**
      * @property
      */
-    this.mValue = new MR_MixerChannelValues();
+    this.mValue = new MR_MixerChannelValues(channelNumber);
 
     /**
      * @property
@@ -6108,6 +6177,8 @@ export class MR_ControlRoomCueSendSlot extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_MixerChannelValues extends MR_HostObject {
+  mixerChannel: number | undefined;
+
   mVolume: MR_VolumeValue;
   mPan: MR_PanValue;
   mMute: MR_MuteValue;
@@ -6123,6 +6194,7 @@ export class MR_MixerChannelValues extends MR_HostObject {
   mVUMeterMax: MR_VUMeterMaxValue;
   mVUMeterClip: MR_VUMeterClipValue;
   mVUMeterPeak: MR_VUMeterPeakValue;
+
   mOnTitleChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -6138,7 +6210,7 @@ export class MR_MixerChannelValues extends MR_HostObject {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_MixerChannelValues: constructor()");
@@ -6146,80 +6218,83 @@ export class MR_MixerChannelValues extends MR_HostObject {
     // define class-name
     this.class = "MR_MixerChannelValues";
 
-    /**
-     * @property
-     */
-    this.mVolume = new MR_VolumeValue();
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
      */
-    this.mPan = new MR_PanValue();
+    this.mVolume = new MR_VolumeValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mMute = new MR_MuteValue();
+    this.mPan = new MR_PanValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mSolo = new MR_SoloValue();
+    this.mMute = new MR_MuteValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mMonitorEnable = new MR_MonitorEnableValue();
+    this.mSolo = new MR_SoloValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mRecordEnable = new MR_RecordEnableValue();
+    this.mMonitorEnable = new MR_MonitorEnableValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mEditorOpen = new MR_EditorOpenValue();
+    this.mRecordEnable = new MR_RecordEnableValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mInstrumentOpen = new MR_InstrumentOpenValue();
+    this.mEditorOpen = new MR_EditorOpenValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mSelected = new MR_SelectedValue();
+    this.mInstrumentOpen = new MR_InstrumentOpenValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mAutomationRead = new MR_AutomationReadValue();
+    this.mSelected = new MR_SelectedValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mAutomationWrite = new MR_AutomationWriteValue();
+    this.mAutomationRead = new MR_AutomationReadValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mVUMeter = new MR_VUMeterValue();
+    this.mAutomationWrite = new MR_AutomationWriteValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mVUMeterMax = new MR_VUMeterMaxValue();
+    this.mVUMeter = new MR_VUMeterValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mVUMeterClip = new MR_VUMeterClipValue();
+    this.mVUMeterMax = new MR_VUMeterMaxValue(mixerChannel);
 
     /**
      * @property
      */
-    this.mVUMeterPeak = new MR_VUMeterPeakValue();
+    this.mVUMeterClip = new MR_VUMeterClipValue(mixerChannel);
+
+    /**
+     * @property
+     */
+    this.mVUMeterPeak = new MR_VUMeterPeakValue(mixerChannel);
 
     /**
      * @property
@@ -6250,8 +6325,8 @@ export class MR_MixerChannelValues extends MR_HostObject {
  * @augments MR_HostObject
  */
 export class MR_MixerBankZone extends MR_HostObject {
-  // keep track of the current channel number
-  channelNumber: number;
+  // keep track of the current mixer channel number
+  mixerChannel: number;
 
   mAction: MR_MixerBankZoneActions;
   mOnTitleChange: (
@@ -6278,9 +6353,9 @@ export class MR_MixerBankZone extends MR_HostObject {
       })})`
     );
 
-    // init channel number to zero since we will increment before getting next number
+    // init mixer channel number to zero since we will increment before getting next number
     // in makeMixerBankChannel()
-    this.channelNumber = 0;
+    this.mixerChannel = 0;
 
     // define class-name
     this.class = "MR_MixerBankZone";
@@ -6506,15 +6581,15 @@ export class MR_MixerBankZone extends MR_HostObject {
    * @returns {MR_MixerBankChannel}
    */
   makeMixerBankChannel(): MR_MixerBankChannel {
-    this.channelNumber++;
+    this.mixerChannel++;
 
     logger.info(
       `MR_MixerBankZone: makeMixerBankChannel(${JSON.stringify({
-        newChannelNumber: this.channelNumber,
+        newChannelNumber: this.mixerChannel,
       })})`
     );
 
-    return new MR_MixerBankChannel(this.channelNumber);
+    return new MR_MixerBankChannel(this.mixerChannel);
   }
 }
 
@@ -7630,6 +7705,8 @@ export class MR_MetronomeClickLevel extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_VolumeValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -7657,13 +7734,16 @@ export class MR_VolumeValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_VolumeValue: constructor()");
 
     // define class-name
     this.class = "MR_VolumeValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -7741,6 +7821,8 @@ export class MR_VolumeValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_PanValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -7768,13 +7850,16 @@ export class MR_PanValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_PanValue: constructor()");
 
     // define class-name
     this.class = "MR_PanValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -7852,6 +7937,8 @@ export class MR_PanValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_MuteValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -7879,13 +7966,16 @@ export class MR_MuteValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_MuteValue: constructor()");
 
     // define class-name
     this.class = "MR_MuteValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -7963,6 +8053,8 @@ export class MR_MuteValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_SoloValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -7990,13 +8082,16 @@ export class MR_SoloValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_SoloValue: constructor()");
 
     // define class-name
     this.class = "MR_SoloValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8074,6 +8169,8 @@ export class MR_SoloValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_MonitorEnableValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8101,13 +8198,16 @@ export class MR_MonitorEnableValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_MonitorEnableValue: constructor()");
 
     // define class-name
     this.class = "MR_MonitorEnableValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8185,6 +8285,8 @@ export class MR_MonitorEnableValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_RecordEnableValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8212,13 +8314,16 @@ export class MR_RecordEnableValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_RecordEnableValue: constructor()");
 
     // define class-name
     this.class = "MR_RecordEnableValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8296,6 +8401,8 @@ export class MR_RecordEnableValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_EditorOpenValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8323,13 +8430,16 @@ export class MR_EditorOpenValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_EditorOpenValue: constructor()");
 
     // define class-name
     this.class = "MR_EditorOpenValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8407,6 +8517,8 @@ export class MR_EditorOpenValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_InstrumentOpenValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8434,13 +8546,16 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_InstrumentOpenValue: constructor()");
 
     // define class-name
     this.class = "MR_InstrumentOpenValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8518,6 +8633,8 @@ export class MR_InstrumentOpenValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_SelectedValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8545,13 +8662,16 @@ export class MR_SelectedValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_SelectedValue: constructor()");
 
     // define class-name
     this.class = "MR_SelectedValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8629,6 +8749,8 @@ export class MR_SelectedValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_AutomationReadValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8656,13 +8778,16 @@ export class MR_AutomationReadValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_AutomationReadValue: constructor()");
 
     // define class-name
     this.class = "MR_AutomationReadValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8740,6 +8865,8 @@ export class MR_AutomationReadValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_AutomationWriteValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8767,13 +8894,16 @@ export class MR_AutomationWriteValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_AutomationWriteValue: constructor()");
 
     // define class-name
     this.class = "MR_AutomationWriteValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8851,6 +8981,8 @@ export class MR_AutomationWriteValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_VUMeterValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8878,13 +9010,16 @@ export class MR_VUMeterValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_VUMeterValue: constructor()");
 
     // define class-name
     this.class = "MR_VUMeterValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -8957,6 +9092,8 @@ export class MR_VUMeterValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_VUMeterMaxValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -8984,13 +9121,16 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_VUMeterMaxValue: constructor()");
 
     // define class-name
     this.class = "MR_VUMeterMaxValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -9063,6 +9203,8 @@ export class MR_VUMeterMaxValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_VUMeterClipValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -9090,13 +9232,16 @@ export class MR_VUMeterClipValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_VUMeterClipValue: constructor()");
 
     // define class-name
     this.class = "MR_VUMeterClipValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -9169,6 +9314,8 @@ export class MR_VUMeterClipValue extends MR_HostValue {
  * @augments MR_HostValue
  */
 export class MR_VUMeterPeakValue extends MR_HostValue {
+  mixerChannel: number | undefined;
+
   mOnProcessValueChange: (
     activeDevice: MR_ActiveDevice,
     activeMapping: MR_ActiveMapping,
@@ -9196,13 +9343,16 @@ export class MR_VUMeterPeakValue extends MR_HostValue {
     isActive: boolean
   ) => void;
 
-  constructor() {
+  constructor(mixerChannel?: number) {
     super();
 
     logger.debug("MR_VUMeterPeakValue: constructor()");
 
     // define class-name
     this.class = "MR_VUMeterPeakValue";
+
+    // define mixer channel
+    this.mixerChannel = mixerChannel;
 
     /**
      * @property
@@ -13403,6 +13553,9 @@ export class MR_HostBinding {
  * @augments MR_HostBinding
  */
 export class MR_ValueBinding extends MR_HostBinding {
+  surfaceValue: MR_SurfaceValue | undefined;
+  hostValue: MR_HostValue | undefined;
+
   typeDefault: boolean | undefined;
   typeToggle: boolean | undefined;
   valueTakeOverModeJump: boolean | undefined;
@@ -13419,7 +13572,15 @@ export class MR_ValueBinding extends MR_HostBinding {
   constructor(surfaceValue?: MR_SurfaceValue, hostValue?: MR_HostValue) {
     super();
 
-    logger.debug("MR_ValueBinding: constructor()");
+    logger.info(
+      `MR_ValueBinding: constructor(${JSON.stringify({
+        surfaceValue,
+        hostValue,
+      })})`
+    );
+
+    this.surfaceValue = surfaceValue;
+    this.hostValue = hostValue;
 
     /**
      * @property
@@ -13552,6 +13713,15 @@ export class MR_ValueBinding extends MR_HostBinding {
     this.to = to;
     return this;
   }
+
+  override toString(): string {
+    return JSON.stringify({
+      class: this.class,
+      hostValue: this.hostValue,
+      subPage: this.subPage,
+      surfaceValue: this.surfaceValue,
+    });
+  }
 }
 
 /**
@@ -13559,6 +13729,10 @@ export class MR_ValueBinding extends MR_HostBinding {
  * @augments MR_HostBinding
  */
 export class MR_CommandBinding extends MR_HostBinding {
+  surfaceValue: MR_SurfaceValue | undefined;
+  commandCategory: string | undefined;
+  commandName: string | undefined;
+
   repeating: MR_Repeating | undefined;
 
   mOnValueChange: (
@@ -13571,7 +13745,17 @@ export class MR_CommandBinding extends MR_HostBinding {
   constructor(surfaceValue?: MR_SurfaceValue, commandCategory?: string, commandName?: string) {
     super();
 
-    logger.debug("MR_CommandBinding: constructor()");
+    logger.info(
+      `MR_CommandBinding: constructor(${JSON.stringify({
+        surfaceValue,
+        commandCategory,
+        commandName,
+      })})`
+    );
+
+    this.surfaceValue = surfaceValue;
+    this.commandCategory = commandCategory;
+    this.commandName = commandName;
 
     /**
      * @property
@@ -13682,6 +13866,9 @@ export class MR_CommandBinding extends MR_HostBinding {
  * @augments MR_HostBinding
  */
 export class MR_ActionBinding extends MR_HostBinding {
+  surfaceValue: MR_SurfaceValue | undefined;
+  hostAction: MR_HostAction | undefined;
+
   repeating: MR_Repeating | undefined;
 
   mOnValueChange: (
@@ -13694,7 +13881,15 @@ export class MR_ActionBinding extends MR_HostBinding {
   constructor(surfaceValue?: MR_SurfaceValue, hostAction?: MR_HostAction) {
     super();
 
-    logger.debug("MR_ActionBinding: constructor()");
+    logger.info(
+      `MR_ActionBinding: constructor(${JSON.stringify({
+        surfaceValue,
+        hostAction,
+      })})`
+    );
+
+    this.surfaceValue = surfaceValue;
+    this.hostAction = hostAction;
 
     /**
      * @property
@@ -13881,6 +14076,7 @@ export class MR_SubPageAreaActions {
  * @class MR_SubPage
  */
 export class MR_SubPage {
+  class = "MR_SubPage";
   name: string | undefined;
 
   mAction: MR_SubPageActions;

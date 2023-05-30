@@ -37,6 +37,17 @@ devices.forEach((device) => {
     const controlSectionElements = device.controlSectionElements;
     const channelElements = device.channelElements;
 
+    logger.warn(
+      `decorateSurface(${JSON.stringify(
+        {
+          channelElements: channelElements,
+          controlSectionElements: controlSectionElements,
+        },
+        null,
+        2
+      )})`
+    );
+
     test("SURFACE", () => {
       expect(channelElements[7].encoder.y).toStrictEqual(3);
       expect(controlSectionElements.buttons.edit.h).toStrictEqual(1.5);
@@ -76,6 +87,17 @@ devices.forEach((device) => {
     const controlSectionElements = device.controlSectionElements;
     const channelElements = device.channelElements;
 
+    logger.warn(
+      `bindDeviceToMidi(${JSON.stringify(
+        {
+          channelElements: channelElements,
+          controlSectionElements: controlSectionElements,
+        },
+        null,
+        2
+      )})`
+    );
+
     test("MIDI BINDING", () => {
       expect(channelElements[7].encoder.mEncoderValue.mMidiBinding.boundTo).toEqual({
         channelNumber: 0,
@@ -95,9 +117,26 @@ devices.forEach((device) => {
 makeHostMapping(page, devices, segmentDisplayManager, globalBooleanVariables, activationCallbacks);
 
 // 3. TEST HOST MAPPIGNS
-// test("HOST MAPPINGS", () => {
-//   expect(page.valueBindings[0]).toEqual({});
-// });
+
+logger.warn(
+  `makeHostMapping(${JSON.stringify(
+    {
+      page: page,
+    },
+    null,
+    2
+  )})`
+);
+
+test("HOST MAPPINGS", () => {
+  expect(page.valueBindings[300].toString()).toStrictEqual(
+    '{"class":"MR_HostBinding","hostValue":{"class":"MR_EQBandGainValue","band":4},\
+"subPage":{"class":"MR_SubPage","mAction":{"class":"MR_SubPageActions","mActivate":{"class":"MR_SubPageActionActivate"}},\
+"name":"EQ 2 Flip"},\
+"surfaceValue":{"class":"MR_SurfaceElementValue","mMidiBinding":{"class":"MR_SurfaceValueMidiBinding","inputPort":{"class":"MR_DeviceMidiInput","name":"Input 1 - Main"},\
+"boundTo":{"class":"MR_MidiBindingToPitchBend","channelNumber":5,"mValueRange":{"class":"MR_MidiBindingValueRange14Bit"}}}}}'
+  );
+});
 
 // MORE TESTS
 // call MR_DeviceDriver mOnActivate
