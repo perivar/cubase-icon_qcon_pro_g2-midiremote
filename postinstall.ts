@@ -16,6 +16,8 @@ const replaceMap: Map<RegExp, string> = new Map([
   [/Object.defineProperty\(exports, '__esModule', { value: true }\);?/g, ""],
   [/(var midiremote_api.*?)\s=\s__.*$/gm, "$1 = require('midiremote_api_v1')"],
   [/\/\*{2,}\//g, ""], // remove comments like /****/
+  [/\/\/ eslint-disable-next-line.*$/gm, ""], // remove es-lint ignore lines
+  [/\/\* eslint.*?\*\//gm, ""], // remove es-lint ignore lines
 ]);
 
 replaceInFiles("dist", /webpack.js/, replaceMap);

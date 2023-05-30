@@ -5,6 +5,8 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const TerserPlugin = require("terser-webpack-plugin");
+
 const pkg = require("./package.json");
 
 module.exports = {
@@ -13,6 +15,7 @@ module.exports = {
   externals: "midiremote_api_v1",
   module: {
     rules: [
+      // this only removes comments from ts-files and not the polyfills
       // {
       //     test: /\.tsx?$/,
       //     loader: 'remove-comments-loader',
@@ -33,6 +36,17 @@ module.exports = {
   optimization: {
     minimize: false, // make sure to keep the format for readabilty
     moduleIds: "named", // use the filename as module-ids
+    // this removes all comments but require minimize to be set to true
+    // minimizer: [
+    //   new TerserPlugin({
+    //     terserOptions: {
+    //       format: {
+    //         comments: false,
+    //       },
+    //     },
+    //     extractComments: false,
+    //   }),
+    // ],
   },
   resolve: {
     alias: {
