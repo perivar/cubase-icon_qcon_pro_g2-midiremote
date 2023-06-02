@@ -1,15 +1,15 @@
-// core-js polyfills (iterator have to be on top)
-import "core-js/es/array/iterator"; // required when using classes and iterators
-import "core-js/es/array/from"; // required when using array iterator
-// import "core-js/es/array/reverse"; // not needed anymore due to code refactoring
-import "core-js/es/array/flat-map";
-import "core-js/es/string/pad-start";
-// import "core-js/es/string/replace-all"; // not needed anymore due to code refactoring
-import "core-js/es/object/entries"; // required when using array iterator
-import "core-js/es/reflect/construct"; // required when using classes and extending them
+// // core-js polyfills (iterator have to be on top)
+// import "core-js/es/array/iterator"; // required when using classes and iterators
+// import "core-js/es/array/from"; // required when using array iterator
+// // import "core-js/es/array/reverse"; // not needed anymore due to code refactoring
+// import "core-js/es/array/flat-map";
+// import "core-js/es/string/pad-start";
+// // import "core-js/es/string/replace-all"; // not needed anymore due to code refactoring
+// import "core-js/es/object/entries"; // required when using array iterator
+// import "core-js/es/reflect/construct"; // required when using classes and extending them
 
-// @ts-expect-error Workaround because the core-js polyfill doesn't play nice with SWC:
-Reflect.get = undefined;
+// // @ts-expect-error Workaround because the core-js polyfill doesn't play nice with SWC:
+// Reflect.get = undefined;
 
 // To test in es5 mode - first undefine the polyfilled methods
 // Object.defineProperty(Array.prototype, "flatMap", {
@@ -34,15 +34,14 @@ Reflect.get = undefined;
 // });
 
 // Own polyfills
-// import "./polyfill/arrayFlatMap";
-// import "./polyfill/stringPadStart";
+import "./polyfill/arrayFlatMap";
+import "./polyfill/stringPadStart";
 
 // ----- not needed anymore due to code refactoring
 // import "./polyfill/mathLog10";
 // import "./polyfill/objectAssign";
-
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
-import midiremote_api = require("midiremote_api_v1");
+import midiremote_api from "midiremote_api_v1";
 
 import { decoratePage } from "./decorators/page";
 import { decorateSurface } from "./decorators/surface";

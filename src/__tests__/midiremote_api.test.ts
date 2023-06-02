@@ -8,8 +8,7 @@
 // mockAPI.makeDeviceDriver.mockImplementation()
 
 // to easily be able to cleanup webpack output afterwards, use ES5 require method and not from
-import midiremote_api = require("midiremote_api_v1");
-
+import midiremote_api from "midiremote_api_v1";
 import { logger, MR_ActiveDevice, MR_ActiveMapping } from "midiremote_api_v1";
 
 import { decoratePage } from "../decorators/page";

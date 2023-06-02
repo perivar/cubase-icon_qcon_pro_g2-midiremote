@@ -11,6 +11,7 @@
     "checkJs": true,
     "lib": ["ES2021"],
     "strict": true,
+    "outDir": "./dist",
     "noEmit": false,
     "skipLibCheck": true
   },
