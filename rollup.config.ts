@@ -21,8 +21,9 @@ import * as pkg from "./package.json";
 
 const extensions = [".ts", ".tsx", ".js"];
 
-const devMode = process.env.NODE_ENV === "development";
-console.log(`${devMode ? "development" : "production"} mode bundle`);
+const isProduction = process.env.NODE_ENV === "production";
+
+console.log(`${!isProduction ? "development" : "production"} mode bundle`);
 
 const config = defineConfig({
   input: "src/index.ts",
@@ -121,6 +122,7 @@ const config = defineConfig({
       delimiters: ["", ""],
       preventAssignment: true,
       values: {
+        'process.env["NODE_ENV"]': '"production"',
         SCRIPT_VERSION: `"${process.env["npm_package_version"]}"`,
         "import midiremote_api, { mDefaults } from 'midiremote_api_v1';":
           "var midiremote_api = require('midiremote_api_v1'); var mDefaults = midiremote_api.mDefaults;",
