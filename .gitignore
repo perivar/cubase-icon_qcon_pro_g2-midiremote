@@ -1,5 +1,6 @@
 node_modules/
-dist/
+dist/**/*.*
+!dist/icon/qcon_pro_g2/tsconfig.json
 .api/
 .env
 *.log

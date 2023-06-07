@@ -14,6 +14,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
+// import terser from "@rollup/plugin-terser";
 import { defineConfig } from "rollup";
 import typescript from "rollup-plugin-typescript2";
 
@@ -128,6 +129,17 @@ const config = defineConfig({
           "var midiremote_api = require('midiremote_api_v1'); var mDefaults = midiremote_api.mDefaults;",
       },
     }),
+
+    // isProduction &&
+    //   terser({
+    //     // remove all comments
+    //     format: {
+    //       comments: false,
+    //     },
+    //     // prevent any compression
+    //     compress: false,
+    //     ecma: 5,
+    //   }),
   ],
 });
 
