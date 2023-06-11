@@ -40,10 +40,10 @@
     },
 
     {
-      "name": "launch CLEAN via NPM",
+      "name": "launch POST via NPM",
       "type": "node",
       "request": "launch",
-      "runtimeArgs": ["run-script", "clean"],
+      "runtimeArgs": ["run-script", "post"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "outputCapture": "std"
@@ -54,6 +54,16 @@
       "type": "node",
       "request": "launch",
       "runtimeArgs": ["run-script", "tsup"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "outputCapture": "std"
+    },
+
+    {
+      "name": "launch ROLLUP via NPM",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "rollup"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "outputCapture": "std"
